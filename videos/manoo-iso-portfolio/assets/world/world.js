@@ -1308,7 +1308,7 @@ function renderAt(t) {
   const pxPerUnit = H / (2 * cam[3]);
   const vx = Math.abs(du * pxPerUnit) * 2; // px per frame at 30fps
   const dz = Math.abs(Math.log(cam[3] / s0[3])) * 60;
-  const blurX = dz > 2.2 ? 0 : Math.min(64, vx * 0.2);
+  const blurX = dz > 1.2 ? 0 : Math.min(64, vx * 0.2);
   if (blurX > 0.8) {
     dom.blur.setAttribute("stdDeviation", `${blurX.toFixed(1)} 0`);
     canvas.style.filter = "url(#w-hblur-f)";

@@ -102,7 +102,7 @@
           padding: 0 52px;
           border-radius: 54px;
           background: #f97316;
-          color: #ffffff;
+          color: #101619;
           font-weight: 700;
           font-size: 46px;
           letter-spacing: -0.015em;
@@ -122,7 +122,7 @@
           height: 140px;
           margin: -70px 0 0 -70px;
           border-radius: 50%;
-          border: 6px solid rgba(243, 242, 239, 0.85);
+          border: 6px solid rgba(16, 22, 25, 0.55);
           opacity: 0;
         }
         #s-site {
@@ -135,12 +135,12 @@
       </style>
 
       <div id="root" data-composition-id="signature" data-width="1920" data-height="1080">
-        <div id="s-row1">
+        <div id="s-row1" data-layout-allow-overflow>
           <div id="s-square"><img id="s-icon" src="assets/brand/manoo-marteau.png" alt="" /></div>
           <div id="s-word"><span class="s-l">M</span><span class="s-l">A</span><span class="s-l">N</span><span class="s-l">O</span><span class="s-l">O</span><span id="s-dot"></span></div>
         </div>
-        <div id="s-tag"><span class="w">La</span> <span class="w">révolution</span> <span class="w">du</span> <span class="w">regard.</span></div>
-        <div id="s-row2">
+        <div id="s-tag" data-layout-allow-overflow><span class="w">La</span> <span class="w">révolution</span> <span class="w">du</span> <span class="w">regard.</span></div>
+        <div id="s-row2" data-layout-allow-overflow>
           <div id="s-cta">Demander une présentation <span id="s-arrow">→</span><div id="s-halo"></div></div>
           <div id="s-site">manoo.fr</div>
         </div>
@@ -176,6 +176,8 @@
             tl.to("#s-cta", { scale: 0.94, duration: 0.1, yoyo: true, repeat: 1, ease: "power1.inOut" }, tap);
             tl.fromTo("#s-halo", { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 3.2, duration: 0.6, ease: "power2.out" }, tap);
             tl.fromTo("#s-site", { opacity: 0, x: 30, filter: "blur(12px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, L(C.site) - 0.15);
+            // keep the hold alive: a near-imperceptible push on the whole lockup
+            tl.fromTo(["#s-row1", "#s-tag", "#s-row2"], { scale: 1 }, { scale: 1.035, duration: 9.6 - L(C.regard), ease: "none", transformOrigin: "50% 60%" }, L(C.regard));
             window.__timelines["signature"] = tl;
           };
           document.fonts.load('800 188px "Archivo"').then(build);

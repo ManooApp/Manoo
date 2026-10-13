@@ -1031,8 +1031,8 @@ export function lightPath(points, { radius = 0.06, color = C.orange, segments = 
 
 // flat ring decal (pulse when a path arrives)
 export function pulseRing(color = C.orange) {
-  const m = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0, depthWrite: false, toneMapped: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
-  const ring = new THREE.Mesh(new THREE.RingGeometry(0.9, 1.0, 96), m);
+  const m = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0, depthWrite: false, toneMapped: false, side: THREE.DoubleSide });
+  const ring = new THREE.Mesh(new THREE.RingGeometry(0.88, 1.0, 96), m);
   ring.rotation.x = -Math.PI / 2;
   ring.renderOrder = 2;
   return ring;

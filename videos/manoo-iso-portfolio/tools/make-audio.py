@@ -178,7 +178,7 @@ def make_bed():
     pump = 1 - 0.35 * np.exp(-beat_phase * 7)
     pump_on = segment_gain(t, [(0, 0), (4.5, 0), (4.7, 1), (28.6, 1), (28.8, 0), (31.9, 0), (32.1, 1), (35.4, 1), (35.6, 0), (45, 0)])
     pad *= (1 - pump_on * (1 - pump))[:, None]
-    pad_gain = segment_gain(t, [(0, 0.0), (0.3, 0.55), (4.4, 0.75), (4.7, 0.6), (19.6, 0.7), (28.7, 0.85), (32.0, 0.6), (35.55, 0.55), (36.12, 1.0), (43.0, 0.8), (45, 0.0)])
+    pad_gain = segment_gain(t, [(0, 0.0), (0.3, 0.55), (4.4, 0.75), (4.7, 0.6), (19.6, 0.7), (28.7, 0.85), (32.0, 0.6), (35.55, 0.55), (36.12, 1.0), (41.5, 1.0), (43.8, 1.0), (45, 0.0)])
     pad *= pad_gain[:, None]
 
     # --- drone in the intro (D/A fifths under the weld spark)
@@ -225,7 +225,7 @@ def make_bed():
         else:
             pl[sh:, 0] += pluck[:-sh, 0] * g
             pl[sh:, 1] += pluck[:-sh, 1] * g
-    pluck_gain = segment_gain(t, [(0, 0), (4.6, 0.0), (5.6, 0.8), (13.4, 0.95), (19.6, 1.0), (28.5, 1.0), (28.8, 0.0), (32.0, 0.0), (32.6, 0.7), (35.4, 0.7), (35.55, 0.0), (36.6, 0.0), (37.6, 0.5), (44, 0.3), (45, 0)])
+    pluck_gain = segment_gain(t, [(0, 0), (4.6, 0.0), (5.6, 0.8), (13.4, 0.95), (19.6, 1.0), (28.5, 1.0), (28.8, 0.0), (32.0, 0.0), (32.6, 0.7), (35.4, 0.7), (35.55, 0.0), (36.6, 0.0), (37.6, 0.55), (41.5, 0.8), (44.2, 0.6), (45, 0)])
     pl *= pluck_gain[:, None]
 
     # --- drums
@@ -370,8 +370,8 @@ def make_sfx():
     for tw, g in ((CU["savoirFaire"], 0.35), (CU["savoirFaire"] + 0.14, 0.4), (CU["neSe"], 0.3), (CU["raconte"], 0.32), (CU["pas"], 0.38), (CU["ilSe"], 0.32)):
         put("pop", tw - 0.02, g)
     put("whoosh-short", CU["ilSe"] - 0.2, 0.35)
-    put("impact-bass-2", CU["montre"] - 0.16, 0.55)
-    put("riser", 4.4 - 2.6, 0.12, sl=2.7)
+    put("impact-bass-2", CU["montre"] - 0.16, 0.38)
+    put("riser", 4.4 - 2.6, 0.08, sl=2.7)
     put("pop", 4.4, 0.5)
     put("whoosh", 4.62, 0.55)
     place(buf, crackle(1.35), 4.45, 0.5)
@@ -419,11 +419,11 @@ def make_sfx():
     put("whoosh", CU["trace"] - 0.3, 0.45)
     for i, tt in enumerate(np.linspace(32.6, 34.6, 8)):
         put("click-soft", float(tt), 0.18)
-    put("riser", 35.55 - 2.0, 0.11, sl=2.05)
+    put("riser", 35.55 - 2.0, 0.07, sl=2.05)
     put("whoosh-short", 35.25, 0.45)
     # S6 — logo
     put("pop", 35.55, 0.55)
-    put("impact-bass-2", CU["manoo"] - 0.02, 0.7)
+    put("impact-bass-2", CU["manoo"] - 0.02, 0.48)
     put("sparkle", CU["manoo"] + 0.3, 0.35)
     for i in range(5):
         put("click-soft", CU["manoo"] + 0.42 + 0.055 * i, 0.16)
