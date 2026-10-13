@@ -47,7 +47,7 @@ version: v1
 - scene: Noir. Un cordon de soudure s'allume en macro, gerbe d'étincelles orange ; coupe sèche sur une feuille blanche vide en lumière rasante.
 - duration: 4.4s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/01-etincelle.html
 - voiceover: "Comment montrer un geste… sur une feuille de papier ?"
 - type: hook
@@ -65,7 +65,7 @@ Pourquoi : l'accroche oppose le feu (le geste) et le papier (le CV) dès la prem
 - scene: La feuille devient un CV : deux lignes tapées à la machine, le reste vide.
 - duration: 4.6s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/02-deux-lignes.html
 - voiceover: "Sur un CV, deux ans d'apprentissage tiennent en deux lignes."
 - type: pain_point
@@ -81,7 +81,7 @@ Pourquoi : le problème, montré sans le dire — tout le savoir-faire réduit �
 - scene: Coupe vers le noir puis trois plans macro plein cadre, coupés sur chaque mot : soudure, carrelage, pain.
 - duration: 7.4s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/03-le-travail.html
 - voiceover: "Pourtant, le travail est là. Une soudure. Un carrelage posé. Un pain qui sort du four."
 - type: benefit_highlight
@@ -99,7 +99,7 @@ Pourquoi : la preuve que le travail existe — et qu'il est visuel, pas textuel.
 - scene: Le CV du plan 2 revient, se froisse en boule et tombe ; coupe : le téléphone au centre, écran Manoo.
 - duration: 6.6s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/04-on-le-montre.html
 - voiceover: "Manoo remplace le CV papier. On ne raconte plus son travail. On le montre."
 - type: product_intro
@@ -116,7 +116,7 @@ Pourquoi : la bascule du film — le fil rouge validé (la feuille devient le pr
 - scene: Téléphone au centre : choix « Apprenti / Étudiant », puis profil (photo, métier, formation).
 - duration: 4.0s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/05-profil.html
 - voiceover: "L'apprenti crée son profil : son métier, sa formation."
 - type: feature_showcase
@@ -132,7 +132,7 @@ Pourquoi : montrer que l'entrée est simple, et uniquement ce qui existe.
 - scene: « Ajouter au portfolio » trois fois, coupé sur « chantier », « pièce », « fournée » ; puis la photo et le titre.
 - duration: 7.6s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/06-ajouter.html
 - voiceover: "Puis, à chaque chantier, chaque pièce, chaque fournée, il ajoute une réalisation. Une photo, un titre."
 - type: feature_showcase
@@ -150,7 +150,7 @@ Pourquoi : la fonctionnalité centrale, répétable pour tous les métiers.
 - scene: Le profil défile : une grille de réalisations ; recul : la grille déborde du téléphone et remplit le cadre.
 - duration: 4.6s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/07-galerie.html
 - voiceover: "Son profil devient la galerie de ce qu'il sait faire."
 - type: benefit_highlight
@@ -166,7 +166,7 @@ Pourquoi : la preuve s'accumule — le profil, c'est le travail.
 - scene: Vu par une entreprise : le même profil ; zoom sur une réalisation ; le diplôme, petit, en dessous.
 - duration: 5.6s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/08-regard.html
 - voiceover: "Et l'artisan qui recrute voit le geste, la motivation… avant le diplôme."
 - type: benefit_highlight
@@ -183,7 +183,7 @@ Pourquoi : « la révolution du regard » — où l'œil de l'entreprise se pose
 - scene: « Pensé pour l'alternance » fixe ; les métiers défilent dessous ; puis PLAN TENU sur la phrase-clé.
 - duration: 9.2s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/09-savoir-faire.html
 - voiceover: "Manoo est pensé pour l'alternance. Pour ceux qui n'ont pas encore d'expérience à raconter… mais déjà un savoir-faire à montrer."
 - type: benefit_highlight
@@ -201,7 +201,7 @@ Pourquoi : la deuxième différence — fait pour l'alternance dans les métiers
 - scene: Le marteau frappe une fois ; la dernière étincelle devient le point orange de « MANOO. » ; slogan, appel à l'action.
 - duration: 7.0s
 - transition_in: cut
-- status: outline
+- status: built
 - src: compositions/frames/10-signature.html
 - voiceover: "Manoo. La révolution du regard. Inscrivez-vous sur manoo.fr."
 - type: cta
