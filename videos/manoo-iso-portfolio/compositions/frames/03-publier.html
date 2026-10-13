@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Archivo"; font-weight: 800; src: url("assets/fonts/archivo-latin-800-normal.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Archivo", sans-serif;
+          color: #f3f2ef;
+        }
+        .p-block {
+          position: absolute;
+          white-space: nowrap;
+        }
+        #p-left {
+          left: 112px;
+          top: 92px;
+        }
+        #p-right {
+          right: 112px;
+          bottom: 96px;
+          text-align: right;
+        }
+        .p-line {
+          display: block;
+          font-weight: 800;
+          font-size: 98px;
+          line-height: 1.02;
+          letter-spacing: -0.04em;
+        }
+        .p-line + .p-line {
+          padding-left: 70px;
+        }
+        #p-right .p-line + .p-line {
+          padding-left: 0;
+          padding-right: 60px;
+        }
+        .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        .o {
+          color: #f97316;
+          text-shadow: 0 0 32px rgba(249, 115, 22, 0.5);
+        }
+        .p-tag {
+          display: block;
+          font: 500 24px/1 "IBM Plex Mono", monospace;
+          letter-spacing: 0.16em;
+          color: #a8b4bb;
+          margin-bottom: 26px;
+          opacity: 0;
+        }
+        .p-tag b {
+          color: #f97316;
+          font-weight: 500;
+        }
+      </style>
+
+      <div id="root" data-composition-id="publier" data-width="1920" data-height="1080">
+        <div id="p-left" class="p-block">
+          <span class="p-tag" id="p-tag1"><b>●</b> AJOUTER AU PORTFOLIO</span>
+          <span class="p-line"><span class="w" id="p-une">Une</span> <span class="w" id="p-photo">photo,</span></span>
+          <span class="p-line"><span class="w" id="p-un">un</span> <span class="w o" id="p-titre">titre.</span></span>
+        </div>
+        <div id="p-right" class="p-block">
+          <span class="p-tag" id="p-tag2">3 PROFILS · 3 RÉALISATIONS <b>●</b></span>
+          <span class="p-line"><span class="w" id="p-leur">Leur</span> <span class="w" id="p-port">portfolio</span></span>
+          <span class="p-line"><span class="w o" id="p-vis">visuel.</span></span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 13.4; // host data-start (film time)
+          const L = (t) => t - T0;
+          const tl = gsap.timeline({ paused: true });
+          const popIn = (sel, at, o = {}) =>
+            tl.fromTo(
+              sel,
+              { opacity: 0, scale: o.s ?? 1.4, y: o.y ?? 24, filter: "blur(14px)" },
+              { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: o.d ?? 0.34, ease: o.e ?? "back.out(1.7)" },
+              at,
+            );
+          tl.fromTo("#p-tag1", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, L(C.unePhoto) - 0.15);
+          popIn("#p-une", L(C.unePhoto));
+          popIn("#p-photo", L(C.unePhoto) + 0.15);
+          popIn("#p-un", L(C.unTitre));
+          popIn("#p-titre", L(C.unTitre) + 0.14, { s: 1.7, e: "back.out(2.4)" });
+          tl.to("#p-left", { x: -90, opacity: 0, filter: "blur(16px)", duration: 0.3, ease: "power2.in" }, L(C.chaque) + 0.15);
+          tl.fromTo("#p-tag2", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.3, ease: "power3.out" }, L(C.rejoint) - 0.2);
+          popIn("#p-leur", L(C.portfolio) - 0.12);
+          popIn("#p-port", L(C.portfolio));
+          popIn("#p-vis", L(C.visuel), { s: 1.7, e: "back.out(2.4)" });
+          tl.to("#p-right", { x: 80, opacity: 0, filter: "blur(16px)", duration: 0.3, ease: "power2.in" }, L(19.15));
+          window.__timelines["publier"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

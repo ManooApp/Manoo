@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Archivo"; font-weight: 500; src: url("assets/fonts/archivo-latin-500-normal.woff2") format("woff2"); }
+        @font-face { font-family: "Archivo"; font-weight: 600; src: url("assets/fonts/archivo-latin-600-normal.woff2") format("woff2"); }
+        @font-face { font-family: "Archivo"; font-weight: 700; src: url("assets/fonts/archivo-latin-700-normal.woff2") format("woff2"); }
+        @font-face { font-family: "Archivo"; font-weight: 800; src: url("assets/fonts/archivo-latin-800-normal.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 600; src: url("assets/fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2"); }
+
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #world-gl {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          display: block;
+          opacity: 0;
+        }
+        #w-svg {
+          position: absolute;
+          width: 0;
+          height: 0;
+        }
+        #w-overlay {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+        }
+        /* viewfinder */
+        #w-vf {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+        }
+        .w-vf-c {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 54px;
+          height: 54px;
+          border-color: #f97316;
+          border-style: solid;
+          border-width: 0;
+          filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.7));
+        }
+        #w-vf-tl { border-top-width: 6px; border-left-width: 6px; border-top-left-radius: 14px; }
+        #w-vf-tr { border-top-width: 6px; border-right-width: 6px; border-top-right-radius: 14px; margin-left: -54px; }
+        #w-vf-bl { border-bottom-width: 6px; border-left-width: 6px; border-bottom-left-radius: 14px; margin-top: -54px; }
+        #w-vf-br { border-bottom-width: 6px; border-right-width: 6px; border-bottom-right-radius: 14px; margin-left: -54px; margin-top: -54px; }
+        #w-vf-focus {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 84px;
+          height: 84px;
+          margin: -42px 0 0 -42px;
+          border: 3px solid rgba(243, 242, 239, 0.95);
+          border-radius: 12px;
+        }
+        #w-vf-pill {
+          position: absolute;
+          left: 0;
+          top: 0;
+        }
+        #w-vf-pill span {
+          display: inline-block;
+          transform: translateX(-50%);
+          padding: 10px 22px 11px;
+          border-radius: 999px;
+          background: rgba(16, 22, 25, 0.82);
+          color: #f3f2ef;
+          font: 600 24px/1 "IBM Plex Mono", monospace;
+          letter-spacing: 0.16em;
+          white-space: nowrap;
+        }
+        #w-vf-pill b {
+          color: #f97316;
+          font-weight: 600;
+        }
+        /* ring bursts */
+        .w-ring {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 320px;
+          height: 320px;
+          opacity: 0;
+        }
+        .w-ring-c {
+          position: absolute;
+          inset: 60px;
+          border-radius: 50%;
+          border: 7px solid #f97316;
+          box-shadow: 0 0 34px rgba(249, 115, 22, 0.85), inset 0 0 26px rgba(249, 115, 22, 0.6);
+        }
+        .w-dot {
+          position: absolute;
+          left: 152px;
+          top: 152px;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #ffb27a;
+          box-shadow: 0 0 14px rgba(249, 115, 22, 0.9);
+        }
+        /* audience labels */
+        .w-lab {
+          position: absolute;
+          left: 0;
+          top: 0;
+          transform-origin: 0 50%;
+          opacity: 0;
+          padding: 20px 30px 24px;
+          border-radius: 22px;
+          background: rgba(16, 22, 25, 0.88);
+          box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+          white-space: nowrap;
+        }
+        .w-lab-k {
+          display: block;
+          font: 600 24px/1 "IBM Plex Mono", monospace;
+          letter-spacing: 0.16em;
+          color: #f97316;
+        }
+        .w-lab-k::before {
+          content: "";
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #f97316;
+          margin-right: 12px;
+          vertical-align: 1px;
+          box-shadow: 0 0 12px rgba(249, 115, 22, 0.9);
+        }
+        .w-lab-t {
+          display: block;
+          margin-top: 12px;
+          font: 700 46px/1 "Archivo", sans-serif;
+          letter-spacing: -0.02em;
+          color: #f3f2ef;
+        }
+        #w-portal {
+          position: absolute;
+          left: 845px;
+          top: 425px;
+          width: 230px;
+          height: 230px;
+          border-radius: 52px;
+          border: 3px solid rgba(243, 242, 239, 0.92);
+          box-shadow: 0 0 46px rgba(243, 242, 239, 0.28);
+          transform-origin: 50% 50%;
+          opacity: 0;
+        }
+        #w-flash {
+          position: absolute;
+          inset: 0;
+          background: #fffaf2;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="root" data-composition-id="world" data-width="1920" data-height="1080">
+        <canvas id="world-gl" width="1920" height="1080"></canvas>
+        <svg id="w-svg" aria-hidden="true">
+          <filter id="w-hblur-f" x="-15%" y="0%" width="130%" height="100%" color-interpolation-filters="sRGB">
+            <feGaussianBlur id="w-hblur" stdDeviation="0 0" edgeMode="duplicate"></feGaussianBlur>
+          </filter>
+        </svg>
+        <div id="w-overlay" data-layout-allow-overflow>
+          <div id="w-vf">
+            <div id="w-vf-tl" class="w-vf-c"></div>
+            <div id="w-vf-tr" class="w-vf-c"></div>
+            <div id="w-vf-bl" class="w-vf-c"></div>
+            <div id="w-vf-br" class="w-vf-c"></div>
+            <div id="w-vf-focus"></div>
+            <div id="w-vf-pill"><span><b>●</b> PHOTO</span></div>
+          </div>
+          <div id="w-ring-0" class="w-ring"><div class="w-ring-c"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div></div>
+          <div id="w-ring-1" class="w-ring"><div class="w-ring-c"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div></div>
+          <div id="w-ring-2" class="w-ring"><div class="w-ring-c"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div></div>
+          <div id="w-ring-3" class="w-ring"><div class="w-ring-c"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div><div class="w-dot"></div></div>
+          <div id="w-lab-D" class="w-lab"><span class="w-lab-k">ENTREPRISES</span><span class="w-lab-t">qui recrutent</span></div>
+          <div id="w-lab-E" class="w-lab"><span class="w-lab-k">LYCÉES PROFESSIONNELS</span><span class="w-lab-t">qui forment</span></div>
+          <div id="w-lab-F" class="w-lab"><span class="w-lab-k">CLIENTS</span><span class="w-lab-t">qui choisissent</span></div>
+          <div id="w-portal"></div>
+          <div id="w-flash"></div>
+        </div>
+      </div>
+
+      <script type="module">
+        import "./assets/world/world.js";
+      </script>
+      <script>
+        window.__timelines["world"] = gsap.timeline({ paused: true });
+      </script>
+    </template>
+  </body>
+</html>

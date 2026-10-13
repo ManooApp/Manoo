@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Archivo"; font-weight: 800; src: url("assets/fonts/archivo-latin-800-normal.woff2") format("woff2"); }
+        @font-face { font-family: "Archivo"; font-weight: 700; src: url("assets/fonts/archivo-latin-700-normal.woff2") format("woff2"); }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Archivo", sans-serif;
+          color: #f3f2ef;
+        }
+        #m-spark {
+          position: absolute;
+          left: 952px;
+          top: 532px;
+          width: 16px;
+          height: 16px;
+          border-radius: 50%;
+          background: #ffd9b8;
+          box-shadow: 0 0 18px 6px rgba(249, 115, 22, 0.9), 0 0 70px 24px rgba(249, 115, 22, 0.35);
+          opacity: 0;
+        }
+        .m-p {
+          position: absolute;
+          left: 956px;
+          top: 536px;
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #ffb27a;
+          box-shadow: 0 0 10px rgba(249, 115, 22, 0.95);
+          opacity: 0;
+        }
+        .m-block {
+          position: absolute;
+          left: 236px;
+          width: 1450px;
+        }
+        #m-b1 {
+          top: 330px;
+        }
+        #m-b2 {
+          top: 395px;
+        }
+        .m-line {
+          display: block;
+          white-space: nowrap;
+        }
+        .w {
+          display: inline-block;
+          opacity: 0;
+          will-change: transform, filter, opacity;
+        }
+        .l1 {
+          font-weight: 800;
+          font-size: 156px;
+          line-height: 1;
+          letter-spacing: -0.045em;
+        }
+        .l2 {
+          font-weight: 800;
+          font-size: 108px;
+          line-height: 1;
+          letter-spacing: -0.04em;
+          margin-top: 18px;
+          padding-left: 92px;
+        }
+        .soft {
+          color: #a8b4bb;
+        }
+        .up {
+          font-size: 92px;
+          transform-origin: 0 100%;
+          position: relative;
+          top: -38px;
+          margin-left: 14px;
+          color: #f97316;
+        }
+        .l3 {
+          font-weight: 800;
+          font-size: 118px;
+          line-height: 1;
+          letter-spacing: -0.04em;
+        }
+        .big {
+          font-size: 184px;
+          color: #f97316;
+          text-shadow: 0 0 36px rgba(249, 115, 22, 0.55);
+          margin-left: 22px;
+        }
+      </style>
+
+      <div id="root" data-composition-id="manifeste" data-width="1920" data-height="1080">
+        <div id="m-spark"></div>
+        <div class="m-p"></div><div class="m-p"></div><div class="m-p"></div><div class="m-p"></div><div class="m-p"></div><div class="m-p"></div><div class="m-p"></div><div class="m-p"></div>
+        <div id="m-b1" class="m-block">
+          <span class="m-line l1"><span class="w" id="m-le">Le</span> <span class="w" id="m-sf">savoir-faire</span></span>
+          <span class="m-line l2"><span class="w soft" id="m-nese">ne se</span> <span class="w" id="m-rac">raconte</span><span class="w up" id="m-pas">pas.</span></span>
+        </div>
+        <div id="m-b2" class="m-block">
+          <span class="m-line l3"><span class="w" id="m-il">Il se</span><span class="w big" id="m-montre">montre.</span></span>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const tl = gsap.timeline({ paused: true });
+          const popIn = (sel, at, o = {}) =>
+            tl.fromTo(
+              sel,
+              { opacity: 0, scale: o.s ?? 1.4, y: o.y ?? 26, rotation: o.r ?? 0, filter: "blur(14px)" },
+              { opacity: 1, scale: 1, y: 0, rotation: 0, filter: "blur(0px)", duration: o.d ?? 0.34, ease: o.e ?? "back.out(1.7)" },
+              at,
+            );
+          // weld spark ignites the frame
+          tl.fromTo("#m-spark", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.18, ease: "back.out(3)" }, 0.12);
+          [0.32, 0.41, 0.5, 0.58, 0.66, 0.74].forEach((t, i) =>
+            tl.to("#m-spark", { scale: i % 2 ? 0.7 : 1.35, opacity: i % 2 ? 0.7 : 1, duration: 0.08, ease: "none" }, t),
+          );
+          document.querySelectorAll(".m-p").forEach((el, i) => {
+            const a = (i / 8) * Math.PI * 2 + 0.4;
+            const r = 140 + (i % 3) * 60;
+            tl.fromTo(
+              el,
+              { opacity: 1, x: 0, y: 0, scale: 1 },
+              { opacity: 0, x: Math.cos(a) * r, y: Math.sin(a) * r + 40, scale: 0.3, duration: 0.55, ease: "power2.out" },
+              0.36 + (i % 2) * 0.12,
+            );
+          });
+          tl.to("#m-spark", { opacity: 0, scale: 0.2, duration: 0.18, ease: "power2.in" }, C.savoirFaire - 0.1);
+          // Le savoir-faire / ne se raconte pas.
+          popIn("#m-le", C.savoirFaire);
+          popIn("#m-sf", C.savoirFaire + 0.14, { d: 0.4 });
+          popIn("#m-nese", C.neSe, { s: 1.25 });
+          popIn("#m-rac", C.raconte, { s: 1.3 });
+          popIn("#m-pas", C.pas, { s: 1.6, y: -30, r: -10, e: "back.out(2.4)" });
+          tl.to("#m-b1", { scale: 1.65, opacity: 0, filter: "blur(18px)", duration: 0.28, ease: "power2.in", transformOrigin: "30% 50%" }, C.ilSe - 0.14);
+          // Il se montre.
+          popIn("#m-il", C.ilSe, { s: 1.3 });
+          popIn("#m-montre", C.montre - 0.14, { s: 1.9, y: 10, d: 0.36, e: "back.out(2.6)" });
+          tl.fromTo("#m-montre", { textShadow: "0 0 36px rgba(249,115,22,0.55)" }, { textShadow: "0 0 80px rgba(249,115,22,0.95)", duration: 0.16, yoyo: true, repeat: 1, ease: "power1.inOut" }, C.montre + 0.2);
+          tl.to("#m-b2", { y: -70, opacity: 0, filter: "blur(16px)", scale: 0.86, duration: 0.26, ease: "power2.in", transformOrigin: "40% 50%" }, 4.4);
+          window.__timelines["manifeste"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

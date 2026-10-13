@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Archivo"; font-weight: 800; src: url("assets/fonts/archivo-latin-800-normal.woff2") format("woff2"); }
+        @font-face { font-family: "Archivo"; font-weight: 600; src: url("assets/fonts/archivo-latin-600-normal.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2"); }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Archivo", sans-serif;
+          color: #f3f2ef;
+        }
+        #pv-scrim {
+          position: absolute;
+          left: 160px;
+          top: 230px;
+          width: 1600px;
+          height: 600px;
+          border-radius: 50%;
+          background: radial-gradient(ellipse at center, rgba(13, 18, 21, 0.9) 0%, rgba(13, 18, 21, 0.7) 45%, rgba(13, 18, 21, 0) 74%);
+          opacity: 0;
+        }
+        #pv-text {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 352px;
+          text-align: center;
+          white-space: nowrap;
+        }
+        .pv-l1 {
+          display: block;
+          font-weight: 800;
+          font-size: 132px;
+          line-height: 1;
+          letter-spacing: -0.045em;
+        }
+        .pv-l2 {
+          display: block;
+          margin-top: 22px;
+          font-weight: 800;
+          font-size: 104px;
+          line-height: 1;
+          letter-spacing: -0.04em;
+        }
+        .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        .soft {
+          color: #a8b4bb;
+        }
+        .o {
+          color: #f97316;
+          font-size: 152px;
+          text-shadow: 0 0 40px rgba(249, 115, 22, 0.55);
+          margin-left: 14px;
+        }
+        /* ---- career timeline (after the reference's editor timeline) ---- */
+        #t-wrap {
+          position: absolute;
+          left: 150px;
+          top: 210px;
+          width: 1620px;
+          height: 560px;
+          opacity: 0;
+          border-radius: 36px;
+          background: rgba(26, 36, 42, 0.92);
+          box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45), inset 0 0 0 2px rgba(120, 134, 143, 0.25);
+          overflow: hidden;
+        }
+        #t-head {
+          position: absolute;
+          left: 40px;
+          top: 30px;
+          right: 40px;
+          height: 70px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        #t-av {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          background: #e8e6e1;
+          color: #101619;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 800;
+          font-size: 26px;
+        }
+        #t-name {
+          font-weight: 800;
+          font-size: 38px;
+          letter-spacing: -0.02em;
+        }
+        #t-trade {
+          font: 500 22px/1 "IBM Plex Mono", monospace;
+          letter-spacing: 0.14em;
+          color: #a8b4bb;
+          margin-left: 6px;
+        }
+        #t-right {
+          margin-left: auto;
+          font: 500 22px/1 "IBM Plex Mono", monospace;
+          letter-spacing: 0.16em;
+          color: #f97316;
+        }
+        #t-labels {
+          position: absolute;
+          left: 0;
+          top: 120px;
+          width: 250px;
+          bottom: 0;
+          background: rgba(16, 22, 25, 0.55);
+          border-right: 2px solid rgba(120, 134, 143, 0.22);
+          z-index: 2;
+        }
+        .t-lab {
+          position: absolute;
+          left: 36px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          font: 500 20px/1 "IBM Plex Mono", monospace;
+          letter-spacing: 0.14em;
+          color: #a8b4bb;
+        }
+        .t-lab svg {
+          width: 30px;
+          height: 30px;
+        }
+        #t-view {
+          position: absolute;
+          left: 250px;
+          top: 110px;
+          right: 0;
+          bottom: 0;
+          overflow: hidden;
+        }
+        #t-pan {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1900px;
+          height: 450px;
+        }
+        .t-year {
+          position: absolute;
+          top: 6px;
+          width: 120px;
+          margin-left: -60px;
+          text-align: center;
+          font: 500 20px/1 "IBM Plex Mono", monospace;
+          letter-spacing: 0.1em;
+          color: #78868f;
+        }
+        .t-tick {
+          position: absolute;
+          top: 36px;
+          width: 2px;
+          height: 400px;
+          background: rgba(120, 134, 143, 0.16);
+        }
+        .t-clip {
+          position: absolute;
+          height: 104px;
+          border-radius: 16px;
+          overflow: hidden;
+          background-size: cover;
+          background-position: center;
+          box-shadow: 0 0 0 3px rgba(243, 242, 239, 0.12), 0 0 0px rgba(249, 115, 22, 0);
+        }
+        .t-pill {
+          position: absolute;
+          height: 58px;
+          border-radius: 29px;
+          padding: 0 26px;
+          display: flex;
+          align-items: center;
+          font-weight: 600;
+          font-size: 26px;
+          letter-spacing: -0.01em;
+          white-space: nowrap;
+          background: rgba(120, 134, 143, 0.22);
+          color: #f3f2ef;
+          box-shadow: inset 0 0 0 2px rgba(168, 180, 187, 0.25), 0 0 0px rgba(249, 115, 22, 0);
+        }
+        #t-play {
+          position: absolute;
+          top: 24px;
+          width: 4px;
+          height: 420px;
+          margin-left: -2px;
+          background: #f97316;
+          box-shadow: 0 0 18px rgba(249, 115, 22, 0.9);
+          z-index: 3;
+        }
+        #t-play::before {
+          content: "";
+          position: absolute;
+          left: -13px;
+          top: -16px;
+          border-left: 15px solid transparent;
+          border-right: 15px solid transparent;
+          border-top: 22px solid #f97316;
+        }
+        #t-cap {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 842px;
+          text-align: center;
+          white-space: nowrap;
+          font-weight: 800;
+          font-size: 74px;
+          letter-spacing: -0.035em;
+        }
+        #t-cap .o2 {
+          color: #f97316;
+          text-shadow: 0 0 30px rgba(249, 115, 22, 0.5);
+        }
+      </style>
+
+      <div id="root" data-composition-id="preuve" data-width="1920" data-height="1080">
+        <div id="pv-scrim"></div>
+        <div id="pv-text">
+          <span class="pv-l1"><span class="w" id="pv-chaque">Chaque</span> <span class="w" id="pv-real">réalisation</span></span>
+          <span class="pv-l2"><span class="w soft" id="pv-dev">devient</span> <span class="w soft" id="pv-une">une</span><span class="w o" id="pv-preuve">preuve.</span></span>
+        </div>
+
+        <div id="t-wrap" data-layout-allow-overflow>
+          <div id="t-head">
+            <div id="t-av">JR</div>
+            <div id="t-name">Jules R.</div>
+            <div id="t-trade">MÉTALLIER</div>
+            <div id="t-right">PORTFOLIO VISUEL</div>
+          </div>
+          <div id="t-labels">
+            <div class="t-lab" style="top: 70px"><svg viewBox="0 0 30 30"><path d="M3 15c3-6 7-9 12-9s9 3 12 9c-3 6-7 9-12 9s-9-3-12-9z" fill="none" stroke="#a8b4bb" stroke-width="2.4"/><circle cx="15" cy="15" r="4.2" fill="#a8b4bb"/></svg>RÉALISATIONS</div>
+            <div class="t-lab" style="top: 205px"><svg viewBox="0 0 30 30"><path d="M3 15c3-6 7-9 12-9s9 3 12 9c-3 6-7 9-12 9s-9-3-12-9z" fill="none" stroke="#a8b4bb" stroke-width="2.4"/><circle cx="15" cy="15" r="4.2" fill="#a8b4bb"/></svg>FORMATION</div>
+            <div class="t-lab" style="top: 320px"><svg viewBox="0 0 30 30"><path d="M3 15c3-6 7-9 12-9s9 3 12 9c-3 6-7 9-12 9s-9-3-12-9z" fill="none" stroke="#a8b4bb" stroke-width="2.4"/><circle cx="15" cy="15" r="4.2" fill="#a8b4bb"/></svg>PARCOURS</div>
+          </div>
+          <div id="t-view">
+            <div id="t-pan"></div>
+          </div>
+        </div>
+        <div id="t-cap"><span class="w" id="t-c1">Une trace qui les suit</span> <span class="w o2" id="t-c2">toute leur carrière.</span></div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 28.7; // host data-start (film time)
+          const L = (t) => t - T0;
+          const pan = document.getElementById("t-pan");
+          const X = (year) => 60 + (year - 2025) * 172;
+          // ruler
+          for (let y = 2025; y <= 2035; y++) {
+            const lab = document.createElement("div");
+            lab.className = "t-year";
+            lab.style.left = X(y) + "px";
+            lab.textContent = String(y);
+            pan.appendChild(lab);
+            const tick = document.createElement("div");
+            tick.className = "t-tick";
+            tick.style.left = X(y) + "px";
+            pan.appendChild(tick);
+          }
+          // réalisations (photos of Jules's work)
+          const clips = [
+            [2025.15, "A3", "50% 50%"], [2025.95, "A2", "50% 40%"], [2026.75, "A0", "50% 45%"],
+            [2027.9, "A1", "40% 50%"], [2029.1, "A0", "30% 60%"], [2030.4, "A2", "60% 60%"], [2031.7, "A1", "70% 30%"], [2033.0, "A3", "30% 40%"], [2034.3, "A0", "60% 30%"],
+          ];
+          const clipEls = clips.map(([yr, ph, bp], i) => {
+            const el = document.createElement("div");
+            el.className = "t-clip";
+            el.style.left = X(yr) + "px";
+            el.style.top = "54px";
+            el.style.width = "132px";
+            el.style.backgroundImage = `url(assets/photos/${ph}.jpg)`;
+            el.style.backgroundPosition = bp;
+            el.style.backgroundSize = i > 2 ? "170%" : "cover";
+            pan.appendChild(el);
+            return [yr, el];
+          });
+          const pill = (txt, y0, y1, top) => {
+            const el = document.createElement("div");
+            el.className = "t-pill";
+            el.style.left = X(y0) + "px";
+            el.style.width = X(y1) - X(y0) + "px";
+            el.style.top = top + "px";
+            el.textContent = txt;
+            pan.appendChild(el);
+            return [y0, el];
+          };
+          const pills = [
+            pill("Bac pro métallerie", 2025.05, 2027.45, 196),
+            pill("BTS en alternance", 2027.6, 2029.5, 196),
+            pill("Alternance en atelier", 2025.4, 2027.45, 312),
+            pill("Premier poste", 2029.65, 2031.9, 312),
+            pill("Chef d'atelier", 2032.1, 2034.9, 312),
+          ];
+          const play = document.createElement("div");
+          play.id = "t-play";
+          play.style.left = "0px";
+          pan.appendChild(play);
+
+          const tl = gsap.timeline({ paused: true });
+          const popIn = (sel, at, o = {}) =>
+            tl.fromTo(
+              sel,
+              { opacity: 0, scale: o.s ?? 1.4, y: o.y ?? 24, filter: "blur(14px)" },
+              { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: o.d ?? 0.34, ease: o.e ?? "back.out(1.7)" },
+              at,
+            );
+          // part 1 — kinetic statement over the dimmed world
+          tl.fromTo("#pv-scrim", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, L(C.chaqueReal) - 0.35);
+          popIn("#pv-chaque", L(C.chaqueReal));
+          popIn("#pv-real", L(C.chaqueReal) + 0.24);
+          popIn("#pv-dev", L(C.devient), { s: 1.25 });
+          popIn("#pv-une", L(C.devient) + 0.42, { s: 1.25 });
+          popIn("#pv-preuve", L(C.preuve) - 0.05, { s: 1.9, d: 0.4, e: "back.out(2.6)" });
+          tl.to("#pv-text", { scale: 1.6, opacity: 0, filter: "blur(18px)", duration: 0.3, ease: "power2.in" }, L(C.trace) - 0.32);
+          tl.to("#pv-scrim", { opacity: 0, duration: 0.3, ease: "power1.in" }, L(C.trace) - 0.25);
+          // part 2 — career timeline
+          const tIn = L(C.trace) - 0.12;
+          tl.fromTo("#t-wrap", { opacity: 0, x: 260, filter: "blur(22px)", scale: 0.96 }, { opacity: 1, x: 0, filter: "blur(0px)", scale: 1, duration: 0.5, ease: "power3.out" }, tIn);
+          const p0 = tIn + 0.35;
+          const p1 = L(34.85);
+          const yr0 = 2025, yr1 = 2035;
+          tl.fromTo("#t-play", { x: X(yr0) }, { x: X(yr1), duration: p1 - p0, ease: "sine.inOut" }, p0);
+          tl.fromTo(pan, { x: 0 }, { x: -380, duration: L(35.3) - p0, ease: "sine.inOut" }, p0);
+          // light each clip / pill as the playhead passes (sine.inOut inverse, sampled)
+          const ease = gsap.parseEase("sine.inOut");
+          const passTime = (yr) => {
+            const target = (yr - yr0) / (yr1 - yr0);
+            let lo = 0, hi = 1;
+            for (let i = 0; i < 30; i++) {
+              const m = (lo + hi) / 2;
+              if (ease(m) < target) lo = m; else hi = m;
+            }
+            return p0 + lo * (p1 - p0);
+          };
+          clipEls.forEach(([yr, el]) => {
+            const t = passTime(yr);
+            tl.fromTo(
+              el,
+              { boxShadow: "0 0 0 3px rgba(243,242,239,0.12), 0 0 0px rgba(249,115,22,0)" },
+              { boxShadow: "0 0 0 4px rgba(249,115,22,1), 0 0 34px rgba(249,115,22,0.75)", duration: 0.18, ease: "power2.out", immediateRender: false },
+              t,
+            );
+            tl.fromTo(el, { scale: 1 }, { scale: 1.08, duration: 0.12, yoyo: true, repeat: 1, ease: "power1.inOut", immediateRender: false }, t);
+          });
+          pills.forEach(([yr, el]) => {
+            const t = passTime(yr);
+            tl.fromTo(
+              el,
+              { backgroundColor: "rgba(120,134,143,0.22)", boxShadow: "inset 0 0 0 2px rgba(168,180,187,0.25), 0 0 0px rgba(249,115,22,0)" },
+              { backgroundColor: "rgba(249,115,22,0.18)", boxShadow: "inset 0 0 0 3px rgba(249,115,22,1), 0 0 26px rgba(249,115,22,0.45)", duration: 0.2, ease: "power2.out", immediateRender: false },
+              t,
+            );
+          });
+          popIn("#t-c1", L(C.trace) + 0.05, { s: 1.2 });
+          popIn("#t-c2", L(C.carriere), { s: 1.4, e: "back.out(2.2)" });
+          // collapse toward the end card
+          tl.to("#t-wrap", { scale: 0.12, opacity: 0, filter: "blur(16px)", duration: 0.32, ease: "power3.in", transformOrigin: "50% 50%" }, L(35.25));
+          tl.to("#t-cap", { opacity: 0, y: 30, filter: "blur(12px)", duration: 0.28, ease: "power2.in" }, L(35.2));
+          window.__timelines["preuve"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

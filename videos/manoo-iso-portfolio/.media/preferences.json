@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "preferences": {
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "manoo-iso-portfolio"
+      ],
+      "updated_at": "2026-10-13T19:24:14.965Z"
+    },
+    "language": {
+      "value": "fr",
+      "confirmed_in": [
+        "manoo-iso-portfolio"
+      ],
+      "updated_at": "2026-10-13T19:24:15.033Z"
+    },
+    "storyboard": {
+      "value": "no",
+      "confirmed_in": [
+        "manoo-iso-portfolio"
+      ],
+      "updated_at": "2026-10-13T19:24:15.084Z"
+    }
+  },
+  "sightings": {}
+}

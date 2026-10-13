@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Archivo"; font-weight: 800; src: url("assets/fonts/archivo-latin-800-normal.woff2") format("woff2"); }
+        @font-face { font-family: "Archivo"; font-weight: 700; src: url("assets/fonts/archivo-latin-700-normal.woff2") format("woff2"); }
+        @font-face { font-family: "Archivo"; font-weight: 600; src: url("assets/fonts/archivo-latin-600-normal.woff2") format("woff2"); }
+        #root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Archivo", sans-serif;
+          color: #f3f2ef;
+        }
+        #s-row1 {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 318px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 46px;
+        }
+        #s-square {
+          position: relative;
+          width: 196px;
+          height: 196px;
+          border-radius: 50px;
+          background: #ffffff;
+          box-shadow: 0 30px 70px rgba(0, 0, 0, 0.45), inset 0 -6px 0 rgba(16, 22, 25, 0.06);
+          flex: none;
+          opacity: 0;
+        }
+        #s-icon {
+          position: absolute;
+          left: 32px;
+          top: 40px;
+          width: 132px;
+          height: 117px;
+          opacity: 0;
+        }
+        #s-word {
+          display: flex;
+          align-items: flex-end;
+          font-weight: 800;
+          font-size: 188px;
+          line-height: 0.86;
+          letter-spacing: -0.05em;
+        }
+        .s-l {
+          display: inline-block;
+          opacity: 0;
+        }
+        #s-dot {
+          display: inline-block;
+          width: 40px;
+          height: 40px;
+          margin-left: 12px;
+          margin-bottom: 8px;
+          border-radius: 50%;
+          background: #f97316;
+          box-shadow: 0 0 34px rgba(249, 115, 22, 0.8);
+          opacity: 0;
+        }
+        #s-tag {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 574px;
+          text-align: center;
+          font-weight: 600;
+          font-size: 58px;
+          letter-spacing: -0.02em;
+          color: #a8b4bb;
+          white-space: nowrap;
+        }
+        #s-tag .w {
+          display: inline-block;
+          opacity: 0;
+        }
+        #s-row2 {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 716px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 40px;
+        }
+        #s-cta {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          height: 108px;
+          padding: 0 52px;
+          border-radius: 54px;
+          background: #f97316;
+          color: #ffffff;
+          font-weight: 700;
+          font-size: 46px;
+          letter-spacing: -0.015em;
+          box-shadow: 0 18px 50px rgba(249, 115, 22, 0.42);
+          opacity: 0;
+          white-space: nowrap;
+        }
+        #s-arrow {
+          display: inline-block;
+          font-weight: 700;
+        }
+        #s-halo {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 140px;
+          height: 140px;
+          margin: -70px 0 0 -70px;
+          border-radius: 50%;
+          border: 6px solid rgba(243, 242, 239, 0.85);
+          opacity: 0;
+        }
+        #s-site {
+          font-weight: 800;
+          font-size: 62px;
+          letter-spacing: -0.03em;
+          opacity: 0;
+          white-space: nowrap;
+        }
+      </style>
+
+      <div id="root" data-composition-id="signature" data-width="1920" data-height="1080">
+        <div id="s-row1">
+          <div id="s-square"><img id="s-icon" src="assets/brand/manoo-marteau.png" alt="" /></div>
+          <div id="s-word"><span class="s-l">M</span><span class="s-l">A</span><span class="s-l">N</span><span class="s-l">O</span><span class="s-l">O</span><span id="s-dot"></span></div>
+        </div>
+        <div id="s-tag"><span class="w">La</span> <span class="w">révolution</span> <span class="w">du</span> <span class="w">regard.</span></div>
+        <div id="s-row2">
+          <div id="s-cta">Demander une présentation <span id="s-arrow">→</span><div id="s-halo"></div></div>
+          <div id="s-site">manoo.fr</div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 35.4; // host data-start (film time)
+          const L = (t) => t - T0;
+          const build = () => {
+            const tl = gsap.timeline({ paused: true });
+            const sq = document.getElementById("s-square");
+            const word = document.getElementById("s-word");
+            // centre the square on screen before the wordmark arrives
+            const shift = (word.offsetWidth + 46) / 2;
+            tl.fromTo(sq, { opacity: 0, scale: 0, x: shift, filter: "blur(18px)" }, { opacity: 1, scale: 1, x: shift, filter: "blur(0px)", duration: 0.42, ease: "back.out(2.2)" }, 0.15);
+            tl.fromTo("#s-icon", { opacity: 0, scale: 0.2, rotation: -24 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.45, ease: "back.out(2.6)" }, L(C.manoo));
+            tl.to(sq, { scale: 0.9, duration: 0.09, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.manoo));
+            tl.to(sq, { x: 0, duration: 0.5, ease: "power3.inOut" }, L(C.manoo) + 0.28);
+            tl.fromTo(
+              "#s-word .s-l",
+              { opacity: 0, y: 60, filter: "blur(14px)" },
+              { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.42, ease: "back.out(1.8)", stagger: 0.055 },
+              L(C.manoo) + 0.42,
+            );
+            tl.fromTo("#s-dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(3)" }, L(C.manoo) + 0.82);
+            tl.fromTo("#s-tag .w", { opacity: 0, y: 26, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out", stagger: 0.07 }, L(C.regard) - 0.05);
+            tl.fromTo("#s-cta", { opacity: 0, scale: 0.6, filter: "blur(14px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "back.out(1.9)" }, L(C.demandez));
+            tl.fromTo("#s-arrow", { x: -14 }, { x: 0, duration: 0.5, ease: "power3.out" }, L(C.demandez) + 0.15);
+            // the "tap" (after the reference's cursor click, without a cursor arrow)
+            const tap = L(C.demandez) + 0.78;
+            tl.to("#s-cta", { scale: 0.94, duration: 0.1, yoyo: true, repeat: 1, ease: "power1.inOut" }, tap);
+            tl.fromTo("#s-halo", { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 3.2, duration: 0.6, ease: "power2.out" }, tap);
+            tl.fromTo("#s-site", { opacity: 0, x: 30, filter: "blur(12px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, L(C.site) - 0.15);
+            window.__timelines["signature"] = tl;
+          };
+          document.fonts.load('800 188px "Archivo"').then(build);
+        })();
+      </script>
+    </template>
+  </body>
+</html>
