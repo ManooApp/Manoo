@@ -1,0 +1,84 @@
+[span] MANOO
+[a] Établissements
+[a] Entreprises
+[a] Apprentis
+[a] Le projet
+[a] Accéder à l'application
+[p] Le portfolio visuel des métiers manuels
+[h1] Un CV ne montre pas
+[em] une soudure
+[p] Les apprentis des métiers manuels passent des mois à maîtriser un geste. Au moment de chercher une entreprise, on leur demande de le prouver sur une feuille A4. Manoo remplace le CV par la preuve en images.
+[a] Demander une présentation
+[a] Accéder à l'application
+[figcaption] Ce qu'un recruteur voit aujourd'hui
+[figcaption] Ce qu'il voit avec Manoo
+[p] Le constat
+[h2] Dans les métiers manuels, l'essentiel ne tient pas sur une feuille A4
+[p] Les entreprises recrutent à l'aveugle, les alternants peinent à décrocher un emploi ou une embauche, et les écoles n'arrivent plus à placer leurs élèves en entreprise. Le problème n'est pas le niveau des apprentis : c'est qu'on ne peut pas voir leur travail.
+[b] Une finition
+[span] Elle se juge à l'œil, à quelques millimètres près. Aucune ligne de CV ne la restitue.
+[b] Un chef-d'œuvre
+[span] Des semaines de travail, présentées à l'examen, puis rangées dans un carton d'atelier.
+[b] Un geste technique
+[span] Il se transmet et se démontre. Il ne se déduit pas d'un intitulé de diplôme.
+[p] La plateforme
+[h2] Ce que fait Manoo
+[p] Une application mobile pensée pour l'atelier et le chantier, pas pour le bureau.
+[span] 01 — Capturer
+[h3] Le portfolio
+[p] Chantiers, chefs-d'œuvre et travaux pratiques capturés en photo et en vidéo, directement depuis le téléphone. Le portfolio appartient à l'apprenti et le suit après sa formation.
+[span] 02 — Valider
+[h3] Le suivi des compétences
+[p] Le livret d'apprentissage papier devient un historique numérique et visuel, validé par les enseignants et les maîtres d'apprentissage, mis à jour au fil de l'année.
+[span] 03 — Prouver
+[h3] L'indice de confiance
+[p] Un Trust Score fondé sur la validation des compétences et l'authenticité des réalisations, pour que les entreprises sachent ce qu'elles regardent.
+[p] L'application
+[h2] Simple à prendre en main, y compris en atelier
+[div] Écran portfolio
+[div] Suivi des compétences
+[div] Vue recruteur
+[b] En quelques secondes
+[span] Une photo, une vidéo, c'est fait. Utilisable avec des mains sales, entre deux gestes.
+[b] Hors connexion
+[span] Les ateliers et les chantiers ne sont pas toujours couverts. L'application s'en accommode.
+[b] Validation en un geste
+[span] L'enseignant ou le maître d'apprentissage confirme la compétence depuis son propre téléphone.
+[p] Trois publics
+[h2] Chacun y trouve une raison différente
+[h3] Établissements
+[p] Placer vos élèves en entreprise, valoriser le chef-d'œuvre et remplacer le livret de suivi papier.
+[a] En savoir plus
+[h3] Entreprises
+[p] Juger la qualité d'un geste avant de recruter, et valoriser le travail de vos équipes sur le terrain.
+[a] En savoir plus
+[h3] Apprentis
+[p] Montrer ce que vous savez faire, et garder la trace de votre travail toute votre carrière.
+[a] En savoir plus
+[p] Où nous en sommes
+[h2] Phase pilote en Bretagne, rentrée 2026
+[span] lycées professionnels bretons engagés dans la phase pilote
+[b] 1 200 +
+[span] élèves concernés dès la première année
+[span] partenaires institutionnels en discussion
+[p] Nos interlocuteurs
+[b] Fédération Française du Bâtiment Bretagne
+[b] Chambre de Métiers et de l'Artisanat
+[b] CAPEB 35
+[b] GEIQ BTP du Pays de Rennes
+[b] AFPA
+[b] Université de Rennes
+[p] , dispositif Créa-IUT
+[h2] L'application est en ligne
+[p] Découvrez la plateforme Manoo et créez votre portfolio.
+[a] Accéder à l'application
+[p] Le portfolio visuel et réseau social des métiers manuels. Une plateforme française qui aide alternants et apprentis à trouver un emploi ou une embauche, du travail à la preuve en images.
+[a] Pour les établissements
+[a] Pour les entreprises
+[a] Pour les apprentis
+[a] Le projet
+[h4] Nous joindre
+[a] manoo.information@gmail.com
+[a] Accéder à l'application
+[span] SAS Manoo — Bretagne. Hébergement en France, conforme au RGPD.
+[span] Le portfolio appartient à l'apprenti. Aucune donnée d'élève n'est commercialisée.

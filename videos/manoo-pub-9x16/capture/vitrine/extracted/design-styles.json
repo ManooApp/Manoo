@@ -1,0 +1,190 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "Archivo",
+      "fontSize": "70.4px",
+      "fontWeight": "800",
+      "lineHeight": "73.92px",
+      "letterSpacing": "-1.76px",
+      "color": "#F3F2EF",
+      "sampleText": "Un CV ne montre pas une soudure."
+    },
+    {
+      "role": "heading",
+      "fontFamily": "Archivo",
+      "fontSize": "45.6px",
+      "fontWeight": "800",
+      "lineHeight": "47.88px",
+      "letterSpacing": "-1.14px",
+      "color": "#101619",
+      "sampleText": "Dans les métiers manuels, l'essentiel ne tient pas sur une f"
+    },
+    {
+      "role": "heading-3",
+      "fontFamily": "Archivo",
+      "fontSize": "23.2px",
+      "fontWeight": "800",
+      "lineHeight": "24.36px",
+      "letterSpacing": "-0.348px",
+      "color": "#101619",
+      "sampleText": "Le portfolio"
+    },
+    {
+      "role": "body",
+      "fontFamily": "Archivo",
+      "fontSize": "19.5px",
+      "fontWeight": "400",
+      "lineHeight": "31.59px",
+      "letterSpacing": "normal",
+      "color": "#A8B4BB",
+      "sampleText": "Les apprentis des métiers manuels passent des mois à maîtris"
+    },
+    {
+      "role": "link",
+      "fontFamily": "Archivo",
+      "fontSize": "17px",
+      "fontWeight": "400",
+      "lineHeight": "27.54px",
+      "letterSpacing": "normal",
+      "color": "#101619",
+      "sampleText": "MANOO."
+    },
+    {
+      "role": "heading-4",
+      "fontFamily": "IBM Plex Mono",
+      "fontSize": "11.5px",
+      "fontWeight": "500",
+      "lineHeight": "12.075px",
+      "letterSpacing": "1.61px",
+      "color": "#F97316",
+      "sampleText": "Manoo"
+    },
+    {
+      "role": "body-small",
+      "fontFamily": "IBM Plex Mono",
+      "fontSize": "10.5px",
+      "fontWeight": "400",
+      "lineHeight": "14.7px",
+      "letterSpacing": "0.945px",
+      "color": "#78868F",
+      "sampleText": "Ce qu'un recruteur voit aujourd'hui"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      2,
+      8,
+      9,
+      10,
+      12,
+      13,
+      14,
+      16,
+      18,
+      20,
+      24,
+      26,
+      28,
+      32,
+      36
+    ],
+    "baseUnit": 8
+  },
+  "radius": [
+    "2px"
+  ],
+  "shadows": [
+    {
+      "value": "rgba(0, 0, 0, 0.3) 0px 22px 50px 0px",
+      "count": 4
+    },
+    {
+      "value": "rgb(249, 115, 22) 0px -2px 0px 0px inset",
+      "count": 1
+    },
+    {
+      "value": "rgba(0, 0, 0, 0.4) 0px 20px 44px 0px",
+      "count": 1
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Demander une présentation",
+      "background": "#F97316",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#FFFFFF",
+      "padding": "14px 26px",
+      "borderRadius": "2px",
+      "border": "0px none rgb(255, 255, 255)",
+      "boxShadow": "none",
+      "fontSize": "15.5px",
+      "fontWeight": "600",
+      "height": "55.1094px"
+    },
+    {
+      "label": "Accéder à l'application",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#F3F2EF",
+      "padding": "14px 26px",
+      "borderRadius": "2px",
+      "border": "1px solid rgb(120, 134, 143)",
+      "boxShadow": "none",
+      "fontSize": "15.5px",
+      "fontWeight": "600",
+      "height": "55.1094px"
+    },
+    {
+      "label": "En savoir plus",
+      "background": "#101619",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#F3F2EF",
+      "padding": "14px 26px",
+      "borderRadius": "2px",
+      "border": "0px none rgb(243, 242, 239)",
+      "boxShadow": "none",
+      "fontSize": "15.5px",
+      "fontWeight": "600",
+      "height": "53.1094px"
+    }
+  ],
+  "cards": [
+    {
+      "label": "card",
+      "background": "#F3F2EF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#101619",
+      "padding": "32px 28px 36px",
+      "borderRadius": "0px",
+      "border": "",
+      "boxShadow": "none",
+      "fontSize": "17px",
+      "fontWeight": "400",
+      "height": "272.516px"
+    }
+  ],
+  "nav": {
+    "label": "navigation",
+    "background": "#101619",
+    "backgroundImage": "",
+    "backdropFilter": "",
+    "color": "#101619",
+    "padding": "0px",
+    "borderRadius": "0px",
+    "border": "",
+    "boxShadow": "none",
+    "fontSize": "17px",
+    "fontWeight": "400",
+    "height": "71px"
+  },
+  "chips": [],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [],
+  "glass": []
+}
