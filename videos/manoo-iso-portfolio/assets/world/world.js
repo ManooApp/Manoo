@@ -23,7 +23,7 @@ const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
 // renderer / scene / camera
 // ---------------------------------------------------------------------------
 const canvas = document.getElementById("world-gl");
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance" });
 renderer.setPixelRatio(1);
 renderer.setSize(W, H, false);
 renderer.setClearColor(0x000000, 0);
@@ -44,7 +44,7 @@ const hemi = new THREE.HemisphereLight(0xf4f4f2, 0x1a242a, 0.85);
 scene.add(hemi);
 const key = new THREE.DirectionalLight(0xfff6ec, 3.0);
 key.castShadow = true;
-key.shadow.mapSize.set(4096, 4096);
+key.shadow.mapSize.set(2048, 2048);
 key.shadow.bias = -0.00035;
 key.shadow.normalBias = 0.03;
 key.shadow.radius = 3;
@@ -1115,6 +1115,10 @@ function renderEnd(t) {
   });
   key.target.position.copy(_target);
   key.position.copy(_target).addScaledVector(LDIR, 60);
+  const sc = key.shadow.camera;
+  sc.left = sc.bottom = -24;
+  sc.right = sc.top = 24;
+  sc.updateProjectionMatrix();
   renderer.render(scene, camera);
 }
 
@@ -1127,6 +1131,15 @@ function renderAt(t) {
   const worldOn = t >= PORTAL_T + 0.2 && t < 32.25;
   canvas.style.opacity = String(worldOn ? 1 - ep(t, 31.75, 32.2, "power2.in") : 0);
   updatePortal(t);
+  if (!worldOn) {
+    // nothing of the world is visible: keep DOM overlays quiet and skip the GL frame
+    dom.vf.style.opacity = "0";
+    dom.flash.style.opacity = "0";
+    dom.rings.forEach((r) => (r.style.opacity = "0"));
+    Object.values(dom.labels).forEach((l) => (l.style.opacity = "0"));
+    canvas.style.filter = "none";
+    return;
+  }
 
   // ----- lights: reveal ramp + S5 dim
   const reveal = ep(t, CU.windowOpen, CU.windowOpen + 0.9, "power2.out");
