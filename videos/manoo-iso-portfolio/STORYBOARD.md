@@ -7,7 +7,7 @@ audience: décideurs des entreprises et des établissements de formation (Linked
 mode: autonomous
 reference: https://lnkd.in/p/eUZXdW26 (InVideo AI concept ad, Rajwadi Motions)
 music: bed procédural discret (pulsation chaude ~96 BPM) + sound design de matière (soudure, déclencheur, souffles, lumière)
-version: v1
+version: v2
 ---
 
 # Storyboard v1 — Manoo, « Le savoir-faire se montre »
@@ -48,6 +48,13 @@ réalisation devient une preuve en images, vue par ceux qui recrutent, forment e
   puces, appui avec halo), frise carrière façon timeline de montage, logo final avec icône d'app.
 - Voix : Holden (choix de l'utilisateur), prise 1 découpée en 6 phrases (assets/cues.js = la feuille de temps).
 - Frames 2 et 4 vivent dans le calque monde (compositions/world.html) : leurs étiquettes suivent la caméra.
+
+## Round 3 — 2026-10-13 · rendu v2
+
+- Rendu complet `renders/manoo-iso-v2.mp4` (45,0 s, 1920×1080, 30 i/s, −15 LUFS) + aperçu web
+  `renders/manoo-iso-v2-apercu.mp4` (24,5 Mo) envoyé à l'utilisateur pour validation.
+- `hyperframes check` : 0 erreur sur toutes les tranches (contrôle par plages, le monde 3D est trop lourd
+  pour une passe unique dans le délai du check).
 
 ## Frame 1 — Manifeste (0.0–4.6s, ~4.6s)
 
