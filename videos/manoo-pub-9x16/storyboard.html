@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manoo — storyboard v1</title>
+<style>
+  @font-face { font-family: "Archivo"; src: url(assets/fonts/archivo-latin-500-normal.woff2) format("woff2"); font-weight: 500; }
+  @font-face { font-family: "Archivo"; src: url(assets/fonts/archivo-latin-600-normal.woff2) format("woff2"); font-weight: 600; }
+  @font-face { font-family: "Archivo"; src: url(assets/fonts/archivo-latin-700-normal.woff2) format("woff2"); font-weight: 700; }
+  @font-face { font-family: "Archivo"; src: url(assets/fonts/archivo-latin-800-normal.woff2) format("woff2"); font-weight: 800; }
+  @font-face { font-family: "IBM Plex Mono"; src: url(assets/fonts/ibm-plex-mono-latin-400-normal.woff2) format("woff2"); font-weight: 400; }
+  @font-face { font-family: "IBM Plex Mono"; src: url(assets/fonts/ibm-plex-mono-latin-500-normal.woff2) format("woff2"); font-weight: 500; }
+
+  :root {
+    --encre: #101619; --papier: #F3F2EF; --orange: #F97316; --acier: #78868F;
+    --encre-2: #182126; --hair: #2A3439;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0b0f11; color: var(--papier); font-family: "Archivo", sans-serif; padding: 56px 48px 80px; }
+
+  /* sheet header */
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 40px; border-bottom: 1px solid var(--hair); padding-bottom: 28px; }
+  .head h1 { font-weight: 800; font-size: 46px; letter-spacing: -0.035em; line-height: 1; }
+  .head h1 .dot { color: var(--orange); }
+  .scrim { left: 0; right: 0; top: 104cqw; height: 74cqw; background: linear-gradient(180deg, rgba(16,22,25,0), rgba(16,22,25,.82) 45%, rgba(16,22,25,.9)); z-index: 5; }
+  .plate-l { z-index: 6; text-shadow: 0 .3cqw 1.6cqw rgba(0,0,0,.8); }
+  .head p { color: var(--acier); font-size: 17px; margin-top: 12px; max-width: 760px; line-height: 1.45; }
+  .tag { font-family: "IBM Plex Mono"; font-weight: 500; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--papier); border: 1px solid var(--hair); padding: 10px 14px; white-space: nowrap; }
+  .act { grid-column: 1 / -1; font-family: "IBM Plex Mono"; font-weight: 500; font-size: 13px; letter-spacing: .16em; text-transform: uppercase; color: var(--acier); border-top: 1px solid var(--hair); padding-top: 12px; margin-top: 8px; }
+  .act b { color: var(--papier); font-weight: 500; }
+
+  .grid { display: grid; grid-template-columns: repeat(4, 360px); gap: 30px 26px; }
+  .cell { width: 360px; }
+  .meta { padding-top: 12px; }
+  .meta .row { display: flex; justify-content: space-between; font-family: "IBM Plex Mono"; font-weight: 500; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
+  .meta .row span:last-child { color: var(--acier); }
+  .meta .vo { font-size: 15px; line-height: 1.4; margin-top: 8px; color: var(--papier); font-weight: 500; }
+  .meta .note { font-size: 13.5px; line-height: 1.45; margin-top: 6px; color: var(--acier); }
+  .meta .note b { color: var(--papier); font-weight: 600; }
+  .chip { display: inline-block; margin-top: 10px; font-family: "IBM Plex Mono"; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--papier); border: 1px solid var(--hair); padding: 4px 8px; }
+  .chip.phys { border-color: var(--orange); color: var(--orange); }
+
+  /* the 9:16 frame */
+  .frame { width: 360px; aspect-ratio: 9 / 16; position: relative; overflow: hidden; container-type: inline-size; background: var(--encre); isolation: isolate; }
+  .frame > * { position: absolute; }
+  .fill { inset: 0; background-size: cover; background-position: center; background-repeat: no-repeat; }
+  .screen { mix-blend-mode: screen; }
+  .grain { inset: 0; background: url(assets/matter/grain.png); background-size: 34cqw; mix-blend-mode: overlay; opacity: .22; z-index: 50; pointer-events: none; }
+  .vig { inset: 0; background: radial-gradient(130% 95% at 50% 45%, transparent 58%, rgba(4, 7, 9, .6) 100%); z-index: 49; }
+  .d { font-family: "Archivo"; font-weight: 800; letter-spacing: -0.04em; line-height: .9; color: var(--papier); white-space: nowrap; }
+  .h { font-family: "Archivo"; font-weight: 700; letter-spacing: -0.025em; line-height: 1.02; color: var(--papier); white-space: nowrap; }
+  .m { font-family: "IBM Plex Mono"; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; white-space: nowrap; }
+  .dot { color: var(--orange); }
+  .scrim { left: 0; right: 0; top: 104cqw; height: 74cqw; background: linear-gradient(180deg, rgba(16,22,25,0), rgba(16,22,25,.82) 45%, rgba(16,22,25,.9)); z-index: 5; }
+  .plate-l { z-index: 6; text-shadow: 0 .3cqw 1.6cqw rgba(0,0,0,.8); }
+  .ann { font-family: "IBM Plex Mono"; font-weight: 500; font-size: 1.75cqw; letter-spacing: .12em; text-transform: uppercase; color: rgba(243, 242, 239, .7); border: .25cqw dashed rgba(243, 242, 239, .45); padding: .9cqw 1.4cqw; z-index: 60; background: rgba(16, 22, 25, .55); }
+
+  /* paper */
+  .paper { background-image: url(assets/matter/paper.jpg); background-size: cover; box-shadow: 0 2.6cqw 7cqw rgba(0, 0, 0, .55); }
+  .cv { font-family: "IBM Plex Mono"; font-weight: 400; color: #1c2326; letter-spacing: .01em; white-space: nowrap; }
+  .rule { height: .22cqw; background: #d6d1c7; }
+
+  /* phone */
+  .phone { left: 25cqw; width: 50cqw; height: 103cqw; border-radius: 7.6cqw; background: #090c0e; box-shadow: 0 0 0 .28cqw #2b363c, inset 0 0 0 .5cqw #12181b, 0 3cqw 9cqw rgba(0, 0, 0, .65); z-index: 10; }
+  .phone .scr { position: absolute; inset: 1.4cqw; border-radius: 6.3cqw; background: var(--encre-2); overflow: hidden; }
+  .phone .isl { position: absolute; top: 2.4cqw; left: 50%; width: 12.5cqw; height: 3.4cqw; transform: translateX(-50%); background: #05080a; border-radius: 2cqw; z-index: 3; }
+  .scr > * { position: absolute; }
+  .cap { inset: auto 3cqw 3.2cqw 3cqw; text-align: center; font-family: "IBM Plex Mono"; font-weight: 500; font-size: 1.45cqw; letter-spacing: .12em; text-transform: uppercase; color: rgba(243, 242, 239, .62); border: .22cqw dashed rgba(120, 134, 143, .7); padding: 1cqw .6cqw; }
+  .ui-l { font-family: "IBM Plex Mono"; font-weight: 500; font-size: 1.5cqw; letter-spacing: .12em; text-transform: uppercase; color: var(--acier); }
+  .ui-v { font-family: "Archivo"; font-weight: 600; font-size: 2.9cqw; letter-spacing: -0.01em; color: var(--papier); white-space: nowrap; }
+  .field { left: 3cqw; right: 3cqw; border: .22cqw solid #2c383e; border-radius: 1.6cqw; padding: 1.5cqw 2cqw; }
+  .ph { background: #1f2a30; border: .22cqw dashed #3a4950; }
+  .img { background-size: cover; background-position: center; }
+
+  .tok { display: flex; align-items: center; gap: 2.4cqw; font-family: "IBM Plex Mono"; font-weight: 500; font-size: 2.3cqw; letter-spacing: .1em; text-transform: uppercase; color: var(--papier); }
+  .sw { width: 8cqw; height: 8cqw; border: .2cqw solid var(--hair); }
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div>
+    <h1>Manoo — « La révolution du regard »<span class="dot">.</span></h1>
+    <p>Storyboard v1 · planche fixe (aucune animation). Une cellule = le moment-clé d'un plan, avec les vraies couleurs, polices et textes.
+      Les matières (soudure, carrelage, boulangerie) sont des rendus dessinés en attendant de vraies photos ; les écrans de l'app sont des
+      emplacements de captures à fournir.</p>
+  </div>
+  <div class="tag">1080 × 1920 · ~61 s · 16 plans-clés</div>
+</header>
+
+<main class="grid">
+
+  <div class="act"><b>Acte I</b> · le papier ne montre pas le geste</div>
+
+  <!-- 01a -->
+  <section class="cell" id="frame-01a">
+    <div class="frame">
+      <div class="fill" style="background-image:url(assets/matter/weld.jpg)"></div>
+      <div class="fill screen" style="background-image:url(assets/matter/sparks.png)"></div>
+      <div class="h" style="left:7.4cqw; top:23.5cqw; font-size:6.6cqw; color:var(--acier)">Comment montrer</div>
+      <div class="d" style="left:6.6cqw; top:31cqw; font-size:19.5cqw">un geste</div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>01a · Étincelle</span><span>0,0 – 2,2 s</span></div>
+      <p class="vo">« Comment montrer un geste… »</p>
+      <p class="note"><b>Noir, puis le cordon s'allume</b> sur « geste » : gerbe d'étincelles qui retombent (gravité). L'orange naît ici.</p>
+      <span class="chip">ouverture · cut</span>
+    </div>
+  </section>
+
+  <!-- 01b -->
+  <section class="cell" id="frame-01b">
+    <div class="frame">
+      <div class="paper" style="left:9cqw; top:31cqw; width:82cqw; height:116cqw"></div>
+      <div class="d" style="left:16cqw; top:47cqw; font-size:11cqw; color:var(--encre)">sur une<br>feuille<br>de papier&nbsp;?</div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>01b · La feuille</span><span>2,2 – 4,4 s</span></div>
+      <p class="vo">« …sur une feuille de papier ? »</p>
+      <p class="note"><b>Coupe sèche sur « feuille ».</b> Une feuille vide en lumière rasante : le silence visuel répond au feu.</p>
+      <span class="chip">cut sur « feuille »</span>
+    </div>
+  </section>
+
+  <!-- 02 -->
+  <section class="cell" id="frame-02">
+    <div class="frame">
+      <div class="m" style="left:7.4cqw; top:22.5cqw; font-size:2.7cqw; color:var(--acier); display:flex; align-items:center; gap:2cqw">2 ans
+        <svg viewBox="0 0 40 10" style="width:7cqw; height:2cqw"><path d="M0 5 H36 M31 1 L37 5 L31 9" fill="none" stroke="#78868F" stroke-width="1.6"/></svg>
+        <span style="color:var(--papier)">2 lignes</span></div>
+      <div class="paper" style="left:-3cqw; top:31cqw; width:106cqw; height:160cqw"></div>
+      <div class="m" style="left:9cqw; top:41cqw; font-size:2.6cqw; letter-spacing:.38em; color:#39424a">Curriculum vitæ</div>
+      <div class="rule" style="left:9cqw; top:46.5cqw; width:82cqw; background:#bdb7ac"></div>
+      <div class="m" style="left:9cqw; top:54cqw; font-size:2cqw; color:var(--acier)">Formation</div>
+      <div class="cv" style="left:9cqw; top:57.6cqw; font-size:4.7cqw">CAP Maçonnerie</div>
+      <div class="m" style="left:9cqw; top:67.5cqw; font-size:2cqw; color:var(--acier)">Expérience</div>
+      <div class="cv" style="left:9cqw; top:71.1cqw; font-size:4.7cqw">Stage — 3 semaines</div>
+      <div class="rule" style="left:9cqw; top:86cqw; width:82cqw"></div>
+      <div class="rule" style="left:9cqw; top:93cqw; width:82cqw"></div>
+      <div class="rule" style="left:9cqw; top:100cqw; width:82cqw"></div>
+      <div class="rule" style="left:9cqw; top:107cqw; width:82cqw"></div>
+      <div class="rule" style="left:9cqw; top:114cqw; width:82cqw"></div>
+      <div class="rule" style="left:9cqw; top:121cqw; width:82cqw"></div>
+      <div class="rule" style="left:9cqw; top:128cqw; width:82cqw"></div>
+      <div class="rule" style="left:9cqw; top:135cqw; width:82cqw"></div>
+      <div class="rule" style="left:9cqw; top:142cqw; width:82cqw"></div>
+      <div class="rule" style="left:9cqw; top:149cqw; width:82cqw"></div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>02 · Deux lignes</span><span>4,4 – 9,0 s</span></div>
+      <p class="vo">« Sur un CV, deux ans d'apprentissage tiennent en deux lignes. »</p>
+      <p class="note"><b>Plan fixe, inconfortable.</b> Les deux lignes se tapent sur « deux lignes » ; tout le reste de la feuille reste vide.</p>
+      <span class="chip">cut</span>
+    </div>
+  </section>
+
+  <!-- 03a -->
+  <section class="cell" id="frame-03a">
+    <div class="frame">
+      <div class="fill" style="background-image:url(assets/matter/beam.jpg)"></div>
+      <div class="fill screen" style="background-image:url(assets/matter/dust.png)"></div>
+      <div class="h" style="left:7.4cqw; top:76cqw; font-size:7cqw; color:var(--acier)">Pourtant,</div>
+      <div class="d" style="left:6.8cqw; top:85cqw; font-size:15.5cqw">le travail<br>est là.</div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>03a · Le travail est là</span><span>9,0 – 10,8 s</span></div>
+      <p class="vo">« Pourtant, le travail est là. »</p>
+      <p class="note"><b>Retour au noir.</b> Un rai de lumière, de la poussière qui flotte. Le texte se pose sur « là ».</p>
+      <span class="chip">cut</span>
+    </div>
+  </section>
+
+  <div class="act"><b>Acte II</b> · la matière — trois coupes sèches sur trois mots</div>
+
+  <!-- 03b -->
+  <section class="cell" id="frame-03b">
+    <div class="frame">
+      <div class="fill" style="background-image:url(assets/matter/weld.jpg); background-size:auto 165%; background-position:58% 62%"></div>
+      <div class="fill screen" style="background-image:url(assets/matter/sparks.png); background-size:auto 165%; background-position:58% 62%"></div>
+      <div class="scrim"></div><div class="m plate-l" style="left:7.4cqw; top:127cqw; font-size:3.2cqw"><span class="dot">01</span> — Soudure</div>
+      <div class="ann" style="left:7.4cqw; top:22.5cqw">Rendu dessiné · photo réelle recommandée</div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>03b · Soudure</span><span>10,8 – 12,6 s</span></div>
+      <p class="vo">« Une soudure. »</p>
+      <p class="note"><b>Plein cadre, macro.</b> Le cordon encore rouge, les étincelles en surimpression. Label mono en bas à gauche.</p>
+      <span class="chip">cut sur « soudure »</span>
+    </div>
+  </section>
+
+  <!-- 03c -->
+  <section class="cell" id="frame-03c">
+    <div class="frame">
+      <div style="left:-60cqw; top:-70cqw; width:220cqw; height:300cqw; background-image:url(assets/matter/tiles.jpg); background-size:cover; transform:perspective(120cqw) rotateX(34deg) rotateZ(-16deg); transform-origin:50% 70%"></div>
+      <div class="fill screen" style="background-image:url(assets/matter/dust.png); opacity:.55"></div>
+      <div class="scrim"></div><div class="m plate-l" style="left:7.4cqw; top:127cqw; font-size:3.2cqw"><span class="dot">02</span> — Carrelage</div>
+      <div class="ann" style="left:7.4cqw; top:22.5cqw">Rendu dessiné · photo réelle recommandée</div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>03c · Carrelage</span><span>12,6 – 14,4 s</span></div>
+      <p class="vo">« Un carrelage posé. »</p>
+      <p class="note"><b>Lumière rasante</b> sur les joints frais, un peu de poussière. Même cadrage de label, même rythme.</p>
+      <span class="chip">cut sur « carrelage »</span>
+    </div>
+  </section>
+
+  <!-- 03d -->
+  <section class="cell" id="frame-03d">
+    <div class="frame">
+      <div class="fill" style="background-image:url(assets/matter/oven.jpg)"></div>
+      <div class="fill screen" style="background-image:url(assets/matter/flour.png)"></div>
+      <div class="scrim"></div><div class="m plate-l" style="left:7.4cqw; top:127cqw; font-size:3.2cqw"><span class="dot">03</span> — Boulangerie</div>
+      <div class="ann" style="left:7.4cqw; top:22.5cqw">Rendu dessiné · photo réelle recommandée</div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>03d · Boulangerie</span><span>14,4 – 16,4 s</span></div>
+      <p class="vo">« Un pain qui sort du four. »</p>
+      <p class="note"><b>La bouche du four</b>, de la farine suspendue dans sa lumière. Idéalement : la vraie photo d'une fournée.</p>
+      <span class="chip">cut sur « pain »</span>
+    </div>
+  </section>
+
+  <!-- 04a -->
+  <section class="cell" id="frame-04a">
+    <div class="frame">
+      <div class="d" style="left:6.8cqw; top:23cqw; font-size:10.2cqw">Manoo remplace<br>le CV papier.</div>
+      <div style="left:22cqw; top:134cqw; width:56cqw; height:7cqw; background:radial-gradient(closest-side, rgba(0,0,0,.75), transparent)"></div>
+      <img src="assets/matter/crumple.png" alt="" style="left:17cqw; top:62cqw; width:66cqw; transform:rotate(-14deg)">
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>04a · Le froissage</span><span>16,4 – 19,0 s</span></div>
+      <p class="vo">« Manoo remplace le CV papier. »</p>
+      <p class="note"><b>La feuille du plan 02 revient et se froisse</b> (vraie déformation, ses lignes tapées encore visibles), puis tombe hors champ.</p>
+      <span class="chip phys">geste physique</span>
+    </div>
+  </section>
+
+  <div class="act"><b>Acte III</b> · le produit est le cadre, le travail est le héros</div>
+
+  <!-- 04b -->
+  <section class="cell" id="frame-04b">
+    <div class="frame">
+      <div class="d" style="left:6.8cqw; top:22cqw; font-size:8.6cqw; color:var(--acier); text-decoration:line-through; text-decoration-thickness:.55cqw">Raconter.</div>
+      <div class="d" style="left:6.6cqw; top:31cqw; font-size:12.5cqw">Montrer<span class="dot">.</span></div>
+      <div class="phone" style="top:49cqw"><div class="isl"></div><div class="scr">
+        <img src="assets/brand/manoo-marteau.png" alt="" style="left:16cqw; top:26cqw; width:15cqw; opacity:.9">
+        <div class="ph" style="left:6cqw; right:6cqw; top:56cqw; height:6cqw; border-radius:1.6cqw"></div>
+        <div class="ph" style="left:6cqw; right:6cqw; top:64.5cqw; height:6cqw; border-radius:1.6cqw"></div>
+        <div class="cap">Écran d'accueil · capture à fournir</div>
+      </div></div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>04b · Montrer</span><span>19,0 – 23,0 s</span></div>
+      <p class="vo">« On ne raconte plus son travail. On le montre. »</p>
+      <p class="note"><b>Coupe : le téléphone, sobre, au centre.</b> « Raconter. » barré, puis « Montrer. » — le point orange, c'est l'étincelle.</p>
+      <span class="chip">cut</span>
+    </div>
+  </section>
+
+  <!-- 05 -->
+  <section class="cell" id="frame-05">
+    <div class="frame">
+      <div class="m" style="left:7.4cqw; top:22.5cqw; font-size:2.5cqw; color:var(--acier)">Profil · <span style="color:var(--papier)">Apprenti / Étudiant</span></div>
+      <div class="d" style="left:6.8cqw; top:28cqw; font-size:9.6cqw">Son métier,<br>sa formation.</div>
+      <div class="phone" style="top:50cqw"><div class="isl"></div><div class="scr">
+        <div class="ph" style="left:16.2cqw; top:10cqw; width:14cqw; height:14cqw; border-radius:50%"></div>
+        <div class="ui-l" style="left:0; right:0; top:26.5cqw; text-align:center">Photo de profil</div>
+        <div class="field" style="top:33cqw"><div class="ui-l">Métier</div><div class="ui-v" style="margin-top:.8cqw">Maçonnerie</div></div>
+        <div class="field" style="top:45.5cqw; border-color:#4b5a61"><div class="ui-l">Formation</div><div class="ui-v" style="margin-top:.8cqw">CAP Maçonnerie</div></div>
+        <div class="cap">Configuration du profil · capture à fournir</div>
+      </div></div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>05 · Le profil</span><span>23,0 – 27,0 s</span></div>
+      <p class="vo">« L'apprenti crée son profil : son métier, sa formation. »</p>
+      <p class="note"><b>Choix « Apprenti / Étudiant »</b> (léger appui, pas de curseur), puis les champs se remplissent sur « métier » et « formation ».</p>
+      <span class="chip">cut</span>
+    </div>
+  </section>
+
+  <!-- 06 -->
+  <section class="cell" id="frame-06">
+    <div class="frame">
+      <div class="m" style="left:7.4cqw; top:22.5cqw; font-size:2.5cqw; color:var(--acier)"><span style="color:var(--papier)">Chantier</span> · Pièce · Fournée</div>
+      <div class="d" style="left:6.8cqw; top:28cqw; font-size:9.6cqw">Une photo,<br>un titre.</div>
+      <div class="phone" style="top:50cqw"><div class="isl"></div><div class="scr">
+        <div class="h" style="left:3cqw; top:8.5cqw; font-size:3.1cqw">Ajouter au portfolio</div>
+        <div class="img" style="left:3cqw; right:3cqw; top:14.5cqw; height:36cqw; border-radius:1.6cqw; background-image:url(assets/matter/tiles.jpg); background-size:240%; background-position:20% 18%"></div>
+        <div class="field" style="top:53.5cqw"><div class="ui-l">Titre</div><div class="ui-v" style="margin-top:.8cqw; font-size:2.6cqw">Pose de carrelage<span style="color:var(--orange)">|</span></div></div>
+        <div class="cap">« Ajouter au portfolio » · capture à fournir</div>
+      </div></div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>06 · Une photo, un titre</span><span>27,0 – 34,6 s</span></div>
+      <p class="vo">« Puis, à chaque chantier, chaque pièce, chaque fournée, il ajoute une réalisation. Une photo, un titre. »</p>
+      <p class="note"><b>Trois coupes sèches</b> sur « chantier », « pièce », « fournée » (une photo différente à chaque fois), puis le titre se tape.</p>
+      <span class="chip">cuts sur les mots</span>
+    </div>
+  </section>
+
+  <!-- 07 -->
+  <section class="cell" id="frame-07">
+    <div class="frame">
+      <div class="d" style="left:6.8cqw; top:22cqw; font-size:8.8cqw">La galerie<br>de ce qu'il<br>sait faire.</div>
+      <div class="m" style="left:7.4cqw; top:53cqw; font-size:2.6cqw"><span class="dot">12</span> réalisations</div>
+      <div class="img" style="left:4cqw;  top:60cqw; width:29.3cqw; height:29.3cqw; background-image:url(assets/matter/tiles.jpg); background-size:300%; background-position:15% 15%"></div>
+      <div class="img" style="left:35.3cqw; top:60cqw; width:29.3cqw; height:29.3cqw; background-image:url(assets/matter/weld.jpg); background-size:330%; background-position:52% 58%"></div>
+      <div class="img" style="left:66.6cqw; top:60cqw; width:29.3cqw; height:29.3cqw; background-image:url(assets/matter/oven.jpg); background-size:260%; background-position:50% 80%"></div>
+      <div class="img" style="left:4cqw;  top:91.3cqw; width:29.3cqw; height:29.3cqw; background-image:url(assets/matter/weld.jpg); background-size:420%; background-position:30% 75%"></div>
+      <div class="img" style="left:35.3cqw; top:91.3cqw; width:29.3cqw; height:29.3cqw; background-image:url(assets/matter/tiles.jpg); background-size:260%; background-position:60% 40%"></div>
+      <div class="img" style="left:66.6cqw; top:91.3cqw; width:29.3cqw; height:29.3cqw; background-image:url(assets/matter/beam.jpg); background-size:300%; background-position:70% 30%"></div>
+      <div class="img" style="left:4cqw;  top:122.6cqw; width:29.3cqw; height:29.3cqw; background-image:url(assets/matter/oven.jpg); background-size:300%; background-position:30% 55%"></div>
+      <div class="img" style="left:35.3cqw; top:122.6cqw; width:29.3cqw; height:29.3cqw; background-image:url(assets/matter/tiles.jpg); background-size:340%; background-position:85% 70%"></div>
+      <div class="img" style="left:66.6cqw; top:122.6cqw; width:29.3cqw; height:29.3cqw; background-image:url(assets/matter/weld.jpg); background-size:300%; background-position:60% 50%"></div>
+      <div style="left:24cqw; top:56cqw; width:52cqw; height:107cqw; border-radius:7.6cqw; border:.35cqw solid rgba(243,242,239,.55)"></div>
+      <div class="ann" style="left:7.4cqw; top:156cqw">Vignettes = futures photos de réalisations</div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>07 · La galerie</span><span>34,6 – 39,2 s</span></div>
+      <p class="vo">« Son profil devient la galerie de ce qu'il sait faire. »</p>
+      <p class="note"><b>Recul net :</b> la grille de réalisations déborde du contour du téléphone et remplit le cadre — un mur de travail.</p>
+      <span class="chip">cut</span>
+    </div>
+  </section>
+
+  <!-- 08 -->
+  <section class="cell" id="frame-08">
+    <div class="frame">
+      <div class="m" style="left:7.4cqw; top:22.5cqw; font-size:2.5cqw; color:var(--acier)">Vu par · <span style="color:var(--papier)">compte entreprise</span></div>
+      <div class="d" style="left:6.8cqw; top:28cqw; font-size:12.5cqw">Le geste,</div>
+      <div class="h" style="left:7.2cqw; top:40.5cqw; font-size:5.6cqw; color:var(--acier)">avant le diplôme.</div>
+      <div class="phone" style="top:50cqw"><div class="isl"></div><div class="scr">
+        <div class="ph" style="left:3cqw; top:8.5cqw; width:7cqw; height:7cqw; border-radius:50%"></div>
+        <div class="ui-v" style="left:12cqw; top:8.6cqw; font-size:2.8cqw">Lucas M.</div>
+        <div class="ui-l" style="left:12cqw; top:12.4cqw">Apprenti · Maçonnerie</div>
+        <div class="img" style="left:3cqw; right:3cqw; top:19cqw; height:40cqw; border-radius:1.6cqw; background-image:url(assets/matter/tiles.jpg); background-size:420%; background-position:22% 20%; box-shadow:0 0 0 .3cqw var(--orange)"></div>
+        <div class="img" style="left:3cqw; top:61cqw; width:12.6cqw; height:12.6cqw; border-radius:1cqw; background-image:url(assets/matter/weld.jpg); background-size:500%; background-position:52% 58%"></div>
+        <div class="img" style="left:17.2cqw; top:61cqw; width:12.6cqw; height:12.6cqw; border-radius:1cqw; background-image:url(assets/matter/tiles.jpg); background-size:500%; background-position:70% 60%"></div>
+        <div class="img" style="left:31.4cqw; top:61cqw; width:12.6cqw; height:12.6cqw; border-radius:1cqw; background-image:url(assets/matter/oven.jpg); background-size:500%; background-position:50% 70%"></div>
+        <div class="ui-l" style="left:3cqw; top:76.5cqw; font-size:1.3cqw">Formation · CAP Maçonnerie</div>
+        <div class="cap">Profil vu par une entreprise · capture à fournir</div>
+      </div></div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>08 · Le regard</span><span>39,2 – 44,8 s</span></div>
+      <p class="vo">« Et l'artisan qui recrute voit le geste, la motivation… avant le diplôme. »</p>
+      <p class="note"><b>Zoom franc dans la réalisation</b> sur « le geste » ; le diplôme reste une petite ligne en dessous. Profil fictif.</p>
+      <span class="chip">zoom sur « geste »</span>
+    </div>
+  </section>
+
+  <div class="act"><b>Acte IV</b> · pour qui, et la signature</div>
+
+  <!-- 09a -->
+  <section class="cell" id="frame-09a">
+    <div class="frame">
+      <div class="fill" style="background-image:url(assets/matter/oven.jpg); opacity:.5"></div>
+      <div class="fill screen" style="background-image:url(assets/matter/flour.png); opacity:.85"></div>
+      <div class="h" style="left:7.4cqw; top:46cqw; font-size:7.2cqw; color:var(--acier)">Pensé pour</div>
+      <div class="d" style="left:6.6cqw; top:54.5cqw; font-size:12.6cqw">l'alternance.</div>
+      <div class="m" style="left:7.4cqw; top:76cqw; font-size:4.6cqw">Métiers de bouche</div>
+      <div class="m" style="left:7.4cqw; top:84cqw; font-size:2.1cqw; color:var(--acier); line-height:2; white-space:normal; width:78cqw">BTP · Mécanique · <span class="dot">Métiers de bouche</span> · Esthétique · Prothèse dentaire</div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>09a · Pour l'alternance</span><span>44,8 – 48,2 s</span></div>
+      <p class="vo">« Manoo est pensé pour l'alternance. »</p>
+      <p class="note"><b>Phrase ancrée, les métiers défilent dessous</b> en coupes sèches, chacun avec un éclat de sa matière (poussière, acier, farine…).</p>
+      <span class="chip">cuts rapides</span>
+    </div>
+  </section>
+
+  <!-- 09b -->
+  <section class="cell" id="frame-09b">
+    <div class="frame">
+      <div class="h" style="left:7.4cqw; top:40cqw; font-size:7.4cqw; color:var(--acier)">Pas encore<br>d'expérience<br>à raconter…</div>
+      <div class="d" style="left:6.8cqw; top:76cqw; font-size:10.8cqw">…mais déjà<br>un savoir-faire<br>à montrer<span class="dot">.</span></div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>09b · Savoir-faire</span><span>48,2 – 54,0 s</span></div>
+      <p class="vo">« Pour ceux qui n'ont pas encore d'expérience à raconter… mais déjà un savoir-faire à montrer. »</p>
+      <p class="note"><b>Plan tenu.</b> Rien ne bouge : la première phrase en acier, la seconde se pose en papier. Le seul moment immobile du film.</p>
+      <span class="chip">plan tenu</span>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="cell" id="frame-10">
+    <div class="frame">
+      <div style="left:57cqw; top:76cqw; width:24cqw; height:24cqw; background:radial-gradient(closest-side, rgba(249,115,22,.55), rgba(249,115,22,0))"></div>
+      <img src="assets/brand/manoo-marteau.png" alt="" style="left:36.5cqw; top:38cqw; width:27cqw">
+      <div class="d" style="left:0; width:100cqw; text-align:center; top:76cqw; font-size:17.5cqw; letter-spacing:-0.05em">MANOO<span class="dot">.</span></div>
+      <div class="h" style="left:0; width:100cqw; text-align:center; top:97cqw; font-size:6.3cqw">La révolution du regard.</div>
+      <div class="m" style="left:0; width:100cqw; text-align:center; top:117cqw; font-size:2.9cqw; color:var(--acier)">Inscrivez-vous sur <span style="color:var(--papier)">manoo.fr</span></div>
+      <div class="vig"></div><div class="grain"></div>
+    </div>
+    <div class="meta">
+      <div class="row"><span>10 · Signature</span><span>54,0 – 61,0 s</span></div>
+      <p class="vo">« Manoo. La révolution du regard. Inscrivez-vous sur manoo.fr. »</p>
+      <p class="note"><b>Le marteau frappe une fois</b> ; la dernière étincelle se pose et devient le point de « MANOO. ». Tenue jusqu'à la fin.</p>
+      <span class="chip phys">frappe · tenue</span>
+    </div>
+  </section>
+
+  <!-- seam map -->
+  <section class="cell" id="seams">
+    <div class="frame" style="background:#0d1215">
+      <div class="m" style="left:7cqw; top:8cqw; font-size:3cqw; color:var(--acier)">Coutures</div>
+      <div style="left:7cqw; top:16cqw; right:7cqw; font-family:'IBM Plex Mono'; font-size:2.6cqw; line-height:2.05; color:var(--papier); white-space:normal">
+        01a → 01b · cut sur « feuille »<br>
+        01b → 02 · cut (même feuille, poussée)<br>
+        02 → 03a · cut au noir<br>
+        03a → 03b → 03c → 03d · cuts sur les mots<br>
+        03d → 04a · cut, la feuille revient<br>
+        <span class="dot">04a · froissage (geste physique)</span><br>
+        04a → 04b · cut sur le téléphone<br>
+        04b → 05 → 06 · cuts d'écran sur la voix<br>
+        06 → 07 · recul net<br>
+        07 → 08 · cut, zoom sur « geste »<br>
+        08 → 09a · cut au noir<br>
+        09a → 09b · cut, puis plan tenu<br>
+        <span class="dot">09b → 10 · le marteau frappe</span>
+      </div>
+      <div class="m" style="left:7cqw; top:150cqw; font-size:2.2cqw; color:var(--acier); white-space:normal; width:86cqw; line-height:1.7">Aucun fondu enchaîné. Les seuls mouvements sont physiques.</div>
+    </div>
+    <div class="meta"><div class="row"><span>Coutures</span><span>toutes les transitions</span></div></div>
+  </section>
+
+  <!-- tokens -->
+  <section class="cell" id="tokens">
+    <div class="frame" style="background:#0d1215">
+      <div class="m" style="left:7cqw; top:8cqw; font-size:3cqw; color:var(--acier)">Jetons</div>
+      <div style="left:7cqw; top:16cqw; display:flex; flex-direction:column; gap:3cqw">
+        <div class="tok"><span class="sw" style="background:#101619"></span>Encre #101619</div>
+        <div class="tok"><span class="sw" style="background:#F3F2EF"></span>Papier #F3F2EF</div>
+        <div class="tok"><span class="sw" style="background:#F97316"></span>Orange #F97316</div>
+        <div class="tok"><span class="sw" style="background:#78868F"></span>Acier #78868F</div>
+      </div>
+      <div class="d" style="left:7cqw; top:64cqw; font-size:11cqw">Archivo 800</div>
+      <div class="h" style="left:7cqw; top:76cqw; font-size:6cqw; color:var(--acier)">Archivo 700</div>
+      <div class="m" style="left:7cqw; top:85cqw; font-size:3cqw">IBM Plex Mono</div>
+      <div style="left:7cqw; top:96cqw; right:7cqw; font-family:'IBM Plex Mono'; font-size:2.3cqw; line-height:1.9; color:var(--acier); white-space:normal">
+        <span style="color:var(--papier)">Interdits</span><br>
+        3D pastel ou lisse · dégradés « tech » · curseur flèche · notifications, messagerie, carte, matching · concurrents cités · fondus lents
+      </div>
+    </div>
+    <div class="meta"><div class="row"><span>Jetons</span><span>frame.md</span></div></div>
+  </section>
+
+</main>
+</body>
+</html>
