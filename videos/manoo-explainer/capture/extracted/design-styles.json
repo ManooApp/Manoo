@@ -1,0 +1,177 @@
+{
+  "typography": [
+    {
+      "role": "heading",
+      "fontFamily": "ui-sans-serif",
+      "fontSize": "24px",
+      "fontWeight": "600",
+      "lineHeight": "32px",
+      "letterSpacing": "-0.6px",
+      "color": "oklch(0.148 0.01 50)",
+      "sampleText": "Your feed"
+    },
+    {
+      "role": "heading-2",
+      "fontFamily": "ui-sans-serif",
+      "fontSize": "18px",
+      "fontWeight": "600",
+      "lineHeight": "28px",
+      "letterSpacing": "normal",
+      "color": "oklch(0.148 0.01 50)",
+      "sampleText": "David Callo"
+    },
+    {
+      "role": "body",
+      "fontFamily": "ui-sans-serif",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "28px",
+      "letterSpacing": "normal",
+      "color": "oklch(0.355 0.018 60)",
+      "sampleText": "👋 Bonjour le réseau ! Moi c'est David, ébéniste depuis 7 an"
+    },
+    {
+      "role": "link",
+      "fontFamily": "ui-sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "lineHeight": "20px",
+      "letterSpacing": "normal",
+      "color": "oklch(0.279 0.015 58)",
+      "sampleText": "Create my account"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24,
+      32
+    ],
+    "baseUnit": 4
+  },
+  "radius": [
+    "16px",
+    "3.35544e+07px"
+  ],
+  "shadows": [
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
+      "count": 23
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Create a post",
+      "background": "oklch(0.667 0.164 46)",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#FFFFFF",
+      "padding": "12px 20px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid rgb(255, 255, 255)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "500",
+      "height": "48px"
+    },
+    {
+      "label": "0",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "oklch(0.446 0.021 62)",
+      "padding": "8px 12px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid oklch(0.446 0.021 62)",
+      "boxShadow": "none",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": "36px"
+    }
+  ],
+  "cards": [
+    {
+      "label": "card",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "oklch(0.148 0.01 50)",
+      "padding": "24px",
+      "borderRadius": "32px",
+      "border": "1px solid oklch(0.93 0.009 74)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "651px"
+    }
+  ],
+  "nav": {
+    "label": "navigation",
+    "background": "transparent",
+    "backgroundImage": "linear-gradient(oklch(0.667 0.164 46) 0%, oklch(0.749 0.166 52) 100%)",
+    "backdropFilter": "",
+    "color": "oklch(0.214 0.013 56)",
+    "padding": "0px",
+    "borderRadius": "0px",
+    "border": "0px solid oklch(0.214 0.013 56)",
+    "boxShadow": "none",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "height": "56px"
+  },
+  "chips": [
+    {
+      "label": "Create my account",
+      "background": "#FFFFFF",
+      "color": "oklch(0.279 0.015 58)",
+      "padding": "0px 16px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid oklch(0.279 0.015 58)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "height": "40px"
+    },
+    {
+      "label": "Sign in",
+      "background": "oklch(0.148 0.01 50)",
+      "color": "#FFFFFF",
+      "padding": "0px 16px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid rgb(255, 255, 255)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
+      "fontSize": "14px",
+      "fontWeight": "600",
+      "height": "40px"
+    },
+    {
+      "label": "Job",
+      "background": "oklch(0.979 0.018 68)",
+      "color": "oklch(0.494 0.125 39)",
+      "padding": "4px 12px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid oklch(0.494 0.125 39)",
+      "boxShadow": "none",
+      "fontSize": "12px",
+      "fontWeight": "500",
+      "height": "24px"
+    }
+  ],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [
+    {
+      "value": "radial-gradient(circle at 50% 0%, oklab(0.954 0.0162695 0.0365418 / 0.6) 0px, rgba(0, 0, 0, 0) 448px), linear-gradient(oklch(0.985 0.004 75), oklab(0.989198 0.000758158 0.00278749))",
+      "area": 17855880
+    },
+    {
+      "value": "linear-gradient(oklch(0.667 0.164 46) 0%, oklch(0.749 0.166 52) 100%)",
+      "area": 107520
+    }
+  ],
+  "glass": []
+}

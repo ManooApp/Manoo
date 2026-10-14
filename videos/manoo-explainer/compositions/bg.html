@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <!-- Stage: ink radial ground, slow orange aurora light, faint grid. Under every frame. -->
+      <style>
+        #b-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        #b-ground {
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(ellipse 80% 75% at 50% 46%, #1b262d 0%, #141c21 52%, #0b1013 100%);
+        }
+        .b-blob {
+          position: absolute;
+          border-radius: 50%;
+          pointer-events: none;
+        }
+        #b-a1 { left: -300px; top: 260px; width: 1500px; height: 1000px; background: radial-gradient(closest-side, rgba(249, 115, 22, 0.28), rgba(249, 115, 22, 0.10) 45%, rgba(249, 115, 22, 0) 100%); }
+        #b-a2 { left: 1000px; top: -380px; width: 1300px; height: 900px; background: radial-gradient(closest-side, rgba(255, 150, 70, 0.20), rgba(249, 115, 22, 0.07) 50%, rgba(249, 115, 22, 0) 100%); }
+        #b-a3 { left: 560px; top: 640px; width: 1100px; height: 700px; background: radial-gradient(closest-side, rgba(217, 95, 8, 0.20), rgba(217, 95, 8, 0) 100%); }
+        #b-beam {
+          position: absolute;
+          left: -400px;
+          top: 470px;
+          width: 2700px;
+          height: 140px;
+          background: radial-gradient(closest-side, rgba(255, 190, 130, 0.55), rgba(249, 115, 22, 0.18) 50%, rgba(249, 115, 22, 0) 100%);
+          opacity: 0;
+        }
+        #b-swell { position: absolute; left: 260px; top: -110px; width: 1400px; height: 1300px; background: radial-gradient(closest-side, rgba(249, 115, 22, 0.26), rgba(249, 115, 22, 0.08) 55%, rgba(249, 115, 22, 0) 100%); opacity: 0; }
+        #b-grid {
+          position: absolute;
+          inset: 0;
+          background-image: linear-gradient(rgba(243, 242, 239, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(243, 242, 239, 0.045) 1px, transparent 1px);
+          background-size: 80px 80px;
+          background-position: -20px -20px;
+          -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 50%, #000 0%, transparent 100%);
+          mask-image: radial-gradient(ellipse 70% 65% at 50% 50%, #000 0%, transparent 100%);
+          opacity: 0;
+        }
+      </style>
+      <div id="b-root" data-composition-id="bg" data-width="1920" data-height="1080">
+        <div id="b-ground"></div>
+        <div id="b-grid"></div>
+        <div id="b-a1" class="b-blob"></div>
+        <div id="b-a2" class="b-blob"></div>
+        <div id="b-a3" class="b-blob"></div>
+        <div id="b-swell"></div>
+        <div id="b-beam"></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          // opening: a light beam opens the frame
+          tl.fromTo("#b-beam", { opacity: 0, scaleX: 0.2 }, { opacity: 1, scaleX: 1, duration: 0.8, ease: "power3.out", immediateRender: true }, 0.05);
+          tl.to("#b-beam", { opacity: 0, scaleY: 6, duration: 1.4, ease: "power2.inOut" }, 0.9);
+          tl.fromTo([".b-blob"], { opacity: 0 }, { opacity: 1, duration: 1.6, ease: "power2.out", stagger: 0.25, immediateRender: true }, 0.3);
+          // slow aurora drift over the whole film (deterministic, no repeat)
+          tl.to("#b-a1", { x: 520, y: -160, scale: 1.2, duration: 55, ease: "sine.inOut" }, 0);
+          tl.to("#b-a2", { x: -620, y: 240, scale: 0.9, duration: 55, ease: "sine.inOut" }, 0);
+          tl.to("#b-a3", { x: 380, y: -300, scale: 1.25, duration: 55, ease: "sine.inOut" }, 0);
+          // light swells on the brand moments (logo F2, network F4, signature F7)
+          [[7.8, 2.2], [30.3, 2.4], [47.2, 3.0]].forEach(([at, d]) => {
+            tl.fromTo("#b-swell", { opacity: 0 }, { opacity: 1, duration: d * 0.4, ease: "power2.out", immediateRender: false }, at);
+            tl.to("#b-swell", { opacity: 0, duration: d * 0.6, ease: "power2.inOut" }, at + d * 0.4);
+          });
+          // grid only under the UI tours (entreprise) and the signature
+          tl.to("#b-grid", { opacity: 1, duration: 0.8 }, 32.7);
+          tl.to("#b-grid", { opacity: 0, duration: 0.6 }, 42.6);
+          tl.to("#b-grid", { opacity: 0.8, duration: 1.2 }, 47.3);
+          window.__timelines["bg"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

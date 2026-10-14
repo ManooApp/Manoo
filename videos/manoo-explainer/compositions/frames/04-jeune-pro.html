@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <style>
+        @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/Inter-Regular.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/Inter-Medium.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/Inter-SemiBold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter Display"; font-weight: 800; src: url("assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2"); }
+
+        #j-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3f2ef;
+        }
+        #j-foot {
+          position: absolute;
+          left: 210px;
+          top: 118px;
+          width: 1500px;
+          height: 844px;
+          border-radius: 32px;
+          overflow: hidden;
+          background: #141c21;
+          opacity: 0;
+          box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.7), 0 0 80px rgba(249, 115, 22, 0.35), 0 50px 120px rgba(0, 0, 0, 0.6);
+        }
+        #j-vid { position: absolute; left: 0; top: 0; width: 1500px; height: 844px; object-fit: cover; }
+        #j-foot .chip { position: absolute; left: 28px; bottom: 28px; height: 40px; padding: 0 16px; gap: 9px; font-size: 18px; background: rgba(16, 22, 25, 0.84); color: #f3f2ef; }
+        #j-foot .chip .ic { width: 19px; height: 19px; color: #f97316; }
+        #j-rec { position: absolute; right: 28px; top: 26px; display: flex; align-items: center; gap: 9px; height: 36px; padding: 0 14px; border-radius: 999px; background: rgba(16, 22, 25, 0.7); font: 600 16px/1 "Inter", sans-serif; letter-spacing: 0.12em; color: #f3f2ef; }
+        #j-rec i { display: block; width: 10px; height: 10px; border-radius: 50%; background: #f97316; box-shadow: 0 0 10px rgba(249, 115, 22, 0.9); }
+        #j-flash { position: absolute; inset: 0; background: #fffaf2; opacity: 0; }
+        /* how it works */
+        #j-steps { position: absolute; left: 150px; top: 300px; }
+        .j-step { display: flex; align-items: center; gap: 28px; height: 150px; opacity: 0; }
+        .j-step .bub { position: relative; width: 104px; height: 104px; flex: none; }
+        .j-step b { display: block; font: 800 54px/1 "Inter Display", sans-serif; letter-spacing: -0.035em; color: #f3f2ef; }
+        .j-step span { display: block; margin-top: 10px; font: 500 26px/1 "Inter", sans-serif; color: #a8b4bb; letter-spacing: -0.01em; }
+        /* network */
+        #j-net { position: absolute; left: 960px; top: 540px; width: 0; height: 0; }
+        #j-svg { position: absolute; left: -960px; top: -540px; width: 1920px; height: 1080px; overflow: visible; }
+        .j-av { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+        .j-av .bub { width: 92px; height: 92px; margin: -46px 0 0 -46px; }
+        .j-av .bub .ic { width: 42%; height: 42%; }
+        .j-av span { position: absolute; left: 0; top: 56px; transform: translateX(-50%); white-space: nowrap; font: 600 18px/1 "Inter", sans-serif; color: #a8b4bb; }
+        .j-react { position: absolute; left: 0; top: 0; opacity: 0; }
+        .j-react .toast { padding: 11px 15px; border-radius: 14px; border-left-width: 4px; border-left-color: #f97316; gap: 10px; white-space: nowrap; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4); }
+        .j-react .toast .ic { width: 20px; height: 20px; color: #e11d48; }
+        .j-react .toast-t { font-size: 15px; }
+      </style>
+
+      <div id="j-root" data-composition-id="jeunepro" data-width="1920" data-height="1080">
+        <div class="mui" style="position:absolute;inset:0;color:#f3f2ef">
+        <div id="j-net">
+          <svg id="j-svg" viewBox="-960 -540 1920 1080">
+            <circle class="j-ring" r="400" fill="none" stroke="rgba(243,242,239,0.13)" stroke-width="1.5"/>
+            <circle class="j-ring" r="540" fill="none" stroke="rgba(243,242,239,0.09)" stroke-width="1.5" stroke-dasharray="4 10"/>
+            <circle class="j-ring" r="680" fill="none" stroke="rgba(243,242,239,0.06)" stroke-width="1.5"/>
+            <g id="j-links" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.85"></g>
+          </svg>
+        </div>
+        <div id="j-reacts"></div>
+
+        <div id="j-steps">
+          <div class="j-step" id="j-st0"><div class="bub"><i data-icon="camera"></i></div><div><b>La photo</b><span>prise sur le chantier</span></div></div>
+          <div class="j-step" id="j-st1"><div class="bub"><i data-icon="image-plus"></i></div><div><b>Le portfolio</b><span>« Ajouter au portfolio »</span></div></div>
+          <div class="j-step" id="j-st2"><div class="bub"><i data-icon="share-2"></i></div><div><b>Le réseau</b><span>« Créer une publication »</span></div></div>
+        </div>
+
+        <div id="j-foot">
+          <video id="j-vid" src="assets/video/atelier.mp4" muted playsinline data-start="2.13" data-duration="3.4"></video>
+          <span class="chip"><i data-icon="map-pin"></i>Jules à l’atelier · Rennes</span>
+          <div id="j-rec"><i></i>CHANTIER</div>
+        </div>
+        <div id="j-flash"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 22.4;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("j-root");
+          window.ManooIcons.hydrate(root);
+          const tl = gsap.timeline({ paused: true });
+
+          // ---- the 3D atelier shot in a glowing card
+          tl.fromTo("#j-foot", { opacity: 0, scale: 0.72, y: 40, filter: "blur(14px)" }, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out", immediateRender: true }, L(24.5));
+          tl.to("#j-foot", { scale: 1.035, duration: 2.4, ease: "sine.inOut" }, L(25.0));
+          // flash on « photo »
+          tl.fromTo("#j-flash", { opacity: 0 }, { opacity: 0.95, duration: 0.06, ease: "power2.out", immediateRender: true }, L(C.photo - 0.03));
+          tl.to("#j-flash", { opacity: 0, duration: 0.45, ease: "power2.in" }, L(C.photo + 0.05));
+          tl.to("#j-foot", { opacity: 0, scale: 1.12, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, L(C.photo + 0.02));
+
+          // ---- how it works: 1 photo · 2 portfolio · 3 réseau (left of the phone)
+          const steps = ["#j-st0", "#j-st1", "#j-st2"];
+          const stepAt = [27.18, C.ajoute - 0.05, 29.05];
+          steps.forEach((id, i) => {
+            tl.fromTo(id, { opacity: 0, x: -40, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out", immediateRender: true }, L(stepAt[i]));
+            tl.fromTo(id + " .bub", { scale: 0.4 }, { scale: 1, duration: 0.45, ease: "back.out(2.2)", immediateRender: true }, L(stepAt[i]));
+            if (i < 2) tl.to(id, { opacity: 0.42, duration: 0.3 }, L(stepAt[i + 1]));
+          });
+          tl.to("#j-steps", { opacity: 0, x: -60, filter: "blur(10px)", duration: 0.35, ease: "power2.in" }, L(C.tout - 0.25));
+
+          // ---- the network lights up around the post (post card lives in the device layer)
+          const net = document.getElementById("j-net");
+          const links = document.getElementById("j-links");
+          const reacts = document.getElementById("j-reacts");
+          const AV = [
+            { a: -28, r: 520, icon: "building-2", col: "#45b7d1", name: "Atelier Morvan", key: true },
+            { a: 8, r: 560, icon: "briefcase", col: "#ff6b35", name: "Lucas · Maçon" },
+            { a: 42, r: 500, icon: "graduation-cap", col: "#96ceb4", name: "CFA Métallerie" },
+            { a: 90, r: 430, icon: "notebook-text", col: "#4ecdc4", name: "" },
+            { a: 140, r: 520, icon: "briefcase", col: "#ff6b35", name: "Clara · Ébéniste" },
+            { a: 178, r: 560, icon: "building-2", col: "#45b7d1", name: "Métallerie Ouest" },
+            { a: -146, r: 510, icon: "notebook-text", col: "#4ecdc4", name: "Inès · Apprentie" },
+            { a: -92, r: 430, icon: "graduation-cap", col: "#96ceb4", name: "" },
+          ];
+          const avEls = [];
+          AV.forEach((v, i) => {
+            const rad = (v.a * Math.PI) / 180;
+            const x = Math.cos(rad) * v.r, y = Math.sin(rad) * v.r * 0.78;
+            const el = document.createElement("div");
+            el.className = "j-av";
+            el.style.transform = "translate(" + x.toFixed(1) + "px," + y.toFixed(1) + "px)";
+            el.innerHTML = '<div class="bub" style="color:' + v.col + '">' + window.ManooIcons.svg(v.icon) + "</div>" + (v.name ? "<span>" + v.name + "</span>" : "");
+            net.appendChild(el);
+            avEls.push(el);
+            const ln = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            const k0 = 0.5;
+            ln.setAttribute("x1", (x * k0).toFixed(1));
+            ln.setAttribute("y1", (y * k0).toFixed(1));
+            ln.setAttribute("x2", (x * 0.86).toFixed(1));
+            ln.setAttribute("y2", (y * 0.86).toFixed(1));
+            ln.setAttribute("stroke-dasharray", "400");
+            ln.setAttribute("stroke-dashoffset", "400");
+            links.appendChild(ln);
+            v.x = x;
+            v.y = y;
+            v.el = el;
+            v.ln = ln;
+          });
+          const R = [
+            { x: 960 + 355, y: 540 - 330, icon: "heart", t: "Atelier Morvan a aimé votre publication" },
+            { x: 960 + 330, y: 540 + 300, icon: "message-circle", t: "Lucas a commenté : « Superbe finition ! »" },
+            { x: 960 - 840, y: 540 + 210, icon: "share-2", t: "CFA Métallerie a partagé" },
+          ];
+          const rEls = R.map((r) => {
+            const el = document.createElement("div");
+            el.className = "j-react";
+            el.innerHTML = '<div class="toast">' + window.ManooIcons.svg(r.icon) + '<div class="toast-t">' + r.t + "</div></div>";
+            el.style.left = r.x + "px";
+            el.style.top = r.y + "px";
+            reacts.appendChild(el);
+            return el;
+          });
+          tl.fromTo(".j-ring", { opacity: 0, scale: 0.6, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out", stagger: 0.08, immediateRender: true }, L(C.tout - 0.05));
+          AV.forEach((v, i) => {
+            const at = L(C.tout + 0.12 + i * 0.07);
+            tl.fromTo(v.el, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)", immediateRender: true }, at);
+            tl.to(v.ln, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out" }, L(C.reseau2 - 0.1 + i * 0.05));
+            tl.to(v.el, { y: "+=" + (i % 2 ? 8 : -8), duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, at + 0.45);
+          });
+          tl.fromTo("#j-links", { opacity: 0.85 }, { opacity: 0.35, duration: 0.8, immediateRender: false }, L(C.reseau2 + 0.6));
+          rEls.forEach((el, i) => {
+            tl.fromTo(el, { opacity: 0, y: 20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)", immediateRender: true }, L(C.reseau2 + 0.15 + i * 0.32));
+          });
+          // focus on the company, then whip to its side
+          const key = AV[0];
+          tl.to(key.el.firstChild, { scale: 1.45, boxShadow: "inset 0 -10px 22px rgba(160,90,40,0.28), 0 0 0 4px rgba(249,115,22,0.9), 0 0 60px rgba(249,115,22,0.8)", duration: 0.35, ease: "back.out(2)" }, L(32.05));
+          tl.to("#j-net, #j-reacts", { x: -520, filter: "blur(18px)", opacity: 0, duration: 0.42, ease: "power3.in" }, L(32.48));
+          window.__timelines["jeunepro"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

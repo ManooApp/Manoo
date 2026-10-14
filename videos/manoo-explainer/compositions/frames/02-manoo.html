@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <style>
+        @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/Inter-Medium.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/Inter-SemiBold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter Display"; font-weight: 700; src: url("assets/fonts/InterDisplay-Bold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter Display"; font-weight: 800; src: url("assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2"); }
+
+        #m-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3f2ef;
+        }
+        /* the orb (logo lens) */
+        #m-orb {
+          position: absolute;
+          left: 660px;
+          top: 240px;
+          width: 600px;
+          height: 600px;
+          border-radius: 50%;
+          opacity: 0;
+          background:
+            radial-gradient(circle at 50% 50%, rgba(249, 115, 22, 0) 58%, rgba(249, 115, 22, 0.16) 70%, rgba(249, 115, 22, 0) 71%),
+            radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 32%),
+            radial-gradient(circle at 50% 120%, rgba(249, 115, 22, 0.55) 0%, rgba(249, 115, 22, 0) 58%),
+            radial-gradient(circle at 50% 50%, #1d2a31 0%, #141d22 62%, #0f171b 100%);
+          box-shadow: inset 0 0 0 2px rgba(255, 178, 122, 0.55), inset 0 0 60px rgba(249, 115, 22, 0.25), 0 0 90px rgba(249, 115, 22, 0.35), 0 40px 120px rgba(0, 0, 0, 0.6);
+        }
+        #m-lock {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 484px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 26px;
+        }
+        #m-ico {
+          width: 112px;
+          height: 112px;
+          border-radius: 30px;
+          background: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+          opacity: 0;
+        }
+        #m-ico img { width: 76px; height: 67px; object-fit: contain; }
+        #m-word { display: flex; align-items: flex-end; font: 800 104px/0.86 "Inter Display", sans-serif; letter-spacing: -0.05em; }
+        #m-word .l { display: inline-block; opacity: 0; }
+        #m-dot { display: inline-block; width: 24px; height: 24px; margin: 0 0 6px 8px; border-radius: 50%; background: #f97316; box-shadow: 0 0 24px rgba(249, 115, 22, 0.9); opacity: 0; }
+        /* orbit of trades around the phone */
+        #m-orbit { position: absolute; left: 1210px; top: 558px; width: 0; height: 0; }
+        #m-rings { position: absolute; left: -760px; top: -760px; width: 1520px; height: 1520px; overflow: visible; }
+        .m-sat { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+        .m-sat .bub { left: 0; top: 0; }
+        /* headline */
+        .m-k { position: absolute; left: 150px; top: 300px; display: flex; align-items: center; gap: 12px; font: 600 22px/1 "Inter", sans-serif; letter-spacing: 0.16em; color: #f97316; opacity: 0; }
+        .m-k::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: #f97316; box-shadow: 0 0 12px rgba(249, 115, 22, 0.9); }
+        .m-hl { position: absolute; left: 150px; font: 800 82px/1 "Inter Display", sans-serif; letter-spacing: -0.04em; white-space: nowrap; }
+        .m-hl .w { display: inline-block; }
+        .m-hl .o { color: #f97316; }
+        .m-sub { position: absolute; left: 152px; top: 586px; font: 500 38px/1.2 "Inter", sans-serif; letter-spacing: -0.02em; color: #a8b4bb; white-space: nowrap; }
+        .m-sub .w { display: inline-block; }
+      </style>
+
+      <div id="m-root" data-composition-id="manoo" data-width="1920" data-height="1080">
+        <div id="m-orbit">
+          <svg id="m-rings" viewBox="-760 -760 1520 1520">
+            <circle id="m-r0" r="330" fill="none" stroke="rgba(243,242,239,0.16)" stroke-width="1.5"/>
+            <circle id="m-r1" r="470" fill="none" stroke="rgba(243,242,239,0.11)" stroke-width="1.5" stroke-dasharray="4 10"/>
+            <circle id="m-r2" r="610" fill="none" stroke="rgba(243,242,239,0.08)" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div id="m-orb"></div>
+        <div id="m-lock">
+          <div id="m-ico"><img src="assets/brand/manoo-marteau.png" alt=""></div>
+          <div id="m-word"><span class="l">M</span><span class="l">A</span><span class="l">N</span><span class="l">O</span><span class="l">O</span><span id="m-dot"></span></div>
+        </div>
+
+        <div id="m-k1" class="m-k">MANOO, C’EST…</div>
+        <div id="m-h1a" class="m-hl" style="top:368px"><span class="w">Le</span> <span class="w o">réseau</span> <span class="w o">social</span></div>
+        <div id="m-h1b" class="m-hl" style="top:462px"><span class="w">des</span> <span class="w">métiers</span> <span class="w">manuels</span></div>
+        <div id="m-h2a" class="m-hl" style="top:368px"><span class="w">Un</span> <span class="w o">portfolio</span></div>
+        <div id="m-h2b" class="m-hl" style="top:462px"><span class="w o">numérique</span></div>
+        <div id="m-h2c" class="m-sub"><span class="w">pour</span> <span class="w">montrer</span> <span class="w">son</span> <span class="w">savoir-faire.</span></div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 7.6;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("m-root");
+          window.ManooIcons.hydrate(root);
+          const tl = gsap.timeline({ paused: true });
+          const pop = (sel, at, stagger = 0.06) =>
+            tl.fromTo(sel, { opacity: 0, y: 30, scale: 0.95, filter: "blur(14px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.44, ease: "power3.out", stagger, immediateRender: true }, L(at));
+          const out = (sel, at) => tl.to(sel, { opacity: 0, y: -26, filter: "blur(12px)", duration: 0.28, ease: "power2.in", stagger: 0.02 }, L(at));
+
+          // ---- the orb + lockup
+          tl.fromTo("#m-orb", { opacity: 0, scale: 0.55 }, { opacity: 1, scale: 1, duration: 0.55, ease: "power3.out", immediateRender: true }, L(7.72));
+          tl.fromTo("#m-ico", { opacity: 0, scale: 0.2, rotation: -24 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2.4)", immediateRender: true }, L(C.manoo1 - 0.05));
+          tl.fromTo("#m-word .l", { opacity: 0, y: 46, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.38, ease: "back.out(1.7)", stagger: 0.05, immediateRender: true }, L(C.manoo1 + 0.12));
+          tl.fromTo("#m-dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(3)", immediateRender: true }, L(C.manoo1 + 0.45));
+          tl.to("#m-orb", { scale: 1.04, duration: 0.6, ease: "sine.inOut" }, L(C.manoo1 + 0.3));
+          // the lens opens into a portal: the phone emerges (device layer)
+          tl.to("#m-orb", { scale: 4.2, opacity: 0, duration: 0.7, ease: "power3.in" }, L(C.reseau - 0.3));
+          tl.to(["#m-ico", "#m-word"], { scale: 1.6, opacity: 0, filter: "blur(10px)", duration: 0.4, ease: "power2.in" }, L(C.reseau - 0.3));
+
+          // ---- orbit of trades
+          const icons = ["hammer", "brick-wall", "wrench", "paint-roller", "chef-hat", "scissors", "leaf", "drill", "flame", "ruler", "axe", "hard-hat"];
+          const orbit = document.getElementById("m-orbit");
+          const sats = [];
+          icons.forEach((name, i) => {
+            const ring = [330, 470, 610][i % 3];
+            // keep the left side (headline) clear: angles between -105° and +105° around the right
+            const a0 = -100 + (i * 205) / (icons.length - 1);
+            const size = [88, 74, 64][i % 3];
+            const sat = document.createElement("div");
+            sat.className = "m-sat";
+            sat.innerHTML = '<div class="bub' + (i % 4 === 0 ? " or" : "") + '" style="width:' + size + "px;height:" + size + "px;margin:-" + size / 2 + "px 0 0 -" + size / 2 + 'px">' + window.ManooIcons.svg(name) + "</div>";
+            orbit.appendChild(sat);
+            sats.push({ el: sat, ring, a0, speed: [7, -5, 4][i % 3] });
+          });
+          const place = (t) => {
+            for (const s of sats) {
+              const a = ((s.a0 + s.speed * t) * Math.PI) / 180;
+              s.el.style.transform = "translate(" + (Math.cos(a) * s.ring).toFixed(1) + "px," + (Math.sin(a) * s.ring * 0.92).toFixed(1) + "px)";
+            }
+          };
+          tl.fromTo("#m-rings circle", { opacity: 0, scale: 0.7, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out", stagger: 0.08, immediateRender: true }, L(C.reseau + 0.1));
+          sats.forEach((s, i) => {
+            tl.fromTo(s.el.firstChild, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)", immediateRender: true }, L(C.social + i * 0.07));
+          });
+          tl.to([...sats.map((s) => s.el.firstChild), "#m-rings"], { opacity: 0, duration: 0.4, ease: "power2.in" }, L(C.montrer - 0.25));
+
+          // ---- headlines
+          tl.fromTo("#m-k1", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out", immediateRender: true }, L(C.reseau - 0.1));
+          pop("#m-h1a .w", C.reseau - 0.12, 0.08);
+          pop("#m-h1b .w", C.metiers - 0.12, 0.08);
+          out("#m-h1a .w, #m-h1b .w", C.portfolio1 - 0.32);
+          pop("#m-h2a .w", C.portfolio1 - 0.1, 0.1);
+          pop("#m-h2b .w", C.numerique - 0.1);
+          pop("#m-h2c .w", C.montrer - 0.32, 0.07);
+          tl.fromTo("#m-h2b .o", { textShadow: "0 0 0px rgba(249,115,22,0)" }, { textShadow: "0 0 30px rgba(249,115,22,0.8)", duration: 0.25, yoyo: true, repeat: 1, immediateRender: false }, L(C.savoirfaire));
+          out("#m-k1, #m-h2a .w, #m-h2b .w, #m-h2c .w", 14.4);
+
+          tl.eventCallback("onUpdate", () => place(tl.time()));
+          place(0);
+          window.__timelines["manoo"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

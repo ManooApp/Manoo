@@ -1,0 +1,62 @@
+{
+  "schema": "hyperframes.capture.icons.v1",
+  "headline": {
+    "file": "assets/favicon.png",
+    "source": "assets/icon-apple-touch-icon-unsized.png",
+    "rank": 0,
+    "shape": "badge",
+    "reason": "no bare-mark candidate among 5 icon(s); used the best-ranked badge"
+  },
+  "icons": [
+    {
+      "file": "assets/icon-apple-touch-icon-unsized.png",
+      "url": "https://manoo.fr/icons/icon-180x180.png",
+      "rel": "apple-touch-icon",
+      "sizes": null,
+      "type": null,
+      "rank": 0,
+      "shape": "badge",
+      "shapeReason": "4 of 4 edge midpoints are opaque, so the drawing carries a backdrop"
+    },
+    {
+      "file": "assets/icon-apple-touch-icon-180x180.png",
+      "url": "https://manoo.fr/icons/icon-180x180.png",
+      "rel": "apple-touch-icon",
+      "sizes": "180x180",
+      "type": null,
+      "rank": 1,
+      "shape": "badge",
+      "shapeReason": "4 of 4 edge midpoints are opaque, so the drawing carries a backdrop"
+    },
+    {
+      "file": "assets/icon-apple-touch-icon-152x152.png",
+      "url": "https://manoo.fr/icons/icon-152x152.png",
+      "rel": "apple-touch-icon",
+      "sizes": "152x152",
+      "type": null,
+      "rank": 2,
+      "shape": "badge",
+      "shapeReason": "4 of 4 edge midpoints are opaque, so the drawing carries a backdrop"
+    },
+    {
+      "file": "assets/icon-apple-touch-icon-144x144.png",
+      "url": "https://manoo.fr/icons/icon-144x144.png",
+      "rel": "apple-touch-icon",
+      "sizes": "144x144",
+      "type": null,
+      "rank": 3,
+      "shape": "badge",
+      "shapeReason": "4 of 4 edge midpoints are opaque, so the drawing carries a backdrop"
+    },
+    {
+      "file": "assets/icon-icon-unsized.ico",
+      "url": "https://manoo.fr/favicon.ico",
+      "rel": "icon",
+      "sizes": null,
+      "type": "image/x-icon",
+      "rank": 4,
+      "shape": "unknown",
+      "shapeReason": "image format could not be decoded for inspection"
+    }
+  ]
+}

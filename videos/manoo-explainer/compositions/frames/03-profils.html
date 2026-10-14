@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/Inter-Medium.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/Inter-SemiBold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter Display"; font-weight: 800; src: url("assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2"); }
+
+        #p-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3f2ef;
+        }
+        #p-halo {
+          position: absolute;
+          left: 460px;
+          top: 40px;
+          width: 1000px;
+          height: 1000px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(249, 115, 22, 0.22) 0%, rgba(249, 115, 22, 0.08) 38%, rgba(249, 115, 22, 0) 66%);
+          opacity: 0;
+        }
+        #p-ring {
+          position: absolute;
+          left: 360px;
+          top: -60px;
+          width: 1200px;
+          height: 1200px;
+          overflow: visible;
+          opacity: 0;
+        }
+        .p-k { position: absolute; left: 150px; top: 120px; display: flex; align-items: center; gap: 12px; font: 600 22px/1 "Inter", sans-serif; letter-spacing: 0.16em; color: #f97316; opacity: 0; }
+        .p-k::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: #f97316; box-shadow: 0 0 12px rgba(249, 115, 22, 0.9); }
+        .p-hl { position: absolute; left: 150px; font: 800 74px/1 "Inter Display", sans-serif; letter-spacing: -0.04em; white-space: nowrap; }
+        .p-hl .w { display: inline-block; }
+        .p-hl .o { color: #f97316; }
+      </style>
+
+      <div id="p-root" data-composition-id="profils" data-width="1920" data-height="1080">
+        <div id="p-halo"></div>
+        <svg id="p-ring" viewBox="0 0 1200 1200"><circle cx="600" cy="600" r="560" fill="none" stroke="rgba(243,242,239,0.10)" stroke-width="1.5" stroke-dasharray="3 12"/><circle cx="600" cy="600" r="430" fill="none" stroke="rgba(249,115,22,0.18)" stroke-width="1.5"/></svg>
+        <div id="p-k" class="p-k">POUR QUI ?</div>
+        <div id="p-h1" class="p-hl" style="top:380px"><span class="w">Chacun</span> <span class="w">crée</span></div>
+        <div id="p-h2" class="p-hl" style="top:470px"><span class="w">son</span> <span class="w">profil</span></div>
+        <div id="p-h3" class="p-hl" style="top:560px"><span class="w o">en</span> <span class="w o">3</span> <span class="w o">étapes.</span></div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 14.8;
+          const L = (t) => +(t - T0).toFixed(3);
+          const tl = gsap.timeline({ paused: true });
+          const pop = (sel, at, stagger = 0.07) =>
+            tl.fromTo(sel, { opacity: 0, y: 30, scale: 0.95, filter: "blur(14px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.42, ease: "power3.out", stagger, immediateRender: true }, L(at));
+          tl.fromTo("#p-halo", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out", immediateRender: true }, L(14.85));
+          tl.fromTo("#p-ring", { opacity: 0, rotation: -20, scale: 0.9 }, { opacity: 1, rotation: 0, scale: 1, duration: 1.0, ease: "power3.out", immediateRender: true }, L(14.9));
+          tl.to("#p-ring", { rotation: 24, duration: 7, ease: "none" }, L(15.9));
+          tl.fromTo("#p-k", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out", immediateRender: true }, L(C.artisans - 0.3));
+          // after the four profiles: « chacun crée son profil » (phone shows the 3 steps)
+          tl.to("#p-k", { opacity: 0, duration: 0.3 }, L(C.chacun - 0.4));
+          tl.to("#p-ring", { opacity: 0.35, duration: 0.4 }, L(C.chacun - 0.3));
+          pop("#p-h1 .w", C.chacun - 0.12);
+          pop("#p-h2 .w", C.profil - 0.32);
+          pop("#p-h3 .w", C.profil + 0.15, 0.09);
+          tl.to("#p-h1 .w, #p-h2 .w, #p-h3 .w", { opacity: 0, y: -24, filter: "blur(12px)", duration: 0.3, ease: "power2.in", stagger: 0.02 }, L(22.1));
+          tl.to(["#p-halo", "#p-ring"], { opacity: 0, duration: 0.4 }, L(22.2));
+          window.__timelines["profils"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

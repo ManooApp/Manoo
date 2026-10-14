@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <style>
+        @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/Inter-Medium.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/Inter-SemiBold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter Display"; font-weight: 600; src: url("assets/fonts/InterDisplay-SemiBold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter Display"; font-weight: 700; src: url("assets/fonts/InterDisplay-Bold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter Display"; font-weight: 800; src: url("assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2"); }
+
+        #g-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3f2ef;
+        }
+        #g-rings { position: absolute; left: 160px; top: -260px; width: 1600px; height: 1600px; overflow: visible; opacity: 0; }
+        #g-orb {
+          position: absolute;
+          left: 660px;
+          top: 96px;
+          width: 600px;
+          height: 600px;
+          border-radius: 50%;
+          opacity: 0;
+          background:
+            radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0) 32%),
+            radial-gradient(circle at 50% 120%, rgba(249, 115, 22, 0.5) 0%, rgba(249, 115, 22, 0) 58%),
+            radial-gradient(circle at 50% 50%, #1d2a31 0%, #141d22 62%, #0f171b 100%);
+          box-shadow: inset 0 0 0 2px rgba(255, 178, 122, 0.55), inset 0 0 60px rgba(249, 115, 22, 0.25), 0 0 90px rgba(249, 115, 22, 0.35), 0 40px 120px rgba(0, 0, 0, 0.6);
+        }
+        #g-lock { position: absolute; left: 0; right: 0; top: 340px; display: flex; justify-content: center; align-items: center; gap: 26px; }
+        #g-ico { width: 112px; height: 112px; border-radius: 30px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); opacity: 0; }
+        #g-ico img { width: 76px; height: 67px; object-fit: contain; }
+        #g-word { color: #f3f2ef; display: flex; align-items: flex-end; font: 800 104px/0.86 "Inter Display", sans-serif; letter-spacing: -0.05em; }
+        #g-word .l { display: inline-block; opacity: 0; }
+        #g-dot { display: inline-block; width: 24px; height: 24px; margin: 0 0 6px 8px; border-radius: 50%; background: #f97316; box-shadow: 0 0 24px rgba(249, 115, 22, 0.9); opacity: 0; }
+        #g-tag { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font: 600 54px/1 "Inter Display", sans-serif; letter-spacing: -0.025em; color: #a8b4bb; white-space: nowrap; }
+        #g-tag .w { display: inline-block; opacity: 0; }
+        #g-tag .o { color: #f97316; }
+        #g-aud { position: absolute; left: 0; right: 0; top: 636px; display: flex; justify-content: center; gap: 14px; }
+        .g-chip { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 22px 0 8px; border-radius: 999px; background: rgba(243, 242, 239, 0.07); border: 1px solid rgba(243, 242, 239, 0.16); font: 600 22px/1 "Inter", sans-serif; color: #f3f2ef; opacity: 0; white-space: nowrap; }
+        .g-chip .tile { width: 38px; height: 38px; border-radius: 50%; }
+        .g-chip .tile .ic { width: 19px; height: 19px; }
+        #g-row { position: absolute; left: 0; right: 0; top: 760px; display: flex; justify-content: center; align-items: center; gap: 22px; }
+        #g-url {
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          height: 92px;
+          padding: 0 40px 0 30px;
+          border-radius: 46px;
+          background: rgba(16, 22, 25, 0.75);
+          box-shadow: inset 0 0 0 2px rgba(249, 115, 22, 0.75), 0 0 50px rgba(249, 115, 22, 0.35);
+          font: 700 50px/1 "Inter Display", sans-serif;
+          letter-spacing: -0.02em;
+          color: #f3f2ef;
+          opacity: 0;
+          white-space: nowrap;
+          min-width: 330px;
+        }
+        #g-url .ic { width: 30px; height: 30px; color: #f97316; }
+        #g-caret { display: inline-block; width: 4px; height: 52px; border-radius: 2px; background: #f97316; margin-left: -6px; }
+        #g-cta { position: relative; height: 92px; padding: 0 40px; border-radius: 46px; font: 700 34px/1 "Inter", sans-serif; letter-spacing: -0.02em; background: #f97316; color: #101619; box-shadow: 0 18px 50px rgba(249, 115, 22, 0.42); opacity: 0; }
+        #g-cta .ic { width: 30px; height: 30px; }
+        #g-halo { position: absolute; left: 50%; top: 50%; width: 140px; height: 140px; margin: -70px 0 0 -70px; border-radius: 50%; border: 6px solid rgba(249, 115, 22, 0.85); opacity: 0; }
+      </style>
+
+      <div id="g-root" data-composition-id="signature" data-width="1920" data-height="1080">
+        <div class="mui" style="position:absolute;inset:0;color:#f3f2ef">
+        <svg id="g-rings" viewBox="-800 -800 1600 1600"><circle r="430" fill="none" stroke="rgba(243,242,239,0.12)" stroke-width="1.5"/><circle r="580" fill="none" stroke="rgba(243,242,239,0.08)" stroke-width="1.5" stroke-dasharray="4 10"/><circle r="740" fill="none" stroke="rgba(243,242,239,0.05)" stroke-width="1.5"/></svg>
+        <div id="g-orb"></div>
+        <div id="g-lock">
+          <div id="g-ico"><img src="assets/brand/manoo-marteau.png" alt=""></div>
+          <div id="g-word"><span class="l">M</span><span class="l">A</span><span class="l">N</span><span class="l">O</span><span class="l">O</span><span id="g-dot"></span></div>
+        </div>
+        <div id="g-tag"><span class="w">La</span> <span class="w">révolution</span> <span class="w">du</span> <span class="w o">regard.</span></div>
+        <div id="g-aud">
+          <div class="g-chip"><span class="tile artisan"><i data-icon="briefcase"></i></span>Artisans</div>
+          <div class="g-chip"><span class="tile etudiant"><i data-icon="notebook-text"></i></span>Apprentis</div>
+          <div class="g-chip"><span class="tile entreprise"><i data-icon="building-2"></i></span>Entreprises</div>
+          <div class="g-chip"><span class="tile ecole"><i data-icon="graduation-cap"></i></span>Écoles &amp; CFA</div>
+        </div>
+        <div id="g-row">
+          <div id="g-url"><i data-icon="search"></i><span id="g-url-t"></span><span id="g-caret"></span></div>
+          <div id="g-cta" class="btn">Créer mon compte<i data-icon="arrow-right"></i><div id="g-halo"></div></div>
+        </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 47.1;
+          const L = (t) => +(t - T0).toFixed(3);
+          window.ManooIcons.hydrate(document.getElementById("g-root"));
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#g-rings", { opacity: 0, scale: 0.8, rotation: -15 }, { opacity: 1, scale: 1, rotation: 0, duration: 1.2, ease: "power3.out", immediateRender: true }, L(47.2));
+          tl.to("#g-rings", { rotation: 18, duration: 7, ease: "none" }, L(48.4));
+          tl.fromTo("#g-orb", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out", immediateRender: true }, L(47.12));
+          tl.to("#g-orb", { opacity: 0.0, scale: 1.6, duration: 0.9, ease: "power2.inOut" }, L(48.15));
+          tl.fromTo("#g-ico", { opacity: 0, scale: 0.2, rotation: -24 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2.4)", immediateRender: true }, L(C.manoo2 - 0.08));
+          tl.fromTo("#g-word .l", { opacity: 0, y: 46, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.38, ease: "back.out(1.7)", stagger: 0.05, immediateRender: true }, L(C.manoo2 + 0.08));
+          tl.fromTo("#g-dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(3)", immediateRender: true }, L(C.manoo2 + 0.42));
+          tl.to("#g-lock", { y: -70, duration: 0.6, ease: "power3.inOut" }, L(C.revolution - 0.35));
+          tl.fromTo("#g-tag .w", { opacity: 0, y: 26, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out", stagger: 0.09, immediateRender: true }, L(C.revolution - 0.12));
+          tl.to("#g-tag", { y: -70, duration: 0.6, ease: "power3.inOut" }, L(C.rejoignez - 0.45));
+          tl.to("#g-lock", { y: -140, duration: 0.6, ease: "power3.inOut" }, L(C.rejoignez - 0.45));
+          tl.fromTo(".g-chip", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: -70, scale: 1, duration: 0.4, ease: "back.out(1.6)", stagger: 0.08, immediateRender: true }, L(C.rejoignez - 0.15));
+          tl.fromTo("#g-url", { opacity: 0, scale: 0.7, filter: "blur(12px)" }, { opacity: 1, scale: 1, y: -70, filter: "blur(0px)", duration: 0.42, ease: "back.out(1.8)", immediateRender: true }, L(C.site - 0.45));
+          tl.fromTo("#g-cta", { opacity: 0, x: -30, filter: "blur(12px)" }, { opacity: 1, x: 0, y: -70, filter: "blur(0px)", duration: 0.42, ease: "power3.out", immediateRender: true }, L(52.35));
+          tl.to("#g-cta", { scale: 0.94, duration: 0.1, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(53.05));
+          tl.fromTo("#g-halo", { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 3.2, duration: 0.6, ease: "power2.out", immediateRender: true }, L(53.05));
+          tl.fromTo(["#g-lock", "#g-tag", "#g-aud", "#g-row"], { scale: 1 }, { scale: 1.03, duration: 3.0, ease: "none", transformOrigin: "50% 50%", immediateRender: false }, L(52.5));
+          // URL typed in the pill, caret blinking (pure function of time)
+          const urlT = document.getElementById("g-url-t"), caret = document.getElementById("g-caret");
+          const TXT = "manoo.fr";
+          const t0 = L(C.site - 0.25), t1 = L(C.site + 0.35);
+          const render = () => {
+            const t = tl.time();
+            const k = Math.max(0, Math.min(1, (t - t0) / (t1 - t0)));
+            urlT.textContent = TXT.slice(0, Math.round(k * TXT.length));
+            caret.style.opacity = t < t1 || Math.floor((t - t1) * 2.4) % 2 === 0 ? "1" : "0";
+          };
+          tl.eventCallback("onUpdate", render);
+          render();
+          window.__timelines["signature"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

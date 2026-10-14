@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <style>
+        @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/Inter-Medium.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/Inter-SemiBold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/Inter-Bold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter Display"; font-weight: 700; src: url("assets/fonts/InterDisplay-Bold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter Display"; font-weight: 800; src: url("assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2"); }
+
+        #a-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          color: #f3f2ef;
+          font-family: "Inter Display", sans-serif;
+        }
+        .a-trade {
+          position: absolute;
+          top: 330px;
+          width: 300px;
+          margin-left: -150px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .a-trade .bub {
+          position: relative;
+          width: 172px;
+          height: 172px;
+        }
+        .a-trade b {
+          margin-top: 34px;
+          font: 700 56px/1 "Inter Display", sans-serif;
+          letter-spacing: -0.03em;
+          white-space: nowrap;
+        }
+        .a-hl {
+          position: absolute;
+          left: 190px;
+          font: 800 92px/1.02 "Inter Display", sans-serif;
+          letter-spacing: -0.04em;
+          white-space: nowrap;
+        }
+        .a-hl .w { display: inline-block; }
+        .a-hl .o { color: #f97316; }
+        #a-cv {
+          position: absolute;
+          left: 1070px;
+          top: 300px;
+          width: 380px;
+          height: 500px;
+          padding: 34px 32px;
+          border-radius: 14px;
+          background: #f6f4f0;
+          box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+          color: #9c958d;
+          font-family: "Inter", sans-serif;
+          opacity: 0;
+        }
+        .a-cv-top { display: flex; gap: 18px; align-items: center; }
+        .a-cv-av { width: 72px; height: 72px; border-radius: 50%; background: #dcd7d0; }
+        .a-cv-bar { height: 12px; border-radius: 6px; background: #d7d1c9; }
+        .a-cv-k { margin-top: 26px; font: 700 13px/1 "Inter", sans-serif; letter-spacing: 0.18em; color: #b1aaa1; }
+        .a-cv-l { margin-top: 12px; height: 9px; border-radius: 5px; background: #e2ddd6; }
+        #a-cv-title { position: absolute; right: 26px; top: 30px; font: 800 30px/1 "Inter Display", sans-serif; letter-spacing: -0.02em; color: #c9c2b9; }
+        #a-strike {
+          position: absolute;
+          left: -30px;
+          top: 30px;
+          width: 440px;
+          height: 440px;
+          overflow: visible;
+        }
+        .a-photo {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 430px;
+          height: 322px;
+          border-radius: 22px;
+          overflow: hidden;
+          opacity: 0;
+          box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.65), 0 36px 80px rgba(0, 0, 0, 0.55), 0 0 50px rgba(249, 115, 22, 0.25);
+        }
+        .a-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .a-photo .chip { position: absolute; left: 16px; bottom: 16px; height: 34px; padding: 0 14px; font-size: 16px; background: rgba(16, 22, 25, 0.82); color: #f3f2ef; }
+        .a-photo .chip .ic { width: 17px; height: 17px; color: #f97316; }
+      </style>
+
+      <div id="a-root" data-composition-id="accroche" data-width="1920" data-height="1080">
+        <div id="a-t0" class="a-trade" style="left:600px"><div class="bub"><i data-icon="brick-wall"></i></div><b class="w">Bâtiment</b></div>
+        <div id="a-t1" class="a-trade" style="left:960px"><div class="bub"><i data-icon="hammer"></i></div><b class="w">Artisanat</b></div>
+        <div id="a-t2" class="a-trade" style="left:1320px"><div class="bub"><i data-icon="factory"></i></div><b class="w">Industrie</b></div>
+
+        <div id="a-cv">
+          <div class="a-cv-top"><div class="a-cv-av"></div><div style="flex:1"><div class="a-cv-bar" style="width:80%"></div><div class="a-cv-bar" style="width:55%;margin-top:10px;background:#e2ddd6"></div></div></div>
+          <div id="a-cv-title">CV</div>
+          <div class="a-cv-k">EXPÉRIENCE</div>
+          <div class="a-cv-l" style="width:92%"></div><div class="a-cv-l" style="width:76%"></div><div class="a-cv-l" style="width:84%"></div>
+          <div class="a-cv-k">FORMATION</div>
+          <div class="a-cv-l" style="width:70%"></div><div class="a-cv-l" style="width:88%"></div>
+          <div class="a-cv-k">COMPÉTENCES</div>
+          <div class="a-cv-l" style="width:64%"></div><div class="a-cv-l" style="width:80%"></div><div class="a-cv-l" style="width:52%"></div>
+          <svg id="a-strike" viewBox="0 0 440 440"><path id="a-strike-p" d="M30 400 L410 40" stroke="#f97316" stroke-width="22" stroke-linecap="round" fill="none" style="filter:drop-shadow(0 0 14px rgba(249,115,22,0.8))"/></svg>
+        </div>
+
+        <div id="a-h1a" class="a-hl" style="top:386px"><span class="w">Le</span> <span class="w">talent</span> <span class="w">ne</span> <span class="w">tient</span> <span class="w">pas</span></div>
+        <div id="a-h1b" class="a-hl" style="top:486px"><span class="w">sur</span> <span class="w o">un</span> <span class="w o">CV.</span></div>
+        <div id="a-h2a" class="a-hl" style="top:386px"><span class="w">Il</span> <span class="w">se</span> <span class="w">voit</span></div>
+        <div id="a-h2b" class="a-hl" style="top:486px"><span class="w">sur</span> <span class="w">le</span> <span class="w o">terrain.</span></div>
+
+        <div id="a-p0" class="a-photo"><img src="assets/photos/B0.jpg" alt=""><span class="chip"><i data-icon="brick-wall"></i>Bâtiment</span></div>
+        <div id="a-p1" class="a-photo"><img src="assets/photos/C0.jpg" alt=""><span class="chip"><i data-icon="hammer"></i>Artisanat</span></div>
+        <div id="a-p2" class="a-photo"><img src="assets/photos/A0.jpg" alt=""><span class="chip"><i data-icon="factory"></i>Industrie</span></div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const L = (t) => t; // host starts at 0
+          window.ManooIcons.hydrate(document.getElementById("a-root"));
+          const tl = gsap.timeline({ paused: true });
+          const pop = (sel, at, stagger = 0.06) =>
+            tl.fromTo(sel, { opacity: 0, y: 34, scale: 0.94, filter: "blur(14px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.46, ease: "power3.out", stagger, immediateRender: true }, L(at));
+          const out = (sel, at) => tl.to(sel, { opacity: 0, y: -30, filter: "blur(12px)", duration: 0.3, ease: "power2.in", stagger: 0.02 }, L(at));
+
+          // three trades
+          const cues = [C.batiment, C.artisanat, C.industrie];
+          ["#a-t0", "#a-t1", "#a-t2"].forEach((id, i) => {
+            const at = cues[i] - 0.1;
+            tl.fromTo(id + " .bub", { opacity: 0, scale: 0.2, rotation: -25 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.55, ease: "back.out(2.2)", immediateRender: true }, at);
+            tl.fromTo(id + " b", { opacity: 0, y: 30, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out", immediateRender: true }, at + 0.08);
+            tl.to(id + " .bub", { y: -10, duration: 1.0, ease: "sine.inOut", yoyo: true, repeat: 1 }, at + 0.55);
+          });
+          // trades retreat, CV arrives
+          tl.to(["#a-t0", "#a-t1", "#a-t2"], { y: -190, scale: 0.55, opacity: 0, duration: 0.6, ease: "power3.inOut", stagger: 0.05 }, L(3.2));
+          tl.fromTo("#a-cv", { opacity: 0, y: 120, rotation: 8, scale: 0.9 }, { opacity: 1, y: 0, rotation: -5, scale: 1, duration: 0.7, ease: "power3.out", immediateRender: true }, L(3.35));
+          pop("#a-h1a .w", C.talent - 0.18, 0.07);
+          pop("#a-h1b .w", 4.55, 0.1);
+          // the CV is struck through on « CV », then falls
+          tl.fromTo("#a-strike-p", { strokeDasharray: 540, strokeDashoffset: 540 }, { strokeDashoffset: 0, duration: 0.28, ease: "power3.out", immediateRender: true }, L(C.cv1 - 0.04));
+          tl.to("#a-cv", { x: -20, rotation: -9, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.cv1 + 0.2));
+          tl.to("#a-cv", { y: 760, rotation: -32, opacity: 0, duration: 0.6, ease: "power3.in" }, L(5.35));
+          out("#a-h1a .w, #a-h1b .w", 5.2);
+          // « Il se voit sur le terrain. » + the work
+          pop("#a-h2a .w", 5.42, 0.08);
+          pop("#a-h2b .w", 5.95, 0.12);
+          tl.fromTo("#a-h2b .o", { textShadow: "0 0 0px rgba(249,115,22,0)" }, { textShadow: "0 0 34px rgba(249,115,22,0.85)", duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, L(C.terrain));
+          const dst = [[1000, 210, -7], [1330, 400, 6], [1040, 610, -3]];
+          ["#a-p0", "#a-p1", "#a-p2"].forEach((id, i) => {
+            const at = 5.5 + i * 0.16;
+            tl.fromTo(id, { opacity: 0, x: dst[i][0] + 260, y: dst[i][1] + 40, scale: 1.55, rotation: dst[i][2] * 3, filter: "blur(16px)" },
+              { opacity: 1, x: dst[i][0], y: dst[i][1], scale: 1, rotation: dst[i][2], filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: true }, at);
+            tl.to(id, { y: dst[i][1] - 16, duration: 1.4, ease: "sine.inOut" }, at + 0.7);
+          });
+          // hand-off: everything converges into the orb at the centre
+          out("#a-h2a .w, #a-h2b .w", 7.45);
+          ["#a-p0", "#a-p1", "#a-p2"].forEach((id, i) => {
+            tl.to(id, { x: 960 - 215, y: 540 - 161, scale: 0.18, rotation: 0, opacity: 0, filter: "blur(6px)", duration: 0.5, ease: "power3.in" }, L(7.42 + i * 0.05));
+          });
+          window.__timelines["accroche"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

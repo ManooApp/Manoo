@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <style>
+        @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/Inter-Regular.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/Inter-Medium.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/Inter-SemiBold.woff2") format("woff2"); }
+        @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/Inter-Bold.woff2") format("woff2"); }
+
+        #e-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        .e-k { position: absolute; left: 120px; top: 52px; display: flex; align-items: center; gap: 12px; font: 600 22px/1 "Inter", sans-serif; letter-spacing: 0.16em; color: #f97316; opacity: 0; z-index: 5; }
+        .e-k::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: #f97316; box-shadow: 0 0 12px rgba(249, 115, 22, 0.9); }
+        #e-br { left: 240px; top: 90px; opacity: 0; }
+        #e-glow { position: absolute; inset: -2px; border-radius: 20px; box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.6), 0 0 70px rgba(249, 115, 22, 0.32); pointer-events: none; z-index: 30; }
+        .e-page { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+        .e-hero { position: absolute; left: 176px; top: 24px; width: 1088px; padding: 30px 32px 32px; }
+        .e-hero .h-title { margin-top: 16px; }
+        .e-hero .h-desc { margin-top: 8px; }
+        .e-hero .filters { margin-top: 22px; }
+        .e-count { position: absolute; left: 180px; top: 312px; font: 500 15px/1 "Inter", sans-serif; color: var(--tx-muted); }
+        .e-res { position: absolute; top: 340px; width: 349px; height: 410px; }
+        .e-res .post { padding: 18px 18px 14px; }
+        .e-res .post-name { font-size: 16px; }
+        .e-res .post-meta { font-size: 13px; }
+        .e-res .post-text { margin: 10px 0 0 0; font-size: 14px; line-height: 1.5; }
+        .e-res .post-media { margin: 12px 0 0 0; height: 196px; }
+        .e-res .tagline { margin: 8px 0 0 0; }
+        .e-q { margin-top: 14px; padding: 18px; border-radius: 16px; background: #f7f4f0; font: 600 19px/1.45 "Inter", sans-serif; color: var(--tx); letter-spacing: -0.015em; }
+        /* profile page */
+        .e-pf { position: absolute; left: 176px; top: 24px; width: 700px; padding: 28px 30px 26px; }
+        .e-pf-top { display: flex; gap: 22px; align-items: center; }
+        .e-pf .pf-av { display: flex; align-items: center; justify-content: center; font: 700 36px/1 "Inter", sans-serif; }
+        .e-pf .pf-job { margin-top: 4px; }
+        .e-pf .pf-meta { margin-top: 8px; }
+        .e-pf .dispo { margin-top: 12px; }
+        .e-pf .stats { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--bd); }
+        .e-pf-btns { margin-top: 18px; display: flex; gap: 10px; }
+        .e-pf-btns .btn { flex: 1; height: 46px; }
+        .e-tabs { position: absolute; left: 176px; top: 404px; width: 700px; }
+        .e-grid { position: absolute; left: 176px; top: 470px; width: 700px; grid-template-columns: 1fr 1fr 1fr; }
+        .e-grid .cell { height: 210px; }
+        .e-about { position: absolute; left: 896px; top: 24px; width: 368px; padding: 26px 26px 24px; }
+        .e-about .badge { height: 26px; font-size: 12px; letter-spacing: 0.06em; }
+        .e-about h4 { margin-top: 14px; font: 700 20px/1.2 "Inter", sans-serif; letter-spacing: -0.02em; color: var(--tx-strong); }
+        .e-about li { list-style: none; display: flex; gap: 10px; align-items: center; margin-top: 14px; font: 400 15px/1.3 "Inter", sans-serif; color: var(--tx-body); }
+        .e-about li .ic { width: 18px; height: 18px; color: var(--primary); }
+        /* chat drawer */
+        #e-chat { position: absolute; right: 0; top: 128px; bottom: 0; width: 440px; background: #fff; border-left: 1px solid var(--bd); box-shadow: -20px 0 60px rgba(30, 24, 19, 0.12); display: flex; flex-direction: column; z-index: 20; }
+        .e-ch-h { display: flex; gap: 12px; align-items: center; padding: 18px 20px; border-bottom: 1px solid var(--bd); }
+        .e-ch-h .avatar { width: 44px; height: 44px; border-radius: 50%; font: 700 16px/1 "Inter", sans-serif; }
+        .e-ch-b { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; padding: 18px 20px; position: relative; }
+        .e-empty { position: absolute; left: 0; right: 0; top: 42%; text-align: center; font: 500 15px/1.4 "Inter", sans-serif; color: var(--tx-muted); }
+        .e-ch-in { display: flex; gap: 10px; align-items: flex-end; padding: 14px 16px 18px; border-top: 1px solid var(--bd); }
+        .e-ch-in .input { margin: 0; flex: 1; height: auto; min-height: 48px; padding: 13px 14px; white-space: normal; line-height: 1.4; align-items: flex-start; }
+        .e-send { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; flex: none; }
+        .e-send .ic { width: 21px; height: 21px; }
+        #e-toast { position: absolute; right: 470px; top: 150px; width: 360px; z-index: 25; opacity: 0; }
+        #e-dd { left: 722px; top: 388px; width: 300px; z-index: 22; opacity: 0; }
+        #e-fly { position: absolute; left: 0; top: 0; opacity: 0; z-index: 6; }
+        #e-fly .bubble-out { font-size: 22px; max-width: 520px; padding: 18px 22px; border-radius: 24px 24px 8px 24px; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 50px rgba(249, 115, 22, 0.5); }
+      </style>
+
+      <div id="e-root" data-composition-id="entreprise" data-width="1920" data-height="1080">
+        <div class="mui" style="position:absolute;inset:0">
+        <div id="e-k" class="e-k">CÔTÉ ENTREPRISE</div>
+
+        <div id="e-br" class="browser">
+          <div class="browser-bar"><div class="lights"><i></i><i></i><i></i></div><div class="url"><i data-icon="search"></i><span id="e-url">manoo.fr/search</span></div><div style="width:58px"></div></div>
+          <div class="dhdr">
+            <div class="brand"><div class="brand-ico"><img src="assets/brand/manoo-marteau.png" alt=""></div><div class="brand-name">Manoo</div></div>
+            <div class="hdr-search"><i data-icon="search"></i><span>Mots-clés, tags, contenu...</span></div>
+            <div class="dnav">
+              <div class="dnav-it"><i data-icon="house"></i>Feed</div>
+              <div id="e-nav-search" class="dnav-it on"><i data-icon="search"></i>Recherche</div>
+              <div id="e-nav-msg" class="dnav-it"><i data-icon="message-circle"></i>Messages</div>
+              <div class="dnav-it"><i data-icon="bell"></i>Notifs</div>
+            </div>
+            <div class="dacct"><div class="avatar" style="background:#45b7d1;color:#fff"><i data-icon="building-2" style="width:18px;height:18px"></i></div>Atelier Morvan</div>
+          </div>
+          <div class="dpage">
+            <!-- search page -->
+            <div id="e-search" class="e-page">
+              <div class="card e-hero">
+                <span class="badge"><i data-icon="search"></i>Recherche</span>
+                <div class="h-title">Trouvez les publications qui comptent</div>
+                <div class="h-desc">Filtrez par type, métier ou ville pour retrouver rapidement une réalisation, un conseil ou une opportunité.</div>
+                <div class="filters">
+                  <div class="select" style="width:300px;justify-content:flex-start"><i data-icon="search"></i>Mots-clés, tags, contenu...</div>
+                  <div class="select" style="width:190px">Type de post<i data-icon="chevron-down"></i></div>
+                  <div id="e-sel-metier" class="select" style="width:270px"><span id="e-metier-v">Métier</span><i data-icon="chevron-down"></i></div>
+                  <div id="e-sel-ville" class="select" style="width:228px;justify-content:flex-start"><i data-icon="map-pin"></i><span id="e-ville-v">Paris, Lyon, Marseille...</span><span id="e-ville-caret" class="caret" style="opacity:0"></span></div>
+                </div>
+              </div>
+              <div id="e-count" class="e-count">21 résultats trouvés</div>
+              <!-- unfiltered results -->
+              <div id="e-r0" class="card e-res" style="left:176px"><div class="post"><div class="post-head"><div class="avatar"><i data-icon="user"></i></div><div class="post-who"><div class="post-name">Lucas Martin</div><div class="post-meta">Maçon • il y a 2 h</div></div></div><div class="post-type"><span class="chip"><i data-icon="hammer"></i>Réalisation</span></div><div class="post-media"><img src="assets/photos/B1.jpg" alt=""></div><div class="post-text">Mur en briques monté cette semaine, joints au fer.</div></div></div>
+              <div id="e-r1" class="card e-res" style="left:545px"><div class="post"><div class="post-head"><div class="avatar"><i data-icon="user"></i></div><div class="post-who"><div class="post-name">Clara Dubois</div><div class="post-meta">Ébéniste • il y a 5 h</div></div></div><div class="post-type"><span class="chip"><i data-icon="briefcase"></i>Emploi</span></div><div class="post-media"><img src="assets/photos/C1.jpg" alt=""></div><div class="post-text">Notre atelier recrute un(e) apprenti(e) ébéniste.</div></div></div>
+              <div id="e-r2" class="card e-res" style="left:914px"><div class="post"><div class="post-head"><div class="avatar"><i data-icon="user"></i></div><div class="post-who"><div class="post-name">Yanis Benali</div><div class="post-meta">Maçon • il y a 1 j</div></div></div><div class="post-type"><span class="chip"><i data-icon="lightbulb"></i>Conseil</span></div><div class="post-media"><img src="assets/photos/B2.jpg" alt=""></div><div class="post-text">Bétonnière : rincez-la tout de suite après usage.</div></div></div>
+              <!-- filtered results -->
+              <div id="e-f0" class="card e-res" style="left:176px"><div class="post"><div class="post-head"><div class="avatar jm" style="border-radius:50%;background:linear-gradient(135deg,#fd8b3a,#e4702e);color:#fff;font:700 16px/1 'Inter',sans-serif">JM</div><div class="post-who"><div class="post-name">Jules Moreau</div><div class="post-meta">Serrurier / Métallier • il y a 2 h</div></div></div><div class="post-type"><span class="chip"><i data-icon="hammer"></i>Réalisation</span></div><div class="post-media"><img src="assets/photos/jules-portail.jpg" alt=""></div><div class="post-text">Portail en fer forgé terminé cette semaine à l’atelier 🔥</div><div class="tagline"><span class="tag">#métallerie</span><span class="tag">#portail</span></div></div></div>
+              <div id="e-f1" class="card e-res" style="left:545px"><div class="post"><div class="post-head"><div class="avatar"><i data-icon="user"></i></div><div class="post-who"><div class="post-name">Malo Le Bihan</div><div class="post-meta">Serrurier / Métallier • il y a 2 j</div></div></div><div class="post-type"><span class="chip"><i data-icon="hammer"></i>Réalisation</span></div><div class="post-media"><img src="assets/photos/escalier.jpg" alt=""></div><div class="post-text">Escalier droit en acier, limons pliés à l’atelier.</div></div></div>
+              <div id="e-f2" class="card e-res" style="left:914px"><div class="post"><div class="post-head"><div class="avatar"><i data-icon="user"></i></div><div class="post-who"><div class="post-name">Inès Roussel</div><div class="post-meta">Serrurier / Métallier • il y a 4 j</div></div></div><div class="post-type"><span class="chip"><i data-icon="circle-help"></i>Question</span></div><div class="e-q">Quel fil utilisez-vous pour souder de l’inox 316L en MIG ?</div><div class="post-text">Je débute sur l’inox en atelier, vos retours m’aideraient beaucoup !</div></div></div>
+              <!-- Métier dropdown -->
+              <div id="e-dd" class="dropdown">
+                <div class="dd-grp">BTP – Second Œuvre</div>
+                <div class="dd-opt">Peintre</div>
+                <div class="dd-opt">Plâtrier / Plaquiste</div>
+                <div class="dd-opt">Carreleur</div>
+                <div id="e-dd-opt" class="dd-opt">Serrurier / Métallier</div>
+                <div class="dd-opt">Ébéniste</div>
+              </div>
+            </div>
+            <!-- Jules' public profile -->
+            <div id="e-profile" class="e-page">
+              <div class="card e-pf">
+                <div class="e-pf-top">
+                  <div class="pf-av jm">JM</div>
+                  <div>
+                    <div class="pf-name">Jules Moreau</div>
+                    <div class="pf-job">Serrurier / Métallier · Étudiant / Apprenti</div>
+                    <div class="pf-meta"><span><i data-icon="map-pin"></i>Rennes</span><span><i data-icon="graduation-cap"></i>CAP, 2e année</span></div>
+                    <div class="dispo"><i></i>Dispo immédiate</div>
+                  </div>
+                </div>
+                <div class="stats">
+                  <div class="stat"><b>4</b><span>Publications</span></div>
+                  <div class="stat"><b id="e-followers">18</b><span>Abonnés</span></div>
+                  <div class="stat"><b>31</b><span>Abonnements</span></div>
+                </div>
+                <div class="e-pf-btns"><div id="e-follow" class="btn"><i data-icon="user-plus"></i><span id="e-follow-t">Suivre</span></div><div id="e-msg" class="btn ghost"><i data-icon="message-circle"></i>Envoyer un message</div></div>
+              </div>
+              <div class="tabs e-tabs"><div class="tab on">Portfolio</div><div class="tab">Publications</div><div class="tab">Avis</div><div style="margin-left:auto;align-self:center" class="media-count">4 / 5 médias</div></div>
+              <div class="grid e-grid">
+                <div id="e-cell0" class="cell"><img src="assets/photos/jules-portail.jpg" alt=""><div class="cell-t">Portail en fer forgé</div></div>
+                <div class="cell"><img src="assets/photos/garde-corps.jpg" alt=""><div class="cell-t">Garde-corps acier</div></div>
+                <div class="cell"><img src="assets/photos/A3.jpg" alt=""><div class="cell-t">Râtelier à barres</div></div>
+              </div>
+              <div class="card e-about">
+                <span class="badge">À PROPOS</span>
+                <h4>Carte d’identité métier</h4>
+                <ul>
+                  <li><i data-icon="graduation-cap"></i>CAP Serrurier-Métallier, 2e année</li>
+                  <li><i data-icon="flame"></i>Soudure MIG / TIG, forge</li>
+                  <li><i data-icon="map-pin"></i>Rennes · rayon d’action 30 km</li>
+                  <li><i data-icon="badge-check"></i>Cherche une alternance</li>
+                </ul>
+              </div>
+              <div id="e-chat">
+                <div class="e-ch-h"><div class="avatar jm" style="background:linear-gradient(135deg,#fd8b3a,#e4702e);color:#fff">JM</div><div><div class="post-name" style="font-size:16px">Jules Moreau</div><div class="post-meta" style="margin-top:2px">Serrurier / Métallier</div></div></div>
+                <div class="e-ch-b">
+                  <div id="e-empty" class="e-empty">Envoyez votre premier message !</div>
+                  <div id="e-bub" class="bubble-out" style="opacity:0">Bonjour Jules ! Votre portail est superbe. On cherche un apprenti métallier : on en parle ?</div>
+                  <div id="e-sent" class="read" style="opacity:0">Envoyé</div>
+                </div>
+                <div class="e-ch-in"><div id="e-in" class="input"><span id="e-in-t">Votre message…</span><span id="e-in-caret" class="caret" style="opacity:0"></span></div><div id="e-send" class="e-send"><i data-icon="send"></i></div></div>
+              </div>
+              <div id="e-toast"><div class="toast"><i data-icon="circle-check"></i><div><div class="toast-t">Abonné</div><div class="toast-d">Tu suis maintenant cet artisan.</div></div></div></div>
+            </div>
+          </div>
+          <svg id="e-cur" class="cursor" viewBox="0 0 34 40"><path d="M3 2 L3 31 L10.5 24.5 L15.5 36 L21 33.6 L16 22.4 L26 22.4 Z" fill="#ffffff" stroke="#0e0a07" stroke-width="2.4" stroke-linejoin="round"/></svg>
+          <div id="e-glow"></div>
+        </div>
+        <div id="e-fly"><div class="bubble-out">Bonjour Jules ! Votre portail est superbe. On cherche un apprenti métallier : on en parle ?</div></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 32.6;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("e-root");
+          window.ManooIcons.hydrate(root);
+          const $ = (id) => document.getElementById(id);
+          const tl = gsap.timeline({ paused: true });
+          const br = $("e-br");
+          // camera: bring browser point (px,py) to stage (tx,ty) at scale S (origin = browser centre)
+          const focus = (px, py, S, tx = 960, ty = 540) => ({ x: tx - 960 - (px - 720) * S, y: ty - 540 - (py - 450) * S, scale: S });
+          const cam = (at, v, dur = 0.7, ease = "power3.inOut") => tl.to(br, { ...v, duration: dur, ease }, L(at));
+          const cur = $("e-cur");
+          const curTo = (at, x, y, dur = 0.42) => tl.to(cur, { x: x - 3, y: y - 2, duration: dur, ease: "power2.inOut" }, L(at));
+          const click = (at, el) => {
+            tl.to(cur, { scale: 0.86, duration: 0.07, yoyo: true, repeat: 1, ease: "power1.inOut", transformOrigin: "10% 5%" }, L(at));
+            if (el) tl.to(el, { scale: 0.95, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(at));
+          };
+          const typers = [];
+          const classes = [];
+          const classAt = (el, cls, at, until = Infinity) => classes.push({ el, cls, t0: L(at), t1: until === Infinity ? Infinity : L(until) });
+          const render = () => {
+            const t = tl.time();
+            for (const c of classes) c.el.classList.toggle(c.cls, t >= c.t0 && t < c.t1);
+            $("e-metier-v").textContent = t >= L(35.5) ? "Serrurier / Métallier" : "Métier";
+            $("e-metier-v").style.color = t >= L(35.5) ? "#1e1813" : "";
+            $("e-url").textContent = t >= L(C.jules2 + 0.02) ? "manoo.fr/profile/jules-moreau" : "manoo.fr/search";
+            for (const ty of typers) {
+              const k = Math.max(0, Math.min(1, (t - ty.t0) / (ty.t1 - ty.t0)));
+              if (t < ty.t0) { ty.el.textContent = ty.ph; ty.el.style.color = "#9a8f86"; }
+              else { ty.el.textContent = ty.text.slice(0, Math.round(k * ty.text.length)); ty.el.style.color = "#1e1813"; }
+              if (ty.caret) { const on = t >= ty.t0 - 0.15 && t <= ty.t1 + 0.3; ty.caret.style.opacity = on && (t < ty.t1 || Math.floor(t * 4) % 2 === 0) ? "1" : "0"; }
+              if (ty.clearAt !== undefined && t >= ty.clearAt) { ty.el.textContent = ty.ph; ty.el.style.color = "#9a8f86"; if (ty.caret) ty.caret.style.opacity = "0"; }
+            }
+            $("e-follow-t").textContent = t >= L(40.42) ? "Abonné" : "Suivre";
+            $("e-followers").textContent = t >= L(40.42) ? "19" : "18";
+            $("e-count").textContent = t >= L(C.filtre - 0.02) ? "3 résultats trouvés" : "21 résultats trouvés";
+          };
+
+          // ---- initial states
+          gsap.set(br, { transformPerspective: 2400, transformOrigin: "50% 50%" });
+          gsap.set(["#e-f0", "#e-f1", "#e-f2", "#e-profile"], { opacity: 0 });
+          gsap.set("#e-chat", { xPercent: 105 });
+          gsap.set(cur, { x: 1000, y: 640, opacity: 0 });
+
+          // ---- whip in
+          tl.fromTo(br, { opacity: 0, x: 1500, scale: 0.9, rotationY: -24, rotationX: 4, filter: "blur(22px)" },
+            { opacity: 1, x: 0, scale: 0.92, rotationY: -9, rotationX: 4, filter: "blur(0px)", duration: 0.55, ease: "power3.out", immediateRender: true }, L(32.62));
+          tl.fromTo("#e-k", { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out", immediateRender: true }, L(C.entreprise));
+          tl.to(br, { rotationY: -6, duration: 1.2, ease: "sine.inOut" }, L(33.2));
+          tl.to("#e-k", { opacity: 0, duration: 0.3 }, L(34.2));
+          // ---- « un atelier cherche un métallier près de Rennes »
+          cam(C.atelier - 0.1, { ...focus(720, 358, 1.38), rotationY: -2, rotationX: 1 }, 0.75);
+          tl.to(cur, { opacity: 1, duration: 0.2 }, L(34.6));
+          curTo(34.65, 860, 360, 0.42);
+          click(35.08, "#e-sel-metier");
+          classAt($("e-sel-metier"), "on", 35.1);
+          tl.fromTo("#e-dd", { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.18, ease: "power2.out", immediateRender: true }, L(35.12));
+          curTo(35.2, 840, 570, 0.24);
+          classAt($("e-dd-opt"), "hl", 35.36);
+          click(C.metallier2 + 0.18);
+          tl.to("#e-dd", { opacity: 0, duration: 0.12 }, L(35.5));
+          
+          curTo(35.62, 1110, 362, 0.3);
+          click(35.92, "#e-sel-ville");
+          classAt($("e-sel-ville"), "on", 35.94);
+          typers.push({ el: $("e-ville-v"), text: "Rennes", ph: "Paris, Lyon, Marseille...", t0: L(35.96), t1: L(36.22), caret: $("e-ville-caret") });
+          // ---- « il filtre par métier » : results update
+          cam(36.45, { ...focus(720, 560, 1.06), rotationY: -4, rotationX: 2 }, 0.7);
+          tl.to(cur, { x: 1180, y: 700, duration: 0.5, ease: "power2.inOut" }, L(36.5));
+          tl.to(["#e-r0", "#e-r1", "#e-r2"], { opacity: 0, y: 24, scale: 0.96, duration: 0.25, ease: "power2.in", stagger: 0.05 }, L(C.filtre - 0.25));
+          ["#e-f0", "#e-f1", "#e-f2"].forEach((id, i) => {
+            tl.fromTo(id, { opacity: 0, y: 40, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.42, ease: "back.out(1.4)", immediateRender: false }, L(C.filtre + 0.05 + i * 0.1));
+          });
+          // ---- « découvre le portail de Jules » : Jules' card pops out, zoom on the photo
+          tl.to(["#e-f1", "#e-f2"], { opacity: 0.45, duration: 0.3 }, L(C.decouvre - 0.05));
+          tl.to("#e-f0", { scale: 1.12, y: -18, boxShadow: "0 0 0 3px rgba(249,115,22,0.95), 0 40px 90px rgba(30,24,19,0.35)", zIndex: 5, duration: 0.42, ease: "back.out(1.6)" }, L(C.decouvre - 0.08));
+          cam(C.portail2 - 0.25, { ...focus(350, 560, 1.55), rotationY: 0, rotationX: 0 }, 0.6);
+          curTo(C.portail2 - 0.1, 380, 610, 0.35);
+          click(C.jules2 - 0.12, "#e-f0");
+          // ---- profile
+          
+          tl.to("#e-search", { opacity: 0, x: -60, duration: 0.3, ease: "power2.in" }, L(C.jules2));
+          tl.fromTo("#e-profile", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.38, ease: "power3.out", immediateRender: false }, L(C.jules2 + 0.12));
+          classAt($("e-nav-search"), "on", 0, C.jules2 + 0.1);
+          cam(C.jules2 + 0.1, { ...focus(660, 400, 1.14), rotationY: -3, rotationX: 1 }, 0.6);
+          curTo(40.0, 365, 404, 0.3);
+          click(40.36, "#e-follow");
+          tl.to("#e-follow", { backgroundColor: "#16a34a", duration: 0.2 }, L(40.42));
+          tl.fromTo("#e-toast", { opacity: 0, y: -24 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.6)", immediateRender: false }, L(40.48));
+          tl.to("#e-toast", { opacity: 0, y: -16, duration: 0.25 }, L(41.4));
+          // ---- « et lui écrit directement »
+          curTo(40.62, 690, 404, 0.26);
+          click(C.ecrit - 0.02, "#e-msg");
+          classAt($("e-nav-msg"), "on", C.ecrit);
+          tl.to("#e-chat", { xPercent: 0, duration: 0.4, ease: "power3.out" }, L(C.ecrit + 0.02));
+          cam(C.ecrit + 0.05, { ...focus(1210, 520, 1.28), rotationY: -2, rotationX: 0 }, 0.6);
+          tl.to(cur, { x: 1300, y: 830, duration: 0.4, ease: "power2.inOut" }, L(41.0));
+          typers.push({ el: $("e-in-t"), text: "Bonjour Jules ! Votre portail est superbe. On cherche un apprenti métallier : on en parle ?", ph: "Votre message…", t0: L(41.25), t1: L(41.95), caret: $("e-in-caret"), clearAt: L(42.1) });
+          tl.to(cur, { x: 1376, y: 836, duration: 0.2, ease: "power2.inOut" }, L(41.92));
+          click(42.06, "#e-send");
+          tl.to("#e-empty", { opacity: 0, duration: 0.15 }, L(42.06));
+          tl.fromTo("#e-bub", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.7)", immediateRender: false }, L(42.1));
+          tl.fromTo("#e-sent", { opacity: 0 }, { opacity: 1, duration: 0.2, immediateRender: false }, L(42.3));
+          // ---- hand-off: the message flies to Jules (F6), the browser whips away
+          tl.fromTo("#e-fly", { opacity: 0, x: 1150, y: 520, scale: 0.8 }, { opacity: 1, x: 1250, y: 470, scale: 1, duration: 0.2, ease: "power2.out", immediateRender: false }, L(42.5));
+          tl.to("#e-fly", { x: 2100, y: 300, scale: 0.6, filter: "blur(10px)", opacity: 0, duration: 0.4, ease: "power3.in" }, L(42.66));
+          tl.to(br, { x: "-=1400", filter: "blur(20px)", opacity: 0, duration: 0.45, ease: "power3.in" }, L(42.6));
+
+          tl.eventCallback("onUpdate", render);
+          render();
+          window.__timelines["entreprise"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
