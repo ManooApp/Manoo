@@ -30,6 +30,11 @@ bout en bout : Jules photographie son portail, le publie, et un atelier le déco
 - **Cues** : assets/cues.js (généré par tools/make-cues.py depuis les temps DTW de whisper) ; chaque frame cale
   ses gestes sur les mots.
 
+- **Couche « téléphone de Jules »** (compositions/device.html, 7.6–47.5 s) : le même téléphone traverse les
+  séquences 2 à 6 (feed → portfolio → accueil → inscription → profil → « Ajouter au portfolio » → « Créer une
+  publication » → feed → notification). Les éléments qui « sortent » de l'écran (vignettes, cartes de profils,
+  carte de Jules, photo, publication, grande notification) vivent dans cette couche, au-dessus des scènes.
+
 ## Video direction
 
 - **Rythme** : un geste par mot clé, plans de 1 à 2 s comme la référence ; seules les fins de phrases respirent.
@@ -43,7 +48,7 @@ bout en bout : Jules photographie son portail, le publie, et un atelier le déco
 - scene: Lumière orange qui s'ouvre ; « Bâtiment · Artisanat · Industrie » en bulles brillantes ; un CV papier apparaît et tombe ; trois photos de réalisations le remplacent : « Il se voit sur le terrain. »
 - duration: 7.95s
 - transition_in: cut
-- status: outline
+- status: animated
 - src: compositions/frames/01-accroche.html
 - voiceover: "Dans le bâtiment, l'artisanat ou l'industrie, le talent ne tient pas sur un CV. Il se voit sur le terrain."
 - asset_candidates: assets/photos/A0.jpg, assets/photos/B0.jpg, assets/photos/C0.jpg
@@ -59,7 +64,7 @@ et chute · 5.4–7.9 trois photos de réalisations en 3D + « Il se voit sur le
 - scene: L'orbe porte l'icône Manoo et MANOO. ; il s'ouvre sur un téléphone incliné (le feed réel) entouré de bulles de métiers en orbite ; « Le réseau social des métiers manuels » puis « Un portfolio numérique pour montrer son savoir-faire » sur la grille portfolio.
 - duration: 7.0s
 - transition_in: continuous (orb handoff)
-- status: outline
+- status: animated
 - src: compositions/frames/02-manoo.html
 - voiceover: "Manou, c'est le réseau social des métiers manuels : un portfolio numérique pour montrer son savoir-faire."
 - asset_candidates: assets/brand/manoo-marteau.png, assets/photos/*
@@ -73,7 +78,7 @@ bulles de métiers en orbite · 11.83 l'écran passe au portfolio · 13.25 les v
 - scene: Écran « Bienvenue sur Manoo » ; les quatre cartes de profils sortent du téléphone sur chaque mot (Artisan, Étudiant / Apprenti, Entreprise, École / CFA) ; puis l'inscription en 3 étapes défile.
 - duration: 7.5s
 - transition_in: continuous (same phone)
-- status: outline
+- status: animated
 - src: compositions/frames/03-profils.html
 - voiceover: "Artisans, apprentis, entreprises, écoles et CFA : chacun y crée son profil."
 - asset_candidates: none (UI)
@@ -87,14 +92,15 @@ bulles de métiers en orbite · 11.83 l'écran passe au portfolio · 13.25 les v
 - scene: Carte de profil de Jules ; plan 3D de l'atelier (il photographie son portail, flash) ; la photo vole dans le téléphone : « Ajouter au portfolio », titre tapé, ajouté ; « Créer une publication » → Publier ; la publication rayonne vers le réseau (avatars en orbite).
 - duration: 10.4s
 - transition_in: cut
-- status: outline
+- status: animated
 - src: compositions/frames/04-jeune-pro.html
 - voiceover: "Jules, apprenti métallier, termine un portail. Il le prend en photo, l'ajoute à son portfolio… et le partage avec tout le réseau."
 - asset_candidates: assets/video/atelier.mp4, assets/photos/jules-portail.jpg
 - blueprint: device-surface-showcase + constellation-hub
 
 22.69 carte Jules · 23.5–23.9 puces « Étudiant / Apprenti » « Serrurier / Métallier » · 24.6 plan atelier ·
-27.03 flash · 27.7–28.7 Ajouter au portfolio (photo, titre, tap, 4/5 médias) · 29.0–30.4 Créer une publication,
+27.03 flash · 27.2–30.1 repère à gauche « La photo → Le portfolio → Le réseau » · 27.7–28.7 Ajouter au
+portfolio (photo, titre, tap, 4/5 médias) · 29.0–30.4 Créer une publication,
 Publier, toast · 30.4–32.8 la publication au centre, le réseau s'allume autour (avatars, ♥, 💬).
 
 ## Frame 5 — Côté entreprise (32.85–43.05s)
@@ -102,7 +108,7 @@ Publier, toast · 30.4–32.8 la publication au centre, le réseau s'allume auto
 - scene: Navigateur incliné (manoo.fr/search, compte Atelier Morvan) : filtres Métier « Serrurier / Métallier » et ville « Rennes », résultats, la carte de Jules sort de la liste, profil + portfolio, Suivre → Abonné, message envoyé.
 - duration: 10.2s
 - transition_in: whip
-- status: outline
+- status: animated
 - src: compositions/frames/05-entreprise.html
 - voiceover: "Côté entreprise, un atelier cherche un métallier près de Rennes. Il filtre par métier, découvre le portail de Jules… et lui écrit directement."
 - asset_candidates: assets/photos/jules-portail.jpg, assets/photos/garde-corps.jpg, assets/photos/banc.jpg
@@ -116,20 +122,21 @@ Publier, toast · 30.4–32.8 la publication au centre, le réseau s'allume auto
 - scene: Le téléphone de Jules reçoit « Nouveau message · Atelier Morvan » ; « Pas besoin de CV. » (CV barré) ; « Son travail a parlé pour lui. »
 - duration: 4.1s
 - transition_in: whip
-- status: outline
+- status: animated
 - src: compositions/frames/06-travail.html
 - voiceover: "Pas besoin de CV : son travail a parlé pour lui."
 - asset_candidates: assets/photos/jules-portail.jpg
 - blueprint: kinetic-type-beats
 
-43.1 notification + anneau · 43.99 « CV » barré · 45.09 « Son travail a parlé pour lui. »
+43.1 notification + anneau, 43.3 la notification sort du téléphone en grand (message de l'Atelier Morvan) ·
+43.99 « CV » barré · 44.45 « Atelier Morvan vous suit » · 45.09 « Son travail a parlé pour lui. »
 
 ## Frame 7 — Signature (47.15–55.5s)
 
 - scene: Orbe + icône + MANOO. ; « La révolution du regard. » ; quatre puces de publics ; URL « manoo.fr » tapée dans une pastille lumineuse ; bouton « Créer mon compte ».
 - duration: 8.35s
 - transition_in: continuous
-- status: outline
+- status: animated
 - src: compositions/frames/07-signature.html
 - voiceover: "Manou. La révolution du regard. Rejoignez le réseau sur manou point F R."
 - asset_candidates: assets/brand/manoo-marteau.png

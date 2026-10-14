@@ -36,14 +36,13 @@
   position: absolute;
   width: 430px;
   height: 888px;
-  transform-style: preserve-3d;
 }
 .phone-edge {
   position: absolute;
   inset: 0;
   border-radius: 70px;
   background: linear-gradient(160deg, #4a5157 0%, #23282c 35%, #3b4248 70%, #1c2023 100%);
-  transform: translateZ(-16px);
+  transform: translate(10px, 8px);
   box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
 }
 .phone-body {

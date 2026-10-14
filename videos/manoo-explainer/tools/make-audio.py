@@ -102,11 +102,18 @@ def seg(t, keys):
     return np.interp(t, [k[0] for k in keys], [k[1] for k in keys])
 
 
+def K_END():
+    n = int(0.6 * SR)
+    tt = t_axis(n)
+    f = 44 + 90 * np.exp(-tt * 26)
+    return np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 5.5) * 0.6
+
+
 # ---------------------------------------------------------------- arrangement (film time)
 # sections: groove on/off windows
-GROOVE = [(7.95, 22.35), (27.0, 32.5), (32.85, 42.5), (47.4, 53.4)]
-CLAPS = [(9.3, 22.35), (27.2, 32.5), (36.0, 42.5), (48.4, 53.4)]
-BREAK = [(22.35, 27.0), (42.5, 47.4)]  # pad + soft pulse only
+GROOVE = [(7.95, 22.35), (27.0, 32.5), (32.85, 42.5), (47.4, 53.55)]
+CLAPS = [(9.3, 22.35), (27.2, 32.5), (36.0, 42.5), (48.4, 53.55)]
+BREAK = [(0.9, 7.95), (22.35, 27.0), (42.5, 47.4)]  # pad + soft pulse only
 CHORDS = [("F", 41, [53, 57, 60, 64]), ("Am", 45, [52, 57, 60, 64]), ("Dm", 38, [50, 53, 57, 62]), ("Bb", 34, [50, 53, 58, 62])]
 
 
@@ -147,7 +154,7 @@ def make_bed():
     ph = (t % BEAT) / BEAT
     pump_on = np.array([in_any(x, GROOVE) for x in t[::480]]).repeat(480)[:N].astype(float)
     pad *= (1 - pump_on * 0.3 * np.exp(-ph * 7))[:, None]
-    pad *= seg(t, [(0, 0.0), (0.4, 0.5), (7.9, 0.6), (8.2, 0.9), (22.35, 0.75), (42.5, 0.9), (47.45, 1.0), (55.5, 0.0)])[:, None]
+    pad *= seg(t, [(0, 0.0), (0.4, 1.0), (7.9, 1.1), (8.2, 0.9), (22.35, 1.15), (27.0, 0.9), (42.5, 1.15), (47.45, 1.0), (53.5, 1.1), (54.9, 1.0), (55.5, 0.0)])[:, None]
     out += pad
 
     # --- pluck arpeggio (16ths) with ping-pong delay
@@ -156,7 +163,7 @@ def make_bed():
     pattern = [0, 2, 1, 3, 2, 4, 3, 1]
     for i in range(int(DUR / step)):
         ts = i * step
-        if not (5.4 <= ts < 22.35 or 24.4 <= ts < 42.5 or 47.45 <= ts < 54.0):
+        if not (1.2 <= ts < 22.35 or 23.2 <= ts < 42.5 or 43.6 <= ts < 53.55):
             continue
         _, _, notes = CHORDS[int((ts // BAR) % 4)]
         tones = [notes[0] + 12, notes[1] + 12, notes[2] + 12, notes[3] + 12, notes[0] + 24]
@@ -180,7 +187,7 @@ def make_bed():
             pp[sh:, 1] += pl[:-sh, 0] * g
         else:
             pp[sh:] += pl[:-sh] * g
-    pp *= seg(t, [(0, 0), (5.4, 0.0), (6.4, 0.7), (8.2, 0.9), (22.35, 0.55), (24.4, 0.35), (27.0, 0.95), (42.5, 0.4), (47.45, 0.9), (54.0, 0.5), (55.5, 0)])[:, None]
+    pp *= seg(t, [(0, 0), (1.2, 0.0), (2.4, 0.55), (5.4, 0.75), (8.2, 0.9), (22.35, 0.7), (24.4, 0.6), (27.0, 0.95), (42.5, 0.6), (47.45, 0.95), (54.6, 0.7), (55.5, 0)])[:, None]
     out += pp
 
     # --- drums
@@ -221,10 +228,11 @@ def make_bed():
             place(dr, shaker(), tb + 3 * BEAT / 4, 0.55)
             if in_any(tb, CLAPS) and b % 2 == 1:
                 place(dr, clap(), tb, 1.0)
-            if (27.2 <= tb < 32.5 or 48.4 <= tb < 53.4) and b % 2 == 0:
+            if (27.2 <= tb < 32.5 or 48.4 <= tb < 53.55) and b % 2 == 0:
                 place(dr, hat(True), tb + BEAT / 2, 0.5)
         elif in_any(tb, BREAK) and b % 2 == 0:
-            place(dr, K, tb, 0.42)  # heartbeat pulse in the breakdowns
+            place(dr, K, tb, 0.55)  # heartbeat pulse in the intro and breakdowns
+            place(dr, hat(), tb + BEAT, 0.5)
 
     # --- sub bass (8ths on the root) in the grooves
     sub = np.zeros(N)
@@ -263,12 +271,16 @@ def make_bed():
     H1 = chord_hit([41, 53, 57, 60, 64, 69, 72])
     for th in (CU["manoo1"] - 0.03, CU["photo"] - 0.02, CU["manoo2"] - 0.03):
         place(sub, H1, th, 0.8)
+    # final resolving chord on the last downbeat (end card hold)
+    END_HIT = 25 * BAR
+    place(sub, chord_hit([29, 41, 53, 57, 60, 64, 67, 72], dur=2.4, gain=0.034), END_HIT, 1.5)
+    place(sub, K_END(), END_HIT, 0.9)
 
     mix = out + np.stack([dr, dr], 1) * 0.9 + np.stack([sub, sub], 1)
     mix = stereo_reverb(mix, wet=0.22)
     mix = np.stack([highpass(mix[:, 0], 36), highpass(mix[:, 1], 36)], 1)
     mix = np.tanh(mix * 1.4) / 1.4
-    mix *= seg(t, [(0, 0.0), (0.2, 1.0), (54.2, 1.0), (55.5, 0.0)])[:, None]
+    mix *= seg(t, [(0, 0.0), (0.2, 1.0), (54.9, 1.0), (55.5, 0.0)])[:, None]
     return mix / np.max(np.abs(mix)) * 0.7
 
 

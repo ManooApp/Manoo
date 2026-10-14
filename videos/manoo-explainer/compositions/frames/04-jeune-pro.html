@@ -55,30 +55,30 @@
         .j-react .toast-t { font-size: 15px; }
       </style>
 
-      <div id="j-root" data-composition-id="jeunepro" data-width="1920" data-height="1080">
-        <div class="mui" style="position:absolute;inset:0;color:#f3f2ef">
-        <div id="j-net">
-          <svg id="j-svg" viewBox="-960 -540 1920 1080">
-            <circle class="j-ring" r="400" fill="none" stroke="rgba(243,242,239,0.13)" stroke-width="1.5"/>
-            <circle class="j-ring" r="540" fill="none" stroke="rgba(243,242,239,0.09)" stroke-width="1.5" stroke-dasharray="4 10"/>
-            <circle class="j-ring" r="680" fill="none" stroke="rgba(243,242,239,0.06)" stroke-width="1.5"/>
-            <g id="j-links" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.85"></g>
+      <div data-hf-id="hf-8ktg" id="j-root" data-composition-id="jeunepro" data-width="1920" data-height="1080">
+        <div data-hf-id="hf-a590" class="mui" style="position:absolute;inset:0;color:#f3f2ef">
+        <div data-hf-id="hf-ne6j" id="j-net">
+          <svg data-hf-id="hf-f3zx" id="j-svg" viewBox="-960 -540 1920 1080">
+            <circle data-hf-id="hf-ritc" class="j-ring" r="400" fill="none" stroke="rgba(243,242,239,0.13)" stroke-width="1.5"/>
+            <circle data-hf-id="hf-4wjy" class="j-ring" r="540" fill="none" stroke="rgba(243,242,239,0.09)" stroke-width="1.5" stroke-dasharray="4 10"/>
+            <circle data-hf-id="hf-i5v8" class="j-ring" r="680" fill="none" stroke="rgba(243,242,239,0.06)" stroke-width="1.5"/>
+            <g data-hf-id="hf-1ir7" id="j-links" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.85"></g>
           </svg>
         </div>
-        <div id="j-reacts"></div>
+        <div data-hf-id="hf-l9yu" id="j-reacts" data-layout-allow-overlap></div>
 
-        <div id="j-steps">
-          <div class="j-step" id="j-st0"><div class="bub"><i data-icon="camera"></i></div><div><b>La photo</b><span>prise sur le chantier</span></div></div>
-          <div class="j-step" id="j-st1"><div class="bub"><i data-icon="image-plus"></i></div><div><b>Le portfolio</b><span>« Ajouter au portfolio »</span></div></div>
-          <div class="j-step" id="j-st2"><div class="bub"><i data-icon="share-2"></i></div><div><b>Le réseau</b><span>« Créer une publication »</span></div></div>
+        <div data-hf-id="hf-4kf3" id="j-steps">
+          <div data-hf-id="hf-l337" class="j-step" id="j-st0"><div data-hf-id="hf-007n" class="bub"><i data-hf-id="hf-v61j" data-icon="camera"></i></div><div data-hf-id="hf-yeow"><b data-hf-id="hf-amkb" data-layout-allow-occlusion>La photo</b><span data-hf-id="hf-xmse" data-layout-allow-occlusion>prise sur le chantier</span></div></div>
+          <div data-hf-id="hf-exde" class="j-step" id="j-st1"><div data-hf-id="hf-ua2b" class="bub"><i data-hf-id="hf-dgsq" data-icon="image-plus"></i></div><div data-hf-id="hf-y7yw"><b data-hf-id="hf-jlla">Le portfolio</b><span data-hf-id="hf-dxlv">« Ajouter au portfolio »</span></div></div>
+          <div data-hf-id="hf-az9d" class="j-step" id="j-st2"><div data-hf-id="hf-tvra" class="bub"><i data-hf-id="hf-cvg2" data-icon="share-2"></i></div><div data-hf-id="hf-x11t"><b data-hf-id="hf-c3xt">Le réseau</b><span data-hf-id="hf-fhwo">« Créer une publication »</span></div></div>
         </div>
 
-        <div id="j-foot">
-          <video id="j-vid" src="assets/video/atelier.mp4" muted playsinline data-start="2.13" data-duration="3.4"></video>
-          <span class="chip"><i data-icon="map-pin"></i>Jules à l’atelier · Rennes</span>
-          <div id="j-rec"><i></i>CHANTIER</div>
+        <div data-hf-id="hf-oi0a" id="j-foot">
+          <video data-hf-id="hf-0g99" id="j-vid" src="assets/video/atelier.mp4" muted playsinline data-start="2.13" data-duration="3.4"></video>
+          <span data-hf-id="hf-6eg3" class="chip"><i data-hf-id="hf-tr9e" data-icon="map-pin"></i>Jules à l’atelier · Rennes</span>
+          <div data-hf-id="hf-451w" id="j-rec"><i data-hf-id="hf-wt6k"></i>CHANTIER</div>
         </div>
-        <div id="j-flash"></div>
+        <div data-hf-id="hf-9rrw" id="j-flash"></div>
         </div>
       </div>
 
@@ -93,7 +93,7 @@
 
           // ---- the 3D atelier shot in a glowing card
           tl.fromTo("#j-foot", { opacity: 0, scale: 0.72, y: 40, filter: "blur(14px)" }, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out", immediateRender: true }, L(24.5));
-          tl.to("#j-foot", { scale: 1.035, duration: 2.4, ease: "sine.inOut" }, L(25.0));
+          tl.to("#j-foot", { scale: 1.035, duration: +(C.photo + 0.02 - 25.0).toFixed(3), ease: "sine.inOut" }, L(25.0));
           // flash on « photo »
           tl.fromTo("#j-flash", { opacity: 0 }, { opacity: 0.95, duration: 0.06, ease: "power2.out", immediateRender: true }, L(C.photo - 0.03));
           tl.to("#j-flash", { opacity: 0, duration: 0.45, ease: "power2.in" }, L(C.photo + 0.05));
@@ -149,7 +149,7 @@
           });
           const R = [
             { x: 960 + 355, y: 540 - 330, icon: "heart", t: "Atelier Morvan a aimé votre publication" },
-            { x: 960 + 330, y: 540 + 300, icon: "message-circle", t: "Lucas a commenté : « Superbe finition ! »" },
+            { x: 1440, y: 700, icon: "message-circle", t: "Lucas a commenté : « Superbe finition ! »" },
             { x: 960 - 840, y: 540 + 210, icon: "share-2", t: "CFA Métallerie a partagé" },
           ];
           const rEls = R.map((r) => {
