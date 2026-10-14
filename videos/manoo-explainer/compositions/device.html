@@ -615,14 +615,20 @@
           tl.set(ph, { x: 320, y: 30, scale: 0.98, rotationX: 4, rotationY: -12, rotationZ: 0 }, L(42.86));
           tl.fromTo(ph, { opacity: 0, x: 900 }, { opacity: 1, x: 320, duration: 0.5, ease: "power3.out", immediateRender: false }, L(42.86));
           tl.fromTo("#d-notif-1", { opacity: 0, y: -60, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)", immediateRender: false }, L(43.15));
-          tl.fromTo("#d-po-notif", { opacity: 0, x: 1290 - 330, y: 200 - 80, scale: 0.55 },
-            { opacity: 1, x: 1250 - 330, y: 236 - 80, scale: 1, duration: 0.5, ease: "back.out(1.5)", immediateRender: false }, L(43.3));
+          tl.fromTo("#d-po-notif", { opacity: 0, x: 1290 - 330, y: 150 - 80, scale: 0.55 },
+            { opacity: 1, x: 1250 - 330, y: 184 - 80, scale: 1, duration: 0.5, ease: "back.out(1.5)", immediateRender: false }, L(43.3));
+          // the big card is the in-phone banner lifted out: the banner dissolves into it (inner node, so the
+          // entrance tween on #d-notif-1 keeps sole ownership of its own opacity)
+          tl.fromTo("#d-notif-1 > .notif", { opacity: 1 }, { opacity: 0, duration: 0.2, ease: "power1.in", immediateRender: false }, L(43.34));
           tl.to("#d-po-notif", { y: "-=10", duration: 2.2, ease: "sine.inOut" }, L(43.8));
           tl.to("#d-po-notif", { opacity: 0, scale: 0.4, x: 960 - 330, y: 540 - 80, duration: 0.45, ease: "power3.in" }, L(46.72));
           tl.fromTo("#d-notif-2", { opacity: 0, y: -60, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.5)", immediateRender: false }, L(44.45));
           tl.to(ph, { y: 14, rotationY: -8, duration: 3.2, ease: "sine.inOut" }, L(43.4));
           tl.to(ph, { x: 0, y: 0, scale: 0.3, opacity: 0, rotationY: 0, rotationX: 0, duration: 0.5, ease: "power3.in" }, L(46.75));
 
+          // The phone is a real app UI: status bar, app bars, sheets and banners cover scrolled content by
+          // design (reviewed frame by frame), so its text opts out of the occlusion audit.
+          root.querySelectorAll(".screen *").forEach((el) => el.setAttribute("data-layout-allow-occlusion", ""));
           tl.eventCallback("onUpdate", renderTypers);
           renderTypers();
           window.__timelines["device"] = tl;

@@ -143,3 +143,14 @@ Publier, toast · 30.4–32.8 la publication au centre, le réseau s'allume auto
 - blueprint: logo-assemble-lockup
 
 47.45 logo · 48.41 slogan · 50.25 publics · 51.49 URL tapée · 52.4 Créer mon compte (tap) · tenue jusqu'à 55.5.
+
+## Rounds
+
+- **v1 (livraison)** — rendu 1920×1080, 30 i/s, 55,5 s (`renders/manoo-explainer-v1.mp4`, non versionné).
+  `hyperframes check` : 0 erreur ; restent 6 avertissements de lint connus (images dupliquées voulues, taille
+  du fichier device.html, temps local de la vidéo de l'atelier) et des avertissements de contraste sur l'UI
+  reproduite de l'app (blanc sur l'orange de la marque), gardés pour rester fidèles au produit.
+  Corrections de cette passe : écrans du téléphone blancs au rendu (fromTo sans propriétés d'arrivée),
+  creusement de la musique relâché vite entre les phrases, remontée de +5 dB de la musique sur la signature,
+  bulle « Lucas a commenté » déplacée, grande notification remontée et bannière d'origine fondue dedans,
+  curseur de « Rennes » recollé au texte. Superpositions voulues déclarées (`data-layout-allow-*`).
