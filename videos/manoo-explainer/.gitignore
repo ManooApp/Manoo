@@ -6,3 +6,4 @@ capture/assets/
 capture/screenshots/
 shots/atelier/.hyperframes/
 shots/atelier/renders/
+__pycache__/
