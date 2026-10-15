@@ -9,7 +9,7 @@
   their offset to the nearest word cue of their line, as tuned on the previous take. Scene cues (s2…s6) stay
   with the fixed frame hosts.
 - words.json is a list of {"w": text, "t": DTW onset}; DTW onsets land ~0.1 s after the acoustic onset, so
-  --lead is subtracted. Writes the clips, the new transcript, assets/cues.js and the clip durations.
+  --lead is subtracted. The take is first brought to --lufs (default -16, the previous voice's level). Writes the clips, the new transcript, assets/cues.js and the clip durations.
 Run from the project root, then: python3 tools/make-audio.py, re-run the carve, check, render.
 """
 import argparse
@@ -39,6 +39,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument("--take", required=True)
 ap.add_argument("--words", required=True)
 ap.add_argument("--lead", type=float, default=0.11)
+ap.add_argument("--lufs", type=float, default=-16.0, help="integrated loudness of the take after normalisation")
 args = ap.parse_args()
 
 
@@ -57,10 +58,16 @@ old_vo = CU["VO"]
 old_words = json.loads((ROOT / "assets/audio/vo/transcript.json").read_text())
 old_lines = [[w for w in old_words if a <= w["start"] < b] for _, a, b in old_vo]
 
-# new take: decode once at 48 kHz mono
+# new take: bring it to the previous voice's loudness (peaks held by a limiter), decode once at 48 kHz mono
 take = Path(args.take)
-pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", str(take), "-ac", "1", "-ar", str(SR), "-f", "s16le", "-"],
+meter = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(take), "-af", "ebur128", "-f", "null", "-"],
+                       capture_output=True, text=True).stderr
+lufs_in = float(re.findall(r"I:\s+(-?[\d.]+) LUFS", meter)[-1])
+gain_db = args.lufs - lufs_in
+chain = f"volume={gain_db:.2f}dB,alimiter=limit=0.84:attack=5:release=60:level=disabled"
+pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", str(take), "-af", chain, "-ac", "1", "-ar", str(SR), "-f", "s16le", "-"],
                      check=True, capture_output=True).stdout
+print(f"take {lufs_in:.1f} LUFS -> {args.lufs:.1f} LUFS ({gain_db:+.1f} dB, limiter at -1.5 dBFS)")
 x = np.frombuffer(pcm, dtype=np.int16).astype(np.float32) / 32768.0
 take_dur = len(x) / SR
 new_words = [{"text": w["w"], "start": round(max(0.0, w["t"] - args.lead), 3)} for w in json.loads(Path(args.words).read_text())]

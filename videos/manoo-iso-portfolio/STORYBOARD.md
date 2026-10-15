@@ -130,4 +130,7 @@ réalisation devient une preuve en images, vue par ceux qui recrutent, forment e
   régénérés sur les nouveaux repères, creusement de la musique relâché vite entre les phrases et remontée de
   +5 dB sur le plan final (`tools/fix-carve.py`). CLI épinglé 0.8.153 → 0.8.162. Le `check` passe sur 0–7,5 s et
   22,5–45 s ; entre 7,5 et 22,5 s il dépasse son délai (monde 3D en rendu logiciel, déjà le cas avant, aussi en
-  0.8.153), ces scènes sont vérifiées sur les images du rendu.
+  0.8.153), ces scènes sont vérifiées sur les images du rendu. La prise Grady sortait à -25,5 LUFS : elle est
+  ramenée à -16 LUFS (limiteur à -1,5 dBFS) avant découpe ; film rendu à -15,9 LUFS, crête -1,5 dBTP
+  (`renders/manoo-iso-v3-grady.mp4`, non versionné). Rendu avec `PRODUCER_PLAYER_READY_TIMEOUT_MS=300000` et
+  2 navigateurs : le monde 3D met plus de 45 s à s'initialiser sur cette machine.
