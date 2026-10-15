@@ -1,6 +1,6 @@
-# SCRIPT — manoo-iso-portfolio (v1 — voix générée, modifiable : 2 reprises possibles)
+# SCRIPT — manoo-iso-portfolio (v3 — voix Grady, texte inchangé)
 
-**Voix finale :** Higgsfield · text2speech_v2 · variante ElevenLabs — **Holden** (preset 3c9d6053-6334-592c-8997-4e325286af3f), choisi par l'utilisateur. Prise 1 : assets/audio/vo/vo-holden-take1.mp3 (37,6 s), découpée en L1…L6.
+**Voix (v3, test) :** Higgsfield · Eleven v4 Turbo — **Grady** (preset e2a2d2e6-9ed2-59cd-82af-feaa27f8a678), choisie par l'utilisateur. Prise 1 : assets/audio/vo/vo-grady-turbo-take1.mp3 (36,5 s), découpée en L1…L6 et recalée par tools/revoice.py (repères sur les mêmes mots). Voix précédente : Holden (ElevenLabs via text2speech_v2), dans l'historique git.
 **Voix témoin :** Kokoro local « ff_siwis » (assets/audio/vo-scratch/) — n'est plus utilisée dans le montage.
 **Direction :** posée, confiante, chaleureuse ; pas de ton « pub » forcé. Laisser respirer les deux-points et les virgules.
 **Prononciation :** « Manoo » s'écrit « Manou » dans le texte envoyé à la voix ; « manoo.fr » s'écrit « manou point F R ».

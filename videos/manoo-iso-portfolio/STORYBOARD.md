@@ -121,3 +121,13 @@ réalisation devient une preuve en images, vue par ceux qui recrutent, forment e
 - voiceover: "Manoo. La révolution du regard. Demandez une présentation sur manoo.fr."
 - type: cta
 - blueprint: logo-assemble-lockup (Adapt — le point orange atterrit en dernier)
+
+## Rounds
+
+- **v3 (test de voix)** — voix Grady (Higgsfield, Eleven v4 Turbo) à la place de Holden, texte inchangé.
+  `tools/revoice.py` découpe la prise en six clips posés aux mêmes créneaux et place chaque repère sur le même mot
+  (temps DTW de whisper) ; les gestes entre les mots gardent leur écart au mot voisin. Musique et bruitages
+  régénérés sur les nouveaux repères, creusement de la musique relâché vite entre les phrases et remontée de
+  +5 dB sur le plan final (`tools/fix-carve.py`). CLI épinglé 0.8.153 → 0.8.162. Le `check` passe sur 0–7,5 s et
+  22,5–45 s ; entre 7,5 et 22,5 s il dépasse son délai (monde 3D en rendu logiciel, déjà le cas avant, aussi en
+  0.8.153), ces scènes sont vérifiées sur les images du rendu.
