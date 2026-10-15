@@ -86,14 +86,15 @@
         (function () {
           const C = window.CUES;
           const T0 = 22.4;
-          const L = (t) => +(t - T0).toFixed(3);
+          const retime = window.RETIME || ((t) => t); // authored (Holden) time -> current voice take
+          const L = (t) => +(retime(t) - T0).toFixed(3);
           const root = document.getElementById("j-root");
           window.ManooIcons.hydrate(root);
           const tl = gsap.timeline({ paused: true });
 
           // ---- the 3D atelier shot in a glowing card
           tl.fromTo("#j-foot", { opacity: 0, scale: 0.72, y: 40, filter: "blur(14px)" }, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out", immediateRender: true }, L(24.5));
-          tl.to("#j-foot", { scale: 1.035, duration: +(C.photo + 0.02 - 25.0).toFixed(3), ease: "sine.inOut" }, L(25.0));
+          tl.to("#j-foot", { scale: 1.035, duration: +(L(C.photo + 0.02) - L(25.0)).toFixed(3), ease: "sine.inOut" }, L(25.0));
           // flash on « photo »
           tl.fromTo("#j-flash", { opacity: 0 }, { opacity: 0.95, duration: 0.06, ease: "power2.out", immediateRender: true }, L(C.photo - 0.03));
           tl.to("#j-flash", { opacity: 0, duration: 0.45, ease: "power2.in" }, L(C.photo + 0.05));

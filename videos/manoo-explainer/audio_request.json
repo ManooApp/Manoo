@@ -1,0 +1,17 @@
+{
+  "provider": "gemini",
+  "tts_model": "gemini-3.8-flash-tts",
+  "voice": "Charon",
+  "lang": "fr",
+  "style": "Natural French narrator for a brand film: warm, calm and confident, like a short documentary. Relaxed pace, no advertising emphasis. Short pauses at colons and ellipses; the last line ends on a friendly invitation.",
+  "lines": [
+    { "id": "L1", "text": "Dans le bâtiment, l'artisanat ou l'industrie, le talent ne tient pas sur un CV. Il se voit sur le terrain." },
+    { "id": "L2", "text": "Manou, c'est le réseau social des métiers manuels : un portfolio numérique pour montrer son savoir-faire." },
+    { "id": "L3", "text": "Artisans, apprentis, entreprises, écoles et CFA : chacun y crée son profil." },
+    { "id": "L4", "text": "Jules, apprenti métallier, termine un portail. Il le prend en photo, l'ajoute à son portfolio… et le partage avec tout le réseau." },
+    { "id": "L5", "text": "Côté entreprise, un atelier cherche un métallier près de Rennes. Il filtre par métier, découvre le portail de Jules… et lui écrit directement." },
+    { "id": "L6", "text": "Pas besoin de CV : son travail a parlé pour lui." },
+    { "id": "L7", "text": "Manou. La révolution du regard. Rejoignez le réseau sur manou point F R." }
+  ],
+  "bgm": { "mode": "none" }
+}

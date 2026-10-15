@@ -57,6 +57,7 @@
       </div>
       <script>
         (function () {
+          const retime = window.RETIME || ((t) => t); // authored (Holden) time -> current voice take
           const tl = gsap.timeline({ paused: true });
           // opening: a light beam opens the frame
           tl.fromTo("#b-beam", { opacity: 0, scaleX: 0.2 }, { opacity: 1, scaleX: 1, duration: 0.8, ease: "power3.out", immediateRender: true }, 0.05);
@@ -68,13 +69,13 @@
           tl.to("#b-a3", { x: 380, y: -300, scale: 1.25, duration: 55, ease: "sine.inOut" }, 0);
           // light swells on the brand moments (logo F2, network F4, signature F7)
           [[7.8, 2.2], [30.3, 2.4], [47.2, 3.0]].forEach(([at, d]) => {
-            tl.fromTo("#b-swell", { opacity: 0 }, { opacity: 1, duration: d * 0.4, ease: "power2.out", immediateRender: false }, at);
-            tl.to("#b-swell", { opacity: 0, duration: d * 0.6, ease: "power2.inOut" }, at + d * 0.4);
+            tl.fromTo("#b-swell", { opacity: 0 }, { opacity: 1, duration: d * 0.4, ease: "power2.out", immediateRender: false }, retime(at));
+            tl.to("#b-swell", { opacity: 0, duration: d * 0.6, ease: "power2.inOut" }, retime(at) + d * 0.4);
           });
           // grid only under the UI tours (entreprise) and the signature
-          tl.to("#b-grid", { opacity: 1, duration: 0.8 }, 32.7);
-          tl.to("#b-grid", { opacity: 0, duration: 0.6 }, 42.6);
-          tl.to("#b-grid", { opacity: 0.8, duration: 1.2 }, 47.3);
+          tl.to("#b-grid", { opacity: 1, duration: 0.8 }, retime(32.7));
+          tl.to("#b-grid", { opacity: 0, duration: 0.6 }, retime(42.6));
+          tl.to("#b-grid", { opacity: 0.8, duration: 1.2 }, retime(47.3));
           window.__timelines["bg"] = tl;
         })();
       </script>

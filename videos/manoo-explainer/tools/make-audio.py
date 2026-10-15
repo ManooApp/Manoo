@@ -5,7 +5,8 @@ Outputs
   assets/audio/music/bed.wav       55.5 s stereo bed, 112 BPM, F major (F · Am · Dm · Bb)
   assets/audio/sfx/sfx-track.wav   every sound effect placed on the film's cue times
 
-Cue times come from assets/cues.js (tools/make-cues.py). Run from the project root:
+Cue times come from assets/cues.js (tools/make-cues.py); every film time below is authored on the Holden take
+and goes through the voice retiming of assets/retime.js (identity when it has no points). Run from the project root:
   python3 tools/make-audio.py
 SFX samples: the media-use bundled library (see its CREDITS.md), decoded on first run.
 """
@@ -32,6 +33,39 @@ def cues():
 
 
 CU = cues()
+
+
+def retime_points():
+    p = ROOT / "assets/retime.js"
+    if not p.exists():
+        return []
+    m = re.search(r"window\.RETIME_POINTS = (\[.*?\]);", p.read_text(), re.S)
+    return json.loads(m.group(1)) if m else []
+
+
+RT = retime_points()
+
+
+def rt(t):
+    """Authored (Holden) film time -> current voice take; same map as window.RETIME."""
+    if not RT:
+        return t
+    if t <= RT[0][0]:
+        return t + RT[0][1] - RT[0][0]
+    if t >= RT[-1][0]:
+        return t + RT[-1][1] - RT[-1][0]
+    for (a0, a1), (b0, b1) in zip(RT, RT[1:]):
+        if a0 <= t <= b0:
+            return a1 + (t - a0) * (b1 - a1) / (b0 - a0)
+    return t
+
+
+def rtw(wins):
+    return [(rt(a), rt(b)) for a, b in wins]
+
+
+def rtk(keys):
+    return [(rt(a), v) for a, v in keys]
 BPM = 112.0
 BEAT = 60.0 / BPM
 BAR = BEAT * 4
@@ -111,9 +145,11 @@ def K_END():
 
 # ---------------------------------------------------------------- arrangement (film time)
 # sections: groove on/off windows
-GROOVE = [(7.95, 22.35), (27.0, 32.5), (32.85, 42.5), (47.4, 53.55)]
-CLAPS = [(9.3, 22.35), (27.2, 32.5), (36.0, 42.5), (48.4, 53.55)]
-BREAK = [(0.9, 7.95), (22.35, 27.0), (42.5, 47.4)]  # pad + soft pulse only
+GROOVE = rtw([(7.95, 22.35), (27.0, 32.5), (32.85, 42.5), (47.4, 53.55)])
+CLAPS = rtw([(9.3, 22.35), (27.2, 32.5), (36.0, 42.5), (48.4, 53.55)])
+BREAK = rtw([(0.9, 7.95), (22.35, 27.0), (42.5, 47.4)])  # pad + soft pulse only
+PLUCKS = rtw([(1.2, 22.35), (23.2, 42.5), (43.6, 53.55)])
+OPEN_HATS = rtw([(27.2, 32.5), (48.4, 53.55)])
 CHORDS = [("F", 41, [53, 57, 60, 64]), ("Am", 45, [52, 57, 60, 64]), ("Dm", 38, [50, 53, 57, 62]), ("Bb", 34, [50, 53, 58, 62])]
 
 
@@ -142,7 +178,7 @@ def make_bed():
                 k_ = min(n, N - i0)
                 pad[i0 : i0 + k_, 0] += s[:k_] * (1 - pan)
                 pad[i0 : i0 + k_, 1] += s[:k_] * pan
-    cut = [(0, 380), (7.9, 900), (8.25, 2600), (10.0, 1500), (22.35, 650), (26.9, 1200), (27.05, 2800), (30.3, 3400), (32.5, 1400), (42.5, 800), (45.2, 1600), (47.45, 3000), (55.5, 1200)]
+    cut = rtk([(0, 380), (7.9, 900), (8.25, 2600), (10.0, 1500), (22.35, 650), (26.9, 1200), (27.05, 2800), (30.3, 3400), (32.5, 1400), (42.5, 800), (45.2, 1600), (47.45, 3000), (55.5, 1200)])
     filt = np.zeros_like(pad)
     blk = int(SR * 0.5)
     for i0 in range(0, N, blk):
@@ -154,7 +190,7 @@ def make_bed():
     ph = (t % BEAT) / BEAT
     pump_on = np.array([in_any(x, GROOVE) for x in t[::480]]).repeat(480)[:N].astype(float)
     pad *= (1 - pump_on * 0.3 * np.exp(-ph * 7))[:, None]
-    pad *= seg(t, [(0, 0.0), (0.4, 1.0), (7.9, 1.1), (8.2, 0.9), (22.35, 1.15), (27.0, 0.9), (42.5, 1.15), (47.45, 1.0), (53.5, 1.1), (54.9, 1.0), (55.5, 0.0)])[:, None]
+    pad *= seg(t, [(0, 0.0)] + rtk([(0.4, 1.0), (7.9, 1.1), (8.2, 0.9), (22.35, 1.15), (27.0, 0.9), (42.5, 1.15), (47.45, 1.0), (53.5, 1.1)]) + [(54.9, 1.0), (55.5, 0.0)])[:, None]
     out += pad
 
     # --- pluck arpeggio (16ths) with ping-pong delay
@@ -163,7 +199,7 @@ def make_bed():
     pattern = [0, 2, 1, 3, 2, 4, 3, 1]
     for i in range(int(DUR / step)):
         ts = i * step
-        if not (1.2 <= ts < 22.35 or 23.2 <= ts < 42.5 or 43.6 <= ts < 53.55):
+        if not in_any(ts, PLUCKS):
             continue
         _, _, notes = CHORDS[int((ts // BAR) % 4)]
         tones = [notes[0] + 12, notes[1] + 12, notes[2] + 12, notes[3] + 12, notes[0] + 24]
@@ -187,7 +223,7 @@ def make_bed():
             pp[sh:, 1] += pl[:-sh, 0] * g
         else:
             pp[sh:] += pl[:-sh] * g
-    pp *= seg(t, [(0, 0), (1.2, 0.0), (2.4, 0.55), (5.4, 0.75), (8.2, 0.9), (22.35, 0.7), (24.4, 0.6), (27.0, 0.95), (42.5, 0.6), (47.45, 0.95), (54.6, 0.7), (55.5, 0)])[:, None]
+    pp *= seg(t, [(0, 0)] + rtk([(1.2, 0.0), (2.4, 0.55), (5.4, 0.75), (8.2, 0.9), (22.35, 0.7), (24.4, 0.6), (27.0, 0.95), (42.5, 0.6), (47.45, 0.95)]) + [(54.6, 0.7), (55.5, 0)])[:, None]
     out += pp
 
     # --- drums
@@ -228,7 +264,7 @@ def make_bed():
             place(dr, shaker(), tb + 3 * BEAT / 4, 0.55)
             if in_any(tb, CLAPS) and b % 2 == 1:
                 place(dr, clap(), tb, 1.0)
-            if (27.2 <= tb < 32.5 or 48.4 <= tb < 53.55) and b % 2 == 0:
+            if in_any(tb, OPEN_HATS) and b % 2 == 0:
                 place(dr, hat(True), tb + BEAT / 2, 0.5)
         elif in_any(tb, BREAK) and b % 2 == 0:
             place(dr, K, tb, 0.55)  # heartbeat pulse in the intro and breakdowns
@@ -256,7 +292,7 @@ def make_bed():
         tone = np.sin(2 * np.pi * (300 * tt + 900 * tt ** 2 / dur)) * (tt / dur) ** 2 * 0.04
         return noise + tone
 
-    for t_hit, d in ((CU["manoo1"], 1.6), (CU["photo"], 2.4), (CU["manoo2"], 1.4)):
+    for t_hit, d in ((rt(CU["manoo1"]), 1.6), (rt(CU["photo"]), 2.4), (rt(CU["manoo2"]), 1.4)):
         r = riser(d)
         place(sub, r, t_hit - d, 0.9)
 
@@ -269,7 +305,7 @@ def make_bed():
         return lowpass(h, 3600) * env_adsr(n, 0.02, 1.2, 0.4, 3.0)
 
     H1 = chord_hit([41, 53, 57, 60, 64, 69, 72])
-    for th in (CU["manoo1"] - 0.03, CU["photo"] - 0.02, CU["manoo2"] - 0.03):
+    for th in (rt(CU["manoo1"] - 0.03), rt(CU["photo"] - 0.02), rt(CU["manoo2"] - 0.03)):
         place(sub, H1, th, 0.8)
     # final resolving chord on the last downbeat (end card hold)
     END_HIT = 25 * BAR
@@ -331,7 +367,7 @@ def make_sfx():
 
     def put(name, t0, g=1.0, sl=None):
         s = S[name] if sl is None else S[name][: int(sl * SR)]
-        place(buf, s, t0, g)
+        place(buf, s, rt(t0), g)
 
     c = CU
     # F1 — hook
@@ -383,9 +419,9 @@ def make_sfx():
     put("click-soft", c["apprenti"] - 0.05, 0.3)
     put("click-soft", c["metallier"] - 0.05, 0.3)
     put("whoosh-cinematic", 24.3, 0.35, sl=1.8)
-    place(buf, crackle(0.75), 24.53, 0.55)
+    place(buf, crackle(0.75), rt(24.53), 0.55)
     put("click-soft", 25.3, 0.25)
-    place(buf, shutter(), c["photo"] - 0.03, 1.0)
+    place(buf, shutter(), rt(c["photo"] - 0.03), 1.0)
     put("sparkle", c["photo"] + 0.02, 0.3)
     put("whoosh-short", 27.12, 0.45)
     put("pop", 27.18, 0.3)

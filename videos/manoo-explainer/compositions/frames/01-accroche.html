@@ -123,7 +123,8 @@
       <script>
         (function () {
           const C = window.CUES;
-          const L = (t) => t; // host starts at 0
+          const retime = window.RETIME || ((t) => t); // authored (Holden) time -> current voice take
+          const L = (t) => +retime(t).toFixed(3); // host starts at 0
           window.ManooIcons.hydrate(document.getElementById("a-root"));
           const tl = gsap.timeline({ paused: true });
           const pop = (sel, at, stagger = 0.06) =>
@@ -133,7 +134,7 @@
           // three trades
           const cues = [C.batiment, C.artisanat, C.industrie];
           ["#a-t0", "#a-t1", "#a-t2"].forEach((id, i) => {
-            const at = cues[i] - 0.1;
+            const at = L(cues[i] - 0.1);
             tl.fromTo(id + " .bub", { opacity: 0, scale: 0.2, rotation: -25 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.55, ease: "back.out(2.2)", immediateRender: true }, at);
             tl.fromTo(id + " b", { opacity: 0, y: 30, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out", immediateRender: true }, at + 0.08);
             tl.to(id + " .bub", { y: -10, duration: 1.0, ease: "sine.inOut", yoyo: true, repeat: 1 }, at + 0.55);
@@ -154,7 +155,7 @@
           tl.fromTo("#a-h2b .o", { textShadow: "0 0 0px rgba(249,115,22,0)" }, { textShadow: "0 0 34px rgba(249,115,22,0.85)", duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, L(C.terrain));
           const dst = [[1000, 210, -7], [1330, 400, 6], [1040, 610, -3]];
           ["#a-p0", "#a-p1", "#a-p2"].forEach((id, i) => {
-            const at = 5.5 + i * 0.16;
+            const at = L(5.5 + i * 0.16);
             tl.fromTo(id, { opacity: 0, x: dst[i][0] + 260, y: dst[i][1] + 40, scale: 1.55, rotation: dst[i][2] * 3, filter: "blur(16px)" },
               { opacity: 1, x: dst[i][0], y: dst[i][1], scale: 1, rotation: dst[i][2], filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: true }, at);
             tl.to(id, { y: dst[i][1] - 16, duration: 1.4, ease: "sine.inOut" }, at + 0.7);

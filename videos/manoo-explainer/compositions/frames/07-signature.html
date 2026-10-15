@@ -98,7 +98,8 @@
         (function () {
           const C = window.CUES;
           const T0 = 47.1;
-          const L = (t) => +(t - T0).toFixed(3);
+          const retime = window.RETIME || ((t) => t); // authored (Holden) time -> current voice take
+          const L = (t) => +(retime(t) - T0).toFixed(3);
           window.ManooIcons.hydrate(document.getElementById("g-root"));
           const tl = gsap.timeline({ paused: true });
           tl.fromTo("#g-rings", { opacity: 0, scale: 0.8, rotation: -15 }, { opacity: 1, scale: 1, rotation: 0, duration: 1.2, ease: "power3.out", immediateRender: true }, L(47.2));

@@ -178,7 +178,8 @@
         (function () {
           const C = window.CUES;
           const T0 = 32.6;
-          const L = (t) => +(t - T0).toFixed(3);
+          const retime = window.RETIME || ((t) => t); // authored (Holden) time -> current voice take
+          const L = (t) => +(retime(t) - T0).toFixed(3);
           const root = document.getElementById("e-root");
           window.ManooIcons.hydrate(root);
           const $ = (id) => document.getElementById(id);

@@ -406,7 +406,8 @@
         (function () {
           const C = window.CUES;
           const T0 = 7.6; // host data-start (film time)
-          const L = (t) => +(t - T0).toFixed(3);
+          const retime = window.RETIME || ((t) => t); // authored (Holden) time -> current voice take
+          const L = (t) => +(retime(t) - T0).toFixed(3);
           const root = document.getElementById("d-root");
           window.ManooIcons.hydrate(root);
           const $ = (id) => document.getElementById(id);
@@ -496,8 +497,10 @@
             const at = L(C.montrer - 0.05 + i * 0.12);
             tl.fromTo($(id), { opacity: 0, x: tileSrc[i][0] - 125, y: tileSrc[i][1] - 125, scale: 0.55, rotation: 0 },
               { opacity: 1, x: tileDst[i][0] - 125, y: tileDst[i][1] - 125, scale: 1, rotation: [-6, 4, -3][i], duration: 0.55, ease: "back.out(1.5)", immediateRender: false }, at);
-            tl.to($(id), { y: "-=14", duration: 0.9, ease: "sine.inOut" }, at + 0.55);
-            tl.to($(id), { opacity: 0, scale: 0.6, x: 960 - 125, y: 540 - 125, duration: 0.45, ease: "power3.in" }, L(14.35 + i * 0.05));
+            const exitAt = L(14.35 + i * 0.05);
+            // the float must end before the exit does, whatever the voice timing (no tween tail on y)
+            tl.to($(id), { y: "-=14", duration: Math.max(0.1, Math.min(0.9, exitAt + 0.45 - (at + 0.55) - 0.01)), ease: "sine.inOut" }, at + 0.55);
+            tl.to($(id), { opacity: 0, scale: 0.6, x: 960 - 125, y: 540 - 125, duration: 0.45, ease: "power3.in" }, exitAt);
           });
 
           // ================= F3 — welcome, profile cards pop out, sign-up (film 14.6 – 22.4)
@@ -515,7 +518,8 @@
             tl.fromTo($(id), { opacity: 0, x: src[0] - 210, y: src[1] - 90, scale: 0.62 },
               { opacity: 1, x: cardDst[i][0] - 210, y: cardDst[i][1] - 110, scale: 1, duration: 0.5, ease: "back.out(1.4)", immediateRender: false }, at);
             tl.fromTo($("d-pc-" + i), { opacity: 1 }, { opacity: 0.25, duration: 0.25, immediateRender: false }, at);
-            tl.to($(id), { y: "-=10", duration: 1.2, ease: "sine.inOut" }, at + 0.5);
+            const exitEnd = L(C.chacun - 0.35 + i * 0.04) + 0.42;
+            tl.to($(id), { y: "-=10", duration: Math.max(0.1, Math.min(1.2, exitEnd - (at + 0.5) - 0.01)), ease: "sine.inOut" }, at + 0.5);
           });
           tl.to("#d-w-scroll", { y: -560, duration: 0.6, ease: "power3.inOut" }, L(C.entreprises - 0.25));
           tl.to(["#d-po-c0", "#d-po-c1", "#d-po-c2", "#d-po-c3"], { scale: 1.06, duration: 0.18, yoyo: true, repeat: 1, ease: "power1.inOut", stagger: 0.04 }, L(C.cfa));

@@ -33,7 +33,8 @@
         (function () {
           const C = window.CUES;
           const T0 = 42.9;
-          const L = (t) => +(t - T0).toFixed(3);
+          const retime = window.RETIME || ((t) => t); // authored (Holden) time -> current voice take
+          const L = (t) => +(retime(t) - T0).toFixed(3);
           const tl = gsap.timeline({ paused: true });
           const pop = (sel, at, stagger = 0.07) =>
             tl.fromTo(sel, { opacity: 0, y: 30, scale: 0.95, filter: "blur(14px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.42, ease: "power3.out", stagger, immediateRender: true }, L(at));
