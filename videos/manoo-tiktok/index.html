@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/cues.js"></script>
+    <script src="assets/ui/icons.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #fafaf7;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #fafaf7;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-ia13" id="root" data-composition-id="main" data-start="0" data-duration="43" data-width="1080" data-height="1920">
+      <!-- stage -->
+      <div data-hf-id="hf-qe5u" id="bg" data-composition-id="bg" data-composition-src="compositions/bg.html" data-start="0" data-duration="43" data-track-index="0" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+
+      <!-- scenes (one row; each scene owns its entrance and exit, hard cuts on the beat) -->
+      <div data-hf-id="hf-d23p" id="accroche" data-composition-id="accroche" data-composition-src="compositions/scenes/01-accroche.html" data-start="0" data-duration="6" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-6dqd" id="manoo" data-composition-id="manoo" data-composition-src="compositions/scenes/02-manoo.html" data-start="6" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-lk7y" id="portfolio" data-composition-id="portfolio" data-composition-src="compositions/scenes/03-portfolio.html" data-start="9" data-duration="8" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-tmu8" id="zerocv" data-composition-id="zerocv" data-composition-src="compositions/scenes/04-zero-cv.html" data-start="17" data-duration="2" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-krih" id="avantapres" data-composition-id="avantapres" data-composition-src="compositions/scenes/05-avant-apres.html" data-start="19" data-duration="4" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-aguv" id="recruteurs" data-composition-id="recruteurs" data-composition-src="compositions/scenes/06-recruteurs.html" data-start="23" data-duration="8" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-1a4h" id="pourqui" data-composition-id="pourqui" data-composition-src="compositions/scenes/07-pour-qui.html" data-start="31" data-duration="2" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-aw87" id="etapes" data-composition-id="etapes" data-composition-src="compositions/scenes/08-etapes.html" data-start="33" data-duration="3" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-1tha" id="slam" data-composition-id="slam" data-composition-src="compositions/scenes/09-slam.html" data-start="36" data-duration="2.5" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+      <div data-hf-id="hf-9aob" id="fin" data-composition-id="fin" data-composition-src="compositions/scenes/10-fin.html" data-start="38.5" data-duration="4.5" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920"></div>
+
+      <!-- sound: music (no voice) and the sound-effect track, both cued on assets/cues.js -->
+      <audio data-hf-id="hf-f3mw" id="music" src="assets/audio/music/track.wav" data-start="0" data-duration="43" data-track-index="5" data-volume="0.82"></audio>
+      <audio data-hf-id="hf-32dn" id="sfx" src="assets/audio/sfx/sfx-track.wav" data-start="0" data-duration="43" data-track-index="6" data-volume="0.8"></audio>
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

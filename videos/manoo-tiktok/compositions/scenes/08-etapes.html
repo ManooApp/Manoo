@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #e-root { position: absolute; inset: 0; overflow: hidden; }
+        #e-title { top: 330px; font-size: 112px; }
+        /* the rail joining the three steps, filled with the accent as each one is checked */
+        #e-rail { position: absolute; left: 225px; top: 690px; width: 10px; height: 520px; border-radius: 5px; background: #e6e4df; overflow: hidden; }
+        #e-fill { position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #f97316; transform-origin: 50% 0; }
+        .e-row { position: absolute; left: 150px; height: 160px; display: flex; align-items: center; gap: 48px; }
+        .e-row .ftile { position: relative; margin: 0; flex: none; }
+        .e-row .chk { position: absolute; right: -26px; top: -26px; width: 76px; height: 76px; }
+        .e-row .lbl { font: 800 72px/1 "Inter Display", sans-serif; letter-spacing: -0.05em; color: #101619; white-space: nowrap; }
+        .e-row .lbl .n { display: block; margin-bottom: 10px; font: 600 30px/1 "Inter Display", sans-serif; letter-spacing: -0.02em; color: #8a9297; }
+        .e-row, .e-row .chk { opacity: 0; }
+      </style>
+
+      <div data-hf-id="hf-u779" id="e-root" data-composition-id="etapes" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-g6gk" id="e-title" class="two"><span data-hf-id="hf-9gqq" class="w m">En</span><span data-hf-id="hf-g44v" class="w">3 étapes</span></div>
+          <div data-hf-id="hf-6dt3" id="e-rail"><div data-hf-id="hf-tgr8" id="e-fill"></div></div>
+          <div data-hf-id="hf-fbxw" class="e-row" style="top:610px"><div data-hf-id="hf-vycy" class="ftile"><i data-hf-id="hf-v61j" data-icon="camera"></i><span data-hf-id="hf-qbaf" class="chk"><i data-hf-id="hf-d3m2" data-icon="check"></i></span></div><div data-hf-id="hf-k394" class="lbl"><span data-hf-id="hf-fiwz" class="n">Étape 1</span>Photographie</div></div>
+          <div data-hf-id="hf-x2rg" class="e-row" style="top:870px"><div data-hf-id="hf-82gm" class="ftile"><i data-hf-id="hf-dgsq" data-icon="image-plus"></i><span data-hf-id="hf-vuiv" class="chk"><i data-hf-id="hf-mlam" data-icon="check"></i></span></div><div data-hf-id="hf-enm1" class="lbl"><span data-hf-id="hf-f4ly" class="n">Étape 2</span>Publie</div></div>
+          <div data-hf-id="hf-bpao" class="e-row" style="top:1130px"><div data-hf-id="hf-8grn" class="ftile"><i data-hf-id="hf-kxjx" data-icon="eye"></i><span data-hf-id="hf-vg7u" class="chk"><i data-hf-id="hf-mzln" data-icon="check"></i></span></div><div data-hf-id="hf-6bk5" class="lbl"><span data-hf-id="hf-eqax" class="n">Étape 3</span>Fais-toi repérer</div></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 33.0;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("e-root");
+          window.ManooIcons.hydrate(root);
+          gsap.set("#e-title .w", { opacity: 0 });
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#e-title .w", { opacity: 0, y: 34, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", stagger: 0.06, immediateRender: false }, L(C.steps));
+          tl.fromTo("#e-rail", { opacity: 0, scaleY: 0.2 }, { opacity: 1, scaleY: 1, duration: 0.4, ease: "power3.out", immediateRender: true }, L(C.steps + 0.1));
+          gsap.set("#e-fill", { scaleY: 0 });
+          const rows = root.querySelectorAll(".e-row");
+          const STEPS = [[C.s1, C.c1], [C.s2, C.c2], [C.s3, C.c3]];
+          rows.forEach((r, i) => {
+            const [s, c] = STEPS[i];
+            tl.fromTo(r, { opacity: 0, x: -60, filter: "blur(14px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.34, ease: "power3.out", immediateRender: true }, L(s));
+            tl.fromTo(r.querySelector(".ftile"), { scale: 0.5, rotation: -12 }, { scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2.4)", immediateRender: true }, L(s));
+            const chk = r.querySelector(".chk");
+            tl.fromTo(chk, { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)", immediateRender: true }, L(c));
+            tl.fromTo(r.querySelector(".ftile"), { color: "#101619" }, { color: "#f97316", duration: 0.2, immediateRender: true }, L(c));
+            // the rail fills down to the next step
+            tl.fromTo("#e-fill", { scaleY: i / 2 }, { scaleY: Math.min(1, (i + 1) / 2), duration: 0.3, ease: "power2.inOut", immediateRender: false }, L(c));
+          });
+          // exit
+          tl.to(["#e-title", "#e-rail", ".e-row"], { y: -160, opacity: 0, filter: "blur(16px)", duration: 0.24, ease: "power3.in", stagger: 0.015 }, L(C.out8));
+          window.__timelines["etapes"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

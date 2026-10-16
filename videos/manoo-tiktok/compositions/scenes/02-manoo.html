@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #m-root { position: absolute; inset: 0; overflow: hidden; }
+        #m-ico {
+          position: absolute;
+          left: 50%;
+          top: 520px;
+          width: 250px;
+          height: 250px;
+          margin-left: -125px;
+          border-radius: 64px;
+          background: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 36px 70px rgba(16, 22, 25, 0.16), 0 0 0 1px rgba(16, 22, 25, 0.05);
+          opacity: 0;
+        }
+        #m-ico img { width: 168px; height: 148px; object-fit: contain; }
+        #m-ring { position: absolute; left: 50%; top: 645px; width: 260px; height: 260px; margin: -130px 0 0 -130px; border-radius: 50%; border: 8px solid #f97316; opacity: 0; }
+        #m-word { position: absolute; left: 0; right: 0; top: 830px; display: flex; justify-content: center; align-items: flex-end; font: 800 176px/0.84 "Inter Display", sans-serif; letter-spacing: -0.06em; color: #101619; }
+        #m-word .l { display: inline-block; opacity: 0; }
+        #m-dot { display: inline-block; width: 38px; height: 38px; margin: 0 0 6px 10px; border-radius: 50%; background: #f97316; opacity: 0; }
+        #m-sub { top: 1060px; font-size: 82px; }
+        #m-chips { position: absolute; left: 0; right: 0; top: 1330px; display: flex; justify-content: center; gap: 18px; }
+        #m-chips .chipx { height: 80px; font-size: 36px; padding: 0 28px 0 12px; opacity: 0; }
+        #m-chips .bd { width: 56px; height: 56px; background: #f97316; }
+      </style>
+
+      <div data-hf-id="hf-okh5" id="m-root" data-composition-id="manoo" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-4dpx" id="m-ring"></div>
+          <div data-hf-id="hf-6dd2" id="m-ico"><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></div>
+          <div data-hf-id="hf-ev6b" id="m-word"><span data-hf-id="hf-gv0i" class="l">M</span><span data-hf-id="hf-f9se" class="l">A</span><span data-hf-id="hf-h9bj" class="l">N</span><span data-hf-id="hf-hnmk" class="l">O</span><span data-hf-id="hf-ya50" class="l">O</span><span data-hf-id="hf-ovy5" id="m-dot"></span></div>
+          <div data-hf-id="hf-qs68" id="m-sub" class="two"><span data-hf-id="hf-n66a" class="w m">Le</span><span data-hf-id="hf-nkx7" class="w m">portfolio</span><span data-hf-id="hf-beqj" class="w m">des</span><br data-hf-id="hf-x5px"><span data-hf-id="hf-grt7" class="w">métiers</span><span data-hf-id="hf-yo77" class="w">manuels</span></div>
+          <div data-hf-id="hf-9c48" id="m-chips">
+            <div data-hf-id="hf-f9s5" class="chipx"><span data-hf-id="hf-vks3" class="bd"><i data-hf-id="hf-hjsq" data-icon="brick-wall"></i></span>Bâtiment</div>
+            <div data-hf-id="hf-anhp" class="chipx"><span data-hf-id="hf-zoer" class="bd"><i data-hf-id="hf-hjuo" data-icon="hammer"></i></span>Artisanat</div>
+            <div data-hf-id="hf-zk6z" class="chipx"><span data-hf-id="hf-za3q" class="bd"><i data-hf-id="hf-w9l4" data-icon="factory"></i></span>Industrie</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 6.0;
+          const L = (t) => +(t - T0).toFixed(3);
+          window.ManooIcons.hydrate(document.getElementById("m-root"));
+          gsap.set("#m-sub .w", { opacity: 0 });
+          const tl = gsap.timeline({ paused: true });
+          // the icon lands on the drop
+          tl.fromTo("#m-ico", { opacity: 0, scale: 0.25, rotation: -18, y: 120 }, { opacity: 1, scale: 1, rotation: 0, y: 120, duration: 0.42, ease: "back.out(2.2)", immediateRender: true }, L(C.logo));
+          tl.fromTo("#m-ring", { opacity: 0.9, scale: 0.5, y: 120 }, { opacity: 0, scale: 2.4, y: 120, duration: 0.6, ease: "power2.out", immediateRender: true }, L(C.logo + 0.04));
+          tl.to("#m-ico", { y: 0, scale: 0.86, duration: 0.42, ease: "power3.inOut" }, L(C.word - 0.08));
+          tl.fromTo("#m-word .l", { opacity: 0, y: 70, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "back.out(1.7)", stagger: 0.055, immediateRender: true }, L(C.word));
+          tl.fromTo("#m-dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)", immediateRender: true }, L(C.word + 0.32));
+          tl.fromTo("#m-sub .w", { opacity: 0, y: 30, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.38, ease: "power3.out", stagger: 0.06, immediateRender: false }, L(C.sub));
+          [C.b1, C.b2, C.b3].forEach((t, i) => {
+            tl.fromTo(`#m-chips .chipx:nth-child(${i + 1})`, { opacity: 0, y: 40, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.34, ease: "back.out(1.9)", immediateRender: true }, L(t));
+          });
+          // exit: everything lifts and blurs into the next section
+          tl.to(["#m-ico", "#m-word", "#m-sub", "#m-chips"], { y: -180, opacity: 0, filter: "blur(16px)", duration: 0.24, ease: "power3.in", stagger: 0.02 }, L(C.out2));
+          window.__timelines["manoo"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

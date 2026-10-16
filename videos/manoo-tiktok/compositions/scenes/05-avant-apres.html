@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <link rel="stylesheet" href="assets/ui/screens.css">
+      <style>
+        #v-root { position: absolute; inset: 0; overflow: hidden; }
+        /* the dark half (Avant) with its own faint grid */
+        #v-dark {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 540px;
+          height: 1920px;
+          background-color: #101619;
+          background-image: linear-gradient(rgba(243, 242, 239, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(243, 242, 239, 0.05) 1px, transparent 1px);
+          background-size: 72px 72px;
+        }
+        .v-lab { position: absolute; top: 452px; width: 540px; display: flex; justify-content: center; align-items: center; gap: 14px; font: 700 56px/1 "Inter Display", sans-serif; letter-spacing: -0.04em; white-space: nowrap; opacity: 0; }
+        .v-lab .ico { width: 58px; height: 58px; border-radius: 16px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 18px rgba(16, 22, 25, 0.14); }
+        .v-lab .ico img { width: 40px; height: 35px; object-fit: contain; }
+        .v-lab .m { font-weight: 600; }
+        #v-lab-a { left: 10px; color: #5d666c; }
+        #v-lab-a .ico { background: #2a3338; box-shadow: none; }
+        #v-lab-a .ico img { filter: grayscale(1) brightness(0.62); }
+        #v-lab-b { left: 530px; color: #101619; }
+        #v-lab-b .m { color: #8a9297; }
+        #v-chip { position: absolute; left: 800px; top: 318px; height: 76px; padding: 0 30px 0 12px; font-size: 34px; opacity: 0; transform-origin: 50% 50%; }
+        #v-chip .bd { width: 52px; height: 52px; background: #f97316; }
+        #v-chip .bd .ic { width: 28px; height: 28px; stroke-width: 3; }
+        #v-pa { left: 65px; top: 570px; }
+        #v-pb { left: 585px; top: 570px; }
+        /* Avant: a grey pdf of a CV */
+        .v-pdf { background: #3a4146; }
+        .v-pdf-bar { position: absolute; left: 0; right: 0; top: 0; height: 112px; padding: 58px 18px 0; background: #2b3135; display: flex; align-items: center; gap: 10px; color: #b7bec2; font: 500 15px/1 "Inter", sans-serif; }
+        .v-pdf-bar .ic { width: 20px; height: 20px; color: #8d969b; }
+        .v-pdf-bar span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .v-page { position: absolute; left: 22px; right: 22px; top: 136px; height: 640px; padding: 30px 26px; background: #e9eaea; border-radius: 4px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+        .v-page h4 { font: 700 21px/1.1 "Inter", sans-serif; color: #6e767b; letter-spacing: 0.08em; }
+        .v-page h5 { margin-top: 8px; font: 600 15px/1.2 "Inter", sans-serif; color: #858c90; }
+        .v-page .sec { margin-top: 26px; font: 700 12px/1 "Inter", sans-serif; letter-spacing: 0.12em; color: #8e9599; }
+        .v-page i { display: block; height: 9px; border-radius: 5px; background: #cfd2d3; margin-top: 12px; }
+        .v-page i.s { width: 62%; }
+        .v-page i.t { width: 44%; }
+        /* Après: Jules' portfolio */
+        #v-pfc { position: absolute; left: 14px; right: 14px; top: 182px; padding: 16px 16px 14px; }
+        #v-pfc .d-pf-top { gap: 14px; }
+        #v-pfc .pf-av { width: 64px; height: 64px; font-size: 22px; }
+        #v-pfc .pf-name { font-size: 20px; }
+        #v-pfc .pf-job { margin-top: 3px; font-size: 14px; }
+        #v-pfc .pf-meta { margin-top: 6px; font-size: 12px; }
+        #v-tabs { position: absolute; left: 14px; right: 14px; top: 310px; }
+        #v-grid { position: absolute; left: 14px; top: 366px; width: 366px; height: 900px; }
+        #v-grid .cell { position: absolute; left: 0; top: 0; width: 178px; height: 150px; }
+        #v-grid .ph { position: absolute; left: 0; top: 0; width: 178px; height: 150px; border-radius: 14px; background: #efe9e2; }
+        #v-heart { position: absolute; left: 0; top: 0; width: 84px; height: 84px; margin: -42px 0 0 -42px; color: #fff; filter: drop-shadow(0 6px 14px rgba(225, 29, 72, 0.5)); opacity: 0; z-index: 30; }
+        #v-heart .ic { width: 100%; height: 100%; fill: #e11d48; stroke: #e11d48; }
+        #v-bnav { z-index: 45; }
+      </style>
+
+      <div data-hf-id="hf-x55p" id="v-root" data-composition-id="avantapres" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-qdn6" id="v-dark"></div>
+          <div data-hf-id="hf-grsy" id="v-lab-a" class="v-lab"><span data-hf-id="hf-uaie" class="m">Avant</span><span data-hf-id="hf-gm9w" class="ico"><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></span>Manoo</div>
+          <div data-hf-id="hf-xgnf" id="v-lab-b" class="v-lab"><span data-hf-id="hf-0ouu" class="m">Après</span><span data-hf-id="hf-qj98" class="ico"><img data-hf-id="hf-mauv" src="assets/brand/manoo-marteau.png" alt=""></span>Manoo</div>
+          <div data-hf-id="hf-n909" id="v-chip" class="chipx"><span data-hf-id="hf-vks3" class="bd"><i data-hf-id="hf-d3m2" data-icon="check"></i></span>Portfolio visuel</div>
+
+          <div data-hf-id="hf-oogh" class="mui" style="position:absolute;inset:0">
+            <!-- Avant: a CV in a pdf viewer -->
+            <div data-hf-id="hf-3hek" id="v-pa" class="phone">
+              <div data-hf-id="hf-04vm" class="phone-edge"></div>
+              <div data-hf-id="hf-q65t" class="phone-body"></div>
+              <div data-hf-id="hf-cdmk" class="screen">
+                <div data-hf-id="hf-yu4r" class="scr v-pdf">
+                  <div data-hf-id="hf-eicn" class="v-pdf-bar"><i data-hf-id="hf-tbdp" data-icon="arrow-left"></i><span data-hf-id="hf-elvk">CV_Jules_Moreau_v3.pdf</span><i data-hf-id="hf-cvg2" data-icon="share-2"></i></div>
+                  <div data-hf-id="hf-pxtu" id="v-page" class="v-page">
+                    <h4 data-hf-id="hf-najj">CURRICULUM VITAE</h4>
+                    <h5 data-hf-id="hf-150g">Jules Moreau</h5>
+                    <i data-hf-id="hf-075b" class="s"></i><i data-hf-id="hf-459c" class="t"></i>
+                    <div data-hf-id="hf-qw0b" class="sec">EXPÉRIENCE</div>
+                    <i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-1nbj" class="s"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-6c9k" class="t"></i>
+                    <div data-hf-id="hf-cxti" class="sec">FORMATION</div>
+                    <i data-hf-id="hf-y7e5"></i><i data-hf-id="hf-190i" class="s"></i><i data-hf-id="hf-55ch" class="t"></i>
+                    <div data-hf-id="hf-w17j" class="sec">COMPÉTENCES</div>
+                    <i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i><i data-hf-id="hf-0uph" class="s"></i><i data-hf-id="hf-0zjc"></i><i data-hf-id="hf-5jni" class="t"></i>
+                  </div>
+                </div>
+              </div>
+              <div data-hf-id="hf-7sfr" class="island"></div>
+              <div data-hf-id="hf-qf7f" class="homebar" style="background:#9aa2a6"></div>
+              <div data-hf-id="hf-62pl" class="glare"></div>
+            </div>
+
+            <!-- Après: the portfolio fills with photos -->
+            <div data-hf-id="hf-ecw7" id="v-pb" class="phone">
+              <div data-hf-id="hf-h5km" class="phone-edge"></div>
+              <div data-hf-id="hf-zeed" class="phone-body"></div>
+              <div data-hf-id="hf-59m2" class="screen" data-layout-allow-overlap>
+                <div data-hf-id="hf-zn7g" class="scr">
+                  <div data-hf-id="hf-7ma2" class="sbar"><span data-hf-id="hf-zwmt">9:41</span><span data-hf-id="hf-838e" class="sbar-r"><span data-hf-id="hf-0ct7" class="sbar-sig"><i data-hf-id="hf-zsm9"></i><i data-hf-id="hf-06xa"></i><i data-hf-id="hf-26gf"></i><i data-hf-id="hf-2krg"></i></span><span data-hf-id="hf-ocb1" class="sbar-bat"><b data-hf-id="hf-xujp"></b></span></span></div>
+                  <div data-hf-id="hf-tyyu" class="hdr">
+                    <div data-hf-id="hf-zfmp" class="hdr-row">
+                      <div data-hf-id="hf-oojr" class="brand"><div data-hf-id="hf-m7sf" class="brand-ico"><img data-hf-id="hf-lwju" src="assets/brand/manoo-marteau.png" alt=""></div><div data-hf-id="hf-tjqx" class="brand-name">Manoo</div></div>
+                      <div data-hf-id="hf-gdgk" class="hdr-btns"><div data-hf-id="hf-tc99" class="hdr-btn"><i data-hf-id="hf-0fm1" data-icon="bell"></i></div><div data-hf-id="hf-zqwz" class="hdr-avatar jm" style="display:flex;align-items:center;justify-content:center;font-size:14px;">JM</div></div>
+                    </div>
+                    <div data-hf-id="hf-9xqj" class="hdr-search"><i data-hf-id="hf-cn3m" data-icon="search"></i><span data-hf-id="hf-kxg9">Mots-clés, tags, contenu...</span></div>
+                  </div>
+                  <div data-hf-id="hf-icki" id="v-scroll" style="position:absolute;inset:0" data-layout-allow-overflow>
+                    <div data-hf-id="hf-oskp" id="v-pfc" class="card d-pf">
+                      <div data-hf-id="hf-n0gh" class="d-pf-top">
+                        <div data-hf-id="hf-ckao" class="pf-av jm">JM</div>
+                        <div data-hf-id="hf-yeow">
+                          <div data-hf-id="hf-g9p0" class="pf-name">Jules Moreau</div>
+                          <div data-hf-id="hf-fj1v" class="pf-job">Serrurier / Métallier</div>
+                          <div data-hf-id="hf-qbdc" class="pf-meta"><span data-hf-id="hf-s1qs"><i data-hf-id="hf-tr9e" data-icon="map-pin"></i>Rennes</span><span data-hf-id="hf-x9wj"><i data-hf-id="hf-eqld" data-icon="graduation-cap"></i>CAP, 2e année</span></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div data-hf-id="hf-wxb9" id="v-tabs" class="tabs"><div data-hf-id="hf-6mio" class="tab on">Portfolio</div><div data-hf-id="hf-dxbe" class="tab">Publications</div><div data-hf-id="hf-ix1u" class="tab">Avis</div></div>
+                    <div data-hf-id="hf-d0ti" id="v-grid"></div>
+                  </div>
+                  <div data-hf-id="hf-204q" id="v-heart"><i data-hf-id="hf-lsgu" data-icon="heart"></i></div>
+                  <div data-hf-id="hf-e1bt" id="v-bnav" class="bnav">
+                    <div data-hf-id="hf-kt29" class="bnav-it"><i data-hf-id="hf-20m2" data-icon="house"></i>Feed</div>
+                    <div data-hf-id="hf-uu3i" class="bnav-it"><i data-hf-id="hf-a4l2" data-icon="search"></i>Recherche</div>
+                    <div data-hf-id="hf-j9rl" class="bnav-it"><i data-hf-id="hf-rzj8" data-icon="message-circle"></i>Messages</div>
+                    <div data-hf-id="hf-wt3q" class="bnav-it"><i data-hf-id="hf-imf1" data-icon="bell"></i>Notifs</div>
+                    <div data-hf-id="hf-029a" class="bnav-it on"><i data-hf-id="hf-j9sb" data-icon="user"></i>Profil</div>
+                  </div>
+                </div>
+              </div>
+              <div data-hf-id="hf-b0dz" class="island"></div>
+              <div data-hf-id="hf-i260" class="homebar"></div>
+              <div data-hf-id="hf-4bv1" class="glare"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 19.0;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("v-root");
+          const $ = (s) => root.querySelector(s);
+
+          // portfolio cells: photo + title, two columns
+          const CELLS = [
+            ["jules-portail", "Portail en fer forgé"], ["garde-corps", "Garde-corps acier"],
+            ["escalier", "Escalier droit"], ["portail-detail", "Volutes, détail"],
+            ["A3", "Râtelier à barres"], ["C2", "Établi soudé"],
+            ["A2", "Portail, pose"], ["A1", "Anneaux forgés"],
+          ];
+          const slot = (i) => [(i % 2) * 188, Math.floor(i / 2) * 160];
+          const grid = $("#v-grid");
+          const cells = CELLS.map(([src, t], i) => {
+            const ph = document.createElement("div");
+            ph.className = "ph";
+            grid.appendChild(ph);
+            const c = document.createElement("div");
+            c.className = "cell";
+            c.innerHTML = `<img src="assets/photos/${src}.jpg" alt=""><div class="cell-t">${t}</div>`;
+            grid.appendChild(c);
+            gsap.set([ph, c], { x: slot(i)[0], y: slot(i)[1] });
+            return c;
+          });
+          window.ManooIcons.hydrate(root);
+
+          // double-tap like on « Volutes, détail » once the grid has scrolled (screen coordinates)
+          const SCROLL = 250;
+          const HEART = [14 + slot(3)[0] + 89, 366 + slot(3)[1] + 75 - SCROLL];
+          gsap.set("#v-heart", { x: HEART[0], y: HEART[1] });
+          gsap.set(["#v-pa", "#v-pb"], { opacity: 0 });
+          gsap.set("#v-chip", { xPercent: -50 });
+
+          const tl = gsap.timeline({ paused: true });
+          // split: the dark half wipes in, both phones rise
+          tl.fromTo("#v-dark", { x: -540 }, { x: 0, duration: 0.3, ease: "power3.out", immediateRender: true }, L(C.split));
+          tl.fromTo("#v-lab-a", { opacity: 0, y: 30, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", immediateRender: true }, L(C.split + 0.06));
+          tl.fromTo("#v-lab-b", { opacity: 0, y: 30, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", immediateRender: true }, L(C.split + 0.12));
+          tl.fromTo("#v-pa", { opacity: 1, y: 1300 }, { opacity: 1, y: 0, duration: 0.44, ease: "power3.out", immediateRender: false }, L(C.split + 0.04));
+          tl.fromTo("#v-pb", { opacity: 1, y: 1300 }, { opacity: 1, y: 0, duration: 0.44, ease: "power3.out", immediateRender: false }, L(C.split + 0.1));
+          // Avant: the grey page barely moves
+          tl.fromTo("#v-page", { y: 0 }, { y: -70, duration: +(L(C.out5) - L(C.split + 0.5)).toFixed(3), ease: "none", immediateRender: true }, L(C.split + 0.5));
+          // Après: photos land one by one on the beat
+          cells.forEach((c, i) => {
+            tl.fromTo(c, { opacity: 0, scale: 0.4, x: slot(i)[0], y: slot(i)[1] }, { opacity: 1, scale: 1, x: slot(i)[0], y: slot(i)[1], duration: 0.34, ease: "back.out(1.8)", immediateRender: true }, L(C.fill + i * 0.075));
+          });
+          tl.fromTo("#v-chip", { opacity: 0, scale: 0.5, y: 20 }, { opacity: 1, scale: 1, y: 0, duration: 0.34, ease: "back.out(2.2)", immediateRender: true }, L(C.chip5));
+          // the portfolio scrolls: more work below
+          tl.fromTo("#v-scroll", { y: 0 }, { y: -SCROLL, duration: 0.7, ease: "power2.inOut", immediateRender: true }, L(C.scroll5));
+          gsap.set("#v-heart", { scale: 0 });
+          tl.fromTo("#v-heart", { opacity: 0, scale: 0, y: HEART[1] }, { opacity: 1, scale: 1.25, y: HEART[1], duration: 0.2, ease: "back.out(3)", immediateRender: false }, L(C.heart5));
+          tl.to("#v-heart", { scale: 1, duration: 0.12, ease: "power2.out" }, L(C.heart5 + 0.2));
+          tl.to("#v-heart", { opacity: 0, scale: 1.4, y: HEART[1] - 50, duration: 0.3, ease: "power2.in" }, L(C.heart5 + 0.5));
+          // exit: phones drop, labels lift, the dark half slides away
+          tl.to(["#v-pa", "#v-pb"], { y: 1200, filter: "blur(14px)", duration: 0.32, ease: "power3.in", stagger: 0.04 }, L(C.out5));
+          tl.to(["#v-lab-a", "#v-lab-b", "#v-chip"], { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.24, ease: "power2.in", stagger: 0.02 }, L(C.out5));
+          tl.to("#v-dark", { x: -540, duration: 0.3, ease: "power3.in" }, L(C.out5 + 0.06));
+          window.__timelines["avantapres"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

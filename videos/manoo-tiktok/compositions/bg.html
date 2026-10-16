@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <!-- Stage: warm white with a very faint grid, under every scene (the finale paints its own dark stage). -->
+      <style>
+        #bg-root { position: absolute; inset: 0; overflow: hidden; }
+        #bg-ground { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 70% at 50% 45%, #ffffff 0%, #fafaf7 60%, #f2f1ec 100%); }
+        #bg-grid {
+          position: absolute;
+          inset: -72px;
+          background-image: linear-gradient(rgba(16, 22, 25, 0.05) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(16, 22, 25, 0.05) 1.5px, transparent 1.5px);
+          background-size: 72px 72px;
+          -webkit-mask-image: radial-gradient(ellipse 75% 60% at 50% 48%, #000 0%, rgba(0, 0, 0, 0.35) 70%, transparent 100%);
+          mask-image: radial-gradient(ellipse 75% 60% at 50% 48%, #000 0%, rgba(0, 0, 0, 0.35) 70%, transparent 100%);
+        }
+      </style>
+      <div data-hf-id="hf-6f5u" id="bg-root" data-composition-id="bg" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-g5lc" id="bg-ground"></div>
+        <div data-hf-id="hf-ri4e" id="bg-grid" data-layout-allow-overflow></div>
+      </div>
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          // the grid drifts a few pixels over the whole film: alive, never noticed
+          tl.fromTo("#bg-grid", { x: 0, y: 0 }, { x: 36, y: -72, duration: window.CUES.END, ease: "none", immediateRender: true }, 0);
+          window.__timelines["bg"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

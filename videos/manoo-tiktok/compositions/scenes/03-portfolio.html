@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <link rel="stylesheet" href="assets/ui/screens.css">
+      <style>
+        #p-root { position: absolute; inset: 0; overflow: hidden; }
+        #p-ghost { top: 760px; }
+        #p-title { top: 870px; }
+        #p-toggle { left: 540px; top: 1040px; }
+        #p-cur { opacity: 0; }
+        #p-ph { left: 325px; top: 596px; }
+        .p-cap { top: 218px; opacity: 0; }
+        /* profile: compact card + absolute portfolio grid */
+        #p-pfwrap { position: absolute; left: 0; right: 0; top: 168px; padding: 14px 14px 0; }
+        #p-pf { padding: 18px 18px 16px; }
+        #p-pf .pf-av { width: 72px; height: 72px; font-size: 24px; }
+        #p-pf .stats { margin-top: 12px; padding-top: 12px; }
+        #p-pfh { display: flex; justify-content: space-between; align-items: center; padding: 14px 4px 10px; }
+        #p-grid { position: relative; height: 330px; }
+        #p-grid .cell { position: absolute; left: 0; top: 0; width: 178px; height: 156px; }
+        #p-post { opacity: 0; }
+        #p-comment { display: flex; gap: 10px; align-items: center; margin: 12px 0 0 62px; padding: 10px 12px; border-radius: 14px; background: #f6f2ed; font: 400 14px/1.3 "Inter", sans-serif; color: var(--tx-body); opacity: 0; }
+        #p-comment b { font-weight: 600; color: var(--tx-strong); }
+        #p-comment .avatar { width: 30px; height: 30px; border-radius: 50%; }
+        #p-comment .avatar .ic { width: 16px; height: 16px; }
+      </style>
+
+      <div data-hf-id="hf-acjw" id="p-root" data-composition-id="portfolio" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <!-- section card -->
+          <div data-hf-id="hf-qjrn" id="p-ghost" class="gword" data-layout-allow-overlap>Portfolio</div>
+          <div data-hf-id="hf-rdtd" id="p-title" class="sect">Ton portfolio</div>
+          <div data-hf-id="hf-zn47" id="p-toggle" class="toggle"><div data-hf-id="hf-vv9y" class="tr"></div><div data-hf-id="hf-tmjb" class="kn"></div></div>
+          <svg data-hf-id="hf-4305" id="p-cur" class="cur" viewBox="0 0 29 34"><path data-hf-id="hf-wq2f" d="M2 2 L2 26 L8.5 20 L13 31 L17.5 29 L13 18.5 L22 18.5 Z" fill="#101619" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/></svg>
+
+          <!-- captions above the phone -->
+          <div data-hf-id="hf-7ufb" id="p-cap1" class="cap p-cap"><span data-hf-id="hf-e3y0" class="n">1</span>Photographie ton travail</div>
+          <div data-hf-id="hf-m8iv" id="p-cap2" class="cap p-cap"><span data-hf-id="hf-cx0x" class="n">2</span>Ajoute-le à ton portfolio</div>
+          <div data-hf-id="hf-gx6y" id="p-cap3" class="cap p-cap"><span data-hf-id="hf-dbby" class="n">3</span>Partage-le au réseau</div>
+
+          <div data-hf-id="hf-oogh" class="mui" style="position:absolute;inset:0">
+            <div data-hf-id="hf-ipxj" id="p-ph" class="phone">
+              <div data-hf-id="hf-04vm" class="phone-edge"></div>
+              <div data-hf-id="hf-q65t" class="phone-body"></div>
+              <div data-hf-id="hf-rswp" id="p-screen" class="screen" data-layout-allow-overlap>
+                <!-- 1 · native camera -->
+                <div data-hf-id="hf-jx5v" id="p-s-cam" class="scr cam">
+                  <div data-hf-id="hf-ukzf" class="cam-top"><i data-hf-id="hf-vhbz" data-icon="zap-off"></i><i data-hf-id="hf-vmkx" data-icon="settings"></i></div>
+                  <div data-hf-id="hf-o6dx" class="cam-view"><img data-hf-id="hf-54d2" id="p-cam-img" src="assets/photos/jules-portail.jpg" alt=""><div data-hf-id="hf-j5ua" class="cam-grid"></div><div data-hf-id="hf-f3wf" id="p-focus" class="cam-focus"></div></div>
+                  <div data-hf-id="hf-v96e" class="cam-modes"><span data-hf-id="hf-jo64">VIDÉO</span><span data-hf-id="hf-qnxy" class="on">PHOTO</span><span data-hf-id="hf-embi">PORTRAIT</span></div>
+                  <div data-hf-id="hf-ds8l" class="cam-bot"><div data-hf-id="hf-etbu" class="cam-thumb"><img data-hf-id="hf-5otd" id="p-thumb" src="assets/photos/jules-portail.jpg" alt=""></div><div data-hf-id="hf-jxol" id="p-shut" class="cam-shut"><i data-hf-id="hf-wt6k"></i></div><div data-hf-id="hf-3bbb" class="cam-flip"><i data-hf-id="hf-ddxi" data-icon="switch-camera"></i></div></div>
+                  <div data-hf-id="hf-49z7" id="p-flash" class="cam-flash"></div>
+                </div>
+
+                <!-- 2 · Jules' profile + « Ajouter au portfolio » -->
+                <div data-hf-id="hf-k3c9" id="p-s-pf" class="scr">
+                  <div data-hf-id="hf-7ma2" class="sbar"><span data-hf-id="hf-zwmt">9:41</span><span data-hf-id="hf-838e" class="sbar-r"><span data-hf-id="hf-0ct7" class="sbar-sig"><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i><i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i></span><span data-hf-id="hf-ocb1" class="sbar-bat"><b data-hf-id="hf-xujp"></b></span></span></div>
+                  <div data-hf-id="hf-tyyu" class="hdr">
+                    <div data-hf-id="hf-zfmp" class="hdr-row">
+                      <div data-hf-id="hf-oojr" class="brand"><div data-hf-id="hf-m7sf" class="brand-ico"><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></div><div data-hf-id="hf-rwxf" class="brand-name" data-layout-allow-occlusion>Manoo</div></div>
+                      <div data-hf-id="hf-gdgk" class="hdr-btns"><div data-hf-id="hf-tc99" class="hdr-btn"><i data-hf-id="hf-0fm1" data-icon="bell"></i></div><div data-hf-id="hf-gch9" class="hdr-avatar jm" style="display:flex;align-items:center;justify-content:center;font-size:14px;" data-layout-allow-occlusion>JM</div></div>
+                    </div>
+                    <div data-hf-id="hf-9xqj" class="hdr-search"><i data-hf-id="hf-cn3m" data-icon="search"></i><span data-hf-id="hf-mkh2" data-layout-allow-occlusion>Mots-clés, tags, contenu...</span></div>
+                  </div>
+                  <div data-hf-id="hf-p52i" id="p-pfwrap">
+                    <div data-hf-id="hf-jmcw" id="p-pf" class="card d-pf">
+                      <div data-hf-id="hf-n0gh" class="d-pf-top">
+                        <div data-hf-id="hf-ckao" class="pf-av jm">JM</div>
+                        <div data-hf-id="hf-yeow">
+                          <div data-hf-id="hf-g9p0" class="pf-name">Jules Moreau</div>
+                          <div data-hf-id="hf-fj1v" class="pf-job">Serrurier / Métallier</div>
+                          <div data-hf-id="hf-qbdc" class="pf-meta"><span data-hf-id="hf-s1qs"><i data-hf-id="hf-tr9e" data-icon="map-pin"></i>Rennes</span><span data-hf-id="hf-x9wj"><i data-hf-id="hf-eqld" data-icon="graduation-cap"></i>CAP, 2e année</span></div>
+                        </div>
+                      </div>
+                      <div data-hf-id="hf-rhep" class="stats">
+                        <div data-hf-id="hf-xa0m" class="stat"><b data-hf-id="hf-utjg" id="p-npub">4</b><span data-hf-id="hf-0sf3">Réalisations</span></div>
+                        <div data-hf-id="hf-tx7e" class="stat"><b data-hf-id="hf-n4y4">18</b><span data-hf-id="hf-2iev">Abonnés</span></div>
+                        <div data-hf-id="hf-ubif" class="stat"><b data-hf-id="hf-iy3t">31</b><span data-hf-id="hf-px37">Abonnements</span></div>
+                      </div>
+                    </div>
+                    <div data-hf-id="hf-hvrb" class="tabs" style="margin-top:12px"><div data-hf-id="hf-6mio" class="tab on">Portfolio</div><div data-hf-id="hf-dxbe" class="tab">Publications</div><div data-hf-id="hf-ix1u" class="tab">Avis</div></div>
+                    <div data-hf-id="hf-w0he" id="p-pfh"><span data-hf-id="hf-d7fr" id="p-mcount" class="media-count">4 / 5 médias</span><span data-hf-id="hf-io5d" id="p-addpf" class="btn sm"><i data-hf-id="hf-2oha" data-icon="plus"></i>Ajouter au portfolio</span></div>
+                    <div data-hf-id="hf-k200" id="p-grid">
+                      <div data-hf-id="hf-p8fw" class="cell p-old"><img data-hf-id="hf-jj52" src="assets/photos/garde-corps.jpg" alt=""><div data-hf-id="hf-ei5s" class="cell-t">Garde-corps acier</div></div>
+                      <div data-hf-id="hf-pyes" class="cell p-old"><img data-hf-id="hf-cp6t" src="assets/photos/escalier.jpg" alt=""><div data-hf-id="hf-hcz5" class="cell-t">Escalier droit</div></div>
+                      <div data-hf-id="hf-orhp" class="cell p-old"><img data-hf-id="hf-4ip1" src="assets/photos/A3.jpg" alt=""><div data-hf-id="hf-tj41" class="cell-t">Râtelier à barres</div></div>
+                      <div data-hf-id="hf-p5sq" class="cell p-old"><img data-hf-id="hf-l5aq" src="assets/photos/C2.jpg" alt=""><div data-hf-id="hf-t7ts" class="cell-t">Établi soudé</div></div>
+                      <div data-hf-id="hf-1zoa" id="p-cell-new" class="cell"><img data-hf-id="hf-3te2" src="assets/photos/jules-portail.jpg" alt=""><div data-hf-id="hf-b2gn" class="cell-t">Portail en fer forgé</div></div>
+                    </div>
+                  </div>
+                  <div data-hf-id="hf-w3rx" class="bnav">
+                    <div data-hf-id="hf-kt29" class="bnav-it"><i data-hf-id="hf-20m2" data-icon="house"></i>Feed</div>
+                    <div data-hf-id="hf-uu3i" class="bnav-it"><i data-hf-id="hf-a4l2" data-icon="search"></i>Recherche</div>
+                    <div data-hf-id="hf-j9rl" class="bnav-it"><i data-hf-id="hf-rzj8" data-icon="message-circle"></i>Messages</div>
+                    <div data-hf-id="hf-wt3q" class="bnav-it"><i data-hf-id="hf-imf1" data-icon="bell"></i>Notifs</div>
+                    <div data-hf-id="hf-029a" class="bnav-it on"><i data-hf-id="hf-j9sb" data-icon="user"></i>Profil</div>
+                  </div>
+                  <div data-hf-id="hf-2n3o" id="p-dim" class="d-dim"></div>
+                  <div data-hf-id="hf-zxam" id="p-sheet" class="d-sheet">
+                    <div data-hf-id="hf-yep3" class="d-handle"></div>
+                    <div data-hf-id="hf-momn" class="d-sh-t">Ajouter au portfolio<i data-hf-id="hf-sd6u" data-icon="x"></i></div>
+                    <div data-hf-id="hf-myqm" class="d-drop"><i data-hf-id="hf-dgsq" data-icon="image-plus"></i><span data-hf-id="hf-rr98" data-layout-allow-occlusion>Clique ou glisse tes fichiers ici</span><div data-hf-id="hf-e3c4" class="d-drop-img" style="opacity:1"><img data-hf-id="hf-9w0e" src="assets/photos/jules-portail.jpg" alt=""></div></div>
+                    <div data-hf-id="hf-jw0s" style="margin-top:18px" class="field-label">Titre <em data-hf-id="hf-9kaq">(optionnel)</em></div>
+                    <div data-hf-id="hf-pcdd" id="p-input" class="input ph"><span data-hf-id="hf-k9nf" id="p-title-t">Ex : Rénovation cuisine chêne massif</span><span data-hf-id="hf-s86b" id="p-caret" class="caret" style="opacity:0"></span></div>
+                    <div data-hf-id="hf-rzv9" class="d-fmt">JPEG, PNG, WebP, MP4, MOV — 10 Mo max par image</div>
+                    <div data-hf-id="hf-2y7z" id="p-btn-add" class="btn">Ajouter au portfolio</div>
+                  </div>
+                  <div data-hf-id="hf-lts6" id="p-toast" class="d-toast"><div data-hf-id="hf-g8at" class="toast"><i data-hf-id="hf-lqzl" data-icon="circle-check"></i><div data-hf-id="hf-y7yw"><div data-hf-id="hf-6lgn" class="toast-t">Ajouté à ton portfolio</div><div data-hf-id="hf-sss1" class="toast-d">« Portail en fer forgé » est visible sur ton profil.</div></div></div></div>
+                </div>
+
+                <!-- 3 · feed -->
+                <div data-hf-id="hf-ty2f" id="p-s-feed" class="scr">
+                  <div data-hf-id="hf-6oge" class="sbar"><span data-hf-id="hf-rk89">9:41</span><span data-hf-id="hf-z77m" class="sbar-r"><span data-hf-id="hf-3rbv" class="sbar-sig"><i data-hf-id="hf-0zjc"></i><i data-hf-id="hf-zsm9"></i><i data-hf-id="hf-06xa"></i><i data-hf-id="hf-26gf"></i></span><span data-hf-id="hf-mv7l" class="sbar-bat"><b data-hf-id="hf-ey49"></b></span></span></div>
+                  <div data-hf-id="hf-q9my" class="hdr">
+                    <div data-hf-id="hf-ckc5" class="hdr-row">
+                      <div data-hf-id="hf-jbzb" class="brand"><div data-hf-id="hf-4w7j" class="brand-ico"><img data-hf-id="hf-mauv" src="assets/brand/manoo-marteau.png" alt=""></div><div data-hf-id="hf-tjqx" class="brand-name">Manoo</div></div>
+                      <div data-hf-id="hf-r7j0" class="hdr-btns"><div data-hf-id="hf-z79d" class="hdr-btn"><i data-hf-id="hf-jtc4" data-icon="bell"></i></div><div data-hf-id="hf-zqwz" class="hdr-avatar jm" style="display:flex;align-items:center;justify-content:center;font-size:14px;">JM</div></div>
+                    </div>
+                    <div data-hf-id="hf-i8h7" class="hdr-search"><i data-hf-id="hf-aiw3" data-icon="search"></i><span data-hf-id="hf-kxg9">Mots-clés, tags, contenu...</span></div>
+                  </div>
+                  <div data-hf-id="hf-696b" class="d-scroll" data-layout-allow-overflow>
+                    <div data-hf-id="hf-xhpw" class="d-pad">
+                      <div data-hf-id="hf-qq6l" id="p-post" class="card post">
+                        <div data-hf-id="hf-ysvt" class="post-head"><div data-hf-id="hf-p87g" class="avatar jm" style="border-radius:50%">JM</div><div data-hf-id="hf-l2u5" class="post-who"><div data-hf-id="hf-riro" class="post-name">Jules Moreau</div><div data-hf-id="hf-vv81" class="post-meta">Serrurier / Métallier • à l’instant</div><div data-hf-id="hf-1km7" class="post-type"><span data-hf-id="hf-5xe0" class="chip"><i data-hf-id="hf-hjuo" data-icon="hammer"></i>Réalisation</span></div></div></div>
+                        <div data-hf-id="hf-uany" class="post-text">Portail en fer forgé terminé cette semaine à l’atelier 🔥</div>
+                        <div data-hf-id="hf-ssgp" class="post-media d-media-h"><img data-hf-id="hf-aabf" src="assets/photos/jules-portail.jpg" alt=""></div>
+                        <div data-hf-id="hf-sctc" class="post-acts"><span data-hf-id="hf-mj6m" id="p-like"><i data-hf-id="hf-lsgu" data-icon="heart"></i><b data-hf-id="hf-qcyf" id="p-likes">0</b></span><span data-hf-id="hf-uckh"><i data-hf-id="hf-a924" data-icon="message-circle"></i><b data-hf-id="hf-sj5j" id="p-coms">0</b></span><span data-hf-id="hf-i6df"><i data-hf-id="hf-cvg2" data-icon="share-2"></i>0</span></div>
+                        <div data-hf-id="hf-6633" id="p-comment"><div data-hf-id="hf-o4a3" class="avatar"><i data-hf-id="hf-hc4r" data-icon="user"></i></div><div data-hf-id="hf-yqnb"><b data-hf-id="hf-yfl3">Lucas</b> Superbe finition ! 🔥</div></div>
+                      </div>
+                      <div data-hf-id="hf-y9cs" class="card post">
+                        <div data-hf-id="hf-ghal" class="post-head"><div data-hf-id="hf-z7gr" class="avatar"><i data-hf-id="hf-gxtq" data-icon="user"></i></div><div data-hf-id="hf-ylrl" class="post-who"><div data-hf-id="hf-q225" class="post-name">Lucas Martin</div><div data-hf-id="hf-ejcr" class="post-meta">Maçon • il y a 2 h</div><div data-hf-id="hf-0f8f" class="post-type"><span data-hf-id="hf-yxmo" class="chip"><i data-hf-id="hf-601k" data-icon="hammer"></i>Réalisation</span></div></div></div>
+                        <div data-hf-id="hf-60bc" class="post-text">Mur en briques monté cette semaine, joints au fer.</div>
+                        <div data-hf-id="hf-dyp9" class="post-media d-media-h"><img data-hf-id="hf-wyf3" src="assets/photos/B0.jpg" alt=""></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div data-hf-id="hf-kze9" class="bnav">
+                    <div data-hf-id="hf-63o0" class="bnav-it on"><i data-hf-id="hf-bc8u" data-icon="house"></i>Feed</div>
+                    <div data-hf-id="hf-17eq" class="bnav-it"><i data-hf-id="hf-ax74" data-icon="search"></i>Recherche</div>
+                    <div data-hf-id="hf-rrc5" class="bnav-it"><i data-hf-id="hf-9251" data-icon="message-circle"></i>Messages</div>
+                    <div data-hf-id="hf-1rne" class="bnav-it"><i data-hf-id="hf-jf13" data-icon="bell"></i>Notifs</div>
+                    <div data-hf-id="hf-d0wz" class="bnav-it"><i data-hf-id="hf-gjip" data-icon="user"></i>Profil</div>
+                  </div>
+                </div>
+              </div>
+              <div data-hf-id="hf-7sfr" class="island"></div>
+              <div data-hf-id="hf-i260" class="homebar"></div>
+              <div data-hf-id="hf-62pl" class="glare"></div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-kn6z" id="p-finger" class="finger"></div>
+          <div data-hf-id="hf-4msv" id="p-ring" class="ring"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 9.0;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("p-root");
+          const $ = (s) => root.querySelector(s);
+          window.ManooIcons.hydrate(root);
+
+          // phone geometry: 430 x 888 box centred at (540, 1040), scaled S; CAM_Y lifts it while the camera is open
+          const S = 1.46, CAM_Y = -40;
+          const screenEl = $("#p-screen");
+          const stagePt = (el) => {
+            const r = el.getBoundingClientRect(), sr = screenEl.getBoundingClientRect();
+            const k = 394 / sr.width;
+            const sx = (r.left + r.width / 2 - sr.left) * k, sy = (r.top + r.height / 2 - sr.top) * k;
+            return [540 + (18 + sx - 215) * S, 1040 + (18 + sy - 444) * S];
+          };
+          // measure the taps before anything moves
+          const shutPt = stagePt($("#p-shut")).map((v, i) => (i ? v + CAM_Y : v));
+          const addPt = stagePt($("#p-btn-add"));
+          // portfolio grid slots (2 columns)
+          const slot = (i) => [(i % 2) * 188, Math.floor(i / 2) * 166];
+          root.querySelectorAll(".p-old").forEach((c, i) => gsap.set(c, { x: slot(i)[0], y: slot(i)[1] }));
+          gsap.set("#p-cell-new", { x: slot(0)[0], y: slot(0)[1], scale: 0, opacity: 0 });
+
+          const SCREENS = ["#p-s-cam", "#p-s-pf", "#p-s-feed"].map((s) => $(s));
+          gsap.set(["#p-s-pf", "#p-s-feed"], { xPercent: 100 });
+          gsap.set("#p-sheet", { yPercent: 105 });
+          gsap.set("#p-ph", { scale: S, opacity: 0, y: 760 });
+          gsap.set(".p-cap", { opacity: 0 });
+
+          const tl = gsap.timeline({ paused: true });
+          const screenIn = (s, at) => tl.fromTo(s, { xPercent: 100, opacity: 1 }, { xPercent: 0, opacity: 1, duration: 0.38, ease: "power3.out", immediateRender: false }, L(at));
+          const screenOut = (s, at) => tl.to(s, { xPercent: -28, opacity: 0, duration: 0.38, ease: "power3.out" }, L(at));
+          const tap = (pt, at) => {
+            tl.fromTo("#p-finger", { opacity: 0, x: pt[0], y: pt[1], scale: 1.4 }, { opacity: 1, x: pt[0], y: pt[1], scale: 1, duration: 0.12, ease: "power2.out", immediateRender: false }, L(at) - 0.12);
+            tl.to("#p-finger", { scale: 0.82, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(at));
+            tl.to("#p-finger", { opacity: 0, duration: 0.16 }, L(at) + 0.2);
+            tl.fromTo("#p-ring", { opacity: 0.95, x: pt[0], y: pt[1], scale: 0.4 }, { opacity: 0, x: pt[0], y: pt[1], scale: 1.6, duration: 0.45, ease: "power2.out", immediateRender: false }, L(at));
+          };
+          const capSwap = (out, inn, at) => {
+            if (out) tl.to(out, { opacity: 0, y: -24, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, L(at) - 0.2);
+            tl.fromTo(inn, { opacity: 0, y: 30, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", immediateRender: false }, L(at));
+          };
+
+          // ---- section card: « Ton portfolio », toggle clicked
+          tl.fromTo("#p-ghost", { opacity: 0, xPercent: -50, scale: 0.9 }, { opacity: 1, xPercent: -50, scale: 1, duration: 0.5, ease: "power3.out", immediateRender: true }, L(C.title3));
+          tl.fromTo("#p-title", { opacity: 0, y: 30, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", immediateRender: true }, L(C.title3 + 0.04));
+          tl.fromTo("#p-toggle", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(2)", immediateRender: true }, L(C.title3 + 0.1));
+          tl.fromTo("#p-cur", { opacity: 0, x: 860, y: 1500 }, { opacity: 1, x: 586, y: 1086, duration: 0.36, ease: "power3.out", immediateRender: true }, L(C.toggle3 - 0.38));
+          tl.to("#p-cur", { scale: 0.85, duration: 0.07, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.toggle3));
+          tl.fromTo("#p-toggle .kn", { x: 0 }, { x: 68, duration: 0.18, ease: "power3.out", immediateRender: true }, L(C.toggle3));
+          tl.fromTo("#p-toggle .tr", { opacity: 0 }, { opacity: 1, duration: 0.15, immediateRender: true }, L(C.toggle3));
+          tl.to(["#p-ghost", "#p-title", "#p-toggle"], { scale: 1.5, opacity: 0, filter: "blur(18px)", duration: 0.22, ease: "power3.in" }, L(C.toggle3 + 0.32));
+          tl.to("#p-cur", { opacity: 0, duration: 0.12 }, L(C.toggle3 + 0.32));
+
+          // ---- 1 · the photo
+          tl.fromTo("#p-ph", { opacity: 1, y: 760 }, { opacity: 1, y: CAM_Y, duration: 0.42, ease: "power3.out", immediateRender: false }, L(C.phone3));
+          tl.to("#p-ph", { y: 0, duration: 0.4, ease: "power3.inOut" }, L(C.sheet - 0.22));
+          capSwap(null, "#p-cap1", C.phone3 + 0.08);
+          tl.fromTo("#p-cam-img", { scale: 1.16, x: -12 }, { scale: 1.05, x: 10, duration: C.shutter - C.phone3, ease: "sine.inOut", immediateRender: true }, L(C.phone3));
+          tl.fromTo("#p-focus", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power2.out", immediateRender: false }, L(C.shutter - 0.48));
+          tl.to("#p-focus", { opacity: 0, duration: 0.15 }, L(C.shutter - 0.05));
+          tap(shutPt, C.shutter);
+          tl.fromTo("#p-flash", { opacity: 0 }, { opacity: 1, duration: 0.04, immediateRender: false }, L(C.shutter));
+          tl.to("#p-flash", { opacity: 0, duration: 0.3, ease: "power2.out" }, L(C.shutter + 0.06));
+          tl.fromTo("#p-thumb", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", immediateRender: false }, L(C.shutter + 0.08));
+
+          // ---- 2 · into the portfolio
+          screenOut("#p-s-cam", C.sheet - 0.22);
+          screenIn("#p-s-pf", C.sheet - 0.22);
+          capSwap("#p-cap1", "#p-cap2", C.sheet);
+          tl.fromTo("#p-dim", { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, L(C.sheet));
+          tl.fromTo("#p-sheet", { yPercent: 105 }, { yPercent: 0, duration: 0.4, ease: "power3.out", immediateRender: false }, L(C.sheet));
+          tap(addPt, C.addTap);
+          tl.to("#p-btn-add", { scale: 0.95, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.addTap));
+          tl.to("#p-sheet", { yPercent: 105, duration: 0.32, ease: "power3.in" }, L(C.toast3 - 0.06));
+          tl.to("#p-dim", { opacity: 0, duration: 0.3 }, L(C.toast3 - 0.06));
+          tl.fromTo("#p-toast", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.6)", immediateRender: false }, L(C.toast3));
+          tl.to("#p-toast", { opacity: 0, y: -20, duration: 0.22 }, L(C.publish - 0.35));
+          root.querySelectorAll(".p-old").forEach((c, i) => {
+            tl.to(c, { x: slot(i + 1)[0], y: slot(i + 1)[1], duration: 0.34, ease: "power3.inOut" }, L(C.cellNew - 0.12 + i * 0.03));
+          });
+          tl.fromTo("#p-cell-new", { scale: 0, opacity: 0, x: slot(0)[0], y: slot(0)[1] }, { scale: 1, opacity: 1, x: slot(0)[0], y: slot(0)[1], duration: 0.4, ease: "back.out(1.8)", immediateRender: false }, L(C.cellNew));
+          tl.fromTo("#p-cell-new", { boxShadow: "0 0 0 0px rgba(227,110,45,0)" }, { boxShadow: "0 0 0 5px rgba(227,110,45,0.95)", duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, L(C.cellNew + 0.35));
+
+          // ---- 3 · shared to the network
+          screenOut("#p-s-pf", C.publish - 0.12);
+          screenIn("#p-s-feed", C.publish - 0.12);
+          capSwap("#p-cap2", "#p-cap3", C.publish);
+          tl.fromTo("#p-post", { opacity: 0, y: -40, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.38, ease: "back.out(1.5)", immediateRender: false }, L(C.post));
+          tl.fromTo("#p-like", { color: "#807368" }, { color: "#e11d48", duration: 0.15, immediateRender: false }, L(C.likes));
+          tl.fromTo("#p-like .ic", { scale: 1 }, { scale: 1.45, duration: 0.12, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, L(C.likes));
+          tl.fromTo("#p-comment", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.6)", immediateRender: false }, L(C.comment));
+
+          // ---- exit
+          tl.to("#p-ph", { y: -1500, filter: "blur(16px)", duration: 0.34, ease: "power3.in" }, L(C.out3 + 0.04));
+          tl.to("#p-cap3", { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.24, ease: "power2.in" }, L(C.out3));
+
+          // time-driven text: typed title, counters, screen visibility
+          const ttl = $("#p-title-t"), caret = $("#p-caret"), input = $("#p-input");
+          const TXT = "Portail en fer forgé";
+          const likes = $("#p-likes"), coms = $("#p-coms"), npub = $("#p-npub"), mcount = $("#p-mcount");
+          const render = () => {
+            const t = tl.time();
+            for (const el of SCREENS) {
+              const op = parseFloat(gsap.getProperty(el, "opacity"));
+              const xp = Math.abs(parseFloat(gsap.getProperty(el, "xPercent")) || 0);
+              el.style.visibility = op > 0.001 && xp < 99.5 ? "visible" : "hidden";
+            }
+            const t0 = L(C.type3a), t1 = L(C.type3b);
+            if (t < t0) {
+              ttl.textContent = "Ex : Rénovation cuisine chêne massif";
+              input.classList.add("ph");
+            } else {
+              const k = Math.min(1, (t - t0) / (t1 - t0));
+              ttl.textContent = TXT.slice(0, Math.round(k * TXT.length));
+              input.classList.remove("ph");
+            }
+            input.classList.toggle("focus", t >= t0 - 0.15 && t < L(C.addTap));
+            caret.style.opacity = t >= t0 - 0.15 && t < L(C.addTap) && (t < t1 || Math.floor(t * 4) % 2 === 0) ? "1" : "0";
+            const n = t >= L(C.cellNew) ? 5 : 4;
+            npub.textContent = String(n);
+            mcount.textContent = n + " / 5 médias";
+            const k2 = Math.max(0, Math.min(1, (t - L(C.likes)) / 1.0));
+            likes.textContent = String(Math.round(k2 * 27));
+            coms.textContent = t >= L(C.comment) ? "1" : "0";
+          };
+          tl.eventCallback("onUpdate", render);
+          render();
+          window.__timelines["portfolio"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

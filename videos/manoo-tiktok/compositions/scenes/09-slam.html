@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #s-root { position: absolute; inset: 0; overflow: hidden; }
+        #s-a { top: 806px; font-size: 156px; letter-spacing: -0.055em; }
+        /* full-frame accent slam */
+        #s-or {
+          position: absolute;
+          inset: 0;
+          background-color: #f97316;
+          background-image: linear-gradient(rgba(16, 22, 25, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(16, 22, 25, 0.06) 1px, transparent 1px);
+          background-size: 72px 72px;
+          background-position: center center;
+          clip-path: circle(0% at 50% 50%);
+        }
+        #s-b { top: 760px; font-size: 168px; letter-spacing: -0.055em; color: #101619; }
+        #s-b .m { color: rgba(16, 22, 25, 0.5); }
+        .s-l { display: inline-block; }
+      </style>
+
+      <div data-hf-id="hf-dk0e" id="s-root" data-composition-id="slam" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-v9yp" id="s-a" class="two"><span data-hf-id="hf-zokq" class="w m">Tu</span><span data-hf-id="hf-ioj1" class="w k">montres.</span></div>
+          <div data-hf-id="hf-lmjq" id="s-or"></div>
+          <div data-hf-id="hf-z82q" id="s-b" class="two"><span data-hf-id="hf-00pv" class="w m">On te</span><br data-hf-id="hf-x5px"><span data-hf-id="hf-54j7" class="w k">repère.</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 36.0;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("s-root");
+          // key words animate letter by letter
+          root.querySelectorAll(".two .k").forEach((k) => {
+            const t = k.textContent;
+            k.textContent = "";
+            for (const ch of t) {
+              const s = document.createElement("span");
+              s.className = "s-l";
+              s.textContent = ch;
+              k.appendChild(s);
+            }
+          });
+          gsap.set(["#s-a .m", "#s-a .s-l", "#s-b .m", "#s-b .s-l"], { opacity: 0 });
+          const tl = gsap.timeline({ paused: true });
+          // « Tu montres. » on the white stage
+          tl.fromTo("#s-a .m", { opacity: 0, y: 40, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out", immediateRender: false }, L(C.montres));
+          tl.fromTo("#s-a .s-l", { opacity: 0, y: 60, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", stagger: 0.035, immediateRender: false }, L(C.montres + 0.12));
+          tl.fromTo("#s-a", { scale: 1 }, { scale: 1.05, duration: +(L(C.slam - 0.14) - L(C.montres)).toFixed(3), ease: "none", immediateRender: true }, L(C.montres));
+          // the slam: the accent bursts from the centre, the line hits hard
+          tl.to("#s-a", { opacity: 0, scale: 1.3, filter: "blur(18px)", duration: 0.16, ease: "power2.in" }, L(C.slam - 0.14));
+          tl.fromTo("#s-or", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(75% at 50% 50%)", duration: 0.3, ease: "power3.out", immediateRender: true }, L(C.slam));
+          tl.fromTo("#s-b .m", { opacity: 0, scale: 1.5, filter: "blur(18px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out", immediateRender: false }, L(C.slam + 0.04));
+          tl.fromTo("#s-b .s-l", { opacity: 0, scale: 1.8, filter: "blur(16px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power4.out", stagger: 0.03, immediateRender: false }, L(C.slam + 0.1));
+          tl.fromTo("#s-b", { y: 0 }, { y: 18, duration: 0.07, ease: "power1.inOut", yoyo: true, repeat: 3, immediateRender: true }, L(C.slam + 0.1));
+          tl.fromTo("#s-b", { scale: 1 }, { scale: 1.05, duration: +(L(C.out9) - L(C.slam + 0.4)).toFixed(3), ease: "none", immediateRender: true }, L(C.slam + 0.4));
+          // exit: the line lifts away, the accent holds to the cut
+          tl.to("#s-b", { opacity: 0, y: -80, filter: "blur(16px)", duration: 0.18, ease: "power2.in" }, L(C.out9));
+          window.__timelines["slam"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

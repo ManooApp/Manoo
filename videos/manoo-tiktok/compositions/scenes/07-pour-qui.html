@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #q-root { position: absolute; inset: 0; overflow: hidden; }
+        #q-title { top: 300px; font-size: 112px; }
+        .q-card {
+          position: absolute;
+          width: 400px;
+          height: 290px;
+          border-radius: 44px;
+          background: #fff;
+          box-shadow: 0 30px 64px rgba(16, 22, 25, 0.1), 0 0 0 1px rgba(16, 22, 25, 0.05);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 30px;
+          opacity: 0;
+        }
+        .q-card .bd { width: 124px; height: 124px; border-radius: 38px; background: #f97316; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 14px 30px rgba(249, 115, 22, 0.3); }
+        .q-card .bd .ic { width: 60px; height: 60px; stroke-width: 2.2; }
+        .q-card b { font: 800 54px/1 "Inter Display", sans-serif; letter-spacing: -0.045em; color: #101619; white-space: nowrap; }
+        #q-all { top: 1196px; font-size: 96px; }
+      </style>
+
+      <div data-hf-id="hf-szug" id="q-root" data-composition-id="pourqui" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-p4dc" id="q-title" class="two"><span data-hf-id="hf-rawv" class="w m">Pour</span><span data-hf-id="hf-hrlo" class="w">qui ?</span></div>
+          <div data-hf-id="hf-jmug" class="q-card" style="left:128px;top:530px"><span data-hf-id="hf-vks3" class="bd"><i data-hf-id="hf-xvdq" data-icon="briefcase"></i></span><b data-hf-id="hf-uwla">Artisans</b></div>
+          <div data-hf-id="hf-spwn" class="q-card" style="left:552px;top:530px"><span data-hf-id="hf-zoer" class="bd"><i data-hf-id="hf-3at3" data-icon="notebook-text"></i></span><b data-hf-id="hf-d2q3">Apprentis</b></div>
+          <div data-hf-id="hf-tyng" class="q-card" style="left:128px;top:844px"><span data-hf-id="hf-za3q" class="bd"><i data-hf-id="hf-9llb" data-icon="building-2"></i></span><b data-hf-id="hf-l6qh">Entreprises</b></div>
+          <div data-hf-id="hf-7tzz" class="q-card" style="left:552px;top:844px"><span data-hf-id="hf-yvsp" class="bd"><i data-hf-id="hf-eqld" data-icon="graduation-cap"></i></span><b data-hf-id="hf-feyo">Écoles &amp; CFA</b></div>
+          <div data-hf-id="hf-lzsn" id="q-all" class="two"><span data-hf-id="hf-2so8" class="w m">Tous</span><span data-hf-id="hf-v9s3" class="w m">les</span><br data-hf-id="hf-x5px"><span data-hf-id="hf-grt7" class="w">métiers</span><span data-hf-id="hf-da7c" class="w a">manuels</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 31.0;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("q-root");
+          window.ManooIcons.hydrate(root);
+          gsap.set(["#q-title .w", "#q-all .w"], { opacity: 0 });
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#q-title .w", { opacity: 0, y: 34, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", stagger: 0.06, immediateRender: false }, L(C.who));
+          // one profile per beat
+          root.querySelectorAll(".q-card").forEach((c, i) => {
+            const at = [C.w1, C.w2, C.w3, C.w4][i];
+            tl.fromTo(c, { opacity: 0, scale: 0.6, y: 60, filter: "blur(14px)" }, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "back.out(1.8)", immediateRender: true }, L(at));
+            tl.fromTo(c.querySelector(".bd"), { rotation: -14, scale: 0.7 }, { rotation: 0, scale: 1, duration: 0.42, ease: "back.out(2.6)", immediateRender: true }, L(at + 0.04));
+          });
+          tl.fromTo("#q-all .w", { opacity: 0, y: 34, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.32, ease: "power3.out", stagger: 0.04, immediateRender: false }, L(C.allTrades));
+          // exit
+          tl.to(["#q-title", ".q-card", "#q-all"], { y: -160, opacity: 0, filter: "blur(16px)", duration: 0.22, ease: "power3.in", stagger: 0.012 }, L(C.out7));
+          window.__timelines["pourqui"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

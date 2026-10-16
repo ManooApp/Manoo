@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #f-root { position: absolute; inset: 0; overflow: hidden; }
+        /* dark stage with its faint grid */
+        #f-dark { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 55% at 50% 48%, #1a2328 0%, #101619 70%); }
+        #f-grid {
+          position: absolute;
+          left: -72px;
+          top: -72px;
+          width: 1224px;
+          height: 2064px;
+          background-image: linear-gradient(rgba(243, 242, 239, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(243, 242, 239, 0.05) 1px, transparent 1px);
+          background-size: 72px 72px;
+        }
+        /* app fragments that fly past the camera */
+        .f-card { position: absolute; left: 0; top: 0; background: #fff; border-radius: 28px; box-shadow: 0 34px 70px rgba(0, 0, 0, 0.45); font-family: "Inter", sans-serif; color: #0e0a07; opacity: 0; }
+        .f-card .ic { display: block; }
+        .f-av { width: 54px; height: 54px; border-radius: 50%; flex: none; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #fd8b3a, #e4702e); color: #fff; font: 700 20px/1 "Inter", sans-serif; }
+        .f-post { width: 420px; padding: 14px; }
+        .f-post .ph { height: 250px; border-radius: 18px; overflow: hidden; }
+        .f-post img, .f-cell img, .f-res img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .f-post .row { margin-top: 14px; display: flex; align-items: center; gap: 12px; font: 600 22px/1 "Inter", sans-serif; }
+        .f-post .lk { margin-left: auto; display: flex; align-items: center; gap: 6px; color: #e11d48; font-weight: 600; }
+        .f-post .lk .ic { width: 26px; height: 26px; fill: #e11d48; }
+        .f-notif { width: 560px; padding: 20px 22px; border-radius: 30px; display: flex; gap: 16px; align-items: center; background: rgba(250, 248, 245, 0.96); }
+        .f-ico { width: 60px; height: 60px; border-radius: 15px; background: #fff; flex: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18); }
+        .f-ico img { width: 40px; height: 35px; object-fit: contain; }
+        .f-notif b, .f-prof b, .f-res b { display: block; font: 600 22px/1.2 "Inter", sans-serif; }
+        .f-notif span, .f-prof span, .f-res span { display: block; margin-top: 4px; font: 400 19px/1.3 "Inter", sans-serif; color: #5d5248; white-space: nowrap; }
+        .f-cell { width: 300px; height: 250px; overflow: hidden; border-radius: 24px; }
+        .f-cell span { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 16px 12px; background: linear-gradient(0deg, rgba(14, 10, 7, 0.72), rgba(14, 10, 7, 0)); color: #fff; font: 600 19px/1.2 "Inter", sans-serif; }
+        .f-prof { width: 450px; padding: 20px 22px; display: flex; gap: 16px; align-items: center; }
+        .f-res { width: 300px; overflow: hidden; border-radius: 24px; }
+        .f-res .im { height: 200px; }
+        .f-res div:last-child { padding: 14px 16px 16px; }
+        .f-chip { background: transparent; box-shadow: none; }
+        .f-chip .chipx .bd { background: #f97316; }
+        .f-chip .chipx .bd .ic { stroke-width: 3; }
+        .f-tog { background: transparent; box-shadow: none; }
+        .f-tog .toggle { position: relative; margin: 0; background: #f97316; }
+        .stg .f-tog .kn { left: 77px; }
+        /* lockup */
+        #f-ico { position: absolute; left: 50%; top: 560px; width: 200px; height: 200px; margin-left: -100px; border-radius: 52px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5); opacity: 0; }
+        #f-ico img { width: 134px; height: 118px; object-fit: contain; }
+        #f-word { position: absolute; left: 0; right: 0; top: 812px; display: flex; justify-content: center; align-items: flex-end; font: 800 156px/0.84 "Inter Display", sans-serif; letter-spacing: -0.06em; color: #f3f2ef; }
+        #f-word .l { display: inline-block; opacity: 0; }
+        #f-dot { display: inline-block; width: 34px; height: 34px; margin: 0 0 5px 10px; border-radius: 50%; background: #f97316; opacity: 0; }
+        /* address pill */
+        #f-pill { position: absolute; left: 50%; top: 1030px; height: 128px; padding: 0 64px; border-radius: 64px; display: flex; align-items: center; border: 4px solid rgba(243, 242, 239, 0.4); font: 600 66px/1 "Inter Display", sans-serif; letter-spacing: -0.035em; color: #f3f2ef; white-space: nowrap; opacity: 0; }
+        #f-fillp { position: absolute; inset: -4px; border-radius: 64px; background: #f97316; box-shadow: 0 0 70px rgba(249, 115, 22, 0.55); opacity: 0; }
+        #f-pill span { position: relative; }
+        #f-cur { opacity: 0; width: 70px; height: 82px; }
+        #f-tag { position: absolute; left: 0; right: 0; top: 1250px; text-align: center; font: 600 54px/1.1 "Inter Display", sans-serif; letter-spacing: -0.035em; color: rgba(243, 242, 239, 0.62); opacity: 0; }
+        #f-cta { position: absolute; left: 0; right: 0; top: 1338px; display: flex; justify-content: center; align-items: center; gap: 18px; font: 800 66px/1 "Inter Display", sans-serif; letter-spacing: -0.045em; color: #f3f2ef; opacity: 0; }
+        #f-cta .ic { width: 62px; height: 62px; color: #f97316; stroke-width: 2.6; }
+      </style>
+
+      <div data-hf-id="hf-69mb" id="f-root" data-composition-id="fin" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-sa76" id="f-dark"></div>
+          <div data-hf-id="hf-7e2z" id="f-grid" data-layout-allow-overflow></div>
+
+          <div data-hf-id="hf-8qaz" id="f-cards">
+            <div data-hf-id="hf-1byy" class="f-card f-post"><div data-hf-id="hf-i8mw" class="ph"><img data-hf-id="hf-3te2" src="assets/photos/jules-portail.jpg" alt=""></div><div data-hf-id="hf-8mf2" class="row"><span data-hf-id="hf-o6ke" class="f-av">JM</span>Jules Moreau<span data-hf-id="hf-l9ad" class="lk"><i data-hf-id="hf-lsgu" data-icon="heart"></i>27</span></div></div>
+            <div data-hf-id="hf-wi2y" class="f-card f-notif"><span data-hf-id="hf-z7dt" class="f-ico"><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></span><div data-hf-id="hf-yeow"><b data-hf-id="hf-hloq">Atelier Morvan</b><span data-hf-id="hf-8728">Superbe portail ! On en parle ?</span></div></div>
+            <div data-hf-id="hf-q7so" class="f-card f-cell"><img data-hf-id="hf-jj52" src="assets/photos/garde-corps.jpg" alt=""><span data-hf-id="hf-0zam">Garde-corps acier</span></div>
+            <div data-hf-id="hf-0udm" class="f-card f-chip"><div data-hf-id="hf-2qyu" class="chipx"><span data-hf-id="hf-vks3" class="bd"><i data-hf-id="hf-d3m2" data-icon="check"></i></span>Portfolio visuel</div></div>
+            <div data-hf-id="hf-rmp5" class="f-card f-prof"><span data-hf-id="hf-8rvm" class="f-av">JM</span><div data-hf-id="hf-y7yw"><b data-hf-id="hf-nc5j">Jules Moreau</b><span data-hf-id="hf-j80i">Serrurier / Métallier · Rennes</span></div></div>
+            <div data-hf-id="hf-3zrk" class="f-card f-cell"><img data-hf-id="hf-cp6t" src="assets/photos/escalier.jpg" alt=""><span data-hf-id="hf-3jbb">Escalier droit</span></div>
+            <div data-hf-id="hf-z1ny" class="f-card f-res"><div data-hf-id="hf-wx9a" class="im"><img data-hf-id="hf-zzo4" src="assets/photos/portail-detail.jpg" alt=""></div><div data-hf-id="hf-x11t"><b data-hf-id="hf-t6ze">Volutes, détail</b><span data-hf-id="hf-slu3">Jules Moreau</span></div></div>
+            <div data-hf-id="hf-i3qi" class="f-card f-tog"><div data-hf-id="hf-4iz0" class="toggle"><div data-hf-id="hf-tmjb" class="kn"></div></div></div>
+          </div>
+
+          <div data-hf-id="hf-wnjt" id="f-ico"><img data-hf-id="hf-mauv" src="assets/brand/manoo-marteau.png" alt=""></div>
+          <div data-hf-id="hf-v8t6" id="f-word"><span data-hf-id="hf-gv0i" class="l">M</span><span data-hf-id="hf-f9se" class="l">A</span><span data-hf-id="hf-h9bj" class="l">N</span><span data-hf-id="hf-hnmk" class="l">O</span><span data-hf-id="hf-ya50" class="l">O</span><span data-hf-id="hf-4v3m" id="f-dot"></span></div>
+          <div data-hf-id="hf-thtz" id="f-pill"><div data-hf-id="hf-6at3" id="f-fillp"></div><span data-hf-id="hf-oy9c" id="f-url">manoo.fr</span></div>
+          <div data-hf-id="hf-nzh4" id="f-tag">La révolution du regard.</div>
+          <div data-hf-id="hf-849i" id="f-cta">Crée ton portfolio<i data-hf-id="hf-4lds" data-icon="arrow-right"></i></div>
+          <svg data-hf-id="hf-flob" id="f-cur" class="cur" viewBox="0 0 29 34"><path data-hf-id="hf-ezwr" d="M2 2 L2 26 L8.5 20 L13 31 L17.5 29 L13 18.5 L22 18.5 Z" fill="#f97316" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 38.5;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("f-root");
+          window.ManooIcons.hydrate(root);
+          const tl = gsap.timeline({ paused: true });
+
+          // the dark stage cuts in on the beat, its grid slowly drifting
+          tl.fromTo("#f-grid", { x: 0, y: 0, opacity: 0 }, { x: 36, y: -36, opacity: 1, duration: +(L(C.END) - L(C.fin)).toFixed(3), ease: "none", immediateRender: true }, L(C.fin));
+
+          // app fragments fly past the camera in four waves (two per wave)
+          const DIRS = [[-1, -0.8], [1, -0.5], [-1, 0.6], [1, 0.9], [-0.9, -0.2], [1, 0.1], [-0.6, 1], [0.7, -1]];
+          root.querySelectorAll(".f-card").forEach((c, i) => {
+            const [dx, dy] = DIRS[i];
+            const at = C.fin + Math.floor(i / 2) * 0.25 + (i % 2) * 0.06;
+            const P = (k, m) => [540 + dx * k, 960 + dy * m];
+            const [sx, sy] = P(60, 120), [mx, my] = P(250, 400), [ex, ey] = P(900, 1300);
+            gsap.set(c, { xPercent: -50, yPercent: -50 });
+            tl.fromTo(c, { x: sx, y: sy, scale: 0.25, opacity: 0, filter: "blur(8px)" }, { x: mx, y: my, scale: 0.9, opacity: 1, filter: "blur(0px)", duration: 0.36, ease: "power2.out", immediateRender: true }, L(at));
+            tl.fromTo(c, { x: mx, y: my, scale: 0.9, opacity: 1, filter: "blur(0px)" }, { x: ex, y: ey, scale: 2.2, opacity: 0, filter: "blur(16px)", duration: 0.5, ease: "power2.in", immediateRender: false }, L(at + 0.36));
+          });
+
+          // lockup
+          tl.fromTo("#f-ico", { opacity: 0, scale: 0.3, rotation: -16 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.44, ease: "back.out(2.2)", immediateRender: true }, L(C.lockup));
+          tl.fromTo("#f-word .l", { opacity: 0, y: 70, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "back.out(1.7)", stagger: 0.05, immediateRender: true }, L(C.lockup + 0.12));
+          tl.fromTo("#f-dot", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)", immediateRender: true }, L(C.lockup + 0.42));
+
+          // the address pill, clicked by the accent cursor
+          tl.fromTo("#f-pill", { opacity: 0, scale: 0.8, xPercent: -50 }, { opacity: 1, scale: 1, xPercent: -50, duration: 0.34, ease: "back.out(2)", immediateRender: true }, L(C.pill));
+          tl.fromTo("#f-cur", { opacity: 0, x: 930, y: 1640 }, { opacity: 1, x: 700, y: 1124, duration: 0.6, ease: "power3.out", immediateRender: true }, L(C.click - 0.62));
+          tl.to("#f-cur", { scale: 0.82, duration: 0.07, yoyo: true, repeat: 1, ease: "power1.inOut", transformOrigin: "10% 5%" }, L(C.click));
+          tl.to("#f-pill", { scale: 0.95, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.click));
+          tl.fromTo("#f-fillp", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.28, ease: "power3.out", immediateRender: true }, L(C.click));
+          tl.fromTo("#f-url", { color: "#f3f2ef" }, { color: "#101619", duration: 0.16, immediateRender: true }, L(C.click + 0.04));
+          tl.to("#f-cur", { x: 760, y: 1210, opacity: 0, duration: 0.4, ease: "power2.in" }, L(C.click + 0.5));
+
+          // slogan and call to action
+          tl.fromTo("#f-tag", { opacity: 0, y: 26, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", immediateRender: true }, L(C.tagline));
+          tl.fromTo("#f-cta", { opacity: 0, y: 26, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", immediateRender: true }, L(C.cta));
+          tl.fromTo("#f-cta .ic", { x: 0 }, { x: 14, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 1, immediateRender: true }, L(C.cta + 0.45));
+          window.__timelines["fin"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

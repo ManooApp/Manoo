@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #a-root { position: absolute; inset: 0; overflow: hidden; }
+        .a-cv {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 196px;
+          height: 258px;
+          padding: 24px 22px;
+          border-radius: 16px;
+          background: #fff;
+          box-shadow: 0 26px 54px rgba(16, 22, 25, 0.12), 0 0 0 1px rgba(16, 22, 25, 0.05);
+          opacity: 0;
+        }
+        .a-cv b { display: flex; align-items: center; gap: 12px; font: 800 28px/1 "Inter Display", sans-serif; color: #c4c9cc; letter-spacing: -0.03em; }
+        .a-cv b::before { content: ""; width: 42px; height: 42px; border-radius: 50%; background: #eceeef; }
+        .a-cv i { display: block; height: 11px; border-radius: 6px; background: #eceeef; margin-top: 15px; }
+        .a-cv i.s { width: 58%; }
+        .a-ph { position: absolute; left: 0; top: 0; width: 330px; height: 250px; opacity: 0; }
+        .a-l { display: inline-block; }
+        #a-arrow { position: absolute; left: 50%; top: 50%; width: 300px; height: 300px; margin: -150px 0 0 -150px; color: #101619; opacity: 0; }
+        #a-arrow .ic { width: 100%; height: 100%; stroke-width: 2.4; }
+        #a-inbox { left: 540px; top: 640px; opacity: 0; }
+      </style>
+
+      <div data-hf-id="hf-3mpt" id="a-root" data-composition-id="accroche" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-9k7j" id="a-cvs"></div>
+          <div data-hf-id="hf-dfj2" id="a-phs"></div>
+          <div data-hf-id="hf-lcra" id="a-inbox" class="ftile"><i data-hf-id="hf-kanm" data-icon="inbox"></i></div>
+
+          <div data-hf-id="hf-85pq" id="a-h1" class="two" style="top:860px"><span data-hf-id="hf-m8r4" class="w m">Des CV</span><span data-hf-id="hf-dh8k" class="w k">partout…</span></div>
+          <div data-hf-id="hf-npsn" id="a-h2" class="two" style="top:800px"><span data-hf-id="hf-79ci" class="w m">Un</span><span data-hf-id="hf-si5t" class="w m">savoir-faire</span><br data-hf-id="hf-x5px"><span data-hf-id="hf-vxw4" class="w k">invisible…</span></div>
+          <div data-hf-id="hf-pz0u" id="a-h3" class="two" style="top:880px"><span data-hf-id="hf-7qdj" class="w m">Zéro</span><span data-hf-id="hf-dp23" class="w k">réponse.</span></div>
+          <div data-hf-id="hf-87sh" id="a-h4" class="two" style="top:800px"><span data-hf-id="hf-ad5s" class="w m">Il</span><span data-hf-id="hf-h1tr" class="w m">est</span><span data-hf-id="hf-3olg" class="w m">temps</span><span data-hf-id="hf-owoa" class="w m">de</span><br data-hf-id="hf-rsrt"><span data-hf-id="hf-jsko" class="w k a">changer ça</span></div>
+          <div data-hf-id="hf-e62a" id="a-arrow"><i data-hf-id="hf-4lds" data-icon="arrow-right"></i></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const L = (t) => +t.toFixed(3); // host starts at 0
+          const root = document.getElementById("a-root");
+          const $ = (s) => root.querySelector(s);
+
+          // paper CVs and blurred réalisations (deterministic layout)
+          const CV = [[150, 300, -9, 1.0], [770, 260, 8, 0.85], [470, 500, 4, 0.7], [860, 620, -6, 1.1], [90, 650, 7, 0.8],
+            [240, 1160, -5, 1.05], [800, 1180, 10, 0.95], [520, 1360, -8, 0.75], [60, 1450, 6, 0.9], [900, 1500, -4, 0.8]];
+          const cvBox = $("#a-cvs");
+          CV.forEach(([x, y, r, s], i) => {
+            const d = document.createElement("div");
+            d.className = "a-cv";
+            d.innerHTML = "<b>CV</b><i></i><i></i><i class='s'></i><i></i><i class='s'></i><i></i>";
+            cvBox.appendChild(d);
+            gsap.set(d, { x, y, rotation: r, scale: s, filter: s < 0.85 ? "blur(5px)" : "blur(0px)" });
+          });
+          const PH = [["jules-portail", 80, 420, -6], ["B0", 680, 360, 5], ["C0", 120, 1240, 4], ["escalier", 640, 1300, -5]];
+          const phBox = $("#a-phs");
+          PH.forEach(([src, x, y, r]) => {
+            const d = document.createElement("div");
+            d.className = "pcard a-ph";
+            d.innerHTML = `<img src="assets/photos/${src}.jpg" alt="">`;
+            phBox.appendChild(d);
+            gsap.set(d, { x, y, rotation: r });
+          });
+          window.ManooIcons.hydrate(root);
+          // key words animate letter by letter
+          root.querySelectorAll(".two .k").forEach((k) => {
+            const t = k.textContent;
+            k.textContent = "";
+            for (const ch of t) {
+              const s = document.createElement("span");
+              s.className = "a-l";
+              s.innerHTML = ch === " " ? "&nbsp;" : ch;
+              k.appendChild(s);
+            }
+          });
+          gsap.set(["#a-h1", "#a-h2", "#a-h3", "#a-h4"], { opacity: 0 });
+
+          const tl = gsap.timeline({ paused: true });
+          const lineIn = (id, at) => {
+            tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.01, immediateRender: false }, L(at));
+            tl.fromTo(`${id} .m`, { opacity: 0, y: 34, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out", stagger: 0.05, immediateRender: false }, L(at));
+            tl.fromTo(`${id} .a-l`, { opacity: 0, y: 44, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.34, ease: "power3.out", stagger: 0.028, immediateRender: false }, L(at + 0.12));
+          };
+          const lineOut = (id, at) => tl.to(id, { opacity: 0, y: -34, filter: "blur(12px)", duration: 0.24, ease: "power2.in" }, L(at));
+
+          // L1 — paper everywhere
+          tl.fromTo(".a-cv", { opacity: 0, yPercent: 40 }, { opacity: 1, yPercent: 0, duration: 0.55, ease: "power3.out", stagger: 0.03, immediateRender: true }, 0);
+          const driftY = (i) => CV[i][1] - (18 + (i % 3) * 10);
+          root.querySelectorAll(".a-cv").forEach((d, i) => tl.to(d, { y: driftY(i), rotation: CV[i][2] + (i % 2 ? 3 : -3), duration: 1.4, ease: "sine.inOut" }, 0.1));
+          lineIn("#a-h1", C.l1);
+          lineOut("#a-h1", C.l2 - 0.1);
+          root.querySelectorAll(".a-cv").forEach((d, i) => {
+            const dx = (CV[i][0] - 440) * 1.6, dy = (CV[i][1] - 900) * 1.2;
+            tl.to(d, { x: CV[i][0] + dx, y: driftY(i) + dy, scale: CV[i][3] * 1.5, opacity: 0, filter: "blur(14px)", duration: 0.42, ease: "power3.in" }, L(C.l2 - 0.12));
+          });
+          // L2 — the work stays invisible
+          tl.fromTo(".a-ph", { opacity: 0, scale: 0.9, filter: "blur(22px)" }, { opacity: 0.42, scale: 1, filter: "blur(16px)", duration: 0.5, ease: "power2.out", stagger: 0.06, immediateRender: false }, L(C.l2));
+          root.querySelectorAll(".a-ph").forEach((d, i) => tl.to(d, { x: PH[i][1] + (i % 2 ? -30 : 30), duration: 1.4, ease: "sine.inOut" }, L(C.l2 + 0.1)));
+          lineIn("#a-h2", C.l2);
+          lineOut("#a-h2", C.l3 - 0.1);
+          tl.to(".a-ph", { opacity: 0, scale: 0.85, duration: 0.3, ease: "power2.in" }, L(C.l3 - 0.12));
+          // L3 — no answer
+          tl.fromTo("#a-inbox", { opacity: 0, scale: 0.4, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(2)", immediateRender: false }, L(C.l3));
+          lineIn("#a-h3", C.l3);
+          tl.to("#a-inbox", { x: -14, duration: 0.06, yoyo: true, repeat: 3, ease: "power1.inOut" }, L(C.l3 + 0.45));
+          lineOut("#a-h3", C.l4 - 0.1);
+          tl.to("#a-inbox", { opacity: 0, scale: 0.6, filter: "blur(10px)", duration: 0.24, ease: "power2.in" }, L(C.l4 - 0.1));
+          // L4 — time to change that
+          lineIn("#a-h4", C.l4);
+          tl.to("#a-h4 .a-l", { y: -10, duration: 0.18, ease: "power2.out", yoyo: true, repeat: 1, stagger: 0.03 }, L(C.l4 + 0.75));
+          lineOut("#a-h4", C.arrow - 0.12);
+          // the arrow pushes into the logo
+          tl.fromTo("#a-arrow", { opacity: 0, x: -380, filter: "blur(16px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.24, ease: "power3.out", immediateRender: false }, L(C.arrow));
+          tl.to("#a-arrow", { x: 900, scaleX: 1.6, filter: "blur(18px)", opacity: 0.2, duration: 0.18, ease: "power3.in" }, L(C.logo - 0.2));
+          window.__timelines["accroche"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #z-root { position: absolute; inset: 0; overflow: hidden; }
+        .z-big { position: absolute; left: 0; right: 0; text-align: center; font: 800 340px/0.9 "Inter Display", sans-serif; letter-spacing: -0.07em; color: #101619; white-space: nowrap; opacity: 0; }
+        #z-a { top: 800px; }
+        #z-b { top: 762px; font-size: 296px; }
+        #z-b .sm { display: block; font-size: 206px; }
+        .z-c { opacity: 0; }
+      </style>
+
+      <div data-hf-id="hf-5xz3" id="z-root" data-composition-id="zerocv" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-r1ef" id="z-cards"></div>
+          <div data-hf-id="hf-3ob6" id="z-a" class="z-big"><span data-hf-id="hf-rjhe" class="a">0</span> CV</div>
+          <div data-hf-id="hf-54fc" id="z-b" class="z-big"><span data-hf-id="hf-fofa" class="a">100 %</span><span data-hf-id="hf-fuua" class="sm">terrain</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 17.0;
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("z-root");
+          // collage around the statement: [photo, cx, cy, w, h, rotation, label, icon]
+          const CARDS = [
+            ["jules-portail", 250, 420, 360, 270, -6, "Portail", "hammer"],
+            ["B0", 580, 250, 270, 202, -3, "", ""],
+            ["garde-corps", 840, 420, 320, 240, 5, "Garde-corps", "hammer"],
+            ["escalier", 150, 700, 230, 172, 4, "", ""],
+            ["C0", 930, 690, 250, 188, 8, "Commode", "hammer"],
+            ["A2", 200, 1330, 300, 225, -5, "", ""],
+            ["B2", 560, 1420, 300, 225, 3, "Chantier", "brick-wall"],
+            ["C1", 900, 1320, 260, 195, -7, "", ""],
+            ["B3", 320, 1650, 270, 202, 6, "", ""],
+            ["portail-detail", 820, 1640, 300, 225, -4, "Détail", "sparkles"],
+          ];
+          const box = root.querySelector("#z-cards");
+          const els = CARDS.map(([src, cx, cy, w, h, r, lb, ic]) => {
+            const d = document.createElement("div");
+            d.className = "pcard z-c";
+            d.style.width = w + "px";
+            d.style.height = h + "px";
+            d.innerHTML = `<img src="assets/photos/${src}.jpg" alt="">` + (lb ? `<span class="lb"><i data-icon="${ic}"></i>${lb}</span>` : "");
+            box.appendChild(d);
+            return d;
+          });
+          window.ManooIcons.hydrate(root);
+          const tl = gsap.timeline({ paused: true });
+          els.forEach((d, i) => {
+            const [, cx, cy, w, h, r] = CARDS[i];
+            const x = cx - w / 2, y = cy - h / 2;
+            const ox = (cx - 540) * 1.9, oy = (cy - 960) * 1.1;
+            tl.fromTo(d, { opacity: 0, x: x + ox, y: y + oy, rotation: r * 3, scale: 1.4, filter: "blur(22px)" },
+              { opacity: 1, x, y, rotation: r, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out", immediateRender: true }, L(C.zero - 0.06 + (i % 5) * 0.035));
+            // drift until the exit, then fly out from exactly where the drift ended
+            const dx = i % 2 ? -14 : 14, dr = i % 2 ? -2 : 2;
+            const outAt = C.out4 - 0.06 + (i % 3) * 0.015;
+            tl.fromTo(d, { x, y, rotation: r }, { x: x + dx, y: y - 18, rotation: r + dr, duration: +(L(outAt) - L(C.zero + 0.6)).toFixed(3), ease: "sine.inOut", immediateRender: false }, L(C.zero + 0.6));
+            tl.fromTo(d, { x: x + dx, y: y - 18, rotation: r + dr, scale: 1, opacity: 1, filter: "blur(0px)" },
+              { x: x + dx + ox * 1.2, y: y - 18 + oy * 1.2, rotation: r + dr, scale: 1.3, opacity: 0, filter: "blur(18px)", duration: 0.22, ease: "power3.in", immediateRender: false }, L(outAt));
+          });
+          tl.fromTo("#z-a", { opacity: 0, scale: 1.35, filter: "blur(20px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.32, ease: "power3.out", immediateRender: true }, L(C.zero));
+          tl.to("#z-a", { opacity: 0, scale: 0.86, filter: "blur(14px)", duration: 0.18, ease: "power2.in" }, L(C.terrain - 0.16));
+          tl.fromTo("#z-b", { opacity: 0, scale: 1.3, filter: "blur(18px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power3.out", immediateRender: true }, L(C.terrain));
+          tl.to("#z-b", { opacity: 0, y: -60, filter: "blur(16px)", duration: 0.2, ease: "power2.in" }, L(C.out4));
+          window.__timelines["zerocv"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

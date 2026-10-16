@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <link rel="stylesheet" href="assets/ui/screens.css">
+      <style>
+        #r-root { position: absolute; inset: 0; overflow: hidden; }
+        #r-ghost { top: 760px; }
+        #r-title { top: 870px; }
+        #r-toggle { left: 540px; top: 1040px; }
+        #r-cur { opacity: 0; }
+        #r-ph, #r-ph2 { left: 325px; top: 596px; }
+        .r-cap { top: 218px; opacity: 0; }
+        .stg .r-cap .n { background: #101619; }
+        .stg .r-cap .n .ic { width: 40px; height: 40px; stroke-width: 2.4; }
+        #r-fin { top: 150px; font-size: 92px; }
+        /* search */
+        #r-q { gap: 10px; }
+        #r-q .ic { width: 18px; height: 18px; color: var(--tx-muted); }
+        #r-loc { justify-content: flex-start; gap: 8px; }
+        #r-loc .ic { width: 17px; height: 17px; }
+        .r-res { opacity: 0; }
+        /* profile seen by the company */
+        .r-pf .dispo { margin-top: 12px; }
+        .r-pf .d-pf-btns .btn { height: 44px; font-size: 15px; }
+        .p-follow .r-f1 { display: none; }
+        .p-follow.on .r-f0 { display: none; }
+        .p-follow.on .r-f1 { display: block; }
+        #r-grid .cell { height: 150px; }
+        /* chat */
+        #r-bub, #r-sent { opacity: 0; }
+        #r-empty { color: #74685e; }
+        #r-cin .input { gap: 0; }
+        /* Jules' lock screen */
+        #r-n1, #r-n2 { position: absolute; left: 12px; right: 12px; top: 300px; }
+        #r-n1 { opacity: 0; }
+        .r-ntitle { font: 600 14px/1.2 "Inter", sans-serif; color: var(--tx-strong); }
+      </style>
+
+      <div data-hf-id="hf-7o48" id="r-root" data-composition-id="recruteurs" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <!-- section card -->
+          <div data-hf-id="hf-9nnv" id="r-ghost" class="gword" data-layout-allow-overlap>Recruteurs</div>
+          <div data-hf-id="hf-1vny" id="r-title" class="sect">Côté recruteurs</div>
+          <div data-hf-id="hf-g6h1" id="r-toggle" class="toggle"><div data-hf-id="hf-vv9y" class="tr"></div><div data-hf-id="hf-tmjb" class="kn"></div></div>
+          <svg data-hf-id="hf-m9gv" id="r-cur" class="cur" viewBox="0 0 29 34"><path data-hf-id="hf-wq2f" d="M2 2 L2 26 L8.5 20 L13 31 L17.5 29 L13 18.5 L22 18.5 Z" fill="#101619" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"/></svg>
+
+          <!-- captions above the phone (the recruiter's side: ink discs) -->
+          <div data-hf-id="hf-2pzm" id="r-cap1" class="cap r-cap"><span data-hf-id="hf-40bd" class="n"><i data-hf-id="hf-cn3m" data-icon="search"></i></span>Il cherche un métallier</div>
+          <div data-hf-id="hf-vcq8" id="r-cap2" class="cap r-cap"><span data-hf-id="hf-km7h" class="n"><i data-hf-id="hf-kxjx" data-icon="eye"></i></span>Il découvre ton portail</div>
+          <div data-hf-id="hf-nrbt" id="r-cap3" class="cap r-cap"><span data-hf-id="hf-lt4k" class="n"><i data-hf-id="hf-rzj8" data-icon="message-circle"></i></span>Et il t’écrit</div>
+          <div data-hf-id="hf-ehvq" id="r-fin" class="two"><span data-hf-id="hf-w92u" class="w m">Ton</span><span data-hf-id="hf-l39q" class="w m">travail</span><br data-hf-id="hf-x5px"><span data-hf-id="hf-fc0w" class="w">parle</span><span data-hf-id="hf-j8ra" class="w">pour</span><span data-hf-id="hf-jz33" class="w a">toi.</span></div>
+
+          <div data-hf-id="hf-oogh" class="mui" style="position:absolute;inset:0">
+            <!-- the company's phone -->
+            <div data-hf-id="hf-ksep" id="r-ph" class="phone">
+              <div data-hf-id="hf-04vm" class="phone-edge"></div>
+              <div data-hf-id="hf-q65t" class="phone-body"></div>
+              <div data-hf-id="hf-nv27" id="r-screen" class="screen" data-layout-allow-overlap>
+                <!-- 1 · search -->
+                <div data-hf-id="hf-f5hx" id="r-s-search" class="scr">
+                  <div data-hf-id="hf-7ma2" class="sbar"><span data-hf-id="hf-zwmt">9:41</span><span data-hf-id="hf-838e" class="sbar-r"><span data-hf-id="hf-0ct7" class="sbar-sig"><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i><i data-hf-id="hf-ylp6"></i></span><span data-hf-id="hf-ocb1" class="sbar-bat"><b data-hf-id="hf-xujp"></b></span></span></div>
+                  <div data-hf-id="hf-tyyu" class="hdr">
+                    <div data-hf-id="hf-zfmp" class="hdr-row">
+                      <div data-hf-id="hf-oojr" class="brand"><div data-hf-id="hf-m7sf" class="brand-ico"><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></div><div data-hf-id="hf-tjqx" class="brand-name">Manoo</div></div>
+                      <div data-hf-id="hf-gdgk" class="hdr-btns"><div data-hf-id="hf-tc99" class="hdr-btn"><i data-hf-id="hf-0fm1" data-icon="bell"></i></div><div data-hf-id="hf-g8th" class="acct"><i data-hf-id="hf-9llb" data-icon="building-2"></i></div></div>
+                    </div>
+                    <div data-hf-id="hf-9xqj" class="hdr-search"><i data-hf-id="hf-a4l2" data-icon="search"></i><span data-hf-id="hf-kxg9">Mots-clés, tags, contenu...</span></div>
+                  </div>
+                  <div data-hf-id="hf-bxyz" class="s-pad">
+                    <div data-hf-id="hf-v4yw" class="s-badge"><i data-hf-id="hf-womi" data-icon="users"></i>Talents</div>
+                    <div data-hf-id="hf-89pb" class="s-title">Trouve le bon profil</div>
+                    <div data-hf-id="hf-hrcz" class="s-fields">
+                      <div data-hf-id="hf-r9qi" id="r-q" class="input ph"><i data-hf-id="hf-aiw3" data-icon="search"></i><span data-hf-id="hf-5mzg" id="r-q-t">Métier, compétence…</span><span data-hf-id="hf-qajv" id="r-q-caret" class="caret" style="opacity:0"></span></div>
+                      <div data-hf-id="hf-trxk" class="s-row">
+                        <div data-hf-id="hf-d1vt" id="r-loc" class="select"><i data-hf-id="hf-tr9e" data-icon="map-pin"></i><span data-hf-id="hf-ehmi" id="r-loc-t">Ville</span></div>
+                        <div data-hf-id="hf-iqu0" class="select"><span data-hf-id="hf-mjyb">Profil</span><i data-hf-id="hf-0xqo" data-icon="chevron-down"></i></div>
+                      </div>
+                    </div>
+                    <div data-hf-id="hf-0y0r" id="r-count" class="s-count">Lance une recherche</div>
+                    <div data-hf-id="hf-ngw6" class="s-results">
+                      <div data-hf-id="hf-6ee5" id="r-c0" class="s-card r-res"><div data-hf-id="hf-wx9a" class="im"><img data-hf-id="hf-3te2" src="assets/photos/jules-portail.jpg" alt=""></div><div data-hf-id="hf-xhzk" class="who"><div data-hf-id="hf-5vr5" class="nm">Jules Moreau</div><div data-hf-id="hf-h2ub" class="jb">Serrurier / Métallier · Rennes</div></div></div>
+                      <div data-hf-id="hf-w7t5" class="s-card r-res"><div data-hf-id="hf-caiq" class="im"><img data-hf-id="hf-leqq" src="assets/photos/B1.jpg" alt=""></div><div data-hf-id="hf-e2p4" class="who"><div data-hf-id="hf-i223" class="nm">Malo Le Bihan</div><div data-hf-id="hf-c3p7" class="jb">Métallier · Rennes</div></div></div>
+                      <div data-hf-id="hf-tlrx" class="s-card r-res"><div data-hf-id="hf-cotr" class="im"><img data-hf-id="hf-wyf3" src="assets/photos/B0.jpg" alt=""></div><div data-hf-id="hf-cvs1" class="who"><div data-hf-id="hf-k4qb" class="nm">Hugo Lemaire</div><div data-hf-id="hf-9tib" class="jb">Serrurier / Métallier · Rennes</div></div></div>
+                      <div data-hf-id="hf-usp0" class="s-card r-res"><div data-hf-id="hf-d34s" class="im"><img data-hf-id="hf-tqun" src="assets/photos/C3.jpg" alt=""></div><div data-hf-id="hf-da32" class="who"><div data-hf-id="hf-9u84" class="nm">Inès Roussel</div><div data-hf-id="hf-x6id" class="jb">Métallière · Rennes</div></div></div>
+                    </div>
+                  </div>
+                  <div data-hf-id="hf-w3rx" class="bnav">
+                    <div data-hf-id="hf-kt29" class="bnav-it"><i data-hf-id="hf-20m2" data-icon="house"></i>Feed</div>
+                    <div data-hf-id="hf-whh1" class="bnav-it on"><i data-hf-id="hf-ax74" data-icon="search"></i>Recherche</div>
+                    <div data-hf-id="hf-j9rl" class="bnav-it"><i data-hf-id="hf-a924" data-icon="message-circle"></i>Messages</div>
+                    <div data-hf-id="hf-wt3q" class="bnav-it"><i data-hf-id="hf-imf1" data-icon="bell"></i>Notifs</div>
+                    <div data-hf-id="hf-d0wz" class="bnav-it"><i data-hf-id="hf-j9sb" data-icon="user"></i>Profil</div>
+                  </div>
+                </div>
+
+                <!-- 2 · Jules' profile -->
+                <div data-hf-id="hf-sosj" id="r-s-pf" class="scr">
+                  <div data-hf-id="hf-6oge" class="sbar"><span data-hf-id="hf-rk89">9:41</span><span data-hf-id="hf-z77m" class="sbar-r"><span data-hf-id="hf-3rbv" class="sbar-sig"><i data-hf-id="hf-0l8b"></i><i data-hf-id="hf-0zjc"></i><i data-hf-id="hf-zsm9"></i><i data-hf-id="hf-06xa"></i></span><span data-hf-id="hf-mv7l" class="sbar-bat"><b data-hf-id="hf-ey49"></b></span></span></div>
+                  <div data-hf-id="hf-q9my" class="hdr">
+                    <div data-hf-id="hf-ckc5" class="hdr-row">
+                      <div data-hf-id="hf-jbzb" class="brand"><div data-hf-id="hf-4w7j" class="brand-ico"><img data-hf-id="hf-mauv" src="assets/brand/manoo-marteau.png" alt=""></div><div data-hf-id="hf-rklp" class="brand-name">Manoo</div></div>
+                      <div data-hf-id="hf-r7j0" class="hdr-btns"><div data-hf-id="hf-z79d" class="hdr-btn"><i data-hf-id="hf-jtc4" data-icon="bell"></i></div><div data-hf-id="hf-wa9l" class="acct"><i data-hf-id="hf-xtbj" data-icon="building-2"></i></div></div>
+                    </div>
+                    <div data-hf-id="hf-i8h7" class="hdr-search"><i data-hf-id="hf-851x" data-icon="search"></i><span data-hf-id="hf-iofh">Mots-clés, tags, contenu...</span></div>
+                  </div>
+                  <div data-hf-id="hf-696b" class="d-scroll" data-layout-allow-overflow>
+                    <div data-hf-id="hf-xhpw" class="d-pad">
+                      <div data-hf-id="hf-jv6y" class="card d-pf r-pf">
+                        <div data-hf-id="hf-n0gh" class="d-pf-top">
+                          <div data-hf-id="hf-ckao" class="pf-av jm">JM</div>
+                          <div data-hf-id="hf-yeow">
+                            <div data-hf-id="hf-g9p0" class="pf-name">Jules Moreau</div>
+                            <div data-hf-id="hf-fj1v" class="pf-job">Serrurier / Métallier</div>
+                            <div data-hf-id="hf-qbdc" class="pf-meta"><span data-hf-id="hf-s1qs"><i data-hf-id="hf-8b6u" data-icon="map-pin"></i>Rennes</span><span data-hf-id="hf-x9wj"><i data-hf-id="hf-eqld" data-icon="graduation-cap"></i>CAP, 2e année</span></div>
+                          </div>
+                        </div>
+                        <div data-hf-id="hf-9d3d" class="dispo"><i data-hf-id="hf-26gf"></i>Dispo immédiate</div>
+                        <div data-hf-id="hf-rhep" class="stats">
+                          <div data-hf-id="hf-xa0m" class="stat"><b data-hf-id="hf-upv4">5</b><span data-hf-id="hf-0sf3">Réalisations</span></div>
+                          <div data-hf-id="hf-tx7e" class="stat"><b data-hf-id="hf-nxoj" id="r-followers">18</b><span data-hf-id="hf-2iev">Abonnés</span></div>
+                          <div data-hf-id="hf-ubif" class="stat"><b data-hf-id="hf-iy3t">31</b><span data-hf-id="hf-px37">Abonnements</span></div>
+                        </div>
+                        <div data-hf-id="hf-h46j" class="d-pf-btns"><div data-hf-id="hf-jqds" id="r-follow" class="btn p-follow"><i data-hf-id="hf-3hkm" data-icon="user-plus" class="r-f0"></i><i data-hf-id="hf-is5h" data-icon="check" class="r-f1"></i><span data-hf-id="hf-zt9b" id="r-follow-t">Suivre</span></div><div data-hf-id="hf-ll8i" id="r-msg" class="btn ghost"><i data-hf-id="hf-9251" data-icon="message-circle"></i>Message</div></div>
+                      </div>
+                      <div data-hf-id="hf-5rmk" class="tabs"><div data-hf-id="hf-6mio" class="tab on">Portfolio</div><div data-hf-id="hf-dxbe" class="tab">Publications</div><div data-hf-id="hf-ix1u" class="tab">Avis</div></div>
+                      <div data-hf-id="hf-h7ko" id="r-grid" class="grid d-grid">
+                        <div data-hf-id="hf-ohq7" id="r-cell0" class="cell"><img data-hf-id="hf-9w0e" src="assets/photos/jules-portail.jpg" alt=""><div data-hf-id="hf-b2gn" class="cell-t">Portail en fer forgé</div></div>
+                        <div data-hf-id="hf-7184" class="cell"><img data-hf-id="hf-jj52" src="assets/photos/garde-corps.jpg" alt=""><div data-hf-id="hf-ei5s" class="cell-t">Garde-corps acier</div></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div data-hf-id="hf-kze9" class="bnav">
+                    <div data-hf-id="hf-ul2t" class="bnav-it"><i data-hf-id="hf-bc8u" data-icon="house"></i>Feed</div>
+                    <div data-hf-id="hf-059l" class="bnav-it on"><i data-hf-id="hf-8jcy" data-icon="search"></i>Recherche</div>
+                    <div data-hf-id="hf-rrc5" class="bnav-it"><i data-hf-id="hf-9gg2" data-icon="message-circle"></i>Messages</div>
+                    <div data-hf-id="hf-1rne" class="bnav-it"><i data-hf-id="hf-jf13" data-icon="bell"></i>Notifs</div>
+                    <div data-hf-id="hf-mcbn" class="bnav-it"><i data-hf-id="hf-hc4r" data-icon="user"></i>Profil</div>
+                  </div>
+                </div>
+
+                <!-- 3 · chat -->
+                <div data-hf-id="hf-5twj" id="r-s-chat" class="scr">
+                  <div data-hf-id="hf-yn4y" class="sbar dark"><span data-hf-id="hf-sr5c">9:41</span><span data-hf-id="hf-zlin" class="sbar-r"><span data-hf-id="hf-3d0u" class="sbar-sig"><i data-hf-id="hf-2krg"></i><i data-hf-id="hf-oz7w"></i><i data-hf-id="hf-okwv"></i><i data-hf-id="hf-o6lu"></i></span><span data-hf-id="hf-o24o" class="sbar-bat"><b data-hf-id="hf-g51c"></b></span></span></div>
+                  <div data-hf-id="hf-cx0q" class="c-head"><i data-hf-id="hf-r8yf" data-icon="arrow-left" class="back"></i><div data-hf-id="hf-oxib" class="avatar jm">JM</div><div data-hf-id="hf-y7yw"><div data-hf-id="hf-kb9x" class="nm">Jules Moreau</div><div data-hf-id="hf-c0zf" class="jb">Serrurier / Métallier</div></div></div>
+                  <div data-hf-id="hf-q0ww" class="c-body">
+                    <div data-hf-id="hf-o0qv" id="r-empty" class="c-empty">Envoyez votre premier message !</div>
+                    <div data-hf-id="hf-a1t6" id="r-bub" class="bubble-out">Superbe portail ! On en parle ?</div>
+                    <div data-hf-id="hf-ljp5" id="r-sent" class="read">Envoyé</div>
+                  </div>
+                  <div data-hf-id="hf-xlii" id="r-cin" class="c-in"><div data-hf-id="hf-q9c0" id="r-in" class="input ph"><span data-hf-id="hf-cq7g" id="r-in-t">Votre message…</span><span data-hf-id="hf-b575" id="r-in-caret" class="caret" style="opacity:0"></span></div><div data-hf-id="hf-3ybp" id="r-send" class="c-send"><i data-hf-id="hf-03xw" data-icon="send"></i></div></div>
+                </div>
+              </div>
+              <div data-hf-id="hf-7sfr" class="island"></div>
+              <div data-hf-id="hf-i260" class="homebar"></div>
+              <div data-hf-id="hf-62pl" class="glare"></div>
+            </div>
+
+            <!-- Jules' phone: lock screen -->
+            <div data-hf-id="hf-xx3t" id="r-ph2" class="phone">
+              <div data-hf-id="hf-h5km" class="phone-edge"></div>
+              <div data-hf-id="hf-zeed" class="phone-body"></div>
+              <div data-hf-id="hf-59m2" class="screen" data-layout-allow-overlap>
+                <div data-hf-id="hf-fhcd" class="lock">
+                  <div data-hf-id="hf-72rf" class="sbar"><span data-hf-id="hf-uckh"></span><span data-hf-id="hf-zzto" class="sbar-r"><span data-hf-id="hf-2ypt" class="sbar-sig"><i data-hf-id="hf-jqbp"></i><i data-hf-id="hf-qkg0"></i><i data-hf-id="hf-q64z"></i><i data-hf-id="hf-prty"></i></span><span data-hf-id="hf-nntn" class="sbar-bat"><b data-hf-id="hf-fqqb"></b></span></span></div>
+                  <div data-hf-id="hf-blhc" class="lock-date">vendredi 16 octobre</div>
+                  <div data-hf-id="hf-re3l" class="lock-time">9:41</div>
+                  <div data-hf-id="hf-gnyz" id="r-n2" class="notif"><div data-hf-id="hf-yqre" class="notif-ico"><img data-hf-id="hf-lwju" src="assets/brand/manoo-marteau.png" alt=""></div><div data-hf-id="hf-jy7r" class="notif-b"><div data-hf-id="hf-njfi" class="notif-top">Manoo<span data-hf-id="hf-03fm">il y a 2 min</span></div><div data-hf-id="hf-zng5" class="notif-d">Atelier Morvan s’est abonné à toi.</div></div></div>
+                  <div data-hf-id="hf-8034" id="r-n1" class="notif"><div data-hf-id="hf-0n8e" class="notif-ico"><img data-hf-id="hf-li8t" src="assets/brand/manoo-marteau.png" alt=""></div><div data-hf-id="hf-ewvr" class="notif-b"><div data-hf-id="hf-6bm7" class="notif-top">Atelier Morvan<span data-hf-id="hf-tnw4">maintenant</span></div><div data-hf-id="hf-axv4" class="notif-d">Superbe portail ! On en parle ?</div></div></div>
+                </div>
+              </div>
+              <div data-hf-id="hf-b0dz" class="island"></div>
+              <div data-hf-id="hf-lmqx" class="homebar" style="background:#f3f2ef"></div>
+              <div data-hf-id="hf-4bv1" class="glare"></div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-ari5" id="r-finger" class="finger"></div>
+          <div data-hf-id="hf-zpgx" id="r-ring" class="ring"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const C = window.CUES;
+          const T0 = 23.0;
+          function L(t) { return +(t - T0).toFixed(3); }
+          const root = document.getElementById("r-root");
+          const $ = (s) => root.querySelector(s);
+          window.ManooIcons.hydrate(root);
+
+          // phone geometry as in « Ton portfolio »: 430 x 888 box centred at (540, 1040), scaled S
+          const S = 1.46;
+          const screenEl = $("#r-screen");
+          // measure every tap once, at build time, before anything moves (stage coordinates)
+          const PT = {};
+          {
+            const sr = screenEl.getBoundingClientRect();
+            const k = 394 / sr.width;
+            for (const [key, sel] of [["loc", "#r-loc"], ["card", "#r-c0"], ["follow", "#r-follow"], ["msg", "#r-msg"], ["send", "#r-send"]]) {
+              const r = root.querySelector(sel).getBoundingClientRect();
+              const sx = (r.left + r.width / 2 - sr.left) * k, sy = (r.top + r.height / 2 - sr.top) * k;
+              PT[key] = [540 + (18 + sx - 215) * S, 1040 + (18 + sy - 444) * S];
+            }
+          }
+
+          const SCREENS = ["#r-s-search", "#r-s-pf", "#r-s-chat"].map((s) => $(s));
+          gsap.set(["#r-s-pf", "#r-s-chat"], { xPercent: 100 });
+          gsap.set(["#r-ph", "#r-ph2"], { scale: S, opacity: 0, y: 760 });
+          gsap.set("#r-ph2", { y: 0, x: 1200 });
+          gsap.set([".r-cap", "#r-fin .w"], { opacity: 0 });
+
+          const tl = gsap.timeline({ paused: true });
+          const screenIn = (s, at) => tl.fromTo(s, { xPercent: 100, opacity: 1 }, { xPercent: 0, opacity: 1, duration: 0.36, ease: "power3.out", immediateRender: false }, L(at));
+          const screenOut = (s, at) => tl.to(s, { xPercent: -28, opacity: 0, duration: 0.36, ease: "power3.out" }, L(at));
+          const tap = (pt, at) => {
+            tl.fromTo("#r-finger", { opacity: 0, x: pt[0], y: pt[1], scale: 1.4 }, { opacity: 1, x: pt[0], y: pt[1], scale: 1, duration: 0.12, ease: "power2.out", immediateRender: false }, L(at) - 0.12);
+            tl.to("#r-finger", { scale: 0.82, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(at));
+            tl.to("#r-finger", { opacity: 0, duration: 0.14 }, L(at) + 0.18);
+            tl.fromTo("#r-ring", { opacity: 0.95, x: pt[0], y: pt[1], scale: 0.4 }, { opacity: 0, x: pt[0], y: pt[1], scale: 1.6, duration: 0.42, ease: "power2.out", immediateRender: false }, L(at));
+          };
+          const capSwap = (out, inn, at) => {
+            if (out) tl.to(out, { opacity: 0, y: -24, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, L(at) - 0.2);
+            tl.fromTo(inn, { opacity: 0, y: 30, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", immediateRender: false }, L(at));
+          };
+
+          // ---- section card: « Côté recruteurs », toggle clicked
+          tl.fromTo("#r-ghost", { opacity: 0, xPercent: -50, scale: 0.9 }, { opacity: 1, xPercent: -50, scale: 1, duration: 0.5, ease: "power3.out", immediateRender: true }, L(C.title6));
+          tl.fromTo("#r-title", { opacity: 0, y: 30, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.36, ease: "power3.out", immediateRender: true }, L(C.title6 + 0.04));
+          tl.fromTo("#r-toggle", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.32, ease: "back.out(2)", immediateRender: true }, L(C.title6 + 0.1));
+          tl.fromTo("#r-cur", { opacity: 0, x: 220, y: 1500 }, { opacity: 1, x: 586, y: 1086, duration: 0.36, ease: "power3.out", immediateRender: true }, L(C.toggle6 - 0.38));
+          tl.to("#r-cur", { scale: 0.85, duration: 0.07, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.toggle6));
+          tl.fromTo("#r-toggle .kn", { x: 0 }, { x: 68, duration: 0.18, ease: "power3.out", immediateRender: true }, L(C.toggle6));
+          tl.fromTo("#r-toggle .tr", { opacity: 0 }, { opacity: 1, duration: 0.15, immediateRender: true }, L(C.toggle6));
+          tl.to(["#r-ghost", "#r-title", "#r-toggle"], { scale: 1.5, opacity: 0, filter: "blur(18px)", duration: 0.22, ease: "power3.in" }, L(C.toggle6 + 0.32));
+          tl.to("#r-cur", { opacity: 0, duration: 0.12 }, L(C.toggle6 + 0.32));
+
+          // ---- 1 · the company searches
+          tl.fromTo("#r-ph", { opacity: 1, y: 760 }, { opacity: 1, y: 0, duration: 0.42, ease: "power3.out", immediateRender: false }, L(C.phone6));
+          capSwap(null, "#r-cap1", C.phone6 + 0.08);
+          tap(PT.loc, C.rennes);
+          tl.to("#r-loc", { scale: 0.96, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.rennes));
+          root.querySelectorAll(".r-res").forEach((c, i) => {
+            tl.fromTo(c, { opacity: 0, y: 26, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.32, ease: "back.out(1.7)", immediateRender: false }, L(C.results + i * 0.1));
+          });
+
+          // ---- 2 · he finds the portail
+          capSwap("#r-cap1", "#r-cap2", C.discover);
+          tap(PT.card, C.tapCard);
+          tl.to("#r-c0", { scale: 0.95, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.tapCard));
+          screenOut("#r-s-search", C.profile6);
+          screenIn("#r-s-pf", C.profile6);
+          tl.fromTo("#r-cell0", { boxShadow: "0 0 0 0px rgba(227,110,45,0)" }, { boxShadow: "0 0 0 5px rgba(227,110,45,0.95)", duration: 0.2, yoyo: true, repeat: 1, immediateRender: false }, L(C.profile6 + 0.4));
+          tap(PT.follow, C.follow);
+          tl.to("#r-follow", { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.follow));
+
+          // ---- 3 · and writes to Jules
+          capSwap("#r-cap2", "#r-cap3", C.write);
+          tap(PT.msg, C.write);
+          tl.to("#r-msg", { scale: 0.94, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.write));
+          screenOut("#r-s-pf", C.write + 0.06);
+          screenIn("#r-s-chat", C.write + 0.06);
+          tap(PT.send, C.send);
+          tl.to("#r-send", { scale: 0.88, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(C.send));
+          tl.to("#r-empty", { opacity: 0, duration: 0.12 }, L(C.send));
+          tl.fromTo("#r-bub", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.24, ease: "back.out(1.8)", immediateRender: false }, L(C.send + 0.02));
+          tl.fromTo("#r-sent", { opacity: 0 }, { opacity: 1, duration: 0.12, immediateRender: false }, L(C.send + 0.12));
+
+          // ---- 4 · Jules' phone lights up: whip from one phone to the other
+          tl.to("#r-ph", { x: -1250, filter: "blur(16px)", duration: 0.28, ease: "power3.in" }, L(C.send + 0.16));
+          tl.fromTo("#r-ph2", { opacity: 1, x: 1250, filter: "blur(16px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.32, ease: "power3.out", immediateRender: false }, L(C.send + 0.2));
+          tl.fromTo("#r-n1", { opacity: 0, y: -60, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.34, ease: "back.out(1.6)", immediateRender: false }, L(C.notif));
+          tl.fromTo("#r-n2", { y: 0, scale: 1 }, { y: 82, scale: 0.97, duration: 0.3, ease: "power3.out", immediateRender: false }, L(C.notif));
+          tl.to("#r-cap3", { opacity: 0, y: -24, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, L(C.notif - 0.1));
+          tl.fromTo("#r-fin .w", { opacity: 0, y: 34, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.38, ease: "power3.out", stagger: 0.06, immediateRender: false }, L(C.notif + 0.1));
+
+          // ---- exit
+          tl.to("#r-ph2", { y: -1500, filter: "blur(16px)", duration: 0.32, ease: "power3.in" }, L(C.out6 + 0.04));
+          tl.to("#r-fin", { opacity: 0, y: -40, filter: "blur(12px)", duration: 0.24, ease: "power2.in" }, L(C.out6));
+
+          // time-driven text: typing, filter, results, follow state, screen visibility
+          const qT = $("#r-q-t"), qC = $("#r-q-caret"), q = $("#r-q");
+          const locT = $("#r-loc-t"), loc = $("#r-loc"), count = $("#r-count"), c0 = $("#r-c0");
+          const fol = $("#r-follow"), folT = $("#r-follow-t"), followers = $("#r-followers");
+          const inT = $("#r-in-t"), inC = $("#r-in-caret"), inp = $("#r-in");
+          const Q = "Métallier", MSG = "Superbe portail ! On en parle ?";
+          const typed = (t, a, b, s) => s.slice(0, Math.round(Math.max(0, Math.min(1, (t - a) / (b - a))) * s.length));
+          const blink = (t) => Math.floor(t * 4) % 2 === 0;
+          const SHOWN = [[-1, L(C.profile6) + 0.36], [L(C.profile6), L(C.write + 0.06) + 0.36], [L(C.write + 0.06), 99]];
+          const render = () => {
+            const t = tl.time();
+            // each screen is shown only while it is on (or sliding across) the phone, from fixed cue times
+            SCREENS.forEach((el, i) => {
+              el.style.visibility = t >= SHOWN[i][0] && t < SHOWN[i][1] ? "visible" : "hidden";
+            });
+            // search field
+            const a = L(C.type6a), b = L(C.type6b);
+            if (t < a) {
+              qT.textContent = "Métier, compétence…";
+              q.classList.add("ph");
+            } else {
+              qT.textContent = typed(t, a, b, Q);
+              q.classList.remove("ph");
+            }
+            const qFocus = t >= a - 0.15 && t < L(C.rennes) - 0.1;
+            q.classList.toggle("focus", qFocus);
+            qC.style.opacity = qFocus && (t < b || blink(t)) ? "1" : "0";
+            const city = t >= L(C.rennes);
+            locT.textContent = city ? "Rennes" : "Ville";
+            loc.classList.toggle("on", city);
+            count.textContent = t >= L(C.results) ? "4 profils · Métallier · Rennes" : t >= b ? "Recherche…" : "Lance une recherche";
+            c0.classList.toggle("hl", t >= L(C.discover));
+            // follow → abonné
+            const on = t >= L(C.follow);
+            fol.classList.toggle("on", on);
+            folT.textContent = on ? "Abonné" : "Suivre";
+            followers.textContent = on ? "19" : "18";
+            // chat input
+            const c = L(C.type6c), d = L(C.type6d);
+            if (t < c || t >= L(C.send)) {
+              inT.textContent = "Votre message…";
+              inp.classList.add("ph");
+            } else {
+              inT.textContent = typed(t, c, d, MSG);
+              inp.classList.remove("ph");
+            }
+            const iFocus = t >= c - 0.15 && t < L(C.send);
+            inp.classList.toggle("focus", iFocus);
+            inC.style.opacity = iFocus && (t < d || blink(t)) ? "1" : "0";
+          };
+          tl.eventCallback("onUpdate", render);
+          render();
+          window.__timelines["recruteurs"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
