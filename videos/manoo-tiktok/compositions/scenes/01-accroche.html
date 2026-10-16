@@ -85,6 +85,8 @@
             }
           });
           gsap.set(["#a-h1", "#a-h2", "#a-h3", "#a-h4"], { opacity: 0 });
+          // words and letters wait hidden until their own stagger starts (the line container shows first)
+          gsap.set(root.querySelectorAll(".two .m, .a-l"), { opacity: 0 });
 
           const tl = gsap.timeline({ paused: true });
           const lineIn = (id, at) => {
@@ -92,14 +94,14 @@
             tl.fromTo(`${id} .m`, { opacity: 0, y: 34, filter: "blur(14px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out", stagger: 0.05, immediateRender: false }, L(at));
             tl.fromTo(`${id} .a-l`, { opacity: 0, y: 44, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.34, ease: "power3.out", stagger: 0.028, immediateRender: false }, L(at + 0.12));
           };
-          const lineOut = (id, at) => tl.to(id, { opacity: 0, y: -34, filter: "blur(12px)", duration: 0.24, ease: "power2.in" }, L(at));
+          const lineOut = (id, at) => tl.to(id, { opacity: 0, y: -34, filter: "blur(12px)", duration: 0.2, ease: "power2.in" }, L(at));
 
           // L1 — paper everywhere
           tl.fromTo(".a-cv", { opacity: 0, yPercent: 40 }, { opacity: 1, yPercent: 0, duration: 0.55, ease: "power3.out", stagger: 0.03, immediateRender: true }, 0);
           const driftY = (i) => CV[i][1] - (18 + (i % 3) * 10);
           root.querySelectorAll(".a-cv").forEach((d, i) => tl.to(d, { y: driftY(i), rotation: CV[i][2] + (i % 2 ? 3 : -3), duration: 1.4, ease: "sine.inOut" }, 0.1));
           lineIn("#a-h1", C.l1);
-          lineOut("#a-h1", C.l2 - 0.1);
+          lineOut("#a-h1", C.l2 - 0.22); // gone before the next line starts
           root.querySelectorAll(".a-cv").forEach((d, i) => {
             const dx = (CV[i][0] - 440) * 1.6, dy = (CV[i][1] - 900) * 1.2;
             tl.to(d, { x: CV[i][0] + dx, y: driftY(i) + dy, scale: CV[i][3] * 1.5, opacity: 0, filter: "blur(14px)", duration: 0.42, ease: "power3.in" }, L(C.l2 - 0.12));
@@ -108,13 +110,13 @@
           tl.fromTo(".a-ph", { opacity: 0, scale: 0.9, filter: "blur(22px)" }, { opacity: 0.42, scale: 1, filter: "blur(16px)", duration: 0.5, ease: "power2.out", stagger: 0.06, immediateRender: false }, L(C.l2));
           root.querySelectorAll(".a-ph").forEach((d, i) => tl.to(d, { x: PH[i][1] + (i % 2 ? -30 : 30), duration: 1.4, ease: "sine.inOut" }, L(C.l2 + 0.1)));
           lineIn("#a-h2", C.l2);
-          lineOut("#a-h2", C.l3 - 0.1);
+          lineOut("#a-h2", C.l3 - 0.22);
           tl.to(".a-ph", { opacity: 0, scale: 0.85, duration: 0.3, ease: "power2.in" }, L(C.l3 - 0.12));
           // L3 — no answer
           tl.fromTo("#a-inbox", { opacity: 0, scale: 0.4, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "back.out(2)", immediateRender: false }, L(C.l3));
           lineIn("#a-h3", C.l3);
           tl.to("#a-inbox", { x: -14, duration: 0.06, yoyo: true, repeat: 3, ease: "power1.inOut" }, L(C.l3 + 0.45));
-          lineOut("#a-h3", C.l4 - 0.1);
+          lineOut("#a-h3", C.l4 - 0.22);
           tl.to("#a-inbox", { opacity: 0, scale: 0.6, filter: "blur(10px)", duration: 0.24, ease: "power2.in" }, L(C.l4 - 0.1));
           // L4 — time to change that
           lineIn("#a-h4", C.l4);

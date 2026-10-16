@@ -128,3 +128,7 @@ portfolio » · tenue jusqu'à 43.0.
 - **Frame 10** : « Crée ton portfolio → » sous le slogan ; la pastille « manoo.fr » passe à l'orange, texte encre.
 - Espaces entre les mots des phrases bicolores : portés par le CSS (`.two .w + .w`), plus par les espaces du HTML,
   que le rendu ne conservait pas toujours.
+- Accroche : mots et lettres masqués jusqu'au départ de leur propre décalage (plus de flash avant l'animation), et
+  chaque phrase sort avant que la suivante n'entre.
+- Son : le rendu sort à −15,8 LUFS / −2,0 dBTP ; `tools/master-audio.sh` le porte à −13,9 LUFS / −1,6 dBTP (niveau
+  de lecture TikTok), image copiée telle quelle. Livrable : renders/manoo-tiktok-v1.mp4 (43,0 s, 1080 × 1920, 30 i/s).
