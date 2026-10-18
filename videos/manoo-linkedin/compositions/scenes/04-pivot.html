@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #p-root { position: absolute; inset: 0; overflow: hidden; }
+        #p-k7 { top: 330px; font-size: 72px; }
+        #p-k8 { top: 740px; font-size: 98px; line-height: 1.14; }
+        #p-k8 .ln { margin-bottom: 6px; }
+        #p-halo { left: 40px; top: 560px; width: 1000px; height: 1000px; opacity: 0; }
+        #p-cv { left: 360px; top: 880px; width: 360px; height: 500px; padding: 36px 32px; opacity: 0; }
+        #p-cv b { display: block; font: 700 26px/1.1 "Inter Display", sans-serif; color: #0e1012; }
+        #p-cv span { display: block; margin-top: 8px; font: 500 16px/1 "Inter", sans-serif; color: #8a9297; }
+        #p-cv i { display: block; height: 11px; border-radius: 6px; background: #eceeef; margin-top: 16px; }
+        #p-cv i.s { width: 60%; }
+        #p-cv .sec { margin-top: 26px; font: 700 13px/1 "Inter", sans-serif; letter-spacing: 0.16em; color: #b4bbbf; }
+        .p-ph { position: absolute; left: 0; top: 0; border-radius: 26px; overflow: hidden; opacity: 0; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); }
+        .p-ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+      </style>
+
+      <div data-hf-id="hf-q60g" id="p-root" data-composition-id="pivot" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-zvdb" id="p-halo" class="halo"></div>
+          <div data-hf-id="hf-xzln" id="p-phs"></div>
+          <div data-hf-id="hf-hv1c" id="p-cv" class="fcard">
+            <b data-hf-id="hf-nc5j">Jules Moreau</b><span data-hf-id="hf-jw7x">Curriculum vitæ</span>
+            <div data-hf-id="hf-qw0b" class="sec">EXPÉRIENCE</div><i data-hf-id="hf-wt6k"></i>
+            <div data-hf-id="hf-cxti" class="sec">FORMATION</div><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-075b" class="s"></i>
+            <div data-hf-id="hf-w17j" class="sec">COMPÉTENCES</div><i data-hf-id="hf-y7e5"></i><i data-hf-id="hf-1nbj" class="s"></i><i data-hf-id="hf-ylp6"></i>
+          </div>
+          <div data-hf-id="hf-czt9" id="p-k7" class="kt" data-line="7"><span data-hf-id="hf-d4sv" class="m">Pourtant, tes</span> compétences<br data-hf-id="hf-x5px">ne tiennent pas<br data-hf-id="hf-rsrt"><span data-hf-id="hf-v5k6" class="pill">dans un CV.</span></div>
+          <div data-hf-id="hf-etj3" id="p-k8" class="kt" data-line="8"><span data-hf-id="hf-nnen" class="m">Elles se</span> <span data-hf-id="hf-tuc7" class="pill">voient.</span><br data-hf-id="hf-szow"><span data-hf-id="hf-ufjz" class="m">Elles se</span> <span data-hf-id="hf-6b24" class="pill">partagent.</span><br data-hf-id="hf-sldv"><span data-hf-id="hf-u18y" class="m">Elles se</span> <span data-hf-id="hf-oq5g" class="pill">démontrent.</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = window.CUES.S.pivot[0];
+          const END = T0 + window.CUES.S.pivot[1];
+          const L = (t) => +(t - T0).toFixed(3);
+          const W = window.W, LE = window.LE;
+          const root = document.getElementById("p-root");
+          const $ = (s) => root.querySelector(s);
+          // the work that does not fit in the CV: [photo, w, h, burst x, burst y, rotation, edge x, edge y]
+          const PH = [["jules-portail", 340, 255, 250, 820, -10, 120, 560], ["escalier", 300, 225, 860, 860, 9, 980, 640],
+            ["garde-corps", 320, 240, 190, 1360, 7, 90, 1300], ["C0", 300, 225, 900, 1400, -8, 1000, 1360],
+            ["portail-detail", 280, 280, 540, 1580, 4, 560, 1700], ["B1", 300, 225, 560, 700, -5, 540, 240]];
+          const box = $("#p-phs");
+          const phs = PH.map(([p, w, h]) => {
+            const d = document.createElement("div");
+            d.className = "p-ph";
+            d.style.width = w + "px";
+            d.style.height = h + "px";
+            d.innerHTML = `<img src="assets/photos/${p}.jpg" alt="">`;
+            box.appendChild(d);
+            gsap.set(d, { x: 540 - w / 2, y: 1130 - h / 2, scale: 0.3 });
+            return d;
+          });
+
+          document.fonts.ready.then(() => {
+            const tl = gsap.timeline({ paused: true });
+            // ---- L7: the CV, then the work bursts out of it
+            tl.fromTo("#p-cv", { opacity: 0, y: 120, scale: 0.9, filter: "blur(12px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out", immediateRender: true }, 0.12);
+            tl.fromTo("#p-halo", { opacity: 0, scale: 0.6 }, { opacity: 0.6, scale: 1, duration: 0.9, ease: "power2.out", immediateRender: true }, 0.1);
+            const burst = W(7, "tiennent") - 0.06;
+            phs.forEach((d, i) => {
+              const [, w, h, bx, by, r] = PH[i];
+              tl.fromTo(d, { opacity: 0, x: 540 - w / 2, y: 1130 - h / 2, scale: 0.3, rotation: 0 },
+                { opacity: 1, x: bx - w / 2, y: by - h / 2, scale: 1, rotation: r, duration: 0.55, ease: "back.out(1.5)", immediateRender: false }, L(burst + i * 0.04));
+            });
+            tl.to("#p-cv", { scale: 0.9, rotation: -3, duration: 0.3, ease: "power2.out" }, L(burst));
+            tl.to("#p-cv", { x: -10, duration: 0.05, yoyo: true, repeat: 3, ease: "power1.inOut" }, L(W(7, "CV")));
+            window.KT.animate(tl, $("#p-k7"), T0, { out: LE(7) + 0.06 });
+            // ---- L8: the CV goes, the work frames the three verbs
+            tl.to("#p-cv", { opacity: 0, scale: 0.6, filter: "blur(14px)", duration: 0.3, ease: "power2.in" }, L(LE(7) + 0.04));
+            phs.forEach((d, i) => {
+              const [, w, h, bx, by, r, ex, ey] = PH[i];
+              tl.fromTo(d, { x: bx - w / 2, y: by - h / 2, scale: 1, rotation: r, filter: "blur(0px)", opacity: 1 },
+                { x: ex - w / 2, y: ey - h / 2, scale: 0.72, rotation: r * 1.4, filter: "blur(5px)", opacity: 0.55, duration: 0.7, ease: "power3.inOut", immediateRender: false }, L(LE(7) + 0.04 + i * 0.03));
+            });
+            tl.to("#p-halo", { opacity: 0.9, scale: 1.12, duration: 0.6, ease: "power2.out" }, L(LE(7) + 0.1));
+            window.KT.animate(tl, $("#p-k8"), T0, { out: END - 0.22 });
+            // each verb lands with a small push of the halo
+            ["voient", "partagent", "démontrent"].forEach((v) => {
+              tl.fromTo("#p-halo", { scale: 1.12 }, { scale: 1.22, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, L(W(8, v)));
+            });
+            // exit
+            tl.to(phs, { opacity: 0, scale: 0.5, filter: "blur(14px)", duration: 0.24, ease: "power2.in", stagger: 0.01 }, L(END - 0.28));
+            tl.to("#p-halo", { opacity: 0.3, scale: 0.7, duration: 0.3, ease: "power2.in" }, L(END - 0.3));
+            window.__timelines["pivot"] = tl;
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,145 @@
+/* Manoo LinkedIn / Instagram — stage components (frame.md): two worlds, kinetic captions, floating pieces. */
+@font-face { font-family: "Inter"; font-weight: 400; src: url("../fonts/Inter-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 500; src: url("../fonts/Inter-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 600; src: url("../fonts/Inter-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 700; src: url("../fonts/Inter-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 800; src: url("../fonts/Inter-ExtraBold.woff2") format("woff2"); }
+@font-face { font-family: "Inter Display"; font-weight: 600; src: url("../fonts/InterDisplay-SemiBold.woff2") format("woff2"); }
+@font-face { font-family: "Inter Display"; font-weight: 700; src: url("../fonts/InterDisplay-Bold.woff2") format("woff2"); }
+@font-face { font-family: "Inter Display"; font-weight: 800; src: url("../fonts/InterDisplay-ExtraBold.woff2") format("woff2"); }
+
+.stg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  font-family: "Inter Display", sans-serif;
+  color: #f5f4f1;
+  -webkit-font-smoothing: antialiased;
+}
+.stg.day { color: #0e1012; }
+.stg .ic { display: block; flex: none; }
+
+/* ---------------------------------------------------------------- kinetic captions */
+.stg .kt {
+  position: absolute;
+  left: 64px;
+  right: 64px;
+  text-align: center;
+  font: 600 84px/1.06 "Inter Display", sans-serif;
+  letter-spacing: -0.035em;
+}
+.stg .kt .kw { display: inline-block; white-space: nowrap; }
+.stg .kt .ln { display: inline-block; position: relative; white-space: nowrap; }
+/* word gaps come from CSS, never from whitespace between spans */
+.stg .kt > * + *, .stg .kt .ln > * + * { margin-left: 0.24em; }
+.stg .kt > br + * { margin-left: 0; }
+.stg .kt .kw + .kw { margin-left: 0.24em; }
+.stg .kt .m { color: #6b7378; }
+.stg.day .kt .m { color: #8a9297; }
+.stg .kt .acc { color: #f97316; }
+.stg .kt .caret-k { position: absolute; left: 0; top: 0; width: 0.06em; height: 0.92em; border-radius: 0.03em; background: #f97316; }
+.stg .pill {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.24em 0.04em;
+  white-space: nowrap;
+  color: #fff;
+  font-weight: 700;
+}
+.stg .pill > .pb {
+  position: absolute;
+  inset: 0.06em -0.02em 0.02em;
+  border-radius: 0.2em;
+  background: #f0650f; /* a shade deeper than the accent so white words clear 3:1 */
+  box-shadow: 0 0.12em 0.4em rgba(249, 115, 22, 0.35);
+}
+/* the background is the pill's first child: positioned words paint over it in tree order (no negative z-index) */
+.stg .pill > .kw { position: relative; }
+.stg .pill > .kw + .kw { margin-left: 0.24em; }
+.stg .pill { isolation: isolate; }
+
+/* giant word on black: snow to accent, soft glow */
+.stg .giant {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font: 700 230px/1 "Inter Display", sans-serif;
+  letter-spacing: -0.06em;
+  background: linear-gradient(180deg, #ffffff 0%, #ffd2b0 55%, #f97316 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 40px rgba(249, 115, 22, 0.45));
+}
+
+/* ---------------------------------------------------------------- floating pieces */
+.stg .fcard {
+  position: absolute;
+  border-radius: 28px;
+  background: #fff;
+  color: #0e1012;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+.stg .fcard.dk { background: #121517; color: #f5f4f1; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55), inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+.stg .vcard { position: absolute; border-radius: 32px; overflow: hidden; background: #000; box-shadow: 0 50px 110px rgba(0, 0, 0, 0.45); }
+.stg .vcard video, .stg .vcard img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.stg .halo { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(249, 115, 22, 0.55) 0%, rgba(249, 115, 22, 0.18) 38%, rgba(249, 115, 22, 0) 70%); }
+
+/* chip with an accent disc (stage size) */
+.stg .chipx {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 78px;
+  padding: 0 30px 0 12px;
+  border-radius: 39px;
+  background: #fff;
+  color: #0e1012;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  font: 600 36px/1 "Inter Display", sans-serif;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.stg .chipx .bd { width: 54px; height: 54px; border-radius: 50%; background: #f97316; color: #fff; display: flex; align-items: center; justify-content: center; }
+.stg .chipx .bd .ic { width: 28px; height: 28px; stroke-width: 2.6; }
+
+/* trade tile (icon in a rounded square) */
+.stg .tile {
+  position: absolute;
+  width: 132px;
+  height: 132px;
+  margin: -66px 0 0 -66px;
+  border-radius: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #16191c;
+  color: #f5f4f1;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+.stg .tile .ic { width: 46%; height: 46%; stroke-width: 2; }
+.stg.day .tile { background: #fff; color: #0e1012; box-shadow: 0 24px 50px rgba(16, 22, 25, 0.12); }
+
+/* avatar disc with initials */
+.stg .av {
+  position: absolute;
+  width: 112px;
+  height: 112px;
+  margin: -56px 0 0 -56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 38px/1 "Inter", sans-serif;
+  letter-spacing: -0.02em;
+  color: #fff;
+  box-shadow: 0 16px 34px rgba(16, 22, 25, 0.18), 0 0 0 5px #fff;
+}
+.stg .av .bdg { position: absolute; right: -8px; bottom: -6px; width: 48px; height: 48px; border-radius: 50%; background: #fff; color: #0e1012; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 14px rgba(16, 22, 25, 0.18); }
+.stg .av .bdg .ic { width: 26px; height: 26px; stroke-width: 2.2; }
+
+/* finger tap, ring, cursor (stage coordinates) */
+.stg .finger { position: absolute; left: 0; top: 0; width: 70px; height: 70px; margin: -35px 0 0 -35px; border-radius: 50%; background: rgba(255, 255, 255, 0.92); box-shadow: 0 0 0 9px rgba(249, 115, 22, 0.3), 0 10px 26px rgba(16, 22, 25, 0.3); opacity: 0; z-index: 90; }
+.stg .ring { position: absolute; left: 0; top: 0; width: 130px; height: 130px; margin: -65px 0 0 -65px; border-radius: 50%; border: 6px solid #f97316; opacity: 0; z-index: 89; }
+.stg .cur { position: absolute; left: 0; top: 0; width: 62px; height: 72px; z-index: 95; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35)); }

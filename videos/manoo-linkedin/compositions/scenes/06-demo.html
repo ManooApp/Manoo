@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <style>
+        #d-root { position: absolute; inset: 0; overflow: hidden; }
+        #d-ka, #d-kb, #d-kc { top: 330px; }
+        #d-card { left: 60px; top: 650px; width: 960px; height: 540px; opacity: 0; }
+        #d-card img { position: absolute; inset: 0; }
+        #d-card video { position: absolute; inset: 0; }
+        #d-hud { position: absolute; left: 0; right: 0; top: 0; height: 70px; display: flex; align-items: center; justify-content: center; gap: 12px; background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0)); color: #fff; font: 700 26px/1 "Inter", sans-serif; opacity: 0; }
+        #d-hud i { display: block; width: 18px; height: 18px; border-radius: 50%; background: #ff3b30; }
+        #d-flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+        #d-pw { position: absolute; inset: 0; perspective: 2200px; }
+        #d-ph { left: 325px; top: 666px; }
+        /* composer */
+        .cmp-top { position: absolute; left: 0; right: 0; top: 0; height: 118px; padding: 56px 20px 0; background: #fff; border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; font: 500 16px/1 "Inter", sans-serif; color: var(--tx-soft); z-index: 5; }
+        .cmp-top b { font: 700 17px/1 "Inter", sans-serif; color: var(--tx-strong); }
+        .cmp-top em { font-style: normal; font-weight: 700; color: var(--primary); }
+        .cmp { position: absolute; left: 0; right: 0; top: 118px; padding: 18px 16px 0; }
+        .cmp-media { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: 118px 118px; gap: 8px; }
+        .cmp-media div { position: relative; border-radius: 14px; overflow: hidden; background: #efe9e2; }
+        .cmp-media div:first-child { grid-row: span 2; }
+        .cmp-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        /* the gate photo again (as a background: one <img> per source keeps media discovery unambiguous) */
+        #d-root .d-jp { background: #efe9e2 url("assets/photos/jules-portail.jpg") center / cover no-repeat; }
+        .cmp-media .pl { position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: rgba(0, 0, 0, 0.55); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+        .cmp-media em { position: absolute; right: 6px; bottom: 5px; font: 600 11px/1 "Inter", sans-serif; font-style: normal; color: #fff; }
+        .cmp-chips { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+        .cmp-txt { margin-top: 16px; padding: 14px; border-radius: 14px; border: 1px solid var(--bd-input); background: #fff; font: 400 15px/1.45 "Inter", sans-serif; color: var(--tx); min-height: 92px; }
+        .cmp-txt .tag { margin-right: 6px; }
+        .cmp-row { display: flex; align-items: center; gap: 12px; height: 56px; border-bottom: 1px solid var(--bd); font: 500 15px/1 "Inter", sans-serif; color: var(--tx); }
+        .cmp-row:first-of-type { margin-top: 8px; }
+        .cmp-row .ic { width: 20px; height: 20px; color: var(--tx-muted); }
+        .cmp-row span { margin-left: auto; font-size: 14px; color: var(--tx-muted); }
+        .cmp-row .tg { width: 46px; height: 28px; border-radius: 14px; background: var(--primary); position: relative; }
+        .cmp-row .tg b { position: absolute; right: 3px; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; }
+        #d-pub { position: absolute; left: 16px; right: 16px; bottom: 34px; height: 52px; border-radius: 26px; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px; font: 700 17px/1 "Inter", sans-serif; }
+        #d-pub .ic { width: 20px; height: 20px; }
+        #d-toast { position: absolute; left: 14px; right: 14px; top: 62px; z-index: 30; opacity: 0; }
+        /* profile */
+        #d-pfwrap { position: absolute; left: 0; right: 0; top: 168px; padding: 14px 14px 0; }
+        #d-pf { padding: 16px 16px 12px; }
+        #d-pf .d-top { display: flex; gap: 14px; align-items: center; }
+        #d-pf .pf-av { width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; font: 700 22px/1 "Inter", sans-serif; }
+        #d-pf .pf-name { font-size: 21px; }
+        #d-pf .pf-job { margin-top: 3px; font-size: 14px; }
+        #d-pf .pf-meta { margin-top: 6px; font-size: 12px; }
+        #d-pf .stats { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--bd); }
+        .jm { background: linear-gradient(135deg, #fd8b3a, #e4702e); color: #fff; }
+        #d-grid { position: relative; margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+        #d-grid .cell { height: 148px; }
+        #d-grid .pl { position: absolute; left: 10px; top: 10px; height: 24px; padding: 0 9px; border-radius: 12px; background: rgba(0, 0, 0, 0.55); color: #fff; display: flex; align-items: center; gap: 5px; font: 700 11px/1 "Inter", sans-serif; }
+        #d-new { box-shadow: 0 0 0 0 rgba(227, 110, 45, 0); }
+        .d-scr { visibility: visible; }
+        /* floating cards around the phone */
+        .d-fl { position: absolute; left: 0; top: 0; opacity: 0; }
+        .d-dispo { display: inline-flex; align-items: center; gap: 12px; height: 70px; padding: 0 28px; border-radius: 35px; background: #fff; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12); font: 700 30px/1 "Inter Display", sans-serif; color: #157f3c; letter-spacing: -0.02em; white-space: nowrap; }
+        .d-dispo i { display: block; width: 18px; height: 18px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.22); }
+        #d-glow { position: absolute; left: 540px; top: 1110px; width: 760px; height: 1180px; margin: -590px 0 0 -380px; border-radius: 120px; box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.9), 0 0 90px 10px rgba(249, 115, 22, 0.45); opacity: 0; }
+      </style>
+
+      <div data-hf-id="hf-kaf1" id="d-root" data-composition-id="demo" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-buim" class="stg day">
+          <!-- the atelier: Jules finishes his gate and photographs it -->
+          <div data-hf-id="hf-t0sl" id="d-card" class="vcard">
+            <img data-hf-id="hf-3te2" src="assets/photos/jules-portail.jpg" alt="">
+            <video data-hf-id="hf-h08q" id="d-vid" src="assets/video/atelier.mp4" muted playsinline data-start="0" data-duration="2.62" data-media-start="0.78"></video>
+            <div data-hf-id="hf-toqs" id="d-hud"><i data-hf-id="hf-wt6k"></i>REC 00:03</div>
+            <div data-hf-id="hf-i32y" id="d-flash"></div>
+          </div>
+
+          <div data-hf-id="hf-6c7z" id="d-glow"></div>
+          <div data-hf-id="hf-ub1r" id="d-pw" class="mui">
+            <div data-hf-id="hf-o2pv" id="d-ph" class="phone">
+              <div data-hf-id="hf-04vm" class="phone-edge"></div>
+              <div data-hf-id="hf-q65t" class="phone-body"></div>
+              <div data-hf-id="hf-59m2" class="screen" data-layout-allow-overlap>
+                <!-- 1 · new publication -->
+                <div data-hf-id="hf-xisi" id="d-s1" class="scr d-scr" style="background:#fbf9f6">
+                  <div data-hf-id="hf-45ku" class="cmp-top"><span data-hf-id="hf-zsg6">Annuler</span><b data-hf-id="hf-5xy9">Nouvelle publication</b><em data-hf-id="hf-zh06">Publier</em></div>
+                  <div data-hf-id="hf-2f3o" class="cmp">
+                    <div data-hf-id="hf-7anj" class="cmp-media">
+                      <div data-hf-id="hf-n4ab" class="d-jp"></div>
+                      <div data-hf-id="hf-yeow"><img data-hf-id="hf-zzo4" src="assets/photos/portail-detail.jpg" alt=""><span data-hf-id="hf-47r9" class="pl">▶</span><em data-hf-id="hf-94he">0:12</em></div>
+                      <div data-hf-id="hf-y7yw"><img data-hf-id="hf-h2cw" src="assets/photos/A2.jpg" alt=""></div>
+                    </div>
+                    <div data-hf-id="hf-jlua" class="cmp-chips"><span data-hf-id="hf-98zk" class="chip sel"><i data-hf-id="hf-hjuo" data-icon="hammer"></i>Réalisation</span><span data-hf-id="hf-7wfq" class="chip outline">Conseil</span><span data-hf-id="hf-ok9l" class="chip outline">Question</span><span data-hf-id="hf-scwr" class="chip outline">Emploi</span></div>
+                    <div data-hf-id="hf-5cc5" class="cmp-txt">Portail en fer forgé, terminé cette semaine à l'atelier.<br data-hf-id="hf-x5px"><span data-hf-id="hf-adeg" class="tag">#métallerie</span><span data-hf-id="hf-pvbz" class="tag">#portail</span></div>
+                    <div data-hf-id="hf-whqt" class="cmp-row"><i data-hf-id="hf-tr9e" data-icon="map-pin"></i>Rennes (35)<span data-hf-id="hf-cvs4">Modifier</span></div>
+                    <div data-hf-id="hf-ltcm" class="cmp-row"><i data-hf-id="hf-kxjx" data-icon="eye"></i>Visible par tout le réseau<span data-hf-id="hf-37x8">Public</span></div>
+                    <div data-hf-id="hf-9ext" class="cmp-row"><i data-hf-id="hf-grww" data-icon="images"></i>Ajouter à mon portfolio<span data-hf-id="hf-4o92" class="tg"><b data-hf-id="hf-xujp"></b></span></div>
+                  </div>
+                  <div data-hf-id="hf-ile8" id="d-pub"><i data-hf-id="hf-03xw" data-icon="send"></i>Publier sur mon portfolio</div>
+                </div>
+                <!-- 2 · Jules' profile -->
+                <div data-hf-id="hf-rgzf" id="d-s2" class="scr d-scr">
+                  <div data-hf-id="hf-7ma2" class="sbar"><span data-hf-id="hf-zwmt">9:41</span><span data-hf-id="hf-838e" class="sbar-r"><span data-hf-id="hf-0ct7" class="sbar-sig"><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-y7e5"></i><i data-hf-id="hf-ylp6"></i><i data-hf-id="hf-0l8b"></i></span><span data-hf-id="hf-ocb1" class="sbar-bat"><b data-hf-id="hf-ey49"></b></span></span></div>
+                  <div data-hf-id="hf-tyyu" class="hdr">
+                    <div data-hf-id="hf-zfmp" class="hdr-row">
+                      <div data-hf-id="hf-oojr" class="brand"><div data-hf-id="hf-m7sf" class="brand-ico"><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></div><div data-hf-id="hf-tjqx" class="brand-name">Manoo</div></div>
+                      <div data-hf-id="hf-gdgk" class="hdr-btns"><div data-hf-id="hf-tc99" class="hdr-btn"><i data-hf-id="hf-0fm1" data-icon="bell"></i></div><div data-hf-id="hf-zqwz" class="hdr-avatar jm" style="display:flex;align-items:center;justify-content:center;font-size:14px;">JM</div></div>
+                    </div>
+                    <div data-hf-id="hf-9xqj" class="hdr-search"><i data-hf-id="hf-cn3m" data-icon="search"></i><span data-hf-id="hf-kxg9">Mots-clés, tags, contenu...</span></div>
+                  </div>
+                  <div data-hf-id="hf-hf2e" id="d-pfwrap">
+                    <div data-hf-id="hf-bo27" id="d-pf" class="card">
+                      <div data-hf-id="hf-y4ja" class="d-top">
+                        <div data-hf-id="hf-ckao" class="pf-av jm">JM</div>
+                        <div data-hf-id="hf-x11t">
+                          <div data-hf-id="hf-g9p0" class="pf-name">Jules Moreau</div>
+                          <div data-hf-id="hf-fj1v" class="pf-job">Serrurier / Métallier</div>
+                          <div data-hf-id="hf-qbdc" class="pf-meta"><span data-hf-id="hf-s1qs"><i data-hf-id="hf-8b6u" data-icon="map-pin"></i>Rennes</span><span data-hf-id="hf-x9wj"><i data-hf-id="hf-eqld" data-icon="graduation-cap"></i>CAP, 2e année</span></div>
+                        </div>
+                      </div>
+                      <div data-hf-id="hf-rhep" class="stats">
+                        <div data-hf-id="hf-xa0m" class="stat"><b data-hf-id="hf-gjbz" id="d-npub">12</b><span data-hf-id="hf-0sf3">Réalisations</span></div>
+                        <div data-hf-id="hf-tx7e" class="stat"><b data-hf-id="hf-n4y4">18</b><span data-hf-id="hf-2iev">Abonnés</span></div>
+                        <div data-hf-id="hf-ubif" class="stat"><b data-hf-id="hf-iy3t">31</b><span data-hf-id="hf-px37">Abonnements</span></div>
+                      </div>
+                    </div>
+                    <div data-hf-id="hf-jylx" class="tabs" style="margin-top:10px"><div data-hf-id="hf-6mio" class="tab on">Portfolio</div><div data-hf-id="hf-dxbe" class="tab">Publications</div><div data-hf-id="hf-ix1u" class="tab">Avis</div></div>
+                    <div data-hf-id="hf-k6uk" id="d-grid">
+                      <div data-hf-id="hf-87mq" id="d-new" class="cell d-jp"><span data-hf-id="hf-4yfe" class="pl">▶ 0:12</span><div data-hf-id="hf-b2gn" class="cell-t">Portail en fer forgé</div></div>
+                      <div data-hf-id="hf-7184" class="cell"><img data-hf-id="hf-jj52" src="assets/photos/garde-corps.jpg" alt=""><div data-hf-id="hf-ei5s" class="cell-t">Garde-corps acier</div></div>
+                      <div data-hf-id="hf-am8c" class="cell"><img data-hf-id="hf-cp6t" src="assets/photos/escalier.jpg" alt=""><div data-hf-id="hf-hcz5" class="cell-t">Escalier droit</div></div>
+                      <div data-hf-id="hf-9fb9" class="cell"><img data-hf-id="hf-4ip1" src="assets/photos/A3.jpg" alt=""><div data-hf-id="hf-tj41" class="cell-t">Râtelier à barres</div></div>
+                    </div>
+                  </div>
+                  <div data-hf-id="hf-w3rx" class="bnav">
+                    <div data-hf-id="hf-kt29" class="bnav-it"><i data-hf-id="hf-20m2" data-icon="house"></i>Feed</div>
+                    <div data-hf-id="hf-uu3i" class="bnav-it"><i data-hf-id="hf-a4l2" data-icon="search"></i>Recherche</div>
+                    <div data-hf-id="hf-j9rl" class="bnav-it"><i data-hf-id="hf-rzj8" data-icon="message-circle"></i>Messages</div>
+                    <div data-hf-id="hf-wt3q" class="bnav-it"><i data-hf-id="hf-imf1" data-icon="bell"></i>Notifs</div>
+                    <div data-hf-id="hf-029a" class="bnav-it on"><i data-hf-id="hf-j9sb" data-icon="user"></i>Profil</div>
+                  </div>
+                </div>
+                <div data-hf-id="hf-1dqp" id="d-toast"><div data-hf-id="hf-g8at" class="toast"><i data-hf-id="hf-lqzl" data-icon="circle-check"></i><div data-hf-id="hf-xfcu"><div data-hf-id="hf-os02" class="toast-t">Publié sur ton portfolio</div><div data-hf-id="hf-r5pv" class="toast-d">Ta réalisation est visible par le réseau.</div></div></div></div>
+              </div>
+              <div data-hf-id="hf-7sfr" class="island"></div>
+              <div data-hf-id="hf-i260" class="homebar"></div>
+              <div data-hf-id="hf-62pl" class="glare"></div>
+            </div>
+          </div>
+
+          <!-- the profile becomes a showcase -->
+          <div data-hf-id="hf-ripz" id="d-f1" class="d-fl"><span data-hf-id="hf-4d0j" class="chipx"><span data-hf-id="hf-vks3" class="bd"><i data-hf-id="hf-rnbn" data-icon="flame"></i></span>Soudure MIG</span></div>
+          <div data-hf-id="hf-iuu4" id="d-f2" class="d-fl"><span data-hf-id="hf-ydt1" class="chipx"><span data-hf-id="hf-zoer" class="bd"><i data-hf-id="hf-601k" data-icon="hammer"></i></span>Fer forgé</span></div>
+          <div data-hf-id="hf-jmhx" id="d-f3" class="d-fl"><span data-hf-id="hf-vihc" class="chipx"><span data-hf-id="hf-za3q" class="bd"><i data-hf-id="hf-ornu" data-icon="ruler"></i></span>Lecture de plans</span></div>
+          <div data-hf-id="hf-06lu" id="d-f4" class="d-fl"><span data-hf-id="hf-437p" class="d-dispo"><i data-hf-id="hf-0zjc"></i>Dispo immédiate</span></div>
+
+          <div data-hf-id="hf-gxfr" id="d-finger" class="finger"></div>
+          <div data-hf-id="hf-gpgb" id="d-ring" class="ring"></div>
+
+          <div data-hf-id="hf-atl5" id="d-ka" class="kt" data-line="10"><span data-hf-id="hf-v2ha" class="m">Tu termines</span><br data-hf-id="hf-rsrt">un chantier ?</div>
+          <div data-hf-id="hf-113g" id="d-kb" class="kt" data-line="10"><span data-hf-id="hf-wwct" class="m">Photos, vidéos :</span><br data-hf-id="hf-szow"><span data-hf-id="hf-k6u7" class="pill">tu publies.</span></div>
+          <div data-hf-id="hf-i4gz" id="d-kc" class="kt" data-line="11"><span data-hf-id="hf-lssw" class="m">Ton profil devient</span><br data-hf-id="hf-sldv">une vraie <span data-hf-id="hf-6xuz" class="pill">vitrine.</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = window.CUES.S.demo[0];
+          const END = T0 + window.CUES.S.demo[1];
+          const L = (t) => +(t - T0).toFixed(3);
+          const W = window.W, LE = window.LE;
+          const root = document.getElementById("d-root");
+          const $ = (s) => root.querySelector(s);
+          window.ManooIcons.hydrate(root);
+          // the composer is pushed under the profile screen (iOS-style navigation): its text is meant to be covered
+          root.querySelectorAll("#d-s1 *").forEach((e) => e.setAttribute("data-layout-allow-occlusion", ""));
+          const S = 1.15;
+
+          document.fonts.ready.then(() => {
+            // tap target, measured once with the scene laid out (stage coordinates)
+            const pubPt = window.KT.withLayout($("#d-pub"), () => {
+              const sc = $("#d-ph .screen").getBoundingClientRect(), r = $("#d-pub").getBoundingClientRect();
+              const k = 394 / sc.width;
+              const sx = (r.left + r.width / 2 - sc.left) * k, sy = (r.top + r.height / 2 - sc.top) * k;
+              return [540 + (18 + sx - 215) * S, 1110 + (18 + sy - 444) * S];
+            });
+            const tl = gsap.timeline({ paused: true });
+            const tP = W(10, "Photos"), tV = W(10, "vidéos"), tPub = W(10, "publies");
+            // ---- « Tu termines un chantier ? » — the footage card
+            tl.fromTo("#d-card", { opacity: 0, y: 80, scale: 0.92, filter: "blur(12px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.5, ease: "power3.out", immediateRender: true }, 0.02);
+            tl.fromTo("#d-card", { rotation: -1 }, { rotation: 1, duration: 2.4, ease: "sine.inOut", immediateRender: true }, 0.1);
+            window.KT.animate(tl, $("#d-ka"), T0, { out: tP - 0.24 });
+            // « Photos » — flash ; « vidéos » — recording
+            tl.fromTo("#d-flash", { opacity: 0 }, { opacity: 0.9, duration: 0.05, immediateRender: false }, L(tP - 0.02));
+            tl.to("#d-flash", { opacity: 0, duration: 0.3, ease: "power2.out" }, L(tP + 0.05));
+            tl.fromTo("#d-hud", { opacity: 0 }, { opacity: 1, duration: 0.15, immediateRender: false }, L(tV - 0.04));
+            // each caption is gone before the next one's first word
+            window.KT.animate(tl, $("#d-kb"), T0, { out: Math.min(LE(10), window.LS(11) - 0.24) });
+            // the card dives into the phone, which rises with the composer
+            gsap.set("#d-ph", { scale: S, opacity: 0, y: 900 });
+            gsap.set("#d-s2", { xPercent: 100 });
+            tl.to("#d-card", { scale: 0.42, x: -40, y: 220, opacity: 0, filter: "blur(6px)", duration: 0.42, ease: "power3.in" }, L(tPub - 0.5));
+            tl.fromTo("#d-ph", { opacity: 1, y: 900, rotationX: 16 }, { opacity: 1, y: 0, rotationX: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, L(tPub - 0.42));
+            // tap « Publier »
+            tl.fromTo("#d-finger", { opacity: 0, x: pubPt[0], y: pubPt[1], scale: 1.4 }, { opacity: 1, x: pubPt[0], y: pubPt[1], scale: 1, duration: 0.12, ease: "power2.out", immediateRender: false }, L(tPub + 0.02));
+            tl.to("#d-finger", { scale: 0.82, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(tPub + 0.14));
+            tl.to("#d-finger", { opacity: 0, duration: 0.14 }, L(tPub + 0.34));
+            tl.fromTo("#d-ring", { opacity: 0.95, x: pubPt[0], y: pubPt[1], scale: 0.4 }, { opacity: 0, x: pubPt[0], y: pubPt[1], scale: 1.6, duration: 0.45, ease: "power2.out", immediateRender: false }, L(tPub + 0.14));
+            tl.to("#d-pub", { scale: 0.95, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, L(tPub + 0.14));
+            // ---- « Ton profil devient une vraie vitrine » — the profile, then the showcase around it
+            const tPf = window.LS(11) - 0.1;
+            tl.to("#d-s1", { xPercent: -30, opacity: 0, duration: 0.36, ease: "power3.out" }, L(tPf));
+            tl.fromTo("#d-s2", { xPercent: 100 }, { xPercent: 0, duration: 0.36, ease: "power3.out", immediateRender: false }, L(tPf));
+            tl.fromTo("#d-toast", { opacity: 0, y: -24 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.6)", immediateRender: false }, L(tPf + 0.12));
+            tl.to("#d-toast", { opacity: 0, y: -16, duration: 0.24 }, L(tPf + 1.2));
+            tl.fromTo("#d-new", { scale: 0.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.8)", immediateRender: false }, L(tPf + 0.3));
+            tl.to("#d-ph", { y: 40, scale: S * 0.98, duration: 1.6, ease: "sine.inOut" }, L(tPf + 0.3));
+            const FL = [["#d-f1", 70, 760, -4], ["#d-f2", 760, 870, 3], ["#d-f3", 60, 1300, 3], ["#d-f4", 690, 1400, -3]];
+            FL.forEach(([sel, x, y, r], i) => {
+              tl.fromTo(sel, { opacity: 0, x: x + (x < 400 ? -80 : 80), y: y + 20, rotation: r * 2, scale: 0.8, filter: "blur(10px)" },
+                { opacity: 1, x, y, rotation: r, scale: 1, filter: "blur(0px)", duration: 0.45, ease: "back.out(1.6)", immediateRender: false }, L(W(11, "devient") - 0.1 + i * 0.12));
+              tl.to(sel, { y: y - 16, duration: 1.2, ease: "sine.inOut" }, L(W(11, "devient") + 0.4 + i * 0.12));
+            });
+            tl.fromTo("#d-glow", { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out", immediateRender: false }, L(W(11, "vitrine") - 0.04));
+            window.KT.animate(tl, $("#d-kc"), T0, { out: END - 0.22 });
+            // exit
+            tl.to(["#d-ph", "#d-glow", "#d-f1", "#d-f2", "#d-f3", "#d-f4"], { opacity: 0, scale: 0.9, filter: "blur(12px)", duration: 0.24, ease: "power2.in" }, L(END - 0.26));
+            // time-driven: publication count and screen visibility
+            const npub = $("#d-npub"), s1 = $("#d-s1"), s2 = $("#d-s2");
+            const render = () => {
+              const t = tl.time();
+              npub.textContent = t >= L(tPf + 0.3) ? "13" : "12";
+              s1.style.visibility = t < L(tPf + 0.36) ? "visible" : "hidden";
+              s2.style.visibility = t >= L(tPf) ? "visible" : "hidden";
+            };
+            tl.eventCallback("onUpdate", render);
+            render();
+            window.__timelines["demo"] = tl;
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,183 @@
+{
+  "files": [
+    {
+      "file": "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3CUBGEe.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Regular",
+      "postscript": "Roboto-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBGEe.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Regular",
+      "postscript": "Roboto-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBGEe.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Regular",
+      "postscript": "Roboto-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3iUBGEe.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Regular",
+      "postscript": "Roboto-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBGEe.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Regular",
+      "postscript": "Roboto-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBGEe.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Regular",
+      "postscript": "Roboto-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [
+        "wght"
+      ],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2",
+      "family": "Material Icons",
+      "rawFamily": "Material Icons",
+      "subfamily": "Regular",
+      "postscript": "MaterialIcons-Regular",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "primeicons-4GST5W3O.woff2",
+      "family": "primeicons",
+      "rawFamily": "primeicons",
+      "subfamily": "Regular",
+      "postscript": "primeicons",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": true
+    },
+    {
+      "file": "primeicons-GEFHGEHP.ttf",
+      "family": "primeicons",
+      "rawFamily": "primeicons",
+      "subfamily": "Regular",
+      "postscript": "primeicons",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": true
+    },
+    {
+      "file": "primeicons-P53SE5CV.woff",
+      "family": "primeicons",
+      "rawFamily": "primeicons",
+      "subfamily": "Regular",
+      "postscript": "primeicons",
+      "weight": 400,
+      "style": "normal",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": true
+    }
+  ],
+  "families": [
+    {
+      "family": "Material Icons",
+      "weights": [
+        400
+      ],
+      "variable": false,
+      "fileCount": 1,
+      "files": [
+        "flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2"
+      ]
+    },
+    {
+      "family": "primeicons",
+      "weights": [
+        400
+      ],
+      "variable": false,
+      "fileCount": 3,
+      "files": [
+        "primeicons-4GST5W3O.woff2",
+        "primeicons-GEFHGEHP.ttf",
+        "primeicons-P53SE5CV.woff"
+      ]
+    },
+    {
+      "family": "Roboto",
+      "weights": [
+        400
+      ],
+      "variable": true,
+      "fileCount": 6,
+      "files": [
+        "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3CUBGEe.woff2",
+        "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3GUBGEe.woff2",
+        "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3OUBGEe.woff2",
+        "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3iUBGEe.woff2",
+        "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMawCUBGEe.woff2",
+        "KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMaxKUBGEe.woff2"
+      ]
+    }
+  ],
+  "unidentified": [],
+  "meta": {
+    "generatedAt": "2026-10-14T21:19:31.208Z",
+    "tool": "fontkit"
+  }
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #q-root { position: absolute; inset: 0; overflow: hidden; }
+        #q-k { top: 760px; font-size: 90px; }
+        #q-halo { left: 90px; top: 520px; width: 900px; height: 900px; opacity: 0; }
+        .q-tile { opacity: 0; }
+        .q-tile b { position: absolute; left: 50%; top: 100%; margin-top: 14px; transform: translateX(-50%); font: 600 22px/1 "Inter", sans-serif; color: #6b7378; white-space: nowrap; }
+      </style>
+
+      <div data-hf-id="hf-etmd" id="q-root" data-composition-id="question" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-dm44" id="q-halo" class="halo"></div>
+          <div data-hf-id="hf-cd3m" id="q-tiles"></div>
+          <div data-hf-id="hf-ie6c" id="q-k" class="kt" data-line="3"><span data-hf-id="hf-2ifg" class="m">Comment montrer</span><br data-hf-id="hf-x5px">ce que tu sais faire,<br data-hf-id="hf-rsrt"><span data-hf-id="hf-yii2" class="pill">avant l'entretien ?</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = window.CUES.S.question[0];
+          const END = T0 + window.CUES.S.question[1];
+          const L = (t) => +(t - T0).toFixed(3);
+          const root = document.getElementById("q-root");
+          const $ = (s) => root.querySelector(s);
+          // the trades behind the question: soudeur, peintre, cuisinier, maçon, coiffeuse, menuisier
+          const TILES = [["flame", "Soudure", 200, 470, 0.9, 4], ["paint-roller", "Peinture", 880, 520, 0.75, 8], ["chef-hat", "Cuisine", 150, 1330, 0.8, 7],
+            ["brick-wall", "Maçonnerie", 905, 1290, 1.0, 3], ["scissors", "Coiffure", 560, 1520, 0.7, 10], ["hammer", "Menuiserie", 560, 400, 0.65, 11]];
+          const box = $("#q-tiles");
+          const tiles = TILES.map(([ic, lb, x, y, sc]) => {
+            const d = document.createElement("div");
+            d.className = "tile q-tile";
+            d.innerHTML = `<i data-icon="${ic}"></i><b>${lb}</b>`;
+            box.appendChild(d);
+            gsap.set(d, { x, y, scale: sc });
+            return d;
+          });
+          window.ManooIcons.hydrate(root);
+
+          document.fonts.ready.then(() => {
+            const tl = gsap.timeline({ paused: true });
+            tl.fromTo("#q-halo", { opacity: 0, scale: 0.6 }, { opacity: 0.55, scale: 1, duration: 0.8, ease: "power2.out", immediateRender: true }, 0);
+            tiles.forEach((d, i) => {
+              const [, , x, y, sc, bl] = TILES[i];
+              const dx = (x - 540) * 0.25, dy = (y - 960) * 0.2;
+              tl.fromTo(d, { opacity: 0, x: x + dx, y: y + dy, scale: sc * 0.7, filter: `blur(${bl + 10}px)` },
+                { opacity: 0.85, x, y, scale: sc, filter: `blur(${bl}px)`, duration: 0.7, ease: "power3.out", immediateRender: true }, 0.05 + i * 0.06);
+              tl.fromTo(d, { rotation: 0 }, { rotation: i % 2 ? 6 : -6, duration: END - T0, ease: "sine.inOut", immediateRender: true }, 0);
+              // they gather round the question as it lands, then scatter into the next scene
+              tl.to(d, { opacity: 0, scale: sc * 1.3, x: x + dx * 1.6, y: y + dy * 1.6, filter: "blur(22px)", duration: 0.26, ease: "power2.in" }, L(END - 0.3));
+            });
+            window.KT.animate(tl, $("#q-k"), T0, { caret: true, out: END - 0.24 });
+            tl.to("#q-halo", { opacity: 0.9, scale: 1.15, duration: 0.4, ease: "power2.out" }, L(window.W(3, "avant") - 0.05));
+            tl.to("#q-halo", { opacity: 0, duration: 0.24 }, L(END - 0.26));
+            window.__timelines["question"] = tl;
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

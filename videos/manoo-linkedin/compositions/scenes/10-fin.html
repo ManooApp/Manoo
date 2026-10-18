@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #f-root { position: absolute; inset: 0; overflow: hidden; }
+        .f-ring { position: absolute; left: 540px; top: 780px; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 50%; border: 5px solid rgba(249, 115, 22, 0.8); opacity: 0; }
+        #f-glow { position: absolute; left: 140px; top: 380px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, rgba(249, 115, 22, 0.45) 0%, rgba(249, 115, 22, 0.12) 42%, rgba(249, 115, 22, 0) 70%); opacity: 0; }
+        #f-lock { position: absolute; left: 0; right: 0; top: 690px; height: 180px; display: flex; justify-content: center; align-items: center; gap: 30px; }
+        #f-ico { width: 176px; height: 176px; border-radius: 46px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(249, 115, 22, 0.35); opacity: 0; }
+        #f-ico img { width: 118px; height: 104px; object-fit: contain; }
+        #f-word { font: 700 160px/1 "Inter Display", sans-serif; letter-spacing: -0.055em; color: #f5f4f1; display: flex; }
+        #f-word .l { display: inline-block; opacity: 0; }
+        /* the signature, revealed by a beam */
+        #f-tag { top: 950px; font-size: 76px; color: #f5f4f1; }
+        #f-beam { position: absolute; left: 0; top: 0; width: 70px; height: 130px; margin-left: -35px; border-radius: 35px; background: linear-gradient(90deg, rgba(249, 115, 22, 0) 0%, rgba(255, 170, 110, 0.95) 50%, rgba(249, 115, 22, 0) 100%); filter: blur(6px); opacity: 0; }
+        #f-cta { top: 1210px; font-size: 76px; }
+      </style>
+
+      <div data-hf-id="hf-69mb" id="f-root" data-composition-id="fin" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-y2m5" id="f-glow"></div>
+          <div data-hf-id="hf-j6ux" class="f-ring"></div><div data-hf-id="hf-4765" class="f-ring"></div><div data-hf-id="hf-5e38" class="f-ring"></div>
+          <div data-hf-id="hf-4ngn" id="f-lock">
+            <div data-hf-id="hf-wnjt" id="f-ico"><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></div>
+            <div data-hf-id="hf-v8t6" id="f-word"><span data-hf-id="hf-gv0i" class="l">M</span><span data-hf-id="hf-rzla" class="l">a</span><span data-hf-id="hf-y13j" class="l">n</span><span data-hf-id="hf-yfek" class="l">o</span><span data-hf-id="hf-q8s4" class="l">o</span></div>
+          </div>
+          <div data-hf-id="hf-41wf" id="f-beam"></div>
+          <div data-hf-id="hf-5owm" id="f-tag" class="kt" data-line="18" data-from="Le"><span data-hf-id="hf-8cgl" class="m">Le savoir-faire,</span><br data-hf-id="hf-x5px">enfin <span data-hf-id="hf-kv2s" class="acc">visible.</span></div>
+          <div data-hf-id="hf-s8i2" id="f-cta" class="kt" data-line="19"><span data-hf-id="hf-mflm" class="m">Crée ton portfolio sur</span><br data-hf-id="hf-rsrt"><span data-hf-id="hf-iot4" class="pill">manoo.fr</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = window.CUES.S.fin[0];
+          const END = window.CUES.END;
+          const L = (t) => +(t - T0).toFixed(3);
+          const W = window.W;
+          const root = document.getElementById("f-root");
+          const $ = (s) => root.querySelector(s);
+
+          document.fonts.ready.then(() => {
+            const tl = gsap.timeline({ paused: true });
+            const tM = W(18, "Manoo");
+            // rings and glow from the centre, then the lockup
+            tl.fromTo("#f-glow", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.9, ease: "power2.out", immediateRender: true }, L(tM - 0.3));
+            root.querySelectorAll(".f-ring").forEach((r, i) => {
+              tl.fromTo(r, { opacity: 0.9, scale: 0.4 }, { opacity: 0, scale: 3 + i * 0.5, duration: 0.9, ease: "power2.out", immediateRender: false }, L(tM - 0.2 + i * 0.12));
+            });
+            tl.fromTo("#f-ico", { opacity: 0, scale: 0.4, rotation: -14 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(2)", immediateRender: true }, L(tM - 0.12));
+            tl.fromTo("#f-word .l", { opacity: 0, y: 60, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.32, ease: "back.out(1.6)", stagger: 0.045, immediateRender: true }, L(tM - 0.04));
+            // the beam sweeps along each line of the signature as it is spoken
+            // words land in place (no centring slide) so a left-to-right beam can uncover them
+            const tagW = window.KT.animate(tl, $("#f-tag"), T0, { grow: false });
+            const geo = window.KT.withLayout($("#f-tag"), () => Array.from($("#f-tag").querySelectorAll(".ln")).map((ln) => ({
+              ln, top: ln.offsetTop, left: ln.offsetLeft, width: ln.offsetWidth,
+            })));
+            const tagTop = 950;
+            geo.forEach(({ ln, top, left, width }) => {
+              const ws = tagW.filter((w) => ln.contains(w));
+              const t0 = parseFloat(ws[0].dataset.t), t1 = parseFloat(ws[ws.length - 1].dataset.t) + 0.25;
+              const y = tagTop + top - 25;
+              const x0 = 64 + left, x1 = x0 + width;
+              tl.fromTo("#f-beam", { opacity: 0, x: x0, y }, { opacity: 1, x: x0 + 40, y, duration: 0.08, immediateRender: false }, L(t0 - 0.06));
+              tl.fromTo("#f-beam", { x: x0 + 40 }, { x: x1 + 20, duration: Math.max(0.3, t1 - t0), ease: "power1.inOut", immediateRender: false }, L(t0 + 0.02));
+              tl.to("#f-beam", { opacity: 0, duration: 0.14 }, L(t1 + 0.02));
+            });
+            // call to action
+            window.KT.animate(tl, $("#f-cta"), T0, {});
+            tl.fromTo("#f-cta .pill .pb", { boxShadow: "0 0.12em 0.4em rgba(249,115,22,0.35)" }, { boxShadow: "0 0 1.2em rgba(249,115,22,0.85)", duration: 0.6, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, L(W(19, "manoo.fr") + 0.3));
+            // a slow settle to the end
+            tl.fromTo("#f-lock", { scale: 1 }, { scale: 1.03, duration: +(END - tM).toFixed(3), ease: "sine.inOut", immediateRender: true }, L(tM));
+            window.__timelines["fin"] = tl;
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

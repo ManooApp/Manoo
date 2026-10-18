@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #c-root { position: absolute; inset: 0; overflow: hidden; }
+        #c-k1, #c-k3 { top: 330px; font-size: 78px; }
+        #c-k2 { top: 360px; }
+        #c-pw { position: absolute; inset: 0; perspective: 2000px; }
+        .c-card { left: 230px; top: 690px; width: 620px; height: 800px; overflow: hidden; font-family: "Inter", sans-serif; opacity: 0; }
+        .c-card .bn { height: 150px; background: linear-gradient(120deg, #e3e6e8, #c9ced2); }
+        .c-pad { padding: 0 40px; }
+        .c-av { width: 128px; height: 128px; margin-top: -64px; border-radius: 50%; background: #d5d9dc; border: 6px solid #fff; display: flex; align-items: center; justify-content: center; color: #9aa2a7; }
+        .c-av .ic { width: 60px; height: 60px; }
+        .c-nm { margin-top: 18px; font: 700 34px/1.15 "Inter", sans-serif; letter-spacing: -0.02em; color: #1e2326; }
+        .c-sub { margin-top: 8px; font: 500 22px/1.3 "Inter", sans-serif; color: #6f777c; }
+        .c-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+        .c-chip { height: 42px; padding: 0 18px; border-radius: 21px; background: #eef0f1; color: #50585d; display: inline-flex; align-items: center; gap: 8px; font: 600 19px/1 "Inter", sans-serif; }
+        .c-chip .ic { width: 20px; height: 20px; }
+        .c-item { display: flex; gap: 16px; align-items: center; margin-top: 26px; padding-top: 22px; border-top: 1px solid #eceeef; font: 600 22px/1.3 "Inter", sans-serif; color: #2b3135; }
+        .c-item .ib { width: 56px; height: 56px; border-radius: 14px; background: #eef0f1; display: flex; align-items: center; justify-content: center; color: #6f777c; flex: none; }
+        .c-item .ib .ic { width: 28px; height: 28px; }
+        .c-item small { display: block; font: 500 18px/1.3 "Inter", sans-serif; color: #8a9297; }
+        .c-btns { display: flex; gap: 12px; margin-top: 28px; }
+        .c-btn { flex: 1; height: 62px; border-radius: 31px; display: flex; align-items: center; justify-content: center; font: 700 22px/1 "Inter", sans-serif; background: #2b3135; color: #fff; }
+        .c-btn.o { background: #fff; color: #2b3135; box-shadow: inset 0 0 0 2px #cfd4d7; }
+        .c-ph { display: block; height: 14px; border-radius: 7px; background: #eceeef; margin-top: 14px; }
+        .c-ph.s { width: 70%; }
+        .c-top { display: flex; align-items: center; gap: 12px; height: 92px; padding: 0 30px; background: #f3f4f5; border-bottom: 1px solid #e6e8e9; font: 600 20px/1 "Inter", sans-serif; color: #6f777c; }
+        .c-top .ic { width: 24px; height: 24px; }
+        .c-file { display: inline-flex; align-items: center; gap: 12px; height: 64px; padding: 0 22px; border-radius: 16px; background: #f3f4f5; font: 700 22px/1 "Inter", sans-serif; color: #2b3135; box-shadow: inset 0 0 0 2px #e1e4e6; }
+        .c-file .ic { width: 28px; height: 28px; color: #6f777c; }
+        .c-file em { font-style: normal; font-weight: 500; color: #8a9297; font-size: 18px; }
+        .c-cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-top: 18px; }
+        .c-cal i { height: 58px; border-radius: 12px; background: #f1f2f3; display: flex; align-items: center; justify-content: center; font: 600 19px/1 "Inter", sans-serif; font-style: normal; color: #8a9297; }
+        .c-cal i.on { background: #2b3135; color: #fff; }
+        .c-stamp { position: absolute; right: 34px; top: 34px; height: 56px; padding: 0 22px; border-radius: 28px; display: flex; align-items: center; gap: 10px; background: #fff; color: #e2590b; box-shadow: inset 0 0 0 3px #e2590b, 0 14px 30px rgba(249, 115, 22, 0.25); font: 800 21px/1 "Inter", sans-serif; letter-spacing: 0.02em; text-transform: uppercase; opacity: 0; }
+        .c-stamp .ic { width: 24px; height: 24px; }
+      </style>
+
+      <div data-hf-id="hf-9dt6" id="c-root" data-composition-id="classiques" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-l41q" id="c-pw">
+            <!-- A · a classic professional network profile -->
+            <div data-hf-id="hf-xovl" id="c-a" class="fcard c-card">
+              <div data-hf-id="hf-u040" class="bn"></div>
+              <div data-hf-id="hf-hcbv" class="c-pad">
+                <div data-hf-id="hf-zqi1" class="c-av"><i data-hf-id="hf-j9sb" data-icon="user"></i></div>
+                <div data-hf-id="hf-6iyr" class="c-nm">Thomas L.</div>
+                <div data-hf-id="hf-b53y" class="c-sub">Responsable grands comptes · Paris</div>
+                <div data-hf-id="hf-xfw8" class="c-row"><span data-hf-id="hf-rsts" class="c-chip">Management</span><span data-hf-id="hf-zxh9" class="c-chip">Stratégie</span><span data-hf-id="hf-veuv" class="c-chip">Tableurs</span><span data-hf-id="hf-q4zh" class="c-chip">Négociation</span></div>
+                <div data-hf-id="hf-1eyh" class="c-item"><span data-hf-id="hf-7m8g" class="ib"><i data-hf-id="hf-xvdq" data-icon="briefcase"></i></span><div data-hf-id="hf-17vn">Chef de projet digital<small data-hf-id="hf-dlni">Siège social · 4 ans</small></div></div>
+                <div data-hf-id="hf-or2v" class="c-btns"><span data-hf-id="hf-qggy" class="c-btn">Se connecter</span><span data-hf-id="hf-d903" class="c-btn o">Message</span></div>
+              </div>
+              <div data-hf-id="hf-u4dd" id="c-sa" class="c-stamp"><i data-hf-id="hf-9llb" data-icon="building-2"></i>Bureau</div>
+            </div>
+            <!-- B · a job board ad -->
+            <div data-hf-id="hf-1mzm" id="c-b" class="fcard c-card">
+              <div data-hf-id="hf-ce9a" class="c-top"><i data-hf-id="hf-cn3m" data-icon="search"></i>Métallier · Rennes</div>
+              <div data-hf-id="hf-nl0l" class="c-pad" style="padding-top:34px">
+                <div data-hf-id="hf-edzr" class="c-nm" style="margin-top:0">Métallier H/F</div>
+                <div data-hf-id="hf-23ag" class="c-sub">Entreprise du bâtiment · Rennes (35)</div>
+                <div data-hf-id="hf-iemo" class="c-row"><span data-hf-id="hf-tqrb" class="c-chip">CDI</span><span data-hf-id="hf-z4z2" class="c-chip">Temps plein</span><span data-hf-id="hf-x4p1" class="c-chip">Expérience 2 ans</span></div>
+                <i data-hf-id="hf-wsfc" class="c-ph"></i><i data-hf-id="hf-561s" class="c-ph"></i><i data-hf-id="hf-5ujn" class="c-ph s"></i><i data-hf-id="hf-3z4p" class="c-ph"></i><i data-hf-id="hf-dg4j" class="c-ph s"></i>
+                <div data-hf-id="hf-la9r" class="c-sub" style="margin-top:30px;color:#2b3135;font-weight:600">Pièces jointes</div>
+                <div data-hf-id="hf-lh4t" class="c-row" style="margin-top:14px"><span data-hf-id="hf-zugp" id="c-cvfile" class="c-file"><i data-hf-id="hf-z234" data-icon="file-text"></i>CV.pdf<em data-hf-id="hf-5bye">obligatoire</em></span></div>
+                <div data-hf-id="hf-7x1z" class="c-btns"><span data-hf-id="hf-rthn" class="c-btn">Postuler</span></div>
+              </div>
+              <div data-hf-id="hf-ygp0" id="c-sb" class="c-stamp"><i data-hf-id="hf-se20" data-icon="file-text"></i>CV requis</div>
+            </div>
+            <!-- C · a temp mission -->
+            <div data-hf-id="hf-5l3n" id="c-c" class="fcard c-card">
+              <div data-hf-id="hf-7h31" class="c-top"><i data-hf-id="hf-y6sw" data-icon="clock"></i>Mission intérim</div>
+              <div data-hf-id="hf-qg6x" class="c-pad" style="padding-top:34px">
+                <div data-hf-id="hf-gj3y" class="c-nm" style="margin-top:0">Soudeur MIG H/F</div>
+                <div data-hf-id="hf-p226" class="c-sub">Remplacement · Saint-Malo (35)</div>
+                <div data-hf-id="hf-rgw9" class="c-sub" style="margin-top:30px;color:#2b3135;font-weight:600">Novembre</div>
+                <div data-hf-id="hf-kl5s" class="c-cal">
+                  <i data-hf-id="hf-x3ev">27</i><i data-hf-id="hf-1gs6">28</i><i data-hf-id="hf-12h5">29</i><i data-hf-id="hf-z1zr">30</i><i data-hf-id="hf-zgas">31</i><i data-hf-id="hf-943b">1</i><i data-hf-id="hf-8psa">2</i>
+                  <i data-hf-id="hf-zvsk" class="on">3</i><i data-hf-id="hf-0a3l" class="on">4</i><i data-hf-id="hf-0oem" class="on">5</i><i data-hf-id="hf-12pn" class="on">6</i><i data-hf-id="hf-1h0o" class="on">7</i><i data-hf-id="hf-couk">8</i><i data-hf-id="hf-cajj">9</i>
+                  <i data-hf-id="hf-kyn2" class="on">10</i><i data-hf-id="hf-kkc1" class="on">11</i><i data-hf-id="hf-lr94" class="on">12</i><i data-hf-id="hf-lcy3" class="on">13</i><i data-hf-id="hf-jdey" class="on">14</i><i data-hf-id="hf-edeu">15</i><i data-hf-id="hf-erpv">16</i>
+                  <i data-hf-id="hf-f60w">17</i><i data-hf-id="hf-97fh">18</i><i data-hf-id="hf-9lqi">19</i><i data-hf-id="hf-yaby">20</i><i data-hf-id="hf-xw0x">21</i><i data-hf-id="hf-z2y0">22</i><i data-hf-id="hf-yomz">23</i>
+                </div>
+                <div data-hf-id="hf-egul" class="c-item"><span data-hf-id="hf-sppk" class="ib"><i data-hf-id="hf-v64o" data-icon="clock"></i></span><div data-hf-id="hf-2nxi">Durée : 2 semaines<small data-hf-id="hf-3jyy">Fin de mission le 14 novembre</small></div></div>
+              </div>
+              <div data-hf-id="hf-1jhm" id="c-sc" class="c-stamp"><i data-hf-id="hf-tz7l" data-icon="clock"></i>2 semaines</div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-0liu" id="c-k1" class="kt" data-line="4"><span data-hf-id="hf-l37c" class="m">Les réseaux pros ?</span><br data-hf-id="hf-x5px">Pensés d'abord<br data-hf-id="hf-rsrt"><span data-hf-id="hf-oli8" class="m">pour les</span> <span data-hf-id="hf-9la8" class="pill">bureaux.</span></div>
+          <div data-hf-id="hf-ei15" id="c-k2" class="kt" data-line="5"><span data-hf-id="hf-f5l8" class="m">Les sites d'emploi ?</span><br data-hf-id="hf-szow">Une annonce, <span data-hf-id="hf-jrna" class="pill">un CV.</span></div>
+          <div data-hf-id="hf-fewq" id="c-k3" class="kt" data-line="6"><span data-hf-id="hf-wdxg" class="m">L'intérim ?</span><br data-hf-id="hf-sldv">Utile, mais souvent<br data-hf-id="hf-qluq"><span data-hf-id="hf-7qou" class="pill">ponctuel.</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = window.CUES.S.classiques[0];
+          const END = T0 + window.CUES.S.classiques[1];
+          const L = (t) => +(t - T0).toFixed(3);
+          const W = window.W, LS = window.LS, LE = window.LE;
+          const root = document.getElementById("c-root");
+          const $ = (s) => root.querySelector(s);
+          window.ManooIcons.hydrate(root);
+
+          document.fonts.ready.then(() => {
+            const tl = gsap.timeline({ paused: true });
+            // carousel slots: in (from the right) → centre → aside (left, small, dim) → gone
+            const SL = {
+              in: { x: 720, scale: 0.9, rotationY: -24, opacity: 0, filter: "blur(10px)" },
+              mid: { x: 0, scale: 1, rotationY: 0, opacity: 1, filter: "blur(0px)" },
+              side: { x: -560, scale: 0.78, rotationY: 20, opacity: 0.35, filter: "blur(3px)" },
+              gone: { x: -1000, scale: 0.6, rotationY: 30, opacity: 0, filter: "blur(12px)" },
+            };
+            const move = (sel, a, b, at, dur = 0.55) => tl.fromTo(sel, { ...SL[a] }, { ...SL[b], duration: dur, ease: "power3.inOut", immediateRender: a === "in" && at < 0.5 }, L(at));
+            const cut2 = LS(5) - 0.2, cut3 = LS(6) - 0.2;
+            move("#c-a", "in", "mid", T0 + 0.08, 0.6);
+            move("#c-a", "mid", "side", cut2);
+            move("#c-b", "in", "mid", cut2);
+            move("#c-a", "side", "gone", cut3);
+            move("#c-b", "mid", "side", cut3);
+            move("#c-c", "in", "mid", cut3);
+            gsap.set(["#c-b", "#c-c"], { ...SL.in });
+            // the limit of each one, stamped when the voice names it
+            const stamp = (sel, at) => tl.fromTo(sel, { opacity: 0, scale: 1.6, rotation: -8 }, { opacity: 1, scale: 1, rotation: -4, duration: 0.3, ease: "back.out(2.4)", immediateRender: false }, L(at));
+            stamp("#c-sa", W(4, "bureaux"));
+            stamp("#c-sb", W(5, "CV"));
+            tl.fromTo("#c-cvfile", { scale: 1 }, { scale: 1.08, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, L(W(5, "CV")));
+            tl.fromTo("#c-cvfile", { boxShadow: "inset 0 0 0 2px #e1e4e6" }, { boxShadow: "inset 0 0 0 3px #f97316", duration: 0.2, immediateRender: false }, L(W(5, "CV")));
+            stamp("#c-sc", W(6, "ponctuel"));
+            // captions
+            window.KT.animate(tl, $("#c-k1"), T0, { out: cut2 - 0.05 });
+            window.KT.animate(tl, $("#c-k2"), T0, { out: cut3 - 0.05 });
+            window.KT.animate(tl, $("#c-k3"), T0, { out: END - 0.24 });
+            // exit: the cards drop away
+            tl.to(["#c-b", "#c-c"], { y: 260, opacity: 0, filter: "blur(14px)", duration: 0.3, ease: "power2.in", stagger: 0.04 }, L(END - 0.32));
+            window.__timelines["classiques"] = tl;
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

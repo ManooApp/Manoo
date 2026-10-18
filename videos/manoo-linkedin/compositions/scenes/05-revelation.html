@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #r-root { position: absolute; inset: 0; overflow: hidden; }
+        #r-voici { top: 760px; opacity: 0; }
+        #r-disc { position: absolute; left: 540px; top: 960px; width: 240px; height: 240px; margin: -120px 0 0 -120px; border-radius: 50%; background: radial-gradient(circle, #ff9a4d 0%, #f97316 60%, #e35d0b 100%); box-shadow: 0 0 120px rgba(249, 115, 22, 0.7); opacity: 0; }
+        .r-ring { position: absolute; left: 540px; top: 960px; width: 300px; height: 300px; margin: -150px 0 0 -150px; border-radius: 50%; border: 5px solid rgba(249, 115, 22, 0.85); opacity: 0; }
+        #r-lock { position: absolute; left: 0; right: 0; top: 860px; height: 200px; display: flex; justify-content: center; align-items: center; gap: 34px; }
+        #r-ico { width: 196px; height: 196px; border-radius: 52px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45); opacity: 0; }
+        #r-ico img { width: 132px; height: 116px; object-fit: contain; }
+        #r-word { font: 700 168px/1 "Inter Display", sans-serif; letter-spacing: -0.055em; color: #f5f4f1; display: flex; }
+        #r-word .l { display: inline-block; opacity: 0; }
+      </style>
+
+      <div data-hf-id="hf-zivd" id="r-root" data-composition-id="revelation" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-yuyu" id="r-voici" class="giant">Voici</div>
+          <div data-hf-id="hf-b2hx" class="r-ring"></div><div data-hf-id="hf-z0s9" class="r-ring"></div><div data-hf-id="hf-07pc" class="r-ring"></div>
+          <div data-hf-id="hf-1av5" id="r-disc"></div>
+          <div data-hf-id="hf-ktff" id="r-lock">
+            <div data-hf-id="hf-ubj1" id="r-ico"><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></div>
+            <div data-hf-id="hf-dkd2" id="r-word"><span data-hf-id="hf-gv0i" class="l">M</span><span data-hf-id="hf-rzla" class="l">a</span><span data-hf-id="hf-y13j" class="l">n</span><span data-hf-id="hf-yfek" class="l">o</span><span data-hf-id="hf-q8s4" class="l">o</span></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = window.CUES.S.revelation[0];
+          const END = T0 + window.CUES.S.revelation[1];
+          const L = (t) => +(t - T0).toFixed(3);
+          const W = window.W;
+          const day0 = window.CUES.S.demo[0];
+          const tl = gsap.timeline({ paused: true });
+          const tV = W(9, "Voici"), tM = W(9, "Manoo");
+          // « Voici » — giant and luminous
+          tl.fromTo("#r-voici", { opacity: 0, scale: 1.3, filter: "blur(22px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.36, ease: "power3.out", immediateRender: true }, L(tV - 0.06));
+          tl.to("#r-voici", { opacity: 0, y: -220, scale: 0.7, filter: "blur(16px)", duration: 0.26, ease: "power2.in" }, L(tM - 0.16));
+          // the accent disc pulses out in rings, then becomes the app icon
+          tl.fromTo("#r-disc", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(2.2)", immediateRender: true }, L(tM - 0.12));
+          document.querySelectorAll("#r-root .r-ring").forEach((r, i) => {
+            tl.fromTo(r, { opacity: 0.9, scale: 0.5 }, { opacity: 0, scale: 3.2 + i * 0.6, duration: 0.8, ease: "power2.out", immediateRender: false }, L(tM - 0.08 + i * 0.1));
+          });
+          tl.to("#r-disc", { opacity: 0, scale: 0.6, duration: 0.18, ease: "power2.in" }, L(tM + 0.12));
+          tl.fromTo("#r-ico", { opacity: 0, scale: 0.4, rotation: -14 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.36, ease: "back.out(2)", immediateRender: true }, L(tM + 0.1));
+          tl.fromTo("#r-word .l", { opacity: 0, y: 60, filter: "blur(12px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "back.out(1.6)", stagger: 0.045, immediateRender: true }, L(tM + 0.16));
+          // the white world blooms from the logo: the wordmark turns to ink as it passes, then the lockup steps back
+          tl.fromTo("#r-word", { color: "#f5f4f1" }, { color: "#0e1012", duration: 0.3, ease: "power2.inOut", immediateRender: true }, L(day0 - 0.4));
+          tl.to("#r-lock", { scale: 0.82, opacity: 0, filter: "blur(10px)", duration: 0.24, ease: "power2.in" }, L(END - 0.26));
+          window.__timelines["revelation"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

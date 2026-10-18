@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <style>
+        #m-root { position: absolute; inset: 0; overflow: hidden; }
+        #m-k12, #m-k14 { top: 330px; }
+        #m-k13 { top: 320px; font-size: 78px; }
+        /* the network */
+        #m-net { position: absolute; inset: 0; }
+        #m-lines { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: visible; }
+        #m-lines line { stroke: #e3ded8; stroke-width: 4; stroke-linecap: round; }
+        #m-lines line.mesh { stroke: #f0c7a6; stroke-width: 3; }
+        #m-hub { position: absolute; left: 540px; top: 1060px; width: 170px; height: 170px; margin: -85px 0 0 -85px; border-radius: 46px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 24px 60px rgba(249, 115, 22, 0.28), 0 0 0 6px rgba(249, 115, 22, 0.12); opacity: 0; }
+        #m-hub img { width: 112px; height: 98px; object-fit: contain; }
+        .m-node { position: absolute; left: 0; top: 0; opacity: 0; }
+        .m-node .av { position: relative; left: 0; top: 0; margin: -56px 0 0 -56px; }
+        .m-node b { position: absolute; left: 0; top: 70px; transform: translateX(-50%); font: 600 24px/1 "Inter Display", sans-serif; color: #50585d; white-space: nowrap; letter-spacing: -0.02em; }
+        .m-dot { position: absolute; left: 0; top: 0; width: 18px; height: 18px; margin: -9px 0 0 -9px; border-radius: 50%; background: #f97316; box-shadow: 0 0 14px rgba(249, 115, 22, 0.8); opacity: 0; }
+        /* feed cards at stage scale (app layout x2) */
+        .m-feed { position: absolute; left: 320px; top: 640px; width: 440px; transform-origin: 50% 0; }
+        .m-feed .post { padding: 18px 18px 12px; }
+        .m-feed .post-text { margin-left: 62px; font-size: 15px; }
+        .m-feed .post-acts { margin-left: 62px; }
+        .m-av { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font: 700 16px/1 "Inter", sans-serif; color: #fff; flex: none; }
+        .m-av.k { background: #2b3135; }
+        .m-av.o { background: linear-gradient(135deg, #fd8b3a, #e4702e); }
+        .m-rep { display: flex; gap: 10px; align-items: flex-start; margin: 10px 0 0 26px; opacity: 0; }
+        .m-rep .m-av { width: 38px; height: 38px; font-size: 13px; }
+        .m-rep .rb { flex: 1; padding: 10px 13px; border-radius: 16px 16px 16px 6px; background: #fff; box-shadow: 0 6px 18px rgba(30, 24, 19, 0.08); font: 400 14px/1.4 "Inter", sans-serif; color: var(--tx-body); }
+        .m-rep .rb b { display: block; margin-bottom: 3px; font: 600 13px/1.2 "Inter", sans-serif; color: var(--tx-strong); }
+        .m-rep .rb em { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; font: 600 12px/1 "Inter", sans-serif; font-style: normal; color: #e11d48; }
+        .m-rep .rb em .ic { width: 13px; height: 13px; fill: #e11d48; }
+        #m-q, #m-tip { opacity: 0; }
+        #m-like.on { color: #e11d48; }
+        #m-like.on .ic { fill: #e11d48; }
+        #m-save { margin-left: auto; }
+        #m-save.on { color: var(--primary); }
+        #m-save.on .ic { fill: var(--primary); }
+      </style>
+
+      <div data-hf-id="hf-swlr" id="m-root" data-composition-id="communaute" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-buim" class="stg day">
+          <div data-hf-id="hf-nppo" id="m-net">
+            <svg data-hf-id="hf-ialx" id="m-lines" viewBox="0 0 1080 1920"></svg>
+            <div data-hf-id="hf-8fsg" id="m-hub"><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></div>
+            <div data-hf-id="hf-nxn6" id="m-nodes"></div>
+          </div>
+
+          <div data-hf-id="hf-fx3b" class="mui">
+            <!-- a question, answered by pros of the trade -->
+            <div data-hf-id="hf-6pki" id="m-qw" class="m-feed">
+              <div data-hf-id="hf-r0nh" id="m-q" class="card post">
+                <div data-hf-id="hf-ysvt" class="post-head"><div data-hf-id="hf-xijv" class="m-av k">IR</div><div data-hf-id="hf-l2u5" class="post-who"><div data-hf-id="hf-laxo" class="post-name">Inès R.</div><div data-hf-id="hf-0zcs" class="post-meta">Soudeuse • Brest • il y a 2 h</div><div data-hf-id="hf-1km7" class="post-type"><span data-hf-id="hf-ufb7" class="chip"><i data-hf-id="hf-rwtu" data-icon="circle-help"></i>Question</span></div></div></div>
+                <div data-hf-id="hf-onsm" class="post-text">Quel fil utilisez-vous pour souder de l'inox 316L en MIG ?</div>
+                <div data-hf-id="hf-sctc" class="post-acts"><span data-hf-id="hf-fe88"><i data-hf-id="hf-lsgu" data-icon="heart"></i>9</span><span data-hf-id="hf-uckh"><i data-hf-id="hf-rzj8" data-icon="message-circle"></i><b data-hf-id="hf-kkld" id="m-nrep">0</b></span><span data-hf-id="hf-hdrd"><i data-hf-id="hf-cvg2" data-icon="share-2"></i>2</span></div>
+              </div>
+              <div data-hf-id="hf-aeyz" class="m-rep"><div data-hf-id="hf-w1le" class="m-av k">MA</div><div data-hf-id="hf-mbqs" class="rb"><b data-hf-id="hf-l3j0">Malo · Métallier</b>Du fil 316LSi, avec un gaz argon + 2 % de CO₂.<br data-hf-id="hf-x5px"><em data-hf-id="hf-8wgi"><i data-hf-id="hf-jqki" data-icon="heart"></i>14</em></div></div>
+              <div data-hf-id="hf-gywb" class="m-rep"><div data-hf-id="hf-tyqv" class="m-av k">HU</div><div data-hf-id="hf-h1lj" class="rb"><b data-hf-id="hf-zqjf">Hugo · Chaudronnier</b>Et dégraisse bien avant de souder : ça change tout.<br data-hf-id="hf-rsrt"><em data-hf-id="hf-giwt"><i data-hf-id="hf-k4vj" data-icon="heart"></i>8</em></div></div>
+            </div>
+            <!-- an advice, shared and saved -->
+            <div data-hf-id="hf-vsll" id="m-tw" class="m-feed">
+              <div data-hf-id="hf-aoir" id="m-tip" class="card post">
+                <div data-hf-id="hf-ghal" class="post-head"><div data-hf-id="hf-7qid" class="m-av o">JM</div><div data-hf-id="hf-ylrl" class="post-who"><div data-hf-id="hf-riro" class="post-name">Jules Moreau</div><div data-hf-id="hf-auiq" class="post-meta">Serrurier / Métallier • Rennes</div><div data-hf-id="hf-0f8f" class="post-type"><span data-hf-id="hf-xe8o" class="chip"><i data-hf-id="hf-elkr" data-icon="lightbulb"></i>Conseil</span></div></div></div>
+                <div data-hf-id="hf-uv1b" class="post-text">Serrure qui force ? Un coup de graphite dans le cylindre. Jamais d'huile grasse : elle retient la poussière.</div>
+                <div data-hf-id="hf-3hso" class="post-acts"><span data-hf-id="hf-w37d" id="m-like"><i data-hf-id="hf-kj6k" data-icon="heart"></i><b data-hf-id="hf-jtk5" id="m-nlike">0</b></span><span data-hf-id="hf-l73p"><i data-hf-id="hf-a924" data-icon="message-circle"></i><b data-hf-id="hf-6147" id="m-ncom">0</b></span><span data-hf-id="hf-z8q7" id="m-save"><i data-hf-id="hf-2cqi" data-icon="bookmark"></i><b data-hf-id="hf-9i2d" id="m-savet">Enregistrer</b></span></div>
+              </div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-92mu" id="m-k12" class="kt" data-line="12">Manoo, <span data-hf-id="hf-l7lb" class="m">c'est aussi</span><br data-hf-id="hf-szow"><span data-hf-id="hf-3mxg" class="m">une</span> <span data-hf-id="hf-nloo" class="pill">communauté.</span></div>
+          <div data-hf-id="hf-g8et" id="m-k13" class="kt" data-line="13">Une question ?<br data-hf-id="hf-sldv"><span data-hf-id="hf-84l6" class="m">Des pros de ton métier</span><br data-hf-id="hf-qluq"><span data-hf-id="hf-lxf6" class="pill">te répondent.</span></div>
+          <div data-hf-id="hf-q12k" id="m-k14" class="kt" data-line="14"><span data-hf-id="hf-4m4e" class="m">Tu partages tes</span><br data-hf-id="hf-q7jp"><span data-hf-id="hf-9cbg" class="pill">astuces de terrain.</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = window.CUES.S.communaute[0];
+          const END = T0 + window.CUES.S.communaute[1];
+          const L = (t) => +(t - T0).toFixed(3);
+          const W = window.W, LS = window.LS, LE = window.LE;
+          const root = document.getElementById("m-root");
+          const $ = (s) => root.querySelector(s);
+          // the trades around Manoo: [initials, trade, icon, x, y, colour]
+          const HUB = [540, 1060];
+          const NODES = [["IR", "Soudeuse", "flame", 300, 700, "#2b3135"], ["MA", "Métallier", "hammer", 780, 690, "#2b3135"],
+            ["SO", "Cuisinière", "chef-hat", 150, 1000, "#2b3135"], ["HU", "Maçon", "brick-wall", 930, 990, "#2b3135"],
+            ["LÉ", "Peintre", "paint-roller", 190, 1370, "#2b3135"], ["YA", "Électricien", "zap", 890, 1380, "#2b3135"],
+            ["NO", "Coiffeuse", "scissors", 400, 1560, "#2b3135"], ["JM", "Métallier", "hammer", 690, 1560, "#e4702e"]];
+          const svg = $("#m-lines");
+          const NS = "http://www.w3.org/2000/svg";
+          const mk = (x1, y1, x2, y2, cls) => {
+            const l = document.createElementNS(NS, "line");
+            l.setAttribute("x1", x1); l.setAttribute("y1", y1); l.setAttribute("x2", x2); l.setAttribute("y2", y2);
+            if (cls) l.setAttribute("class", cls);
+            const len = Math.hypot(x2 - x1, y2 - y1);
+            l.style.strokeDasharray = `${len}`;
+            l.style.strokeDashoffset = `${len}`;
+            l.dataset.len = String(len);
+            svg.appendChild(l);
+            return l;
+          };
+          const spokes = NODES.map(([, , , x, y]) => mk(x, y, HUB[0], HUB[1]));
+          const meshPairs = [[0, 1], [0, 2], [1, 3], [2, 4], [3, 5], [4, 6], [5, 7], [6, 7]];
+          const mesh = meshPairs.map(([a, b]) => mk(NODES[a][3], NODES[a][4], NODES[b][3], NODES[b][4], "mesh"));
+          const box = $("#m-nodes");
+          const nodes = NODES.map(([ini, tr, ic, x, y, col]) => {
+            const d = document.createElement("div");
+            d.className = "m-node";
+            d.innerHTML = `<div class="av" style="background:${col}">${ini}<span class="bdg"><i data-icon="${ic}"></i></span></div><b>${tr}</b>`;
+            box.appendChild(d);
+            gsap.set(d, { x, y });
+            return d;
+          });
+          const dots = NODES.map(() => {
+            const d = document.createElement("div");
+            d.className = "m-dot";
+            box.appendChild(d);
+            return d;
+          });
+          window.ManooIcons.hydrate(root);
+          gsap.set(".m-feed", { scale: 2 });
+
+          document.fonts.ready.then(() => {
+            const tl = gsap.timeline({ paused: true });
+            // ---- L12: the network forms around Manoo
+            tl.fromTo("#m-hub", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.42, ease: "back.out(2)", immediateRender: true }, 0.08);
+            nodes.forEach((d, i) => {
+              const [, , , x, y] = NODES[i];
+              const at = 0.25 + i * 0.09;
+              tl.fromTo(d, { opacity: 0, scale: 0.5, x: HUB[0] + (x - HUB[0]) * 0.6, y: HUB[1] + (y - HUB[1]) * 0.6 }, { opacity: 1, scale: 1, x, y, duration: 0.42, ease: "back.out(1.7)", immediateRender: true }, at);
+              tl.fromTo(spokes[i], { strokeDashoffset: +spokes[i].dataset.len }, { strokeDashoffset: 0, duration: 0.4, ease: "power2.out", immediateRender: true }, at + 0.08);
+            });
+            // « communauté » — they connect to each other, signals run to the hub
+            const tC = W(12, "communauté");
+            mesh.forEach((l, i) => {
+              tl.fromTo(l, { strokeDashoffset: +l.dataset.len }, { strokeDashoffset: 0, duration: 0.35, ease: "power2.out", immediateRender: true }, L(tC - 0.1 + i * 0.03));
+            });
+            dots.forEach((d, i) => {
+              const [, , , x, y] = NODES[i];
+              tl.fromTo(d, { opacity: 0, x, y }, { opacity: 1, x, y, duration: 0.08, immediateRender: false }, L(tC + i * 0.04));
+              tl.fromTo(d, { x, y }, { x: HUB[0], y: HUB[1], duration: 0.5, ease: "power2.in", immediateRender: false }, L(tC + 0.08 + i * 0.04));
+              tl.to(d, { opacity: 0, duration: 0.08 }, L(tC + 0.56 + i * 0.04));
+            });
+            tl.fromTo("#m-hub", { scale: 1 }, { scale: 1.12, duration: 0.18, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, L(tC + 0.6));
+            window.KT.animate(tl, $("#m-k12"), T0, { out: Math.min(LE(12) + 0.06, LS(13) - 0.24) });
+            // the network steps back
+            tl.to("#m-net", { opacity: 0, scale: 0.85, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, L(LE(12) + 0.06));
+            // ---- L13: a question, and the pros answer
+            tl.fromTo("#m-q", { opacity: 0, y: 40, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.4, ease: "power3.out", immediateRender: true }, L(LS(13) - 0.12));
+            root.querySelectorAll("#m-qw .m-rep").forEach((r, i) => {
+              tl.fromTo(r, { opacity: 0, y: 24, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.36, ease: "back.out(1.6)", immediateRender: true }, L(W(13, i ? "répondent" : "pros") - 0.04));
+            });
+            window.KT.animate(tl, $("#m-k13"), T0, { out: Math.min(LE(13) + 0.08, LS(14) - 0.24) });
+            // the question flies away before the tip rises in
+            tl.to("#m-qw", { y: -260, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power2.in" }, L(Math.min(LE(13) + 0.06, LS(14) - 0.34)));
+            // ---- L14: an advice, liked, commented, saved
+            tl.fromTo("#m-tip", { opacity: 0, y: 70, filter: "blur(8px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.42, ease: "power3.out", immediateRender: true }, L(LS(14) - 0.04));
+            tl.fromTo("#m-like .ic", { scale: 1 }, { scale: 1.5, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, L(W(14, "astuces")));
+            tl.fromTo("#m-save .ic", { scale: 1 }, { scale: 1.4, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, L(W(14, "terrain")));
+            window.KT.animate(tl, $("#m-k14"), T0, { out: END - 0.22 });
+            tl.to("#m-tw", { opacity: 0, y: -40, filter: "blur(10px)", duration: 0.24, ease: "power2.in" }, L(END - 0.26));
+            // time-driven counters and states
+            const nrep = $("#m-nrep"), nlike = $("#m-nlike"), ncom = $("#m-ncom"), like = $("#m-like"), save = $("#m-save"), savet = $("#m-savet");
+            const tR1 = L(W(13, "pros")), tR2 = L(W(13, "répondent")), tA = L(W(14, "astuces")), tT = L(W(14, "terrain"));
+            const render = () => {
+              const t = tl.time();
+              nrep.textContent = t >= tR2 ? "2" : t >= tR1 ? "1" : "0";
+              const k = Math.max(0, Math.min(1, (t - tA) / 1.0));
+              nlike.textContent = String(Math.round(k * 48));
+              ncom.textContent = String(Math.round(k * 12));
+              like.classList.toggle("on", t >= tA);
+              save.classList.toggle("on", t >= tT);
+              savet.textContent = t >= tT ? "Enregistré" : "Enregistrer";
+            };
+            tl.eventCallback("onUpdate", render);
+            render();
+            window.__timelines["communaute"] = tl;
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

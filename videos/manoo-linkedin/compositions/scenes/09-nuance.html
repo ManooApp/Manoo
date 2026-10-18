@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <style>
+        #n-root { position: absolute; inset: 0; overflow: hidden; }
+        #n-ka, #n-kb { top: 330px; }
+        /* the CV stays */
+        #n-cv { left: 100px; top: 740px; width: 400px; height: 560px; padding: 40px 36px; opacity: 0; }
+        #n-cv b { display: block; font: 700 30px/1.1 "Inter Display", sans-serif; color: #0e1012; letter-spacing: -0.02em; }
+        #n-cv span { display: block; margin-top: 8px; font: 500 17px/1 "Inter", sans-serif; color: #8a9297; }
+        #n-cv .sec { margin-top: 30px; font: 700 14px/1 "Inter", sans-serif; letter-spacing: 0.16em; color: #b4bbbf; }
+        #n-cv .lnx { margin-top: 12px; font: 700 21px/1.2 "Inter", sans-serif; color: #2b3135; }
+        #n-cv i { display: block; height: 12px; border-radius: 6px; background: #eceeef; margin-top: 14px; }
+        #n-cv i.s { width: 60%; }
+        #n-ok { position: absolute; right: -22px; top: -22px; width: 72px; height: 72px; border-radius: 50%; background: #0e1012; color: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 12px 26px rgba(16, 22, 25, 0.3); opacity: 0; }
+        #n-ok .ic { width: 38px; height: 38px; stroke-width: 3; }
+        /* … and Manoo shows what it does not say */
+        #n-pf { left: 540px; top: 700px; width: 440px; height: 640px; padding: 22px; opacity: 0; }
+        .n-hd { display: flex; align-items: center; gap: 12px; }
+        .n-hd .av0 { width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, #fd8b3a, #e4702e); color: #fff; display: flex; align-items: center; justify-content: center; font: 700 20px/1 "Inter", sans-serif; }
+        .n-hd b { display: block; font: 700 22px/1.1 "Inter", sans-serif; color: #0e1012; }
+        .n-hd span { display: block; margin-top: 4px; font: 500 15px/1 "Inter", sans-serif; color: #c15729; }
+        .n-hd img { width: 34px; height: 30px; object-fit: contain; margin-left: auto; }
+        .n-gr { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .n-gr div { position: relative; height: 150px; border-radius: 16px; overflow: hidden; background: #efe9e2; opacity: 0; }
+        .n-gr img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .n-gr em { position: absolute; left: 8px; top: 8px; height: 24px; padding: 0 9px; border-radius: 12px; background: rgba(0, 0, 0, 0.55); color: #fff; display: flex; align-items: center; font: 700 12px/1 "Inter", sans-serif; font-style: normal; }
+        .n-sk { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .n-sk span { height: 36px; padding: 0 14px; border-radius: 18px; background: #fff6ec; color: #9b4325; display: inline-flex; align-items: center; font: 600 15px/1 "Inter", sans-serif; opacity: 0; }
+        #n-plus { position: absolute; left: 520px; top: 1020px; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: #f97316; color: #fff; display: flex; align-items: center; justify-content: center; font: 700 44px/1 "Inter Display", sans-serif; box-shadow: 0 12px 26px rgba(249, 115, 22, 0.45); opacity: 0; z-index: 5; }
+      </style>
+
+      <div data-hf-id="hf-u1gy" id="n-root" data-composition-id="nuance" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-buim" class="stg day">
+          <div data-hf-id="hf-q4va" id="n-cv" class="fcard">
+            <b data-hf-id="hf-nc5j">Jules Moreau</b><span data-hf-id="hf-jw7x">Curriculum vitæ</span>
+            <div data-hf-id="hf-qw0b" class="sec">EXPÉRIENCE</div><div data-hf-id="hf-q754" class="lnx">Serrurier-métallier — 3 ans</div>
+            <div data-hf-id="hf-cxti" class="sec">FORMATION</div><i data-hf-id="hf-wt6k"></i><i data-hf-id="hf-075b" class="s"></i>
+            <div data-hf-id="hf-w17j" class="sec">COMPÉTENCES</div><i data-hf-id="hf-zeb8"></i><i data-hf-id="hf-1nbj" class="s"></i>
+            <div data-hf-id="hf-fqe4" id="n-ok"><i data-hf-id="hf-d3m2" data-icon="check"></i></div>
+          </div>
+          <div data-hf-id="hf-j79b" id="n-pf" class="fcard">
+            <div data-hf-id="hf-ufnn" class="n-hd"><div data-hf-id="hf-sd0m" class="av0">JM</div><div data-hf-id="hf-yeow"><b data-hf-id="hf-o6sn">Jules Moreau</b><span data-hf-id="hf-vsnx">Portfolio Manoo</span></div><img data-hf-id="hf-2mif" src="assets/brand/manoo-marteau.png" alt=""></div>
+            <div data-hf-id="hf-26n8" class="n-gr">
+              <div data-hf-id="hf-y7yw"><img data-hf-id="hf-3te2" src="assets/photos/jules-portail.jpg" alt=""><em data-hf-id="hf-9870">▶ 0:12</em></div>
+              <div data-hf-id="hf-x11t"><img data-hf-id="hf-jj52" src="assets/photos/garde-corps.jpg" alt=""></div>
+              <div data-hf-id="hf-xfcu"><img data-hf-id="hf-cp6t" src="assets/photos/escalier.jpg" alt=""></div>
+              <div data-hf-id="hf-w8fr"><img data-hf-id="hf-zzo4" src="assets/photos/portail-detail.jpg" alt=""></div>
+            </div>
+            <div data-hf-id="hf-mlw1" class="n-sk"><span data-hf-id="hf-xcjj">Soudure MIG</span><span data-hf-id="hf-xw0h">Fer forgé</span><span data-hf-id="hf-vcus">Lecture de plans</span><span data-hf-id="hf-qr3w">Finitions</span></div>
+          </div>
+          <div data-hf-id="hf-x6vn" id="n-plus">+</div>
+
+          <div data-hf-id="hf-qzes" id="n-ka" class="kt" data-line="17">Manoo <span data-hf-id="hf-t8oe" class="m">ne remplace pas</span><br data-hf-id="hf-x5px"><span data-hf-id="hf-3xmu" class="pill">le CV.</span></div>
+          <div data-hf-id="hf-mpqs" id="n-kb" class="kt" data-line="17" data-from="Il"><span data-hf-id="hf-oi3y" class="m">Il montre</span><br data-hf-id="hf-rsrt"><span data-hf-id="hf-7u9w" class="pill">ce qu'il ne dit pas.</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = window.CUES.S.nuance[0];
+          const END = T0 + window.CUES.S.nuance[1];
+          const L = (t) => +(t - T0).toFixed(3);
+          const W = window.W;
+          const root = document.getElementById("n-root");
+          const $ = (s) => root.querySelector(s);
+          window.ManooIcons.hydrate(root);
+
+          document.fonts.ready.then(() => {
+            const tl = gsap.timeline({ paused: true });
+            // « Manoo ne remplace pas le CV » — the CV, centred, kept (a check)
+            tl.fromTo("#n-cv", { opacity: 0, x: 240, y: 60, rotation: -3, filter: "blur(10px)" }, { opacity: 1, x: 240, y: 0, rotation: -2, filter: "blur(0px)", duration: 0.45, ease: "power3.out", immediateRender: true }, 0.08);
+            tl.fromTo("#n-ok", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)", immediateRender: true }, L(W(17, "CV") - 0.02));
+            window.KT.animate(tl, $("#n-ka"), T0, { out: W(17, "Il") - 0.24 });
+            // « Il montre ce qu'il ne dit pas » — the portfolio slides out from behind it
+            const tI = W(17, "Il");
+            tl.to("#n-cv", { x: 0, rotation: -4, duration: 0.5, ease: "power3.inOut" }, L(tI - 0.2));
+            tl.fromTo("#n-pf", { opacity: 0, x: -300, rotation: 0, scale: 0.9 }, { opacity: 1, x: 0, rotation: 3, scale: 1, duration: 0.55, ease: "power3.out", immediateRender: true }, L(tI - 0.1));
+            tl.fromTo("#n-plus", { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration: 0.28, ease: "back.out(2.5)", immediateRender: true }, L(tI + 0.2));
+            root.querySelectorAll(".n-gr div").forEach((d, i) => {
+              tl.fromTo(d, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.8)", immediateRender: true }, L(W(17, "montre") + i * 0.09));
+            });
+            root.querySelectorAll(".n-sk span").forEach((d, i) => {
+              tl.fromTo(d, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.24, ease: "back.out(2)", immediateRender: true }, L(W(17, "dit") - 0.1 + i * 0.07));
+            });
+            window.KT.animate(tl, $("#n-kb"), T0, { out: END - 0.2 });
+            // exit
+            tl.to(["#n-cv", "#n-pf", "#n-plus"], { opacity: 0, scale: 0.9, filter: "blur(10px)", duration: 0.22, ease: "power2.in" }, L(END - 0.26));
+            window.__timelines["nuance"] = tl;
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

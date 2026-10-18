@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <style>
+        #w-root { position: absolute; inset: 0; overflow: hidden; background: #070809; }
+        .w-halo { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(249, 115, 22, 0.42) 0%, rgba(249, 115, 22, 0.12) 40%, rgba(249, 115, 22, 0) 70%); }
+        #w-ha { left: -520px; top: 1180px; width: 1400px; height: 1400px; }
+        #w-hb { left: 420px; top: -620px; width: 1200px; height: 1200px; opacity: 0.5; }
+        #w-day { position: absolute; inset: 0; background: #fafaf8; clip-path: circle(0% at 50% 50%); }
+        #w-bloom { position: absolute; left: -300px; right: -300px; top: 1260px; height: 1100px; border-radius: 50%; background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(249, 115, 22, 0.34) 0%, rgba(249, 115, 22, 0.1) 45%, rgba(249, 115, 22, 0) 72%); opacity: 0; }
+        #w-night { position: absolute; inset: 0; background: #070809; clip-path: circle(0% at 50% 48%); }
+      </style>
+
+      <div data-hf-id="hf-36nh" id="w-root" data-composition-id="world" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-d7h4" id="w-ha" class="w-halo" data-layout-allow-overflow></div>
+        <div data-hf-id="hf-o2yr" id="w-hb" class="w-halo" data-layout-allow-overflow></div>
+        <div data-hf-id="hf-jb61" id="w-day">
+          <div data-hf-id="hf-vq9d" id="w-bloom" data-layout-allow-overflow></div>
+        </div>
+        <div data-hf-id="hf-8ifp" id="w-night"></div>
+      </div>
+
+      <script>
+        (function () {
+          const S = window.CUES.S, END = window.CUES.END;
+          const day0 = S.demo[0], night0 = S.fin[0];
+          const tl = gsap.timeline({ paused: true });
+          // black world: two accent halos breathe and drift
+          tl.fromTo("#w-ha", { opacity: 0.55, x: 0, y: 0 }, { opacity: 0.85, x: 120, y: -80, duration: day0, ease: "sine.inOut", immediateRender: true }, 0);
+          tl.fromTo("#w-hb", { opacity: 0.3, x: 0 }, { opacity: 0.55, x: -140, duration: day0, ease: "sine.inOut", immediateRender: true }, 0);
+          // into the white world: a bloom from the logo
+          tl.fromTo("#w-day", { clipPath: "circle(0% at 50% 50%)" }, { clipPath: "circle(120% at 50% 50%)", duration: 0.6, ease: "power3.inOut", immediateRender: true }, +(day0 - 0.45).toFixed(3));
+          // a faint accent glow rises from the bottom of the white world, then settles
+          tl.fromTo("#w-bloom", { opacity: 0, y: 160 }, { opacity: 1, y: 0, duration: 1.2, ease: "power2.out", immediateRender: true }, +(day0 + 0.1).toFixed(3));
+          tl.to("#w-bloom", { opacity: 0.55, duration: 2, ease: "sine.inOut" }, +(day0 + 1.4).toFixed(3));
+          // back to black for the signature
+          tl.fromTo("#w-night", { clipPath: "circle(0% at 50% 48%)" }, { clipPath: "circle(120% at 50% 48%)", duration: 0.55, ease: "power3.inOut", immediateRender: true }, +(night0 - 0.35).toFixed(3));
+          tl.fromTo("#w-ha", { opacity: 0.85 }, { opacity: 0.6, duration: +(END - night0).toFixed(3), ease: "sine.inOut", immediateRender: false }, +night0.toFixed(3));
+          window.__timelines["world"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

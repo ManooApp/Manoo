@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/ui/stage.css">
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <style>
+        #a-root { position: absolute; inset: 0; overflow: hidden; }
+        #a-k1 { top: 330px; font-size: 76px; }
+        #a-k2 { top: 360px; }
+        #a-halo { left: 40px; top: 620px; width: 1000px; height: 1000px; opacity: 0; }
+        #a-pw { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; perspective: 1900px; }
+        #a-ph { left: 325px; top: 686px; }
+        /* the phone's photo gallery */
+        .gal { position: absolute; inset: 0; background: #000; overflow: hidden; }
+        .gal-top { position: absolute; left: 0; right: 0; top: 0; height: 158px; padding: 64px 22px 0; background: linear-gradient(#000 64%, rgba(0, 0, 0, 0)); z-index: 5; color: #fff; }
+        .gal-top b { display: block; font: 700 32px/1 "Inter", sans-serif; letter-spacing: -0.02em; }
+        .gal-top span { display: block; margin-top: 8px; font: 500 14px/1 "Inter", sans-serif; color: rgba(255, 255, 255, 0.6); }
+        #a-grid { position: absolute; left: 0; right: 0; top: 132px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+        #a-grid .t { position: relative; height: 130px; overflow: hidden; background: #1c1c1e; }
+        #a-grid .t img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        #a-grid .t em { position: absolute; right: 7px; bottom: 6px; font: 600 12px/1 "Inter", sans-serif; font-style: normal; color: #fff; padding: 3px 6px; border-radius: 8px; background: rgba(0, 0, 0, 0.6); }
+        /* the CV */
+        #a-cv { left: 260px; top: 740px; width: 560px; height: 780px; padding: 56px 52px; opacity: 0; }
+        .cv-h b { display: block; font: 700 40px/1.05 "Inter Display", sans-serif; letter-spacing: -0.03em; color: #0e1012; }
+        .cv-h span { display: block; margin-top: 10px; font: 500 22px/1 "Inter", sans-serif; color: #8a9297; }
+        .cv-sec { margin-top: 44px; font: 700 18px/1 "Inter", sans-serif; letter-spacing: 0.16em; color: #b4bbbf; }
+        #a-line { position: relative; display: inline-block; margin-top: 18px; padding: 6px 10px; font: 700 30px/1.15 "Inter", sans-serif; letter-spacing: -0.02em; color: #0e1012; }
+        #a-mark { position: absolute; inset: 0; border-radius: 8px; background: rgba(249, 115, 22, 0.28); transform-origin: 0% 50%; z-index: -1; }
+        #a-line { isolation: isolate; }
+        .cv-ph { display: block; height: 14px; border-radius: 7px; background: #eceeef; margin-top: 18px; }
+        .cv-ph.s { width: 64%; }
+        .cv-ph.t { width: 42%; }
+        .a-fly { position: absolute; left: 0; top: 0; width: 150px; height: 150px; margin: -75px 0 0 -75px; border-radius: 22px; overflow: hidden; opacity: 0; box-shadow: 0 20px 44px rgba(0, 0, 0, 0.5); z-index: 30; }
+        .a-fly img { display: block; width: 100%; height: 100%; object-fit: cover; }
+      </style>
+
+      <div data-hf-id="hf-3mpt" id="a-root" data-composition-id="accroche" data-width="1080" data-height="1920">
+        <div data-hf-id="hf-5q6w" class="stg">
+          <div data-hf-id="hf-sdes" id="a-halo" class="halo"></div>
+          <div data-hf-id="hf-25pg" id="a-pw" class="mui">
+            <div data-hf-id="hf-wooo" id="a-ph" class="phone">
+              <div data-hf-id="hf-04vm" class="phone-edge"></div>
+              <div data-hf-id="hf-q65t" class="phone-body"></div>
+              <div data-hf-id="hf-cdmk" class="screen">
+                <div data-hf-id="hf-633s" class="gal">
+                  <div data-hf-id="hf-1glm" class="gal-top"><b data-hf-id="hf-kc1n">Récents</b><span data-hf-id="hf-4xe2">Chantiers · 248 éléments</span></div>
+                  <div data-hf-id="hf-32ir" id="a-grid"></div>
+                </div>
+              </div>
+              <div data-hf-id="hf-7sfr" class="island"></div>
+              <div data-hf-id="hf-rnc3" class="homebar" style="background:#f5f4f1"></div>
+              <div data-hf-id="hf-62pl" class="glare"></div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-t7ab" id="a-cv" class="fcard">
+            <div data-hf-id="hf-4zg8" class="cv-h"><b data-hf-id="hf-nc5j">Jules Moreau</b><span data-hf-id="hf-ldvx">Curriculum vitæ · Rennes</span></div>
+            <div data-hf-id="hf-qqar" class="cv-sec">EXPÉRIENCE</div>
+            <div data-hf-id="hf-ska5" id="a-line"><i data-hf-id="hf-paxg" id="a-mark"></i>Serrurier-métallier — 3 ans</div>
+            <div data-hf-id="hf-pa1a" class="cv-sec">FORMATION</div>
+            <i data-hf-id="hf-7hu4" class="cv-ph"></i><i data-hf-id="hf-1w2v" class="cv-ph s"></i>
+            <div data-hf-id="hf-qrjb" class="cv-sec">COMPÉTENCES</div>
+            <i data-hf-id="hf-6nfo" class="cv-ph"></i><i data-hf-id="hf-0r47" class="cv-ph s"></i><i data-hf-id="hf-5u6w" class="cv-ph t"></i>
+          </div>
+          <div data-hf-id="hf-xqll" id="a-flys"></div>
+
+          <div data-hf-id="hf-dg9b" id="a-k1" class="kt" data-line="1"><span data-hf-id="hf-w0ff" class="m">Tes plus belles</span><br data-hf-id="hf-x5px">réalisations dorment<br data-hf-id="hf-rsrt"><span data-hf-id="hf-cn4t" class="m">dans ta</span> <span data-hf-id="hf-p9zl" class="pill">galerie photo.</span></div>
+          <div data-hf-id="hf-r7t0" id="a-k2" class="kt" data-line="2"><span data-hf-id="hf-acr4" class="m">Et sur ton</span> CV ?<br data-hf-id="hf-szow"><span data-hf-id="hf-9nfg" class="m">Une seule</span> <span data-hf-id="hf-zjh1" class="pill">ligne.</span></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const T0 = window.CUES.S.accroche[0];
+          const L = (t) => +(t - T0).toFixed(3);
+          const W = window.W;
+          const root = document.getElementById("a-root");
+          const $ = (s) => root.querySelector(s);
+
+          // gallery: réalisations, some as videos
+          const P = ["jules-portail", "B1", "escalier", "C0", "garde-corps", "A3", "portail-detail", "B2", "C2", "A1", "B0", "C1",
+            "A2", "B3", "C3", "A0", "escalier", "jules-portail", "C0", "garde-corps", "B1", "A3", "portail-detail", "C2", "B2", "A1", "C1"];
+          const VID = { 1: "0:12", 5: "0:34", 10: "0:08", 16: "0:21", 22: "0:15" };
+          const grid = $("#a-grid");
+          P.forEach((p, i) => {
+            const d = document.createElement("div");
+            d.className = "t";
+            d.innerHTML = `<img src="assets/photos/${p}.jpg" alt="">` + (VID[i] ? `<em>▶ ${VID[i]}</em>` : "");
+            grid.appendChild(d);
+          });
+          // photos that will fly into the single CV line
+          const FLY = [["jules-portail", 300, 980], ["escalier", 780, 1010], ["garde-corps", 250, 1330], ["C0", 830, 1290], ["portail-detail", 540, 1540], ["B1", 420, 1160]];
+          const flys = FLY.map(([p, x, y]) => {
+            const d = document.createElement("div");
+            d.className = "a-fly";
+            d.innerHTML = `<img src="assets/photos/${p}.jpg" alt="">`;
+            $("#a-flys").appendChild(d);
+            gsap.set(d, { x, y });
+            return d;
+          });
+
+          // measure captions once the fonts are final, then build and register
+          document.fonts.ready.then(() => {
+          const tl = gsap.timeline({ paused: true });
+          // ---- L1: the gallery, alive from the first frame
+          tl.fromTo("#a-ph", { opacity: 0.001, y: 90, scale: 1.02, rotationY: -22, rotationX: 10, filter: "blur(10px)" },
+            { opacity: 1, y: 0, scale: 1.1, rotationY: -12, rotationX: 7, filter: "blur(0px)", duration: 0.7, ease: "power3.out", immediateRender: true }, 0);
+          tl.fromTo("#a-ph", { rotationZ: 0 }, { rotationZ: -2, duration: 3.1, ease: "sine.inOut", immediateRender: true }, 0);
+          tl.fromTo("#a-grid", { y: 0 }, { y: -560, duration: 3.1, ease: "sine.inOut", immediateRender: true }, 0.15);
+          tl.fromTo("#a-halo", { opacity: 0, scale: 0.7 }, { opacity: 0.9, scale: 1, duration: 1.2, ease: "power2.out", immediateRender: true }, 0);
+          window.KT.animate(tl, $("#a-k1"), T0, { out: W(2, "Et") - 0.24 });
+          // ---- L2: the phone leaves, the CV arrives
+          tl.to("#a-ph", { opacity: 0, scale: 0.86, y: 80, filter: "blur(14px)", duration: 0.34, ease: "power2.in" }, L(W(2, "Et") - 0.2));
+          tl.to("#a-halo", { opacity: 0.45, scale: 0.8, duration: 0.5 }, L(W(2, "Et") - 0.2));
+          tl.fromTo("#a-cv", { opacity: 0, y: 140, rotation: -3, filter: "blur(12px)" }, { opacity: 1, y: 0, rotation: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out", immediateRender: true }, L(W(2, "Et")));
+          window.KT.animate(tl, $("#a-k2"), T0, { out: window.CUES.S.question[0] - 0.22 });
+          // « Une seule ligne » : the réalisations get swallowed by one line
+          const lineX = 540, lineY = 1000;
+          flys.forEach((d, i) => {
+            const [, x, y] = FLY[i];
+            const at = L(W(2, "Une") - 0.14 + i * 0.05);
+            tl.fromTo(d, { opacity: 0, x, y, scale: 0.6, rotation: (i % 2 ? 8 : -8) }, { opacity: 1, x, y, scale: 1, rotation: (i % 2 ? 4 : -4), duration: 0.18, ease: "power2.out", immediateRender: false }, at);
+            tl.fromTo(d, { x, y, scale: 1, opacity: 1 }, { x: lineX, y: lineY, scale: 0.12, opacity: 0, rotation: 0, duration: 0.42, ease: "power3.in", immediateRender: false }, at + 0.2);
+          });
+          tl.fromTo("#a-mark", { scaleX: 0 }, { scaleX: 1, duration: 0.32, ease: "power3.out", immediateRender: true }, L(W(2, "ligne") - 0.02));
+          tl.fromTo("#a-line", { scale: 1 }, { scale: 1.08, duration: 0.14, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, L(W(2, "ligne")));
+          // exit
+          tl.to("#a-cv", { opacity: 0, y: -60, scale: 0.94, filter: "blur(12px)", duration: 0.24, ease: "power2.in" }, L(window.CUES.S.question[0] - 0.26));
+          window.__timelines["accroche"] = tl;
+          });
+        })();
+      </script>
+    </template>
+  </body>
+</html>

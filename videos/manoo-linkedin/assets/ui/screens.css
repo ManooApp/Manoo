@@ -1,0 +1,103 @@
+/* Manoo TikTok — app screens inside the phone (on top of the kit in manoo-ui.css). The .d-* helpers come from the
+   explainer's phone layer; camera, search, chat and lock screen are new for the vertical film. */
+
+/* the phone on the light stage: soft shadow, no glow */
+.stg .phone-edge { box-shadow: 0 60px 110px rgba(16, 22, 25, 0.24), 0 14px 34px rgba(16, 22, 25, 0.14); }
+
+.d-scroll { position: absolute; left: 0; right: 0; top: 168px; }
+.d-pad { padding: 16px 14px 0; }
+.d-pad > * + * { margin-top: 14px; }
+.d-hero { padding: 22px 20px 20px; }
+.d-hero h3 { font: 600 22px/1.2 "Inter", sans-serif; color: var(--tx-strong); letter-spacing: -0.02em; }
+.d-hero p { margin-top: 8px; font: 400 15px/1.55 "Inter", sans-serif; color: var(--tx-soft); }
+.d-hero .btn { margin-top: 16px; width: 100%; }
+.jm { background: linear-gradient(135deg, #fd8b3a, #e4702e); color: #fff; font: 700 17px/1 "Inter", sans-serif; letter-spacing: -0.02em; }
+.d-media-h { height: 176px; }
+.d-pf { padding: 22px 20px 18px; }
+.d-pf-top { display: flex; gap: 16px; align-items: center; }
+.d-pf .pf-av { width: 84px; height: 84px; display: flex; align-items: center; justify-content: center; font: 700 28px/1 "Inter", sans-serif; }
+.d-pf .pf-name { font-size: 22px; }
+.d-pf .pf-job { margin-top: 4px; font-size: 15px; }
+.d-pf .pf-meta { margin-top: 8px; font-size: 13px; }
+.d-pf .stats { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--bd); }
+.d-pf-btns { margin-top: 14px; display: flex; gap: 8px; }
+.d-pf-btns .btn { flex: 1; height: 44px; font-size: 15px; }
+.d-pfolio-h { display: flex; justify-content: space-between; align-items: center; padding: 14px 4px 10px; }
+.d-grid { grid-template-columns: 1fr 1fr; }
+.d-grid .cell { height: 172px; }
+.d-dim { position: absolute; inset: 0; background: rgba(14, 10, 7, 0.45); opacity: 0; z-index: 48; }
+.d-sheet { position: absolute; left: 0; right: 0; bottom: 0; height: 600px; padding: 12px 20px 30px; background: #fff; border-radius: 28px 28px 0 0; z-index: 49; }
+.d-handle { width: 44px; height: 5px; border-radius: 3px; background: #ddd6ce; margin: 0 auto 16px; }
+.d-sh-t { display: flex; justify-content: space-between; align-items: center; font: 700 20px/1 "Inter", sans-serif; letter-spacing: -0.02em; color: var(--tx-strong); }
+.d-sh-t .ic { width: 22px; height: 22px; color: var(--tx-muted); }
+.d-drop { position: relative; margin-top: 18px; height: 236px; border-radius: 18px; border: 2px dashed var(--bd-input); background: #fbf8f5; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; font: 500 14px/1 "Inter", sans-serif; color: var(--tx-soft); }
+.d-drop .ic { width: 30px; height: 30px; color: var(--primary); }
+.d-drop-img { position: absolute; inset: 0; opacity: 0; }
+.d-drop-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.d-fmt { margin-top: 10px; font: 400 12px/1.4 "Inter", sans-serif; color: var(--tx-muted); }
+.d-sheet .btn { margin-top: 18px; width: 100%; }
+.d-toast { position: absolute; left: 14px; right: 14px; top: 60px; z-index: 58; opacity: 0; }
+.d-notif { position: absolute; left: 10px; right: 10px; top: 52px; z-index: 59; opacity: 0; }
+.post-acts .liked { color: #e11d48; }
+
+/* native camera (Jules takes the photo) */
+.cam { position: absolute; inset: 0; background: #000; overflow: hidden; }
+.cam-view { position: absolute; left: 0; right: 0; top: 104px; height: 560px; overflow: hidden; }
+.cam-view img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cam-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.32) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.32) 1px, transparent 1px); background-size: 100% 33.333%, 33.333% 100%; background-position: 0 -1px, -1px 0; }
+.cam-top { position: absolute; left: 0; right: 0; top: 58px; display: flex; justify-content: space-between; padding: 0 26px; color: #fff; font: 600 13px/1 "Inter", sans-serif; letter-spacing: 0.06em; }
+.cam-top .ic { width: 22px; height: 22px; }
+.cam-modes { position: absolute; left: 0; right: 0; top: 684px; display: flex; justify-content: center; gap: 24px; font: 600 14px/1 "Inter", sans-serif; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.62); }
+.cam-modes .on { color: #ffd60a; }
+.cam-bot { position: absolute; left: 0; right: 0; top: 724px; height: 96px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+.cam-thumb { width: 54px; height: 54px; border-radius: 12px; overflow: hidden; background: #1c1c1e; border: 2px solid rgba(255, 255, 255, 0.85); }
+.cam-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+.cam-shut { width: 86px; height: 86px; border-radius: 50%; border: 5px solid #fff; display: flex; align-items: center; justify-content: center; }
+.cam-shut i { display: block; width: 66px; height: 66px; border-radius: 50%; background: #fff; }
+.cam-flip { width: 54px; height: 54px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); display: flex; align-items: center; justify-content: center; color: #fff; }
+.cam-flip .ic { width: 24px; height: 24px; }
+.cam-focus { position: absolute; left: 50%; top: 50%; width: 104px; height: 104px; margin: -52px 0 0 -52px; border: 2px solid #ffd60a; opacity: 0; }
+.cam-flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 30; }
+
+/* search (company account) */
+.s-pad { position: absolute; left: 0; right: 0; top: 168px; padding: 18px 16px 0; }
+.s-badge { display: inline-flex; align-items: center; gap: 7px; height: 28px; padding: 0 12px; border-radius: 999px; background: var(--chip-bg); color: var(--chip-tx); font: 500 13px/1 "Inter", sans-serif; }
+.s-badge .ic { width: 15px; height: 15px; }
+.s-title { margin-top: 12px; font: 700 26px/1.12 "Inter", sans-serif; letter-spacing: -0.03em; color: var(--tx-strong); }
+.s-fields { margin-top: 14px; display: grid; gap: 10px; }
+.s-row { display: flex; gap: 10px; }
+.s-row .select { flex: 1; height: 46px; font-size: 14px; }
+.s-count { margin-top: 14px; font: 500 13px/1 "Inter", sans-serif; color: var(--tx-muted); }
+.s-results { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.s-card { border-radius: 18px; overflow: hidden; background: #fff; border: 1px solid var(--bd); box-shadow: 0 6px 18px rgba(30, 24, 19, 0.06); }
+.s-card .im { height: 128px; }
+.s-card .im img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.s-card .who { padding: 9px 10px 11px; }
+.s-card .nm { font: 600 13px/1.2 "Inter", sans-serif; color: var(--tx-strong); }
+.s-card .jb { margin-top: 3px; font: 400 11px/1.2 "Inter", sans-serif; color: var(--tx-muted); }
+.s-card.hl { box-shadow: 0 0 0 3px var(--primary), 0 14px 30px rgba(227, 110, 45, 0.3); }
+.acct { width: 34px; height: 34px; border-radius: 50%; background: #45b7d1; color: #fff; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(255, 255, 255, 0.9); }
+.acct .ic { width: 18px; height: 18px; }
+
+/* profile seen by the company */
+.p-follow.on { background: #ecfdf3; color: #157f3c; box-shadow: inset 0 0 0 1.5px #22c55e; }
+
+/* chat */
+.c-head { position: absolute; left: 0; right: 0; top: 0; height: 128px; padding: 58px 16px 0; background: #fff; border-bottom: 1px solid var(--bd); display: flex; align-items: center; gap: 12px; z-index: 40; }
+.c-head .back { width: 22px; height: 22px; color: var(--tx); }
+.c-head .avatar { width: 44px; height: 44px; border-radius: 50%; font: 700 16px/1 "Inter", sans-serif; }
+.c-head .nm { font: 600 17px/1.2 "Inter", sans-serif; color: var(--tx-strong); }
+.c-head .jb { margin-top: 2px; font: 400 13px/1.2 "Inter", sans-serif; color: var(--tx-muted); }
+.c-body { position: absolute; left: 0; right: 0; top: 128px; bottom: 96px; padding: 18px 14px; display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; }
+.c-empty { position: absolute; left: 0; right: 0; top: 46%; text-align: center; font: 400 14px/1 "Inter", sans-serif; color: var(--tx-muted); }
+.c-in { position: absolute; left: 0; right: 0; bottom: 0; height: 96px; padding: 14px 14px 34px; background: #fff; border-top: 1px solid var(--bd); display: flex; gap: 10px; align-items: center; }
+.c-in .input { margin: 0; flex: 1; height: 46px; border-radius: 23px; font-size: 14px; }
+.c-send { width: 46px; height: 46px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; flex: none; }
+.c-send .ic { width: 20px; height: 20px; }
+
+/* lock screen (Jules' phone) */
+.lock { position: absolute; inset: 0; background: radial-gradient(ellipse 120% 70% at 50% 0%, #3a4a55 0%, #1b252c 55%, #0e1418 100%); }
+.lock-time { position: absolute; left: 0; right: 0; top: 118px; text-align: center; font: 600 92px/1 "Inter Display", sans-serif; letter-spacing: -0.04em; color: #f3f2ef; }
+.lock-date { position: absolute; left: 0; right: 0; top: 92px; text-align: center; font: 500 18px/1 "Inter", sans-serif; color: rgba(243, 242, 239, 0.8); }
+.lock .notif { position: absolute; left: 12px; right: 12px; top: 300px; }
+.lock .notif-d { white-space: normal; }
