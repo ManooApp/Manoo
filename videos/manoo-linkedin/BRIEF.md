@@ -12,7 +12,7 @@ length: 50-58s
 angle: "Pub narrative au style de la référence « Pulse » (Abdullah.A) : accroche à la deuxième personne, question, limites des approches classiques, pivot « elles se voient / se partagent / se démontrent », révélation, démonstration dans l'interface, communauté, entreprises, nuance « ne remplace pas le CV », signature."
 narration: yes
 vo_mode: restructured
-voice: "Hugo (ElevenLabs DbbNuBL7lf62XwY7arQb), demandée le 2026-10-18 — v1 montée avec Kokoro ff_siwis en attendant la prise ElevenLabs (tools/vo-elevenlabs.py ou tools/vo-split.py)"
+voice: "Hugo (ElevenLabs DbbNuBL7lf62XwY7arQb) — prise unique fournie par l'utilisateur le 2026-10-18, découpée et recalée en v2 ; la v1 utilisait Kokoro ff_siwis"
 ---
 
 ## Intent

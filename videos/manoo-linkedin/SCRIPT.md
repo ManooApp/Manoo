@@ -5,8 +5,11 @@
 - automatique : `python3 tools/vo-elevenlabs.py` (clé `ELEVENLABS_API_KEY` dans l'environnement) → `assets/audio/vo/elevenlabs/` ;
 - à la main : lire d'une traite le texte de `python3 tools/vo-elevenlabs.py --text` sur le site ElevenLabs, puis
   `python3 tools/vo-split.py prise.mp3` → `assets/audio/vo/take/`.
-Prise actuellement montée (v1) : Kokoro `ff_siwis` (local, provisoire).
-**Voice settings:** vitesse 1.05 · une réplique = un fichier · silences posés entre les répliques (colonne `gap`).
+Prise montée (v2) : Hugo, prise unique générée sur le site ElevenLabs le 2026-10-18 (réglages lus dans le nom du
+fichier : sp100, s97, sb92, v4), gardée dans `assets/audio/vo/hugo-elevenlabs-take.mp3` et découpée dans
+`assets/audio/vo/take/`. La v1 était montée avec Kokoro `ff_siwis` (`assets/audio/vo/src/`).
+**Voice settings:** une réplique = un fichier (ou une prise unique découpée) · silences posés entre les répliques
+(colonne `gap`) · Kokoro : vitesse 1.05.
 **Voice direction:** Chaleureuse, assurée, proche — on parle à un pro de terrain, pas à un DRH. Comme la référence :
 des phrases courtes, une idée par phrase, un léger appui sur le mot qui apparaît dans la pastille.
 

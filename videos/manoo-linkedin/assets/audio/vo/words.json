@@ -2,7 +2,7 @@
  {
   "id": 1,
   "start": 0.3,
-  "end": 2.99,
+  "end": 3.0,
   "text": "Tes plus belles réalisations dorment dans ta galerie photo.",
   "words": [
    [
@@ -11,11 +11,11 @@
    ],
    [
     "plus",
-    0.48
+    0.5
    ],
    [
     "belles",
-    0.7
+    0.74
    ],
    [
     "réalisations",
@@ -23,89 +23,89 @@
    ],
    [
     "dorment",
-    1.66
+    1.78
    ],
    [
     "dans",
-    2.02
+    2.08
    ],
    [
     "ta",
-    2.16
+    2.22
    ],
    [
     "galerie",
-    2.32
+    2.36
    ],
    [
     "photo.",
-    2.7
+    2.74
    ]
   ],
-  "heard": "T'es plus belle réalisation d'hormes dans ta galerie photo."
+  "heard": "tes plus belles réalisations dorment dans ta galerie photo."
  },
  {
   "id": 2,
-  "start": 3.24,
-  "end": 4.96,
+  "start": 3.25,
+  "end": 5.24,
   "text": "Et sur ton CV ? Une seule ligne.",
   "words": [
    [
     "Et",
-    3.26
+    3.25
    ],
    [
     "sur",
-    3.42
+    3.45
    ],
    [
     "ton",
-    3.58
+    3.57
    ],
    [
     "CV",
-    3.88
+    3.81
    ],
    [
     "Une",
-    4.18
+    4.495
    ],
    [
     "seule",
-    4.4
+    4.545
    ],
    [
     "ligne.",
-    4.74
+    4.99
    ]
   ],
-  "heard": "et sur ton CV une seule ligne."
+  "heard": "Et sur ton CV, une seule ligne !"
  },
  {
   "id": 3,
-  "start": 5.36,
-  "end": 8.03,
+  "start": 5.64,
+  "end": 7.95,
   "text": "Comment montrer ce que tu sais faire, avant l'entretien ?",
   "words": [
    [
     "Comment",
-    5.46
+    5.72
    ],
    [
     "montrer",
-    5.84
-   ],
-   [
-    "ce",
     6.04
    ],
    [
+    "ce",
+    6.14
+   ],
+   [
     "que",
-    6.18
+    6.26
    ],
    [
     "tu",
-    6.3
+    6.32
    ],
    [
     "sais",
@@ -113,633 +113,633 @@
    ],
    [
     "faire,",
-    6.92
+    6.86
    ],
    [
     "avant",
-    7.24
+    7.245
    ],
    [
     "l'entretien",
-    7.38
+    7.295
    ]
   ],
   "heard": "Comment montrer ce que tu sais faire avant l'entretien ?"
  },
  {
   "id": 4,
-  "start": 8.48,
-  "end": 10.74,
+  "start": 8.4,
+  "end": 10.77,
   "text": "Les réseaux pros ? Pensés d'abord pour les bureaux.",
   "words": [
    [
     "Les",
-    8.52
+    8.42
    ],
    [
     "réseaux",
-    8.72
+    8.58
    ],
    [
     "pros",
-    9.04
+    8.88
    ],
    [
     "Pensés",
-    9.48
+    9.46
    ],
    [
     "d'abord",
-    9.7
+    9.76
    ],
    [
     "pour",
-    10.06
+    10.18
    ],
    [
     "les",
-    10.22
+    10.34
    ],
    [
     "bureaux.",
-    10.4
+    10.48
    ]
   ],
   "heard": "Les réseaux pros, pensez d'abord pour les bureaux."
  },
  {
   "id": 5,
-  "start": 10.99,
-  "end": 12.98,
+  "start": 11.02,
+  "end": 13.46,
   "text": "Les sites d'emploi ? Une annonce, un CV.",
   "words": [
    [
     "Les",
-    11.03
+    11.08
    ],
    [
     "sites",
-    11.23
+    11.24
    ],
    [
     "d'emploi",
-    11.37
+    11.31
    ],
    [
     "Une",
-    11.83
+    12.18
    ],
    [
     "annonce,",
-    12.01
+    12.23
    ],
    [
     "un",
-    12.41
+    12.94
    ],
    [
     "CV.",
-    12.69
+    12.99
    ]
   ],
   "heard": "Les sites d'emploi, une annonce, un CV."
  },
  {
   "id": 6,
-  "start": 13.23,
-  "end": 15.5,
+  "start": 13.71,
+  "end": 16.52,
   "text": "L'intérim ? Utile, mais souvent ponctuel.",
   "words": [
    [
     "L'intérim",
-    13.27
+    13.77
    ],
    [
     "Utile,",
-    13.99
+    14.71
    ],
    [
     "mais",
-    14.41
+    15.39
    ],
    [
     "souvent",
-    14.61
+    15.715
    ],
    [
     "ponctuel.",
-    14.83
+    15.95
    ]
   ],
-  "heard": "L'intérim utile, mais souvent ponctuel."
+  "heard": "L'intérim, utile mais souvent ponctuel."
  },
  {
   "id": 7,
-  "start": 16.0,
-  "end": 18.52,
+  "start": 17.02,
+  "end": 19.54,
   "text": "Pourtant, tes compétences ne tiennent pas dans un CV.",
   "words": [
    [
     "Pourtant,",
-    16.04
+    17.04
    ],
    [
     "tes",
-    16.48
+    17.6
    ],
    [
     "compétences",
-    16.68
+    17.78
    ],
    [
     "ne",
-    17.28
+    18.24
    ],
    [
     "tiennent",
-    17.46
+    18.29
    ],
    [
     "pas",
-    17.68
+    18.72
    ],
    [
     "dans",
-    17.82
+    18.88
    ],
    [
     "un",
-    17.98
+    19.06
    ],
    [
     "CV.",
-    18.22
+    19.28
    ]
   ],
   "heard": "Pourtant, tes compétences ne tiennent pas dans un CV."
  },
  {
   "id": 8,
-  "start": 18.82,
-  "end": 21.33,
+  "start": 19.84,
+  "end": 23.22,
   "text": "Elles se voient. Elles se partagent. Elles se démontrent.",
   "words": [
    [
     "Elles",
-    18.86
+    19.88
    ],
    [
     "se",
-    19.06
+    20.12
    ],
    [
     "voient.",
-    19.24
+    20.4
    ],
    [
     "Elles",
-    19.42
+    20.955
    ],
    [
     "se",
-    19.58
+    21.005
    ],
    [
     "partagent.",
-    19.82
+    21.46
    ],
    [
     "Elles",
-    20.42
+    22.235
    ],
    [
     "se",
-    20.58
+    22.285
    ],
    [
     "démontrent.",
-    20.78
+    22.72
    ]
   ],
   "heard": "Elle se voit, elle se partage, elle se démontre."
  },
  {
   "id": 9,
-  "start": 21.93,
-  "end": 22.74,
+  "start": 23.82,
+  "end": 24.6,
   "text": "Voici Manoo.",
   "words": [
    [
     "Voici",
-    22.01
+    23.86
    ],
    [
     "Manoo.",
-    22.43
+    24.2
    ]
   ],
-  "heard": "Voici Mano."
+  "heard": "Voici Manu."
  },
  {
   "id": 10,
-  "start": 23.74,
-  "end": 26.34,
+  "start": 25.6,
+  "end": 28.82,
   "text": "Tu termines un chantier ? Photos, vidéos : tu publies.",
   "words": [
    [
     "Tu",
-    23.74
+    25.6
    ],
    [
     "termines",
-    23.98
-   ],
-   [
-    "un",
-    24.32
-   ],
-   [
-    "chantier",
-    24.46
-   ],
-   [
-    "Photos,",
-    25.16
-   ],
-   [
-    "vidéos",
-    25.54
-   ],
-   [
-    "tu",
     25.8
    ],
    [
-    "publies.",
+    "un",
     26.04
+   ],
+   [
+    "chantier",
+    26.12
+   ],
+   [
+    "Photos,",
+    26.83
+   ],
+   [
+    "vidéos",
+    27.66
+   ],
+   [
+    "tu",
+    28.16
+   ],
+   [
+    "publies.",
+    28.48
    ]
   ],
-  "heard": "Tu termines un chantier, photo, vidéo, tu publie."
+  "heard": "Tu termines un chantier ? Photo, vidéo, tu publie."
  },
  {
   "id": 11,
-  "start": 26.54,
-  "end": 28.37,
+  "start": 29.02,
+  "end": 30.91,
   "text": "Ton profil devient une vraie vitrine.",
   "words": [
    [
     "Ton",
-    26.56
+    29.02
    ],
    [
     "profil",
-    26.8
+    29.3
    ],
    [
     "devient",
-    27.28
+    29.7
    ],
    [
     "une",
-    27.48
+    29.98
    ],
    [
     "vraie",
-    27.64
+    30.24
    ],
    [
     "vitrine.",
-    27.82
+    30.48
    ]
   ],
   "heard": "Ton profil devient une vraie vitrine."
  },
  {
   "id": 12,
-  "start": 28.82,
-  "end": 30.39,
+  "start": 31.36,
+  "end": 33.09,
   "text": "Manoo, c'est aussi une communauté.",
   "words": [
    [
     "Manoo,",
-    28.96
+    31.405
    ],
    [
     "c'est",
-    29.22
+    31.895
    ],
    [
     "aussi",
-    29.48
+    32.005
    ],
    [
     "une",
-    29.62
+    32.34
    ],
    [
     "communauté.",
-    30.1
+    32.78
    ]
   ],
-  "heard": "Manu, c'est aussi une communauté."
+  "heard": "Manou, c'est aussi une communauté."
  },
  {
   "id": 13,
-  "start": 30.64,
-  "end": 32.99,
+  "start": 33.34,
+  "end": 35.76,
   "text": "Une question ? Des pros de ton métier te répondent.",
   "words": [
    [
     "Une",
-    30.68
+    33.36
    ],
    [
     "question",
-    31.0
+    33.64
    ],
    [
     "Des",
-    31.36
+    34.165
    ],
    [
     "pros",
-    31.56
+    34.46
    ],
    [
     "de",
-    31.7
+    34.6
    ],
    [
     "ton",
-    31.82
+    34.7
    ],
    [
     "métier",
-    32.02
+    34.9
    ],
    [
     "te",
-    32.26
+    35.16
    ],
    [
     "répondent.",
-    32.6
+    35.46
    ]
   ],
-  "heard": "Une question des pros de ton métier te répondent."
+  "heard": "Une question ? Des pros de ton métier te répondent."
  },
  {
   "id": 14,
-  "start": 33.24,
-  "end": 34.95,
+  "start": 36.01,
+  "end": 37.62,
   "text": "Tu partages tes astuces de terrain.",
   "words": [
    [
     "Tu",
-    33.24
+    36.03
    ],
    [
     "partages",
-    33.46
+    36.31
    ],
    [
     "tes",
-    33.88
+    36.65
    ],
    [
     "astuces",
-    34.1
+    36.7
    ],
    [
     "de",
-    34.38
+    37.055
    ],
    [
     "terrain.",
-    34.66
+    37.39
    ]
   ],
   "heard": "Tu partages tes astuces de terrain."
  },
  {
   "id": 15,
-  "start": 35.45,
-  "end": 39.81,
+  "start": 38.12,
+  "end": 42.97,
   "text": "Les entreprises, elles, montrent leurs chantiers, leurs équipes, leurs coulisses… près de chez toi.",
   "words": [
    [
     "Les",
-    35.47
+    38.14
    ],
    [
     "entreprises,",
-    36.03
+    38.6
    ],
    [
     "elles,",
-    36.63
+    39.08
    ],
    [
     "montrent",
-    36.93
+    39.44
    ],
    [
     "leurs",
-    37.17
+    39.7
    ],
    [
     "chantiers,",
-    37.45
+    39.96
    ],
    [
     "leurs",
-    37.89
+    40.54
    ],
    [
     "équipes,",
-    38.15
+    40.86
    ],
    [
     "leurs",
-    38.49
+    41.345
    ],
    [
     "coulisses…",
-    38.73
+    41.62
    ],
    [
     "près",
-    39.13
+    42.295
    ],
    [
     "de",
-    39.25
+    42.345
    ],
    [
     "chez",
-    39.39
+    42.56
    ],
    [
     "toi.",
-    39.57
+    42.74
    ]
   ],
-  "heard": "Les entreprises, elles, montrent leurs chantiers, leurs équipes, leurs coulisses près de chez toi."
+  "heard": "Les entreprises, elles, montrent leur chantier, leurs équipes, leurs coulisses, près de chez toi."
  },
  {
   "id": 16,
-  "start": 40.16,
-  "end": 42.2,
+  "start": 43.32,
+  "end": 45.22,
   "text": "Ton travail leur plaît ? Elles te contactent.",
   "words": [
    [
     "Ton",
-    40.18
+    43.32
    ],
    [
     "travail",
-    40.5
+    43.58
    ],
    [
     "leur",
-    40.7
+    43.76
    ],
    [
     "plaît",
-    40.92
+    43.96
    ],
    [
     "Elles",
-    41.22
+    44.42
    ],
    [
     "te",
-    41.38
+    44.47
    ],
    [
     "contactent.",
-    41.8
+    44.88
    ]
   ],
   "heard": "Ton travail leur plaît, elle te contacte."
  },
  {
   "id": 17,
-  "start": 42.8,
-  "end": 46.0,
+  "start": 45.82,
+  "end": 49.37,
   "text": "Manoo ne remplace pas le CV. Il montre ce qu'il ne dit pas.",
   "words": [
    [
     "Manoo",
-    42.92
+    45.865
    ],
    [
     "ne",
-    43.16
+    46.2
    ],
    [
     "remplace",
-    43.32
+    46.42
    ],
    [
     "pas",
-    43.72
+    46.86
    ],
    [
     "le",
-    43.84
+    46.91
    ],
    [
     "CV.",
-    44.08
+    47.22
    ],
    [
     "Il",
-    44.6
+    47.84
    ],
    [
     "montre",
-    44.9
+    48.18
    ],
    [
     "ce",
-    45.14
+    48.42
    ],
    [
     "qu'il",
-    45.26
+    48.52
    ],
    [
     "ne",
-    45.44
+    48.74
    ],
    [
     "dit",
-    45.56
+    48.96
    ],
    [
     "pas.",
-    45.8
+    49.2
    ]
   ],
   "heard": "Manu ne remplace pas le CV, il montre ce qu'il ne dit pas."
  },
  {
   "id": 18,
-  "start": 46.7,
-  "end": 48.86,
+  "start": 50.07,
+  "end": 52.87,
   "text": "Manoo. Le savoir-faire, enfin visible.",
   "words": [
    [
     "Manoo.",
-    46.8
+    50.115
    ],
    [
     "Le",
-    47.06
+    50.85
    ],
    [
     "savoir-faire,",
-    47.26
+    51.105
    ],
    [
     "enfin",
-    48.06
+    51.995
    ],
    [
     "visible.",
-    48.56
+    52.55
    ]
   ],
-  "heard": "Manou le savoir-faire enfin visible."
+  "heard": "Manou, le savoir-faire enfin visible."
  },
  {
   "id": 19,
-  "start": 49.21,
-  "end": 51.31,
+  "start": 53.22,
+  "end": 55.36,
   "text": "Crée ton portfolio sur manoo.fr.",
   "words": [
    [
     "Crée",
-    49.21
+    53.26
    ],
    [
     "ton",
-    49.43
+    53.42
    ],
    [
     "portfolio",
-    49.73
+    53.7
    ],
    [
     "sur",
-    50.11
+    54.18
    ],
    [
     "manoo.fr.",
-    50.27
+    54.46
    ]
   ],
-  "heard": "Créé ton portfolio sur manou.fr"
+  "heard": "Créé ton portfolio sur manu.fr"
  }
 ]

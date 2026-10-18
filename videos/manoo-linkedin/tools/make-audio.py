@@ -83,7 +83,10 @@ T_GAP = W(9, "Voici") - 0.08  # silence on « Voici »
 T_BELLS = S0("communaute")
 T_DOWN = bar_t(K2 - 2)  # breakdown under the nuance
 T_GAP2 = HIT2 - 0.18
-T_BUTTON = min(bar_t(K2 + 2), END - 1.6)  # final chord, once the call to action is said
+# final chord: the first downbeat or third beat once the call to action is said, with room left to ring out
+_strong = [bar_t(b) + q * BEAT for b in range(K2, K2 + 8) for q in (0, 2)]
+T_BUTTON = next((t for t in _strong if t >= VO["voiceEnd"] + 0.25), END - 1.4)
+T_BUTTON = min(T_BUTTON, END - 1.4)
 
 CH = {
     "Am": (45, [57, 60, 64, 69]),
@@ -346,7 +349,7 @@ def make_track():
     w = seg(t, [(0, 0.2), (T_BREAK, 0.25), (T_BREAK + 0.4, 0.4), (T_BUILD, 0.45), (T_GAP, 0.8), (HIT1, 0.85), (T_DOWN, 0.85), (T_DOWN + 0.6, 0.6),
                 (T_GAP2, 0.7), (HIT2, 1.0), (END, 1.0)])[:, None]
     g = seg(t, [(0, 0.0), (0.35, 2.2), (T_BREAK - 0.05, 2.2), (T_BREAK + 0.3, 2.6), (T_BUILD, 2.4), (T_GAP - 0.03, 1.4), (T_GAP, 0.0),
-                (HIT1 - 0.001, 0.0), (HIT1, 0.75), (T_DOWN, 0.75), (T_DOWN + 0.4, 1.5), (T_GAP2 - 0.03, 1.5), (T_GAP2, 0.0),
+                (HIT1 - 0.001, 0.0), (HIT1, 0.75), (T_DOWN, 0.75), (T_DOWN + 0.6, 1.3), (T_GAP2 - 0.03, 1.3), (T_GAP2, 0.0),
                 (HIT2 - 0.001, 0.0), (HIT2, 0.8), (T_BUTTON - 0.02, 0.8), (T_BUTTON, 0.0)])
     bed += (dark * (1 - w) + bright * w) * (g * pump)[:, None]
 
@@ -440,9 +443,9 @@ def make_track():
         a = bar_t(b)
         root, notes = chord_at(a + 1e-4)
         for k, m in enumerate(notes):
-            place2(pn, piano(m, 2.6, 1.4), a + 0.012 * k, 1.0, 0.35 + 0.1 * k)
+            place2(pn, piano(m, 2.6, 0.95), a + 0.016 * k, 1.0, 0.35 + 0.1 * k)
         for q in (1, 2, 3):
-            place2(pn, piano(notes[[1, 2, 3][q - 1]] + 12, 1.6, 0.8), a + q * BEAT, 1.0, 0.6)
+            place2(pn, piano(notes[[1, 2, 3][q - 1]] + 12, 1.6, 0.65), a + q * BEAT, 1.0, 0.6)
         place2(bed, bass_note(root, BAR * 0.92), a, 0.12, 0.5)
         if b == K2 - 1:
             for j in range(8):

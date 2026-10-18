@@ -22,6 +22,7 @@ import wave
 from pathlib import Path
 
 import numpy as np
+from scipy.signal import butter, sosfilt
 
 ROOT = Path(__file__).resolve().parent.parent
 SR = 48000
@@ -30,11 +31,12 @@ TAIL = 2.3  # hold after the last line (logo + address on screen)
 VOICE, SPEED, HF = "ff_siwis", "1.05", "hyperframes@0.8.172"
 WHISPER = Path.home() / ".cache/hyperframes/whisper/whisper.cpp/build/bin/whisper-cli"
 WMODEL = Path.home() / ".cache/hyperframes/whisper/models/ggml-small.bin"
-DTW_LAG = 0.12  # whisper.cpp DTW onsets land ~0.1 s late on this voice
+DTW_LAG = 0.12  # whisper.cpp DTW onsets land ~0.1 s late on Kokoro ff_siwis; measure it again for another voice
 
 ap = argparse.ArgumentParser()
 ap.add_argument("--lines", type=Path, help="directory with L01.wav ... LNN.wav from another voice")
 ap.add_argument("--lufs", type=float, default=-16.0)
+ap.add_argument("--dtw-lag", type=float, default=DTW_LAG, help="seconds the whisper DTW onsets land late on this voice")
 args = ap.parse_args()
 
 
@@ -155,7 +157,7 @@ def whisper_words(x, tag, tmp):
                 continue
             dtw = tk.get("t_dtw", -1)
             st = tk["offsets"]["from"] / 1000.0
-            on = dtw / 100.0 - DTW_LAG if dtw is not None and dtw >= 0 else st
+            on = dtw / 100.0 - args.dtw_lag if dtw is not None and dtw >= 0 else st
             if tx.startswith(" ") or cur is None:
                 if cur:
                     out.append(cur)
@@ -193,6 +195,48 @@ def align(tokens, words):
     return res
 
 
+def voice_onset(x):
+    """First 5 ms frame within 30 dB of the line's peak: where the voice really starts in a trimmed line."""
+    win = SR // 200
+    n = len(x) // win
+    db = 20 * np.log10(np.sqrt(np.mean(x[: n * win].reshape(n, win) ** 2, axis=1)) + 1e-9)
+    hit = np.where(db > db.max() - 30)[0]
+    return hit[0] * win / SR if len(hit) else 0.04
+
+
+def rise_after_pause(sig, t, look=0.3, pause=0.07):
+    """Where the signal comes back after the last >= 70 ms stretch under -40 dBFS that ends before t (None if none)."""
+    win = SR // 200
+    i1, i0 = int(t * SR) // win, max(0, int((t - look) * SR) // win)
+    if i1 - i0 < 4:
+        return None
+    seg = sig[i0 * win: i1 * win]
+    db = 20 * np.log10(np.sqrt(np.mean(seg[: (len(seg) // win) * win].reshape(-1, win) ** 2, axis=1)) + 1e-9)
+    quiet = db < -40
+    k = len(db) - 1
+    while k >= 0 and not quiet[k]:
+        k -= 1
+    run_end = k
+    while k >= 0 and quiet[k]:
+        k -= 1
+    if run_end < 0 or (run_end - k) * win / SR < pause:
+        return None
+    rise = next((j for j in range(run_end + 1, len(db)) if db[j] > -35), None)
+    return None if rise is None else (i0 + rise) * win / SR
+
+
+def after_pause(x, xv, t):
+    """A word that follows a pause starts where the voice comes back: whisper's DTW onsets land up to ~0.15 s late on
+    soft consonants (« Manou » after « Voici »). A true silence in the full band is trusted first (its rise keeps a
+    word's leading « s »); otherwise a pause in the voicing band (80-1000 Hz) right before the word, which a breathy
+    tail on the previous word can hide from the full band. Stop closures are shorter than 70 ms and are left alone."""
+    for sig, near in ((x, 0.25), (xv, 0.2)):
+        r = rise_after_pause(sig, t)
+        if r is not None and t - near <= r < t:
+            return r
+    return t
+
+
 tmp = Path(tempfile.mkdtemp(prefix="vo-build-"))
 out_lines = []
 for k, (L, x, s) in enumerate(zip(LINES, parts, starts)):
@@ -203,12 +247,17 @@ for k, (L, x, s) in enumerate(zip(LINES, parts, starts)):
     on = align(keys, ww)
     dur = len(x) / SR
     # fill gaps: first word at the line start, others between their neighbours
-    if on and on[0] is None:
-        on[0] = 0.04
+    # whisper lands a soft first consonant late (« Manou », « Voici »): the first word starts where the voice does
+    v0 = voice_onset(x)
+    xv = sosfilt(butter(4, [80, 1000], "band", fs=SR, output="sos"), x)
+    if on and (on[0] is None or on[0] > v0 + 0.05):
+        on[0] = round(v0, 3)
     for i in range(1, len(on)):
         if on[i] is None:
             nxt = next((on[j] for j in range(i + 1, len(on)) if on[j] is not None), dur - 0.1)
             on[i] = round(on[i - 1] + (nxt - on[i - 1]) / 2, 3)
+        else:
+            on[i] = round(after_pause(x, xv, on[i]), 3)
         on[i] = max(on[i], on[i - 1] + 0.05)
     words = [[d, round(s + o, 3)] for d, o in zip(disp, on)]
     heard = " ".join(w for w, _ in ww)
@@ -244,6 +293,20 @@ if idx.exists():
         html = re.sub(r'(<(?:audio|div)[^>]*data-whole="1"[^>]*data-duration=")[0-9.]+', lambda m: m.group(1) + f"{END}", html)
         idx.write_text(html)
         print("index.html scenes updated")
+# the atelier clip (06-demo, assets/video/atelier-hold.mp4: 3.4 s of footage + 2 s held on the last frame): its
+# in-camera flash (media 2.5 s) lands on « Photos », and it plays until the card has left (0.5 s before « publies »,
+# 0.42 s exit)
+demo = ROOT / "compositions/scenes/06-demo.html"
+if demo.exists():
+    d0 = SCENES["demo"][0]
+    w10 = {norm(t): s for t, s in by_id[10]["words"]}
+    media_start = round(max(0.0, 2.5 - (w10["photos"] - d0)), 2)
+    clip = round(min(w10["publies"] - 0.08 - d0, 5.4 - media_start), 2)
+    html = demo.read_text()
+    html = re.sub(r'(<video[^>]*id="d-vid"[^>]*?data-duration=")[0-9.]+', lambda m: m.group(1) + f"{clip}", html)
+    html = re.sub(r'(<video[^>]*id="d-vid"[^>]*?data-media-start=")[0-9.]+', lambda m: m.group(1) + f"{media_start}", html)
+    demo.write_text(html)
+    print(f"atelier clip: media {media_start} s on, {clip} s long")
 vo_js = {"lead": LEAD, "end": END, "voiceEnd": round(end_voice, 3), "scenes": SCENES,
          "lines": [{k: v for k, v in L.items() if k != "heard"} for L in out_lines]}
 (ROOT / "assets/cues.js").write_text(
