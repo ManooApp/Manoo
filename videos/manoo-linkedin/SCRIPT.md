@@ -1,14 +1,18 @@
 # SCRIPT — manoo-linkedin « Ça se voit »
 
-**Voice:** Siwis (Kokoro `ff_siwis`, local via `hyperframes tts`) — voix provisoire, la seule voix française locale.
-Remplaçable par une prise ElevenLabs (Grady, déjà choisie pour la pub isométrique) ou Gemini : `tools/vo-build.py`
-recalcule tous les repères depuis la nouvelle voix.
+**Voice:** Hugo (ElevenLabs, voix `DbbNuBL7lf62XwY7arQb` — Parisien, grave, « pour la publicité »), choisie le
+2026-10-18. Deux façons de l'obtenir, puis `python3 tools/vo-build.py --lines <dossier>` et `python3 tools/make-audio.py` :
+- automatique : `python3 tools/vo-elevenlabs.py` (clé `ELEVENLABS_API_KEY` dans l'environnement) → `assets/audio/vo/elevenlabs/` ;
+- à la main : lire d'une traite le texte de `python3 tools/vo-elevenlabs.py --text` sur le site ElevenLabs, puis
+  `python3 tools/vo-split.py prise.mp3` → `assets/audio/vo/take/`.
+Prise actuellement montée (v1) : Kokoro `ff_siwis` (local, provisoire).
 **Voice settings:** vitesse 1.05 · une réplique = un fichier · silences posés entre les répliques (colonne `gap`).
 **Voice direction:** Chaleureuse, assurée, proche — on parle à un pro de terrain, pas à un DRH. Comme la référence :
 des phrases courtes, une idée par phrase, un léger appui sur le mot qui apparaît dans la pastille.
 
 Prononciation : la synthèse lit mal « Manoo » ; le texte envoyé à la voix l'écrit « Manou » (et « manou point F R »),
-l'écran garde « Manoo » et « manoo.fr ». Colonne `tts:` ci-dessous quand le texte lu diffère du texte affiché.
+l'écran garde « Manoo » et « manoo.fr ». Colonne `tts:` ci-dessous : réglages propres à Kokoro (ElevenLabs lit le
+texte affiché, avec la même substitution).
 
 ---
 

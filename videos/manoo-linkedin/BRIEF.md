@@ -12,7 +12,7 @@ length: 50-58s
 angle: "Pub narrative au style de la référence « Pulse » (Abdullah.A) : accroche à la deuxième personne, question, limites des approches classiques, pivot « elles se voient / se partagent / se démontrent », révélation, démonstration dans l'interface, communauté, entreprises, nuance « ne remplace pas le CV », signature."
 narration: yes
 vo_mode: restructured
-voice: "Kokoro ff_siwis (local, seule voix française disponible) — provisoire, remplaçable par une prise ElevenLabs / Gemini sans retoucher l'animation"
+voice: "Hugo (ElevenLabs DbbNuBL7lf62XwY7arQb), demandée le 2026-10-18 — v1 montée avec Kokoro ff_siwis en attendant la prise ElevenLabs (tools/vo-elevenlabs.py ou tools/vo-split.py)"
 ---
 
 ## Intent
