@@ -1,0 +1,15 @@
+# Manoo
+
+- What it is: une app web/mobile qui remplace le CV papier pour l'alternance dans les métiers manuels ; l'apprenti montre son travail (portfolio photo + titre) au lieu de le raconter. Slogan : « La révolution du regard ».
+- Who it is for: trois publics. (1) Apprentis et élèves de 16 à 20 ans en voie pro / alternance (BTP, mécanique, métiers de bouche, esthétique, prothèse dentaire), sans expérience à raconter mais avec un savoir-faire à montrer. (2) Artisans et entreprises qui recrutent des apprentis. (3) Établissements de formation (CFA, lycées pros, IUT) qui paient l'abonnement.
+- What it sells, at what price: abonnement établissement, facturé sur l'année scolaire (10 mois) selon le nombre d'élèves : S (≤100) 89 €/mois HT (890 €/an) ; M (101-300) 149 € (1 490 €/an) ; L (301-700) 279 € (2 790 €/an) ; XL (701-1 500) 449 € (4 490 €/an). Phase pilote gratuite ; −20 % à vie pour les établissements engagés dès la 1re année ; entreprises gratuites pendant le lancement ; apprentis gratuits à vie.
+- Where and how: Bretagne d'abord (Rennes). App sur manoo.fr. Acquisition B2B par prospection directe (mail, téléphone, LinkedIn, rendez-vous, recommandations) des établissements, fédérations (FFB, CMA Bretagne…) et financeurs (France Active Bretagne…), suivie dans un CRM Notion ; acquisition des jeunes et artisans via Instagram / TikTok (pub vidéo documentaire de 60 s en cours).
+- Fonctionnalités existantes aujourd'hui : création de compte avec choix du profil (Apprenti/Étudiant ou Artisan/Entreprise) ; profil (photo, métier, formation) ; « Ajouter au portfolio » (photo + titre) ; profil = galerie consultable par les entreprises ; compte entreprise qui consulte les profils. PAS encore : messagerie, notifications, recherche géolocalisée, matching automatique.
+- Budget and constraints: budget non communiqué. Accompagnement Créa-IUT (Université de Rennes, convention signée) : 8 étudiants pendant 6 mois sur le marché, le RGPD / droit à l'image des mineurs et le financement des établissements ; soutenances le 1er décembre (marché), le 28 janvier (finance, juridique, fiscal), le 9 mars (finale). Contraintes connues : données et photos de mineurs (RGPD, droit à l'image).
+
+## Contexte complémentaire (tiré du CRM et des supports du fondateur)
+
+- Pipeline commercial suivi dans Notion : établissements, fédérations (FFB Bretagne, CMA Bretagne), organismes de formation (AFPA), financeurs (France Active Bretagne), partenaires (Créa-IUT, signé), fournisseurs (Mimetism Agency pour le site/app, DevMachine), éditeurs du secteur (Batisimply).
+- Qui paie : les établissements. Les entreprises et les apprentis ne paient pas pendant le lancement (les apprentis jamais).
+- Positionnement voulu : documentaire, sérieux ; on recrute sur le geste et la motivation plutôt que sur le diplôme. Les deux seules différences revendiquées : (1) on montre le travail, pas un texte ; (2) fait pour l'alternance dans les métiers manuels.
+- Inconnues à ce stade : nombre d'utilisateurs ou d'établissements actifs, revenus, coûts, coût d'acquisition, taille de marché chiffrée.
