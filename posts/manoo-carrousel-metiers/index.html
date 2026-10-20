@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Manoo — carrousel « Métiers manuels : ce que disent les chiffres »</title>
+  <!-- 8 slides 1080 × 1350 (4:5) for Instagram and LinkedIn; render.cjs shoots each <section class="slide">. -->
+  <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+  <script src="assets/ui/icons.js"></script>
+  <style>
+    @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/Inter-Regular.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/Inter-Medium.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 600; src: url("assets/fonts/Inter-SemiBold.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/Inter-Bold.woff2") format("woff2"); }
+    @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/Inter-ExtraBold.woff2") format("woff2"); }
+    @font-face { font-family: "Inter Display"; font-weight: 600; src: url("assets/fonts/InterDisplay-SemiBold.woff2") format("woff2"); }
+    @font-face { font-family: "Inter Display"; font-weight: 700; src: url("assets/fonts/InterDisplay-Bold.woff2") format("woff2"); }
+    @font-face { font-family: "Inter Display"; font-weight: 800; src: url("assets/fonts/InterDisplay-ExtraBold.woff2") format("woff2"); }
+
+    :root {
+      --night: #070809; --night-2: #121517; --day: #fafaf8; --ink: #0e1012; --snow: #f5f4f1;
+      --mute-d: #8a9297; --mute-l: #6b7378; --acc: #f97316; --acc-deep: #e2590b; --pill: #f0650f; --line: #e7e9ea;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #2b2e31; display: flex; flex-direction: column; align-items: center; gap: 48px; padding: 48px 0; }
+    .slide { position: relative; width: 1080px; height: 1350px; overflow: hidden; font-family: "Inter Display", sans-serif; -webkit-font-smoothing: antialiased; letter-spacing: -0.02em; }
+    .night { background: var(--night); color: var(--snow); }
+    .day { background: var(--day); color: var(--ink); }
+    .ic { display: block; flex: none; }
+
+    /* frame: brand, counter, source, next arrow */
+    .top { position: absolute; left: 80px; right: 80px; top: 64px; display: flex; align-items: center; justify-content: space-between; z-index: 20; }
+    .top .brand { display: flex; align-items: center; gap: 14px; font: 700 34px/1 "Inter Display", sans-serif; letter-spacing: -0.04em; }
+    .top .brand .ico { width: 54px; height: 54px; border-radius: 16px; background: #fff; display: flex; align-items: center; justify-content: center; }
+    .top .brand .ico img { width: 34px; height: 30px; object-fit: contain; }
+    .night .top .brand .ico { box-shadow: 0 0 34px rgba(249, 115, 22, 0.38); }
+    .day .top .brand .ico { box-shadow: 0 6px 18px rgba(16, 22, 25, 0.1), 0 0 0 1px #ececea; }
+    .count { font: 600 26px/1 "Inter", sans-serif; letter-spacing: 0.06em; }
+    .night .count { color: var(--mute-d); }
+    .day .count { color: var(--mute-l); }
+    .kicker { position: absolute; left: 80px; top: 196px; display: flex; align-items: center; gap: 16px; font: 700 24px/1 "Inter", sans-serif; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); z-index: 5; }
+    .day .kicker { color: var(--acc-deep); }
+    .kicker::before { content: ""; width: 40px; height: 4px; border-radius: 2px; background: currentColor; }
+    .src { position: absolute; left: 80px; right: 210px; bottom: 66px; font: 500 21px/1.38 "Inter", sans-serif; letter-spacing: -0.005em; z-index: 20; }
+    .night .src { color: var(--mute-d); }
+    .day .src { color: var(--mute-l); }
+    .src b { font-weight: 700; }
+    .next { position: absolute; right: 80px; bottom: 56px; width: 84px; height: 84px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 20; }
+    .night .next { background: #fff; color: var(--ink); box-shadow: 0 0 40px rgba(249, 115, 22, 0.35); }
+    .day .next { background: var(--ink); color: #fff; box-shadow: 0 14px 30px rgba(16, 22, 25, 0.22); }
+    .next .ic { width: 38px; height: 38px; stroke-width: 2.4; }
+
+    /* type */
+    .h1 { position: absolute; left: 80px; right: 80px; font: 700 96px/1.02 "Inter Display", sans-serif; letter-spacing: -0.045em; }
+    .h2 { position: absolute; left: 80px; right: 80px; font: 700 78px/1.04 "Inter Display", sans-serif; letter-spacing: -0.04em; }
+    .lead { position: absolute; left: 80px; right: 80px; font: 500 34px/1.36 "Inter", sans-serif; letter-spacing: -0.015em; }
+    .night .m { color: var(--mute-d); }
+    .day .m { color: var(--mute-l); }
+    .pill { display: inline-block; padding: 0 0.2em 0.05em; border-radius: 0.18em; background: var(--pill); color: #fff; box-shadow: 0 0.12em 0.4em rgba(249, 115, 22, 0.32); }
+    .acc { color: var(--acc); }
+    .day .acc { color: var(--acc-deep); }
+    .big { position: absolute; left: 72px; font: 800 300px/0.9 "Inter Display", sans-serif; letter-spacing: -0.065em; }
+    .giant { background: linear-gradient(180deg, #ffffff 0%, #ffd2b0 58%, #f97316 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 40px rgba(249, 115, 22, 0.4)); }
+    .halo { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(249, 115, 22, 0.55) 0%, rgba(249, 115, 22, 0.18) 38%, rgba(249, 115, 22, 0) 70%); pointer-events: none; }
+    .bloom { position: absolute; left: -200px; right: -200px; bottom: -520px; height: 900px; border-radius: 50%; background: radial-gradient(ellipse at center, rgba(249, 115, 22, 0.28) 0%, rgba(253, 160, 90, 0.12) 40%, rgba(250, 250, 248, 0) 70%); pointer-events: none; }
+    .fcard { position: absolute; border-radius: 36px; background: #fff; box-shadow: 0 40px 90px rgba(16, 22, 25, 0.12), 0 2px 6px rgba(16, 22, 25, 0.05); }
+    .fcard.dk { background: #121517; color: var(--snow); box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.08); }
+    .photo { position: absolute; border-radius: 26px; overflow: hidden; background: #ece6df; box-shadow: 0 34px 70px rgba(0, 0, 0, 0.35), 0 0 0 6px #fff; }
+    .photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .chipx { position: absolute; display: inline-flex; align-items: center; gap: 14px; height: 74px; padding: 0 28px 0 11px; border-radius: 37px; background: #fff; color: var(--ink); box-shadow: 0 18px 40px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.04); font: 600 33px/1 "Inter Display", sans-serif; letter-spacing: -0.03em; white-space: nowrap; }
+    .chipx .bd { width: 52px; height: 52px; border-radius: 50%; background: var(--acc); color: #fff; display: flex; align-items: center; justify-content: center; }
+    .chipx .bd .ic { width: 27px; height: 27px; stroke-width: 2.6; }
+
+    /* ---------- 1 · cover */
+    #s1 .halo { width: 1500px; height: 1500px; left: -210px; top: 560px; }
+    #s1 .h1 { top: 262px; font-size: 112px; }
+    #s1 .lead { top: 650px; right: 150px; }
+    #s1 .photo { width: 330px; height: 248px; }
+    #s1 .p1 { left: -40px; top: 930px; transform: rotate(-11deg); filter: blur(2px) brightness(0.8); }
+    #s1 .p2 { left: 196px; top: 868px; transform: rotate(5deg); z-index: 2; }
+    #s1 .p3 { left: 470px; top: 980px; transform: rotate(-6deg); z-index: 3; width: 360px; height: 270px; }
+    #s1 .p4 { left: 760px; top: 860px; transform: rotate(9deg); z-index: 2; }
+    #s1 .p5 { left: 90px; top: 1150px; transform: rotate(8deg); z-index: 1; filter: blur(1.5px) brightness(0.85); }
+    #s1 .p6 { left: 830px; top: 1150px; transform: rotate(-7deg); filter: blur(2px) brightness(0.8); }
+    #s1 .c1 { left: 156px; top: 820px; z-index: 6; transform: rotate(-3deg); }
+    #s1 .c2 { left: 30px; top: 1108px; z-index: 6; transform: rotate(2deg); }
+    #s1 .c3 { left: 660px; top: 806px; z-index: 6; transform: rotate(-3deg); }
+
+    /* ---------- 2 · 2,28 millions */
+    #s2 .big { top: 270px; color: var(--ink); }
+    #s2 .unit { position: absolute; left: 84px; top: 560px; font: 700 76px/1.04 "Inter Display", sans-serif; letter-spacing: -0.04em; }
+    #s2 .lead { top: 760px; right: 120px; }
+    #s2 .fcard { left: 80px; right: 80px; top: 880px; height: 300px; display: flex; align-items: center; gap: 44px; padding: 0 56px; }
+    #s2 .donut { position: relative; width: 224px; height: 224px; flex: none; }
+    #s2 .donut svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+    #s2 .donut b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font: 800 42px/1 "Inter Display", sans-serif; letter-spacing: -0.05em; color: var(--acc-deep); }
+    #s2 .fcard .t1 { font: 700 50px/1.05 "Inter Display", sans-serif; letter-spacing: -0.035em; }
+    #s2 .fcard .t2 { margin-top: 14px; font: 500 30px/1.32 "Inter", sans-serif; color: var(--mute-l); letter-spacing: -0.012em; }
+
+    /* ---------- 3 · BTP 65 % */
+    #s3 .h2 { top: 250px; }
+    #s3 .lead { top: 520px; right: 140px; }
+    #s3 .chart { position: absolute; left: 80px; right: 80px; top: 640px; height: 560px; }
+    #s3 .base { position: absolute; left: 0; right: 0; bottom: 70px; height: 3px; background: var(--line); }
+    #s3 .col { position: absolute; bottom: 73px; width: 330px; border-radius: 30px 30px 8px 8px; }
+    #s3 .c-all { left: 70px; height: 219px; background: linear-gradient(180deg, #d7dbdd, #c9ced1); }
+    #s3 .c-btp { left: 520px; height: 325px; background: linear-gradient(180deg, #fb8a3c, #f0650f); box-shadow: 0 30px 70px rgba(240, 101, 15, 0.35); }
+    #s3 .val { position: absolute; width: 330px; text-align: center; font: 800 76px/1 "Inter Display", sans-serif; letter-spacing: -0.05em; }
+    #s3 .v-all { left: 70px; bottom: 312px; color: var(--mute-l); }
+    #s3 .v-btp { left: 520px; bottom: 418px; font-size: 128px; color: var(--acc-deep); }
+    #s3 .lab { position: absolute; bottom: 0; width: 330px; text-align: center; font: 600 32px/1.2 "Inter", sans-serif; letter-spacing: -0.015em; }
+    #s3 .l-all { left: 70px; color: var(--mute-l); }
+    #s3 .l-btp { left: 520px; color: var(--ink); }
+
+    /* ---------- 4 · métier par métier */
+    #s4 .h2 { top: 250px; font-size: 72px; }
+    #s4 .lead { top: 420px; font-size: 29px; right: 120px; }
+    #s4 .rows { position: absolute; left: 80px; right: 80px; top: 520px; }
+    #s4 .row { display: grid; grid-template-columns: 64px 1fr auto; grid-template-rows: auto 14px; column-gap: 24px; row-gap: 12px; align-items: center; height: 85px; }
+    #s4 .row .i { grid-row: 1 / 3; width: 64px; height: 64px; border-radius: 50%; background: #fff1e6; color: var(--acc-deep); display: flex; align-items: center; justify-content: center; box-shadow: inset 0 0 0 1px #ffe0c8; }
+    #s4 .row .i .ic { width: 32px; height: 32px; stroke-width: 2.2; }
+    #s4 .row .n { font: 600 31px/1 "Inter", sans-serif; letter-spacing: -0.015em; }
+    #s4 .row .v { font: 800 38px/1 "Inter Display", sans-serif; letter-spacing: -0.04em; color: var(--acc-deep); text-align: right; }
+    #s4 .row .bar { grid-column: 2 / 4; position: relative; height: 12px; border-radius: 6px; background: #eceeef; overflow: hidden; }
+    #s4 .row .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 6px; background: linear-gradient(90deg, #fb8a3c, #f0650f); }
+
+    /* ---------- 5 · apprentissage */
+    #s5 .halo { width: 1300px; height: 1300px; left: -120px; top: -150px; opacity: 0.85; }
+    #s5 .big { top: 300px; left: 64px; font-size: 236px; }
+    #s5 .h2 { top: 560px; font-size: 70px; }
+    #s5 .lead { top: 730px; right: 160px; }
+    #s5 .fcard { left: 80px; right: 80px; top: 880px; height: 250px; display: flex; align-items: center; gap: 40px; padding: 0 56px; }
+    #s5 .fcard .gi { width: 120px; height: 120px; border-radius: 34px; background: rgba(249, 115, 22, 0.14); color: var(--acc); display: flex; align-items: center; justify-content: center; flex: none; box-shadow: inset 0 0 0 1px rgba(249, 115, 22, 0.35); }
+    #s5 .fcard .gi .ic { width: 62px; height: 62px; stroke-width: 1.9; }
+    #s5 .fcard .t1 { font: 800 76px/1 "Inter Display", sans-serif; letter-spacing: -0.03em; }
+    #s5 .fcard .t2 { margin-top: 12px; font: 500 30px/1.3 "Inter", sans-serif; color: var(--mute-d); }
+
+    /* ---------- 6 · le diplôme */
+    #s6 .big { top: 262px; color: var(--acc-deep); }
+    #s6 .h2 { top: 560px; font-size: 64px; right: 90px; }
+    #s6 .lead { top: 790px; right: 180px; font-size: 31px; }
+    #s6 .cv { position: absolute; left: 96px; top: 912px; width: 320px; height: 286px; padding: 28px 30px; transform: rotate(-5deg); border-radius: 28px; z-index: 1; }
+    #s6 .cv b { display: block; font: 700 27px/1.1 "Inter Display", sans-serif; letter-spacing: -0.02em; }
+    #s6 .cv span { display: block; margin-top: 6px; font: 500 16px/1 "Inter", sans-serif; color: var(--mute-l); }
+    #s6 .cv .sec { margin-top: 22px; font: 700 13px/1 "Inter", sans-serif; letter-spacing: 0.16em; color: #b4bbbf; }
+    #s6 .cv .dip { position: relative; margin-top: 10px; font: 700 19px/1.2 "Inter", sans-serif; color: #9aa2a6; }
+    #s6 .cv .dip::after { content: ""; position: absolute; left: -4px; right: 30px; top: 50%; height: 4px; border-radius: 2px; background: var(--acc); transform: rotate(-2deg); }
+    #s6 .cv i { display: block; height: 11px; border-radius: 6px; background: #eceeef; margin-top: 12px; }
+    #s6 .cv i.s { width: 60%; }
+    #s6 .photo { width: 270px; height: 203px; box-shadow: 0 30px 60px rgba(16, 22, 25, 0.22), 0 0 0 6px #fff; }
+    #s6 .q1 { left: 396px; top: 900px; transform: rotate(6deg); z-index: 2; }
+    #s6 .q2 { left: 672px; top: 958px; transform: rotate(-5deg); z-index: 3; }
+    #s6 .chipx { left: 600px; top: 900px; z-index: 6; transform: rotate(3deg); }
+
+    /* ---------- 7 · Manoo */
+    #s7 .h1 { top: 250px; font-size: 100px; }
+    #s7 .lead { top: 492px; right: 110px; font-size: 32px; }
+    #s7 .glow { position: absolute; left: 540px; top: 1132px; width: 560px; height: 900px; margin: -450px 0 0 -280px; border-radius: 96px; box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.9), 0 0 90px 10px rgba(249, 115, 22, 0.4); }
+    #s7 .pw { position: absolute; left: 325px; top: 702px; transform: scale(1); transform-origin: 50% 0; }
+    #s7 .chipx { z-index: 30; }
+    #s7 .f1 { left: 64px; top: 760px; transform: rotate(-4deg); }
+    #s7 .f2 { left: 700px; top: 860px; transform: rotate(4deg); }
+    #s7 .f3 { left: 40px; top: 1030px; transform: rotate(3deg); }
+    #s7 .f4 { left: 720px; top: 1110px; transform: rotate(-3deg); position: absolute; display: inline-flex; align-items: center; gap: 12px; height: 70px; padding: 0 28px; border-radius: 35px; background: #fff; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14); font: 700 30px/1 "Inter Display", sans-serif; color: #157f3c; letter-spacing: -0.02em; white-space: nowrap; z-index: 30; }
+    #s7 .f4 i { display: block; width: 18px; height: 18px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.22); }
+    #s7 .note { position: absolute; left: 80px; bottom: 30px; font: 500 19px/1 "Inter", sans-serif; color: var(--mute-l); z-index: 40; }
+    /* the profile screen (kit from the film) */
+    #s7 .pfwrap { position: absolute; left: 0; right: 0; top: 168px; padding: 14px 14px 0; }
+    #s7 .pf { padding: 16px 16px 12px; }
+    #s7 .pf .d-top { display: flex; gap: 14px; align-items: center; }
+    #s7 .pf .pf-av { width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; font: 700 22px/1 "Inter", sans-serif; }
+    #s7 .pf .pf-name { font-size: 21px; }
+    #s7 .pf .pf-job { margin-top: 3px; font-size: 14px; }
+    #s7 .pf .pf-meta { margin-top: 6px; font-size: 12px; }
+    #s7 .pf .stats { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--bd); }
+    #s7 .jm { background: linear-gradient(135deg, #fd8b3a, #e4702e); color: #fff; }
+    #s7 .pgrid { position: relative; margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    #s7 .pgrid .cell { height: 148px; }
+    #s7 .pgrid .pl { position: absolute; left: 10px; top: 10px; height: 24px; padding: 0 9px; border-radius: 12px; background: rgba(0, 0, 0, 0.55); color: #fff; display: flex; align-items: center; gap: 5px; font: 700 11px/1 "Inter", sans-serif; }
+
+    /* ---------- 8 · signature */
+    #s8 .glow { position: absolute; left: 90px; top: 220px; width: 900px; height: 900px; border-radius: 50%; background: radial-gradient(circle, rgba(249, 115, 22, 0.42) 0%, rgba(249, 115, 22, 0.12) 42%, rgba(249, 115, 22, 0) 70%); }
+    #s8 .ring { position: absolute; left: 540px; top: 640px; border-radius: 50%; border: 3px solid rgba(249, 115, 22, 0.3); }
+    #s8 .lock { position: absolute; left: 0; right: 0; top: 470px; display: flex; align-items: center; justify-content: center; gap: 30px; }
+    #s8 .lock .ico { width: 170px; height: 170px; border-radius: 46px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 60px rgba(249, 115, 22, 0.35); }
+    #s8 .lock .ico img { width: 114px; height: 100px; object-fit: contain; }
+    #s8 .lock b { font: 700 156px/1 "Inter Display", sans-serif; letter-spacing: -0.055em; }
+    #s8 .sig { position: absolute; left: 0; right: 0; top: 720px; text-align: center; font: 600 76px/1.06 "Inter Display", sans-serif; letter-spacing: -0.04em; }
+    #s8 .cta { position: absolute; left: 0; right: 0; top: 960px; text-align: center; font: 600 54px/1.2 "Inter Display", sans-serif; letter-spacing: -0.035em; }
+    #s8 .cta .pill { margin-top: 10px; font-size: 76px; }
+    #s8 .src { right: 80px; text-align: center; }
+  </style>
+</head>
+<body>
+
+<!-- 1 · cover -->
+<section class="slide night" id="s1">
+  <div class="halo"></div>
+  <div class="top"><div class="brand"><div class="ico"><img src="assets/brand/manoo-marteau.png" alt=""></div>Manoo</div><div class="count">01 / 08</div></div>
+  <div class="kicker">Le point 2026</div>
+  <div class="h1">Métiers manuels&nbsp;:<br><span class="m">ce que disent</span><br><span class="m">les</span> <span class="pill">chiffres.</span></div>
+  <div class="lead m">Recrutement, apprentissage, savoir-faire&nbsp;: l'état du marché en cinq chiffres clés.</div>
+  <div class="photo p1"><img src="assets/photos/B0.jpg" alt=""></div>
+  <div class="photo p2"><img src="assets/photos/jules-portail.jpg" alt=""></div>
+  <div class="photo p3"><img src="assets/photos/escalier.jpg" alt=""></div>
+  <div class="photo p4"><img src="assets/photos/C0.jpg" alt=""></div>
+  <div class="photo p5"><img src="assets/photos/B2.jpg" alt=""></div>
+  <div class="photo p6"><img src="assets/photos/garde-corps.jpg" alt=""></div>
+  <div class="chipx c1"><span class="bd"><i data-icon="hammer"></i></span>Métallerie</div>
+  <div class="chipx c2"><span class="bd"><i data-icon="brick-wall"></i></span>Maçonnerie</div>
+  <div class="chipx c3"><span class="bd"><i data-icon="pencil-ruler"></i></span>Menuiserie</div>
+  <div class="next"><i data-icon="arrow-right"></i></div>
+</section>
+
+<!-- 2 · 2,28 millions de projets, 43,8 % difficiles -->
+<section class="slide day" id="s2">
+  <div class="bloom"></div>
+  <div class="top"><div class="brand"><div class="ico"><img src="assets/brand/manoo-marteau.png" alt=""></div>Manoo</div><div class="count">02 / 08</div></div>
+  <div class="kicker">Le marché de l'emploi</div>
+  <div class="big">2,28</div>
+  <div class="unit">millions de projets<br>de recrutement</div>
+  <div class="lead m">prévus par les employeurs en France pour 2026, tous secteurs confondus.</div>
+  <div class="fcard">
+    <div class="donut">
+      <svg viewBox="0 0 210 210"><circle cx="105" cy="105" r="88" fill="none" stroke="#eceeef" stroke-width="26"/><circle cx="105" cy="105" r="88" fill="none" stroke="#f0650f" stroke-width="26" stroke-linecap="round" stroke-dasharray="242.2 553" /></svg>
+      <b>43,8&nbsp;%</b>
+    </div>
+    <div><div class="t1">sont jugés difficiles</div><div class="t2">par les employeurs eux-mêmes. C'était 50,1&nbsp;% en&nbsp;2025.</div></div>
+  </div>
+  <div class="src"><b>Source :</b> France Travail, enquête Besoins en main-d'œuvre 2026 (416&nbsp;588 établissements interrogés fin 2025).</div>
+  <div class="next"><i data-icon="arrow-right"></i></div>
+</section>
+
+<!-- 3 · BTP 65 % -->
+<section class="slide day" id="s3">
+  <div class="bloom"></div>
+  <div class="top"><div class="brand"><div class="ico"><img src="assets/brand/manoo-marteau.png" alt=""></div>Manoo</div><div class="count">03 / 08</div></div>
+  <div class="kicker">Zoom sur la construction</div>
+  <div class="h2">Dans le BTP,<br>recruter est encore<br><span class="m">plus</span> <span class="pill">difficile.</span></div>
+  <div class="lead m">139&nbsp;510 projets de recrutement prévus dans la construction en&nbsp;2026.</div>
+  <div class="chart">
+    <div class="base"></div>
+    <div class="val v-all">43,8&nbsp;%</div><div class="col c-all"></div><div class="lab l-all">Tous secteurs</div>
+    <div class="val v-btp">65&nbsp;%</div><div class="col c-btp"></div><div class="lab l-btp">Construction (BTP)</div>
+  </div>
+  <div class="src"><b>Source :</b> Observatoire des métiers du BTP, d'après l'enquête BMO 2026 de France Travail. Part des projets de recrutement jugés difficiles.</div>
+  <div class="next"><i data-icon="arrow-right"></i></div>
+</section>
+
+<!-- 4 · métier par métier -->
+<section class="slide day" id="s4">
+  <div class="top"><div class="brand"><div class="ico"><img src="assets/brand/manoo-marteau.png" alt=""></div>Manoo</div><div class="count">04 / 08</div></div>
+  <div class="kicker">Métier par métier</div>
+  <div class="h2">Là où recruter est<br><span class="m">le plus</span> <span class="pill">difficile.</span></div>
+  <div class="lead m">Part des projets de recrutement jugés difficiles en 2026, exemples de métiers manuels.</div>
+  <div class="rows">
+    <div class="row"><div class="i"><i data-icon="cog"></i></div><div class="n">Usinage (conduite de machines)</div><div class="v">80,6&nbsp;%</div><div class="bar"><i style="width:80.6%"></i></div></div>
+    <div class="row"><div class="i"><i data-icon="house"></i></div><div class="n">Couvreurs</div><div class="v">79,7&nbsp;%</div><div class="bar"><i style="width:79.7%"></i></div></div>
+    <div class="row"><div class="i"><i data-icon="anvil"></i></div><div class="n">Chaudronniers, tôliers</div><div class="v">77,7&nbsp;%</div><div class="bar"><i style="width:77.7%"></i></div></div>
+    <div class="row"><div class="i"><i data-icon="axe"></i></div><div class="n">Charpentiers (métal et bois)</div><div class="v">74,8&nbsp;%</div><div class="bar"><i style="width:74.8%"></i></div></div>
+    <div class="row"><div class="i"><i data-icon="wrench"></i></div><div class="n">Mécaniciens de véhicules</div><div class="v">72,4&nbsp;%</div><div class="bar"><i style="width:72.4%"></i></div></div>
+    <div class="row"><div class="i"><i data-icon="chef-hat"></i></div><div class="n">Chefs cuisiniers</div><div class="v">72,1&nbsp;%</div><div class="bar"><i style="width:72.1%"></i></div></div>
+    <div class="row"><div class="i"><i data-icon="flame"></i></div><div class="n">Soudeurs</div><div class="v">71,3&nbsp;%</div><div class="bar"><i style="width:71.3%"></i></div></div>
+    <div class="row"><div class="i"><i data-icon="brick-wall"></i></div><div class="n">Maçons qualifiés</div><div class="v">70,5&nbsp;%</div><div class="bar"><i style="width:70.5%"></i></div></div>
+  </div>
+  <div class="src"><b>Source :</b> France Travail, enquête Besoins en main-d'œuvre 2026.</div>
+  <div class="next"><i data-icon="arrow-right"></i></div>
+</section>
+
+<!-- 5 · apprentissage -->
+<section class="slide night" id="s5">
+  <div class="halo"></div>
+  <div class="top"><div class="brand"><div class="ico"><img src="assets/brand/manoo-marteau.png" alt=""></div>Manoo</div><div class="count">05 / 08</div></div>
+  <div class="kicker">La relève</div>
+  <div class="big giant">846&nbsp;700</div>
+  <div class="h2">contrats d'apprentissage<br>ont démarré en 2025.</div>
+  <div class="lead m">Tous secteurs confondus, du CAP au master&nbsp;: une génération qui se forme en entreprise.</div>
+  <div class="fcard dk">
+    <div class="gi"><i data-icon="graduation-cap"></i></div>
+    <div><div class="t1">1&nbsp;017&nbsp;500</div><div class="t2">contrats d'apprentissage en cours fin 2025.</div></div>
+  </div>
+  <div class="src"><b>Source :</b> Dares, premières estimations publiées le 27 février 2026.</div>
+  <div class="next"><i data-icon="arrow-right"></i></div>
+</section>
+
+<!-- 6 · le diplôme -->
+<section class="slide day" id="s6">
+  <div class="bloom"></div>
+  <div class="top"><div class="brand"><div class="ico"><img src="assets/brand/manoo-marteau.png" alt=""></div>Manoo</div><div class="count">06 / 08</div></div>
+  <div class="kicker">Et le diplôme&nbsp;?</div>
+  <div class="big">63&nbsp;%</div>
+  <div class="h2">des employeurs de moins de 5&nbsp;salariés jugent le diplôme <span class="pill">secondaire.</span></div>
+  <div class="lead m">Tous employeurs confondus, 59&nbsp;% estiment qu'il n'est pas un critère essentiel.</div>
+  <div class="fcard cv"><b>Jules Moreau</b><span>Curriculum vitæ</span><div class="sec">FORMATION</div><div class="dip">Diplôme&nbsp;: …</div><div class="sec">EXPÉRIENCE</div><i></i><i class="s"></i></div>
+  <div class="photo q1"><img src="assets/photos/jules-portail.jpg" alt=""></div>
+  <div class="photo q2"><img src="assets/photos/escalier.jpg" alt=""></div>
+  <div class="src"><b>Source :</b> Pôle emploi (devenu France Travail), enquête complémentaire BMO 2017, publiée en 2018.</div>
+  <div class="next"><i data-icon="arrow-right"></i></div>
+</section>
+
+<!-- 7 · l'idée Manoo -->
+<section class="slide day" id="s7">
+  <div class="bloom"></div>
+  <div class="top"><div class="brand"><div class="ico"><img src="assets/brand/manoo-marteau.png" alt=""></div>Manoo</div><div class="count">07 / 08</div></div>
+  <div class="kicker">L'idée de Manoo</div>
+  <div class="h1">Le savoir-faire,<br><span class="m">ça se</span> <span class="pill">montre.</span></div>
+  <div class="lead m">Sur Manoo, les pros publient leurs réalisations en photos et en vidéos. Leur profil devient un portfolio que les entreprises peuvent découvrir.</div>
+  <div class="glow"></div>
+  <div class="pw mui">
+    <div class="phone">
+      <div class="phone-edge"></div>
+      <div class="phone-body"></div>
+      <div class="screen">
+        <div class="scr">
+          <div class="sbar"><span>9:41</span><span class="sbar-r"><span class="sbar-sig"><i></i><i></i><i></i><i></i></span><span class="sbar-bat"><i></i></span></span></div>
+          <div class="hdr">
+            <div class="hdr-row">
+              <div class="brand"><div class="brand-ico"><img src="assets/brand/manoo-marteau.png" alt=""></div><div class="brand-name">Manoo</div></div>
+              <div class="hdr-btns"><div class="hdr-btn"><i data-icon="bell"></i></div><div class="hdr-avatar jm" style="display:flex;align-items:center;justify-content:center;font:700 13px/1 Inter,sans-serif">JM</div></div>
+            </div>
+            <div class="hdr-search"><i data-icon="search"></i><span>Mots-clés, tags, contenu...</span></div>
+          </div>
+          <div class="pfwrap">
+            <div class="pf card">
+              <div class="d-top">
+                <div class="pf-av jm">JM</div>
+                <div>
+                  <div class="pf-name">Jules Moreau</div>
+                  <div class="pf-job">Serrurier / Métallier</div>
+                  <div class="pf-meta"><span><i data-icon="map-pin"></i>Rennes</span><span><i data-icon="graduation-cap"></i>CAP, 2e année</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="tabs" style="margin-top:10px"><div class="tab on">Portfolio</div><div class="tab">Publications</div><div class="tab">Avis</div></div>
+            <div class="pgrid">
+              <div class="cell"><img src="assets/photos/jules-portail.jpg" alt=""><span class="pl">▶ 0:12</span><div class="cell-t">Portail en fer forgé</div></div>
+              <div class="cell"><img src="assets/photos/garde-corps.jpg" alt=""><div class="cell-t">Garde-corps acier</div></div>
+              <div class="cell"><img src="assets/photos/escalier.jpg" alt=""><div class="cell-t">Escalier droit</div></div>
+              <div class="cell"><img src="assets/photos/A3.jpg" alt=""><div class="cell-t">Râtelier à barres</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="island"></div>
+      <div class="glare"></div>
+    </div>
+  </div>
+  <div class="chipx f1"><span class="bd"><i data-icon="flame"></i></span>Soudure MIG</div>
+  <div class="chipx f2"><span class="bd"><i data-icon="hammer"></i></span>Fer forgé</div>
+  <div class="chipx f3"><span class="bd"><i data-icon="ruler"></i></span>Lecture de plans</div>
+  <div class="f4"><i></i>Dispo immédiate</div>
+  <div class="note">Profil fictif.</div>
+  <div class="next"><i data-icon="arrow-right"></i></div>
+</section>
+
+<!-- 8 · signature -->
+<section class="slide night" id="s8">
+  <div class="glow"></div>
+  <div class="ring" style="width:560px;height:560px;margin:-280px 0 0 -280px"></div>
+  <div class="ring" style="width:820px;height:820px;margin:-410px 0 0 -410px;opacity:0.5"></div>
+  <div class="top"><div></div><div class="count">08 / 08</div></div>
+  <div class="lock"><div class="ico"><img src="assets/brand/manoo-marteau.png" alt=""></div><b>Manoo</b></div>
+  <div class="sig"><span class="m">Le savoir-faire,</span><br>enfin <span class="acc">visible.</span></div>
+  <div class="cta"><span class="m">Crée ton portfolio sur</span><br><span class="pill">manoo.fr</span></div>
+  <div class="src">Chiffres&nbsp;: France Travail (BMO 2026), Observatoire des métiers du BTP, Dares, Pôle emploi (2017).</div>
+</section>
+
+<script>
+  window.ManooIcons.hydrate(document.body);
+</script>
+</body>
+</html>
