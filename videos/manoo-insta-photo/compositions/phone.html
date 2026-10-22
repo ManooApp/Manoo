@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <template>
+      <link rel="stylesheet" href="assets/fonts.css">
+      <link rel="stylesheet" href="assets/ui/manoo-ui.css">
+      <style>
+        #p-root { position: absolute; inset: 0; overflow: hidden; background: #fff; }
+        #p-defs { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+        /* the camera: perspective container; the phone is a real 3D object inside it */
+        #p-cam { position: absolute; inset: 0; perspective: 2600px; perspective-origin: 540px 960px; }
+        #p-ph { position: absolute; left: 325px; top: 645px; width: 430px; height: 888px; transform-style: preserve-3d; }
+        /* thickness: stacked silhouettes of the titanium frame */
+        #p-slabs { position: absolute; inset: 0; transform-style: preserve-3d; }
+        .p-slab { position: absolute; inset: 0; border-radius: 70px; background: linear-gradient(90deg, #262b31 0%, #3d444b 6%, #1c2025 50%, #3d444b 94%, #262b31 100%); }
+        .p-slab.hi { background: linear-gradient(90deg, #4e565e 0%, #6b747c 8%, #3a4148 50%, #6b747c 92%, #4e565e 100%); }
+        .p-btn { position: absolute; width: 8px; border-radius: 3px; background: linear-gradient(90deg, #4a5259, #2a2f35); }
+        #p-front { left: 0; top: 0; transform: translateZ(20px); }
+        /* one picture per file as an <img>; its other appearances are backgrounds */
+        .p-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
+        .p-gate { background-image: url("assets/photos/jules-portail.jpg"); }
+        .p-ham { background: url("assets/brand/manoo-marteau.png") center / contain no-repeat; }
+        .p-layer { position: absolute; inset: 0; overflow: hidden; isolation: isolate; }
+        #p-home { z-index: 1; }
+        #p-camv { z-index: 2; }
+        #p-prof { z-index: 3; }
+
+        /* ------------------------------------------------ home screen (generic apps, not Apple's icons) */
+        #p-home { background: radial-gradient(ellipse 90% 55% at 85% 8%, rgba(255, 214, 170, 0.55) 0%, rgba(255, 214, 170, 0) 60%), linear-gradient(165deg, #ff9b52 0%, #f97316 42%, #e2590b 100%); }
+        #p-home-in { position: absolute; inset: 0; transform-origin: 149px 101px; }
+        .p-app { position: absolute; width: 62px; }
+        .p-ico { position: relative; width: 62px; height: 62px; border-radius: 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(120, 40, 0, 0.2); }
+        .p-ico .ic { width: 30px; height: 30px; color: #fff; }
+        .p-lbl { margin: 6px -14px 0; text-align: center; font: 500 11.5px/1.1 "Inter", sans-serif; letter-spacing: -0.01em; color: #fff; text-shadow: 0 1px 2px rgba(110, 40, 0, 0.35); white-space: nowrap; }
+        .p-cal { background: #fff; flex-direction: column; justify-content: flex-start; }
+        .p-cal b { margin-top: 8px; font: 600 10px/1 "Inter", sans-serif; letter-spacing: 0.04em; color: #e2590b; }
+        .p-cal span { margin-top: 2px; font: 400 32px/1 "Inter", sans-serif; letter-spacing: -0.04em; color: #0e1012; }
+        .p-manoo { background: #fff; }
+        .p-manoo img { width: 38px; height: 34px; object-fit: contain; }
+        #p-press { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.18); opacity: 0; }
+        .p-notes { background: linear-gradient(180deg, #ffe07a, #ffc93c); }
+        .p-notes .ic { color: #6b4f00; }
+        .p-rem { background: linear-gradient(180deg, #ff8a78, #f2545b); }
+        .p-photos { background: linear-gradient(135deg, #fdba74 0%, #f472b6 52%, #818cf8 100%); }
+        .p-maps { background: linear-gradient(135deg, #bff0b4, #74d68f); }
+        .p-maps .road { position: absolute; left: -10px; top: 26px; width: 90px; height: 11px; background: #fff; transform: rotate(-32deg); box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35); }
+        .p-maps .ic { position: relative; width: 28px; height: 28px; color: #ef4444; fill: #fff; }
+        .p-clock { background: #121416; }
+        .p-meteo { background: linear-gradient(180deg, #2f80ed, #56ccf2); }
+        .p-meteo .sun { position: absolute; left: 30px; top: 12px; width: 22px; height: 22px; border-radius: 50%; background: #ffd34d; }
+        .p-meteo .cl { position: absolute; border-radius: 50%; background: #fff; }
+        .p-cam-ico { background: linear-gradient(180deg, #e5e7eb, #a3a9b3); }
+        .p-cam-ico .ic { color: #1f2937; }
+        .p-msg { background: linear-gradient(180deg, #4ade80, #16a34a); }
+        .p-mail { background: linear-gradient(180deg, #4f9cf7, #1d64d8); }
+        .p-set { background: linear-gradient(180deg, #a1a7b0, #646b74); }
+        .p-widget { position: absolute; top: 272px; width: 162px; height: 162px; border-radius: 24px; overflow: hidden; box-shadow: 0 4px 14px rgba(120, 40, 0, 0.22); }
+        .p-wlbl { position: absolute; top: 440px; width: 162px; text-align: center; font: 500 11.5px/1.1 "Inter", sans-serif; color: #fff; text-shadow: 0 1px 2px rgba(110, 40, 0, 0.35); }
+        #p-wphoto img { width: 100%; height: 100%; object-fit: cover; }
+        #p-wphoto .cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 14px 12px; background: linear-gradient(0deg, rgba(14, 10, 7, 0.6), rgba(14, 10, 7, 0)); font: 600 14px/1.2 "Inter", sans-serif; color: #fff; }
+        #p-wphoto .cap em { display: block; font-style: normal; font-weight: 500; font-size: 12px; opacity: 0.85; }
+        #p-wrem { background: #fff; padding: 14px 14px 0; }
+        #p-wrem .top { display: flex; justify-content: space-between; align-items: flex-start; }
+        #p-wrem .top b { font: 700 26px/1 "Inter", sans-serif; color: #e2590b; }
+        #p-wrem .top span { margin-top: 4px; font: 600 13px/1 "Inter", sans-serif; color: #e2590b; }
+        .p-rm { display: flex; align-items: center; gap: 8px; margin-top: 11px; font: 500 12.5px/1.15 "Inter", sans-serif; letter-spacing: -0.01em; color: #1e1813; white-space: nowrap; }
+        .p-rm i { flex: none; display: block; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #c9c2bb; }
+        .p-rm.ok { color: #9a8f86; }
+        .p-rm.ok i { border: 0; background: #f97316; position: relative; }
+        .p-rm.ok i::after { content: ""; position: absolute; left: 5px; top: 3px; width: 4px; height: 7px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+        .p-dots { position: absolute; top: 598px; left: 0; right: 0; display: flex; justify-content: center; gap: 8px; }
+        .p-dots i { display: block; width: 7px; height: 7px; border-radius: 50%; background: rgba(255, 255, 255, 0.95); }
+        .p-dots i + i { background: rgba(255, 255, 255, 0.45); }
+        .p-dock { position: absolute; left: 12px; right: 12px; top: 752px; height: 88px; border-radius: 34px; background: rgba(255, 236, 220, 0.32); display: flex; justify-content: space-around; align-items: center; padding: 0 10px; }
+        .p-dock .p-ico { box-shadow: none; }
+        #p-tap { position: absolute; left: 149px; top: 101px; width: 76px; height: 76px; margin: -38px 0 0 -38px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, 0.95); opacity: 0; }
+
+        /* ------------------------------------------------ camera (the phone's own camera, opened from Manoo) */
+        #p-camv { background: #000; visibility: hidden; }
+        #p-camv-in { position: absolute; inset: 0; transform-origin: 149px 101px; }
+        .cam-view { position: absolute; left: 0; right: 0; top: 104px; height: 560px; overflow: hidden; }
+        .cam-view img { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .cam-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 1px); background-size: 100% 33.333%, 33.333% 100%; background-position: 0 -1px, -1px 0; }
+        .cam-top { position: absolute; left: 0; right: 0; top: 58px; display: flex; justify-content: space-between; padding: 0 26px; color: #fff; }
+        .cam-top .ic { width: 22px; height: 22px; }
+        .cam-modes { position: absolute; left: 0; right: 0; top: 684px; display: flex; justify-content: center; gap: 24px; font: 600 14px/1 "Inter", sans-serif; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.62); }
+        .cam-modes .on { color: #ffd60a; }
+        .cam-bot { position: absolute; left: 0; right: 0; top: 724px; height: 96px; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; }
+        .cam-thumb { position: relative; width: 54px; height: 54px; border-radius: 12px; overflow: hidden; background: #1c1c1e; border: 2px solid rgba(255, 255, 255, 0.85); }
+        .cam-thumb .p-bg { border-radius: 10px; }
+        #p-cthumb-new { opacity: 0; }
+        .cam-shut { position: relative; width: 86px; height: 86px; border-radius: 50%; border: 5px solid #fff; }
+        #p-sw { position: absolute; left: 5px; top: 5px; width: 66px; height: 66px; border-radius: 50%; background: #fff; }
+        /* the Manoo pill once it has landed: it is the shutter */
+        #p-sdisc { position: absolute; left: 5px; top: 5px; width: 66px; height: 66px; border-radius: 50%; background: radial-gradient(circle at 35% 28%, #ffa766 0%, #f97316 55%, #e2590b 100%); display: flex; align-items: center; justify-content: center; opacity: 0; }
+        #p-sdisc img { width: 34px; height: 30px; object-fit: contain; }
+        #p-sglow { position: absolute; left: -5px; top: -5px; width: 86px; height: 86px; border-radius: 50%; box-shadow: 0 0 22px 6px rgba(249, 115, 22, 0.65); opacity: 0; }
+        .cam-flip { width: 54px; height: 54px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); display: flex; align-items: center; justify-content: center; color: #fff; }
+        .cam-flip .ic { width: 24px; height: 24px; }
+        #p-focus { position: absolute; left: 197px; top: 470px; width: 96px; height: 96px; margin: -48px 0 0 -48px; border: 2px solid #ffd60a; opacity: 0; }
+        #p-flash { position: absolute; inset: 0; background: #fff; opacity: 0; }
+
+        /* ------------------------------------------------ Manoo: Jules' profile and portfolio */
+        #p-prof { visibility: hidden; }
+        .jm { background: linear-gradient(135deg, #fd8b3a, #e4702e); color: #fff; font: 700 17px/1 "Inter", sans-serif; letter-spacing: -0.02em; display: flex; align-items: center; justify-content: center; }
+        #p-pfwrap { position: absolute; left: 0; right: 0; top: 168px; padding: 14px 14px 0; }
+        #p-pf { padding: 18px 18px 14px; }
+        .p-pftop { display: flex; gap: 14px; align-items: center; }
+        #p-pf .pf-av { width: 72px; height: 72px; font-size: 24px; flex: none; }
+        #p-pf .pf-name { font-size: 21px; }
+        #p-pf .pf-job { margin-top: 3px; font-size: 14px; }
+        #p-pf .pf-meta { margin-top: 6px; gap: 12px; font-size: 13px; }
+        #p-pf .stats { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--bd); }
+        #p-grid { position: relative; margin-top: 12px; height: 340px; }
+        #p-grid .cell { position: absolute; left: 0; top: 0; width: 178px; height: 156px; }
+        /* the frozen frame: same crop as the viewfinder when the shot froze it; flies into the banner by transform */
+        #p-snap { position: absolute; left: 18px; top: 122px; width: 394px; height: 560px; overflow: hidden; z-index: 65; opacity: 0; transform-origin: 50% 50%; }
+        #p-snap .p-bg { transform: translate(9px, -3px) scale(1.06); }
+        #p-pulse { position: absolute; left: 215px; top: 790px; width: 86px; height: 86px; margin: -43px 0 0 -43px; border-radius: 50%; border: 4px solid rgba(249, 115, 22, 0.9); opacity: 0; z-index: 66; }
+
+        /* ------------------------------------------------ the island and its live banner */
+        /* a fixed black plate (phone x 16-414, y 11-116); its clip-path draws the idle pill, the banner, the compact pill */
+        #p-isl { position: absolute; left: 16px; top: 11px; width: 398px; height: 105px; background: #000; z-index: 60; }
+        #p-isl .p-ib { position: absolute; left: 8px; top: 1px; width: 382px; height: 96px; opacity: 0; }
+        #p-isl .p-ic { position: absolute; left: 92px; top: 0; width: 214px; height: 36px; opacity: 0; }
+        #p-ib-thumb { position: absolute; left: 18px; top: 18px; width: 60px; height: 60px; border-radius: 16px; overflow: hidden; opacity: 0; }
+        #p-ib-t1 { position: absolute; left: 92px; top: 27px; font: 600 17px/1.15 "Inter", sans-serif; letter-spacing: -0.015em; color: #fff; white-space: nowrap; }
+        #p-ib-t2 { position: absolute; left: 92px; top: 51px; font: 500 14px/1.15 "Inter", sans-serif; letter-spacing: -0.01em; color: #a8a29e; white-space: nowrap; }
+        #p-ib-t2 b { font-weight: 600; color: #fdba74; }
+        #p-ib-ring { position: absolute; right: 20px; top: 26px; width: 44px; height: 44px; }
+        #p-ib-ok { position: absolute; right: 20px; top: 26px; width: 44px; height: 44px; border-radius: 50%; background: #f97316; display: flex; align-items: center; justify-content: center; color: #fff; opacity: 0; }
+        #p-ib-ok .ic { width: 26px; height: 26px; stroke-width: 3; }
+        #p-ic-ham { position: absolute; left: 13px; top: 8px; width: 23px; height: 20px; }
+        #p-ic-ok { position: absolute; right: 11px; top: 7px; width: 22px; height: 22px; color: #f97316; }
+
+        /* ------------------------------------------------ the flying pill (stage space, in front of everything) */
+        #p-pill { position: absolute; left: 0; top: 0; width: 300px; height: 170px; margin: 0; border-radius: 85px; background: radial-gradient(ellipse 80% 70% at 32% 26%, #ffa766 0%, #f97316 52%, #e2590b 100%); box-shadow: 0 18px 50px rgba(226, 89, 11, 0.38), inset 0 -6px 16px rgba(160, 50, 0, 0.25), inset 0 6px 12px rgba(255, 220, 190, 0.45); display: flex; align-items: center; justify-content: center; opacity: 0; filter: url(#p-mbp); }
+        /* the hammer keeps the shutter disc's proportion (30 px in 66) so the hand-off on landing matches */
+        #p-pill .p-wham { height: 45%; aspect-ratio: 522 / 462; background: url("assets/brand/manoo-marteau-blanc.png") center / contain no-repeat; }
+      </style>
+
+      <div data-hf-id="hf-pr00" id="p-root" data-composition-id="phone" data-width="1080" data-height="1920">
+        <svg data-hf-id="hf-pr01" id="p-defs" aria-hidden="true">
+          <defs>
+            <filter id="p-mb" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB"><feGaussianBlur id="p-mb-g" stdDeviation="0 0"/></filter>
+            <filter id="p-mbp" x="-80%" y="-80%" width="260%" height="260%" color-interpolation-filters="sRGB"><feGaussianBlur id="p-mbp-g" stdDeviation="0 0"/></filter>
+          </defs>
+        </svg>
+
+        <div data-hf-id="hf-pr02" id="p-cam" data-layout-allow-overlap data-layout-allow-overflow>
+          <div data-hf-id="hf-pr03" id="p-ph">
+            <div data-hf-id="hf-pr04" id="p-slabs"></div>
+            <div data-hf-id="hf-pr05" id="p-front" class="phone mui">
+              <div data-hf-id="hf-pr06" class="phone-body"></div>
+              <div data-hf-id="hf-pr07" class="screen">
+
+                <!-- the three screens are set dressing for the audits (data-layout-ignore): generic OS chrome and
+                     the Manoo app's own colours (white on its orange header), reproduced as they are -->
+                <!-- 1 · home screen -->
+                <div data-hf-id="hf-pr10" id="p-home" class="p-layer" data-layout-ignore>
+                  <div data-hf-id="hf-pr11" class="sbar"><span data-hf-id="hf-pr12">9:41</span><span data-hf-id="hf-pr13" class="sbar-r"><span data-hf-id="hf-pr14" class="sbar-sig"><i data-hf-id="hf-pr15"></i><i data-hf-id="hf-pr16"></i><i data-hf-id="hf-pr17"></i><i data-hf-id="hf-pr18"></i></span><span data-hf-id="hf-pr19" class="sbar-bat"><b data-hf-id="hf-pr1a"></b></span></span></div>
+                  <div data-hf-id="hf-pr1b" id="p-home-in">
+                    <div data-hf-id="hf-pr20" class="p-app" style="left:22px;top:72px"><div data-hf-id="hf-pr21" class="p-ico p-cal"><b data-hf-id="hf-pr22">JEU.</b><span data-hf-id="hf-pr23">22</span></div><div data-hf-id="hf-pr24" class="p-lbl">Agenda</div></div>
+                    <div data-hf-id="hf-pr25" id="p-manoo" class="p-app" style="left:118px;top:72px"><div data-hf-id="hf-pr26" id="p-manoo-ico" class="p-ico p-manoo"><img data-hf-id="hf-pr27" src="assets/brand/manoo-marteau.png" alt=""><div data-hf-id="hf-pr28" id="p-press"></div></div><div data-hf-id="hf-pr29" class="p-lbl">Manoo</div></div>
+                    <div data-hf-id="hf-pr2a" class="p-app" style="left:214px;top:72px"><div data-hf-id="hf-pr2b" class="p-ico p-notes"><i data-hf-id="hf-pr2c" data-icon="notebook-text"></i></div><div data-hf-id="hf-pr2d" class="p-lbl">Notes</div></div>
+                    <div data-hf-id="hf-pr2e" class="p-app" style="left:310px;top:72px"><div data-hf-id="hf-pr2f" class="p-ico p-rem"><i data-hf-id="hf-pr30" data-icon="bell-ring"></i></div><div data-hf-id="hf-pr31" class="p-lbl">Rappels</div></div>
+                    <div data-hf-id="hf-pr32" class="p-app" style="left:22px;top:172px"><div data-hf-id="hf-pr33" class="p-ico p-photos"><i data-hf-id="hf-pr34" data-icon="images"></i></div><div data-hf-id="hf-pr35" class="p-lbl">Photos</div></div>
+                    <div data-hf-id="hf-pr36" class="p-app" style="left:118px;top:172px"><div data-hf-id="hf-pr37" class="p-ico p-maps"><div data-hf-id="hf-pr38" class="road"></div><i data-hf-id="hf-pr39" data-icon="map-pin"></i></div><div data-hf-id="hf-pr3a" class="p-lbl">Plans</div></div>
+                    <div data-hf-id="hf-pr3b" class="p-app" style="left:214px;top:172px"><div data-hf-id="hf-pr3c" class="p-ico p-clock"><i data-hf-id="hf-pr3d" data-icon="clock"></i></div><div data-hf-id="hf-pr3e" class="p-lbl">Horloge</div></div>
+                    <div data-hf-id="hf-pr3f" class="p-app" style="left:310px;top:172px"><div data-hf-id="hf-pr40" class="p-ico p-meteo"><div data-hf-id="hf-pr41" class="sun"></div><div data-hf-id="hf-pr42" class="cl" style="left:10px;top:30px;width:22px;height:22px"></div><div data-hf-id="hf-pr43" class="cl" style="left:22px;top:22px;width:26px;height:26px"></div><div data-hf-id="hf-pr44" class="cl" style="left:36px;top:32px;width:18px;height:18px"></div><div data-hf-id="hf-pr45" class="cl" style="left:12px;top:38px;width:40px;height:14px;border-radius:7px"></div></div><div data-hf-id="hf-pr46" class="p-lbl">Météo</div></div>
+
+                    <div data-hf-id="hf-pr47" id="p-wphoto" class="p-widget" style="left:22px"><img data-hf-id="hf-pr48" src="assets/photos/garde-corps.jpg" alt=""><div data-hf-id="hf-pr49" class="cap">Atelier<em data-hf-id="hf-pr4a">Garde-corps acier</em></div></div>
+                    <div data-hf-id="hf-pr4b" class="p-wlbl" style="left:22px">Photos</div>
+                    <div data-hf-id="hf-pr4c" id="p-wrem" class="p-widget" style="left:210px">
+                      <div data-hf-id="hf-pr4d" class="top"><span data-hf-id="hf-pr4e">Chantier</span><b data-hf-id="hf-pr4f">3</b></div>
+                      <div data-hf-id="hf-pr50" class="p-rm ok"><i data-hf-id="hf-pr51"></i>Poser le portail</div>
+                      <div data-hf-id="hf-pr52" class="p-rm"><i data-hf-id="hf-pr53"></i>Photos du chantier</div>
+                      <div data-hf-id="hf-pr54" class="p-rm"><i data-hf-id="hf-pr55"></i>Devis escalier</div>
+                    </div>
+                    <div data-hf-id="hf-pr56" class="p-wlbl" style="left:210px">Rappels</div>
+
+                    <div data-hf-id="hf-pr57" class="p-app" style="left:22px;top:474px"><div data-hf-id="hf-pr58" class="p-ico p-cam-ico"><i data-hf-id="hf-pr59" data-icon="camera"></i></div><div data-hf-id="hf-pr5a" class="p-lbl">Caméra</div></div>
+                    <div data-hf-id="hf-pr5b" class="p-app" style="left:118px;top:474px"><div data-hf-id="hf-pr5c" class="p-ico p-msg"><i data-hf-id="hf-pr5d" data-icon="message-circle"></i></div><div data-hf-id="hf-pr5e" class="p-lbl">Messages</div></div>
+                    <div data-hf-id="hf-pr5f" class="p-app" style="left:214px;top:474px"><div data-hf-id="hf-pr60" class="p-ico p-mail"><i data-hf-id="hf-pr61" data-icon="mail"></i></div><div data-hf-id="hf-pr62" class="p-lbl">Mail</div></div>
+                    <div data-hf-id="hf-pr63" class="p-app" style="left:310px;top:474px"><div data-hf-id="hf-pr64" class="p-ico p-set"><i data-hf-id="hf-pr65" data-icon="settings"></i></div><div data-hf-id="hf-pr66" class="p-lbl">Réglages</div></div>
+                    <div data-hf-id="hf-pr67" class="p-dots"><i data-hf-id="hf-pr68"></i><i data-hf-id="hf-pr69"></i></div>
+                    <div data-hf-id="hf-pr6a" class="p-dock">
+                      <div data-hf-id="hf-pr6b" class="p-ico p-msg"><i data-hf-id="hf-pr6c" data-icon="send"></i></div>
+                      <div data-hf-id="hf-pr6d" class="p-ico p-mail"><i data-hf-id="hf-pr6e" data-icon="search"></i></div>
+                      <div data-hf-id="hf-pr6f" class="p-ico p-rem"><i data-hf-id="hf-pr70" data-icon="sparkles"></i></div>
+                      <div data-hf-id="hf-pr71" class="p-ico p-set"><i data-hf-id="hf-pr72" data-icon="file-text"></i></div>
+                    </div>
+                  </div>
+                  <div data-hf-id="hf-pr73" id="p-tap"></div>
+                </div>
+
+                <!-- 2 · camera, opened from Manoo (Ajouter au portfolio → prendre une photo) -->
+                <div data-hf-id="hf-pr80" id="p-camv" class="p-layer" data-layout-ignore>
+                  <div data-hf-id="hf-pr81" id="p-camv-in">
+                    <div data-hf-id="hf-pr82" class="cam-view"><img data-hf-id="hf-pr83" id="p-vf" src="assets/photos/jules-portail.jpg" alt=""><div data-hf-id="hf-pr84" class="cam-grid"></div><div data-hf-id="hf-pr85" id="p-focus"></div><div data-hf-id="hf-pr98" id="p-flash"></div></div>
+                    <div data-hf-id="hf-pr86" class="cam-top"><i data-hf-id="hf-pr87" data-icon="zap-off"></i><i data-hf-id="hf-pr88" data-icon="settings"></i></div>
+                    <div data-hf-id="hf-pr89" class="cam-modes"><span data-hf-id="hf-pr8a">VIDÉO</span><span data-hf-id="hf-pr8b" class="on">PHOTO</span><span data-hf-id="hf-pr8c">PORTRAIT</span></div>
+                    <div data-hf-id="hf-pr8d" class="cam-bot">
+                      <div data-hf-id="hf-pr8e" class="cam-thumb"><div data-hf-id="hf-pr8f" class="p-bg" style="background-image:url('assets/photos/garde-corps.jpg')"></div><div data-hf-id="hf-pr90" id="p-cthumb-new" class="p-bg p-gate"></div></div>
+                      <div data-hf-id="hf-pr91" id="p-shut" class="cam-shut"><div data-hf-id="hf-pr92" id="p-sglow"></div><div data-hf-id="hf-pr93" id="p-sw"></div><div data-hf-id="hf-pr94" id="p-sdisc"><img data-hf-id="hf-pr95" src="assets/brand/manoo-marteau-blanc.png" alt=""></div></div>
+                      <div data-hf-id="hf-pr96" class="cam-flip"><i data-hf-id="hf-pr97" data-icon="switch-camera"></i></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 3 · Manoo: the photo lands in Jules' portfolio -->
+                <div data-hf-id="hf-pra0" id="p-prof" class="p-layer scr" data-layout-ignore>
+                  <div data-hf-id="hf-pra1" id="p-sbar2" class="sbar"><span data-hf-id="hf-pra2">9:41</span><span data-hf-id="hf-pra3" class="sbar-r"><span data-hf-id="hf-pra4" class="sbar-sig"><i data-hf-id="hf-pra5"></i><i data-hf-id="hf-pra6"></i><i data-hf-id="hf-pra7"></i><i data-hf-id="hf-pra8"></i></span><span data-hf-id="hf-pra9" class="sbar-bat"><b data-hf-id="hf-praa"></b></span></span></div>
+                  <div data-hf-id="hf-prab" class="hdr">
+                    <div data-hf-id="hf-prac" class="hdr-row">
+                      <div data-hf-id="hf-prad" class="brand"><div data-hf-id="hf-prae" class="brand-ico"><div data-hf-id="hf-praf" class="p-ham" style="width:24px;height:21px"></div></div><div data-hf-id="hf-prb0" class="brand-name">Manoo</div></div>
+                      <div data-hf-id="hf-prb1" class="hdr-btns"><div data-hf-id="hf-prb2" class="hdr-btn"><i data-hf-id="hf-prb3" data-icon="bell"></i></div><div data-hf-id="hf-prb4" class="hdr-avatar jm" style="font-size:14px">JM</div></div>
+                    </div>
+                    <div data-hf-id="hf-prb5" class="hdr-search"><i data-hf-id="hf-prb6" data-icon="search"></i><span data-hf-id="hf-prb7">Mots-clés, tags, contenu...</span></div>
+                  </div>
+                  <div data-hf-id="hf-prb8" id="p-pfwrap">
+                    <div data-hf-id="hf-prb9" id="p-pf" class="card">
+                      <div data-hf-id="hf-prba" class="p-pftop">
+                        <div data-hf-id="hf-prbb" class="pf-av jm">JM</div>
+                        <div data-hf-id="hf-prbc">
+                          <div data-hf-id="hf-prbd" class="pf-name">Jules Moreau</div>
+                          <div data-hf-id="hf-prbe" class="pf-job">Serrurier / Métallier</div>
+                          <div data-hf-id="hf-prbf" class="pf-meta"><span data-hf-id="hf-prc0"><i data-hf-id="hf-prc1" data-icon="map-pin"></i>Rennes</span><span data-hf-id="hf-prc2"><i data-hf-id="hf-prc3" data-icon="graduation-cap"></i>CAP, 2e année</span></div>
+                        </div>
+                      </div>
+                      <div data-hf-id="hf-prc4" class="stats">
+                        <div data-hf-id="hf-prc5" class="stat"><b data-hf-id="hf-prc6" id="p-npub">4</b><span data-hf-id="hf-prc7">Réalisations</span></div>
+                        <div data-hf-id="hf-prc8" class="stat"><b data-hf-id="hf-prc9">18</b><span data-hf-id="hf-prca">Abonnés</span></div>
+                        <div data-hf-id="hf-prcb" class="stat"><b data-hf-id="hf-prcc">31</b><span data-hf-id="hf-prcd">Abonnements</span></div>
+                      </div>
+                    </div>
+                    <div data-hf-id="hf-prce" class="tabs" style="margin-top:12px"><div data-hf-id="hf-prcf" class="tab on">Portfolio</div><div data-hf-id="hf-prd0" class="tab">Publications</div><div data-hf-id="hf-prd1" class="tab">Avis</div></div>
+                    <div data-hf-id="hf-prd2" id="p-grid">
+                      <div data-hf-id="hf-prd3" class="cell p-old"><div data-hf-id="hf-prd4" class="p-bg" style="background-image:url('assets/photos/garde-corps.jpg')"></div><div data-hf-id="hf-prd5" class="cell-t">Garde-corps acier</div></div>
+                      <div data-hf-id="hf-prd6" class="cell p-old"><img data-hf-id="hf-prd7" src="assets/photos/escalier.jpg" alt=""><div data-hf-id="hf-prd8" class="cell-t">Escalier droit</div></div>
+                      <div data-hf-id="hf-prd9" class="cell p-old"><img data-hf-id="hf-prda" src="assets/photos/A3.jpg" alt=""><div data-hf-id="hf-prdb" class="cell-t">Râtelier à barres</div></div>
+                      <div data-hf-id="hf-prdc" class="cell p-old"><img data-hf-id="hf-prdd" src="assets/photos/C2.jpg" alt=""><div data-hf-id="hf-prde" class="cell-t">Établi soudé</div></div>
+                      <div data-hf-id="hf-prdf" id="p-cell-new" class="cell"><div data-hf-id="hf-pre0" class="p-bg p-gate"></div><div data-hf-id="hf-pre1" class="cell-t">Portail en fer forgé</div></div>
+                    </div>
+                  </div>
+                  <div data-hf-id="hf-pre2" class="bnav">
+                    <div data-hf-id="hf-pre3" class="bnav-it"><i data-hf-id="hf-pre4" data-icon="house"></i>Feed</div>
+                    <div data-hf-id="hf-pre5" class="bnav-it"><i data-hf-id="hf-pre6" data-icon="search"></i>Recherche</div>
+                    <div data-hf-id="hf-pre7" class="bnav-it"><i data-hf-id="hf-pre8" data-icon="message-circle"></i>Messages</div>
+                    <div data-hf-id="hf-pre9" class="bnav-it"><i data-hf-id="hf-prea" data-icon="bell"></i>Notifs</div>
+                    <div data-hf-id="hf-preb" class="bnav-it on"><i data-hf-id="hf-prec" data-icon="user"></i>Profil</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- the island: idle → live banner → compact -->
+              <div data-hf-id="hf-prf0" id="p-isl">
+                <div data-hf-id="hf-prf1" class="p-ib">
+                  <div data-hf-id="hf-prf2" id="p-ib-thumb"><div data-hf-id="hf-prf3" class="p-bg p-gate"></div></div>
+                  <div data-hf-id="hf-prf4" id="p-ib-t1">Portail en fer forgé</div>
+                  <div data-hf-id="hf-prf5" id="p-ib-t2">Envoi… <b data-hf-id="hf-prf6" id="p-ib-pct">0 %</b></div>
+                  <svg data-hf-id="hf-prf7" id="p-ib-ring" viewBox="0 0 44 44"><circle data-hf-id="hf-prf8" cx="22" cy="22" r="19" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="4"/><circle data-hf-id="hf-prf9" id="p-ib-arc" cx="22" cy="22" r="19" fill="none" stroke="#f97316" stroke-width="4" stroke-linecap="round" stroke-dasharray="119.38" stroke-dashoffset="119.38" transform="rotate(-90 22 22)"/></svg>
+                  <div data-hf-id="hf-prfa" id="p-ib-ok"><i data-hf-id="hf-prfb" data-icon="check"></i></div>
+                </div>
+                <div data-hf-id="hf-prfc" class="p-ic">
+                  <div data-hf-id="hf-prfd" id="p-ic-ham" class="p-ham"></div>
+                  <i data-hf-id="hf-prfe" id="p-ic-ok-i" data-icon="circle-check"></i>
+                </div>
+              </div>
+              <div data-hf-id="hf-prff" id="p-snap"><div data-hf-id="hf-prg0" class="p-bg p-gate"></div></div>
+              <div data-hf-id="hf-prg1" id="p-pulse"></div>
+              <div data-hf-id="hf-prg2" class="glare"></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-prg3" id="p-pill"><div data-hf-id="hf-prg4" class="p-wham"></div></div>
+      </div>
+
+      <script>
+        (function () {
+          const T = window.T;
+          const root = document.getElementById("p-root");
+          const $ = (s) => root.querySelector(s);
+          window.ManooIcons.hydrate(root);
+          const okIco = $("#p-isl .p-ic svg");
+          if (okIco) okIco.id = "p-ic-ok";
+
+          // ---------------------------------------------------------------- the phone as a 3D object
+          // thickness: silhouettes stacked from the back (z -20) to just behind the screen face (z +16)
+          const slabs = $("#p-slabs");
+          for (let z = -20; z <= 16; z += 3) {
+            const d = document.createElement("div");
+            d.className = "p-slab" + (z >= 13 ? " hi" : "");
+            d.style.transform = "translateZ(" + z + "px)";
+            slabs.appendChild(d);
+          }
+          // side buttons (left: action + volume, right: power), a few layers deep so they read as bumps
+          [[-5, 168, 30], [-5, 226, 56], [-5, 296, 56], [427, 250, 88]].forEach(([x, y, h]) => {
+            for (const z of [-7, -1, 5]) {
+              const b = document.createElement("div");
+              b.className = "p-btn";
+              b.style.cssText = "left:" + x + "px;top:" + y + "px;height:" + h + "px;transform:translateZ(" + z + "px)";
+              slabs.appendChild(b);
+            }
+          });
+
+          // ---------------------------------------------------------------- camera rig
+          // perspective P from (540, 960); the phone centre sits at world (540, 1089) for x = y = 0.
+          // A pose is { x, y, z, rx, ry } on #p-ph (GSAP order: rotateY(ry) rotateX(rx) applied to the points).
+          const P = 2600, OX = 540, OY = 960, CX = 540, CY = 645 + 444;
+          const R = Math.PI / 180;
+          const rot = (v, rx, ry) => {
+            const a = rx * R, b = ry * R;
+            const y1 = v[1] * Math.cos(a) - v[2] * Math.sin(a), z1 = v[1] * Math.sin(a) + v[2] * Math.cos(a);
+            return [v[0] * Math.cos(b) + z1 * Math.sin(b), y1, -v[0] * Math.sin(b) + z1 * Math.cos(b)];
+          };
+          // phone-local point (px from the phone's top-left, z from its mid-plane) → stage px
+          const project = (pose, lx, ly, lz) => {
+            const r = rot([lx - 215, ly - 444, lz], pose.rx, pose.ry);
+            const X = CX + pose.x + r[0], Y = CY + pose.y + r[1], Z = pose.z + r[2];
+            const k = P / (P - Z);
+            return [OX + (X - OX) * k, OY + (Y - OY) * k, k];
+          };
+          const zFor = (k) => P * (1 - 1 / k);
+          // the pose that puts phone-local point (lx, ly) at stage (sx, sy), seen at magnification k, turned rx / ry
+          const aim = (lx, ly, sx, sy, k, rx, ry) => {
+            const z = zFor(k);
+            const r = rot([lx - 215, ly - 444, 20], rx, ry);
+            const ks = P / (P - (z + r[2]));
+            return { x: (sx - OX) / ks - r[0] - CX + OX, y: (sy - OY) / ks - r[1] - CY + OY, z, rx, ry };
+          };
+          // CLOSE: the top of the phone at y 330, twice its size; SHUT: down on the shutter, turned like the reference
+          const CLOSE = { x: 0, y: 0, z: zFor(2), rx: 0, ry: 0 };
+          const SHUTTER = [215, 790];
+          const SHUT = aim(SHUTTER[0], SHUTTER[1], 540, 1150, 2.2, 15, 27);
+          const plus = (a, d) => ({ x: a.x + (d.x || 0), y: a.y + (d.y || 0), z: a.z + (d.z || 0), rx: a.rx + (d.rx || 0), ry: a.ry + (d.ry || 0) });
+          const KEYS = [
+            // [t0, t1, from, to, ease]
+            [T.rise - 0.001, T.rise + 0.9, plus(CLOSE, { y: 640 }), CLOSE, "power3.out"],
+            [T.rise + 0.9, T.pill + 0.05, CLOSE, plus(CLOSE, { z: 16 }), "sine.inOut"],
+            [T.pill + 0.05, T.land - 0.04, plus(CLOSE, { z: 16 }), SHUT, "power4.inOut"],
+            [T.land - 0.04, T.swing, SHUT, plus(SHUT, { z: 22, ry: -2.5 }), "sine.out"],
+            [T.swing, T.swing + 0.32, plus(SHUT, { z: 22, ry: -2.5 }), CLOSE, "power3.inOut"],
+            [T.swing + 0.32, T.cut, CLOSE, plus(CLOSE, { z: 46 }), "sine.inOut"],
+          ].map(([t0, t1, a, b, e]) => ({ t0, t1, a, b, e: gsap.parseEase(e) }));
+          const poseAt = (t) => {
+            let seg = KEYS[0];
+            for (const s of KEYS) if (t >= s.t0) seg = s;
+            const p = seg.e(Math.min(1, Math.max(0, (t - seg.t0) / (seg.t1 - seg.t0))));
+            const o = {};
+            for (const k of ["x", "y", "z", "rx", "ry"]) o[k] = seg.a[k] + (seg.b[k] - seg.a[k]) * p;
+            return o;
+          };
+          // motion blur from the on-screen speed of a few points of the phone
+          const PROBES = [[215, 444], [215, 60], [215, 828], [20, 444], [410, 444]];
+          const blurAt = (t) => {
+            const dt = 1 / 240, a = poseAt(t - dt), b = poseAt(t + dt);
+            let vx = 0, vy = 0;
+            for (const [lx, ly] of PROBES) {
+              const p0 = project(a, lx, ly, 20), p1 = project(b, lx, ly, 20);
+              vx = Math.max(vx, Math.abs(p1[0] - p0[0]) / (2 * dt));
+              vy = Math.max(vy, Math.abs(p1[1] - p0[1]) / (2 * dt));
+            }
+            return [Math.min(30, vx / 210), Math.min(34, vy / 210)];
+          };
+
+          // ---------------------------------------------------------------- the flying pill (stage space)
+          // it lands exactly on the shutter's inner disc as seen at the landing pose
+          const landPose = poseAt(T.land);
+          const landPt = project(landPose, SHUTTER[0], SHUTTER[1], 21);
+          const landW = 66 * landPt[2] * Math.cos(landPose.ry * R), landH = 66 * landPt[2] * Math.cos(landPose.rx * R);
+          const PILL = { t0: T.pill, t1: T.land, x0: 110, y0: 330, h0: 380, a0: 1.75 };
+          const ex = gsap.parseEase("power2.inOut"), ey = gsap.parseEase("power3.out"), es = gsap.parseEase("power2.out"), ea = gsap.parseEase("power3.in");
+          const pillAt = (t) => {
+            const q = Math.min(1, Math.max(0, (t - PILL.t0) / (PILL.t1 - PILL.t0)));
+            const s = es(q);
+            const h = PILL.h0 + (landH - PILL.h0) * s;
+            const aspect = PILL.a0 + (landW / landH - PILL.a0) * ea(q);
+            return {
+              x: PILL.x0 + (landPt[0] - PILL.x0) * ex(q),
+              y: PILL.y0 + (landPt[1] - PILL.y0) * ey(q),
+              w: h * aspect,
+              h,
+              rot: -16 * (1 - s),
+            };
+          };
+
+          // ---------------------------------------------------------------- tweens (everything else)
+          const tl = gsap.timeline({ paused: true });
+          const at = (t) => +t.toFixed(3);
+          const isl = $("#p-isl");
+          // plate-local rectangles: idle pill (phone x 153, w 124), banner (x 24, w 382, h 96), compact (x 108, w 214);
+          // drawn per frame as a clip-path (the browser rewrites inset() strings, so they are not tweened as text)
+          const PLATE = { w: 398, h: 105 };
+          const ISL = { idle: { x: 137, y: 0, w: 124, h: 36, r: 18 },
+                        banner: { x: 8, y: 1, w: 382, h: 96, r: 40 },
+                        compact: { x: 92, y: 0, w: 214, h: 36, r: 18 } };
+          const ISL_OPEN = { t0: T.banner, d: 0.34, e: gsap.parseEase("back.out(1.25)") };
+          const ISL_CLOSE = { t0: T.collapse + 0.04, d: 0.3, e: gsap.parseEase("power3.inOut") };
+          const islandAt = (t) => {
+            const mix = (a, b, k) => ({ x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k, w: a.w + (b.w - a.w) * k, h: a.h + (b.h - a.h) * k, r: a.r + (b.r - a.r) * k });
+            const clamp = (v) => Math.min(1, Math.max(0, v));
+            if (t < ISL_CLOSE.t0) return mix(ISL.idle, ISL.banner, ISL_OPEN.e(clamp((t - ISL_OPEN.t0) / ISL_OPEN.d)));
+            return mix(ISL.banner, ISL.compact, ISL_CLOSE.e(clamp((t - ISL_CLOSE.t0) / ISL_CLOSE.d)));
+          };
+          // the frozen frame: 394 x 560 → centre square 394 x 394 → 60 x 60 at phone (42, 30),
+          // i.e. scale 60/394 about its centre (215, 402) while the square crop and the corner radius close in
+          const SK = 60 / 394;
+          const SNAP = { t0: T.banner - 0.03, d: 0.4, e: gsap.parseEase("power3.inOut") };
+          // the camera window grows out of the Manoo icon (screen x 118-180, y 70-132) to the whole screen
+          const OPEN = { t0: T.open, d: 0.42, e: gsap.parseEase("expo.out"), from: [70, 214, 720, 118, 15], to: [0, 0, 0, 0, 54] };
+
+          // tap on the Manoo icon, the camera opens out of it
+          tl.fromTo("#p-manoo-ico", { scale: 1 }, { scale: 0.86, duration: 0.09, ease: "power2.in", immediateRender: false }, at(T.tap - 0.05));
+          tl.to("#p-manoo-ico", { scale: 1, duration: 0.22, ease: "back.out(2)" }, at(T.tap + 0.04));
+          tl.fromTo("#p-press", { opacity: 0 }, { opacity: 1, duration: 0.08, immediateRender: false }, at(T.tap - 0.05));
+          tl.to("#p-press", { opacity: 0, duration: 0.2 }, at(T.tap + 0.06));
+          tl.fromTo("#p-tap", { opacity: 0.95, scale: 0.55 }, { opacity: 0, scale: 1.5, duration: 0.42, ease: "power2.out", immediateRender: false }, at(T.tap - 0.02));
+          tl.set("#p-camv", { visibility: "visible" }, at(T.open));
+          tl.fromTo("#p-camv-in", { scale: 0.32, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "expo.out", immediateRender: false }, at(T.open));
+          tl.fromTo("#p-home-in", { scale: 1, opacity: 1 }, { scale: 1.14, opacity: 0.25, duration: 0.42, ease: "expo.out", immediateRender: false }, at(T.open));
+          tl.set("#p-home", { visibility: "hidden" }, at(T.open + 0.45));
+          // live viewfinder: a slow handheld drift, frozen by the shot
+          tl.fromTo("#p-vf", { scale: 1.14, x: -10, y: 4 }, { scale: 1.06, x: 9, y: -3, duration: at(T.flash - T.open), ease: "sine.inOut", immediateRender: true }, at(T.open));
+          tl.fromTo("#p-focus", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power2.out", immediateRender: false }, at(T.land + 0.12));
+          tl.to("#p-focus", { opacity: 0, duration: 0.14 }, at(T.press - 0.08));
+
+          // the pill lands: the shutter turns Manoo orange, armed
+          tl.set("#p-pill", { opacity: 1 }, at(T.pill));
+          tl.to("#p-pill", { opacity: 0, duration: 0.07, ease: "none" }, at(T.land - 0.07));
+          tl.fromTo("#p-sdisc", { opacity: 0 }, { opacity: 1, duration: 0.07, ease: "none", immediateRender: false }, at(T.land - 0.07));
+          tl.fromTo("#p-sw", { opacity: 1 }, { opacity: 0, duration: 0.07, ease: "none", immediateRender: false }, at(T.land - 0.07));
+          tl.fromTo("#p-sglow", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out", immediateRender: false }, at(T.land));
+          tl.fromTo("#p-sglow", { scale: 1 }, { scale: 1.12, duration: 0.22, yoyo: true, repeat: 1, ease: "sine.inOut", immediateRender: false }, at(T.land + 0.02));
+          // one press
+          tl.to("#p-sdisc", { scale: 0.84, duration: 0.08, ease: "power2.in" }, at(T.press));
+          tl.to("#p-sdisc", { scale: 1, duration: 0.24, ease: "back.out(2.2)" }, at(T.press + 0.08));
+          tl.to("#p-sglow", { scale: 1.35, opacity: 1, duration: 0.1, ease: "power2.out" }, at(T.press + 0.04));
+          tl.to("#p-sglow", { scale: 1, opacity: 0.85, duration: 0.3, ease: "power2.inOut" }, at(T.press + 0.14));
+          tl.fromTo("#p-pulse", { opacity: 0.95, scale: 1 }, { opacity: 0, scale: 2.4, duration: 0.5, ease: "power2.out", immediateRender: false }, at(T.flash));
+          tl.fromTo("#p-flash", { opacity: 0 }, { opacity: 0.92, duration: 0.04, immediateRender: false }, at(T.flash));
+          tl.to("#p-flash", { opacity: 0, duration: 0.3, ease: "power2.out" }, at(T.flash + 0.05));
+          tl.fromTo("#p-cthumb-new", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.24, ease: "back.out(2)", immediateRender: false }, at(T.flash + 0.06));
+
+          // the shot freezes, the camera swings back up, Manoo is behind it
+          tl.set("#p-snap", { opacity: 1 }, at(T.swing + 0.14));
+          tl.set("#p-camv", { visibility: "hidden" }, at(T.swing + 0.14));
+          tl.set("#p-prof", { visibility: "visible" }, at(T.swing + 0.14));
+          // the photo flies into the island while it opens into the live banner
+          tl.set("#p-snap", { opacity: 0 }, at(T.banner + 0.37));
+          tl.set("#p-ib-thumb", { opacity: 1 }, at(T.banner + 0.37));
+          tl.fromTo("#p-sbar2", { opacity: 1 }, { opacity: 0, duration: 0.12, immediateRender: false }, at(T.banner));
+          tl.fromTo("#p-isl .p-ib", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power2.out", immediateRender: false }, at(T.banner + 0.16));
+          tl.fromTo("#p-ib-arc", { attr: { "stroke-dashoffset": 119.38 } }, { attr: { "stroke-dashoffset": 0 }, duration: at(T.done - T.banner - 0.45), ease: "power1.inOut", immediateRender: false }, at(T.banner + 0.38));
+          tl.fromTo("#p-ib-ok", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)", immediateRender: false }, at(T.done));
+          tl.to("#p-ib-ring", { opacity: 0, duration: 0.12 }, at(T.done + 0.04));
+
+          // the portfolio takes the new photo first
+          const slot = (i) => [(i % 2) * 188, Math.floor(i / 2) * 166];
+          root.querySelectorAll(".p-old").forEach((c, i) => {
+            gsap.set(c, { x: slot(i)[0], y: slot(i)[1] });
+            tl.to(c, { x: slot(i + 1)[0], y: slot(i + 1)[1], duration: 0.36, ease: "power3.inOut" }, at(T.cell - 0.14 + i * 0.03));
+          });
+          gsap.set("#p-cell-new", { x: 0, y: 0, scale: 0, opacity: 0 });
+          tl.fromTo("#p-cell-new", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.42, ease: "back.out(1.7)", immediateRender: false }, at(T.cell));
+          tl.fromTo("#p-cell-new", { boxShadow: "0 0 0 0px rgba(249,115,22,0)" }, { boxShadow: "0 0 0 4px rgba(249,115,22,0.95)", duration: 0.22, yoyo: true, repeat: 1, immediateRender: false }, at(T.cell + 0.36));
+
+          // collapse to the compact island
+          tl.to("#p-isl .p-ib", { opacity: 0, filter: "blur(8px)", duration: 0.12, ease: "power2.in" }, at(T.collapse));
+          tl.fromTo("#p-isl .p-ic", { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power2.out", immediateRender: false }, at(T.collapse + 0.26));
+          tl.to("#p-sbar2", { opacity: 1, duration: 0.16 }, at(T.collapse + 0.26));
+
+          // ---------------------------------------------------------------- per-frame: camera, blur, pill, counters
+          const ph = $("#p-ph"), cam = $("#p-cam"), mbg = $("#p-mb-g"), pill = $("#p-pill"), pbg = $("#p-mbp-g"), snap = $("#p-snap"), camv = $("#p-camv");
+          const pct = $("#p-ib-pct"), t2 = $("#p-ib-t2"), npub = $("#p-npub");
+          let doneShown = null;
+          const render = () => {
+            const t = tl.time();
+            const pose = poseAt(t);
+            gsap.set(ph, { x: pose.x, y: pose.y, z: pose.z, rotationX: pose.rx, rotationY: pose.ry });
+            const [bx, by] = blurAt(t);
+            if (bx + by > 0.4) {
+              mbg.setAttribute("stdDeviation", bx.toFixed(2) + " " + by.toFixed(2));
+              cam.style.filter = "url(#p-mb)";
+            } else {
+              cam.style.filter = "none";
+            }
+            if (t >= PILL.t0 && t <= PILL.t1) {
+              const a = pillAt(t), b = pillAt(Math.min(PILL.t1, t + 1 / 240)), c = pillAt(Math.max(PILL.t0, t - 1 / 240));
+              const span = (Math.min(PILL.t1, t + 1 / 240) - Math.max(PILL.t0, t - 1 / 240)) || 1;
+              const vx = (b.x - c.x) / span, vy = (b.y - c.y) / span;
+              const settle = 1 - Math.min(1, Math.max(0, ((t - PILL.t0) / (PILL.t1 - PILL.t0) - 0.8) / 0.2));
+              gsap.set(pill, { x: a.x - a.w / 2, y: a.y - a.h / 2, width: a.w, height: a.h, borderRadius: Math.min(a.w, a.h) / 2, rotation: a.rot,
+                               boxShadow: "0 " + (18 * settle).toFixed(1) + "px " + (50 * settle).toFixed(1) + "px rgba(226, 89, 11, " + (0.38 * settle).toFixed(3) + "), inset 0 -6px 16px rgba(160, 50, 0, 0.25), inset 0 6px 12px rgba(255, 220, 190, 0.45)" });
+              pbg.setAttribute("stdDeviation", Math.min(30, Math.abs(vx) / 170).toFixed(2) + " " + Math.min(30, Math.abs(vy) / 170).toFixed(2));
+            }
+            const o = OPEN.e(Math.min(1, Math.max(0, (t - OPEN.t0) / OPEN.d)));
+            const ins = OPEN.from.map((v, i) => (v + (OPEN.to[i] - v) * o).toFixed(2));
+            camv.style.clipPath = "inset(" + ins[0] + "px " + ins[1] + "px " + ins[2] + "px " + ins[3] + "px round " + ins[4] + "px)";
+            const R = islandAt(t);
+            isl.style.clipPath = "inset(" + R.y.toFixed(2) + "px " + (PLATE.w - R.x - R.w).toFixed(2) + "px " + (PLATE.h - R.y - R.h).toFixed(2) + "px " + R.x.toFixed(2) + "px round " + R.r.toFixed(2) + "px)";
+            const q = SNAP.e(Math.min(1, Math.max(0, (t - SNAP.t0) / SNAP.d)));
+            gsap.set(snap, { x: (72 - 215) * q, y: (60 - 402) * q, scale: 1 + (SK - 1) * q });
+            snap.style.clipPath = "inset(" + (83 * q).toFixed(2) + "px 0px " + (83 * q).toFixed(2) + "px 0px round " + ((16 / SK) * q).toFixed(2) + "px)";
+            const k = Math.min(1, Math.max(0, (t - (T.banner + 0.38)) / (T.done - T.banner - 0.45)));
+            const done = t >= T.done;
+            if (done !== doneShown) {
+              t2.innerHTML = done ? "Ajouté à ton portfolio" : 'Envoi… <b id="p-ib-pct">0 %</b>';
+              doneShown = done;
+            }
+            const pctEl = root.querySelector("#p-ib-pct");
+            if (pctEl) pctEl.textContent = Math.round(gsap.parseEase("power1.inOut")(k) * 100) + " %";
+            npub.textContent = t >= T.cell + 0.05 ? "5" : "4";
+          };
+          tl.to({}, { duration: T.cut }, 0);  // the timeline spans the whole scene, so the camera keeps moving to the cut
+          tl.eventCallback("onUpdate", render);
+          render();
+          window.__timelines["phone"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
