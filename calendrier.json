@@ -1,0 +1,150 @@
+{
+  "compte_instagram": "manoo.app",
+  "compte_linkedin": "Jules Pichard (profil personnel)",
+  "mis_a_jour": "2026-10-27",
+  "mode_emploi": "Une entree = une publication. 'publier': false signifie que la tache planifiee doit ignorer la ligne et prevenir Jules. Pour changer un visuel, remplacer le fichier correspondant dans instagram/ sur cette meme branche : l'URL ne bouge pas.",
+  "publications": [
+    {
+      "id": "2026-11-02-li",
+      "date": "2026-11-02",
+      "jour": "Lundi",
+      "heure": "08:15",
+      "reseau": "LinkedIn",
+      "rubrique": "Info secteur",
+      "texte": "L'aide à l'embauche d'un apprenti s'arrête au 1er janvier 2027.\n\nConcrètement : un contrat signé après cette date n'y ouvre plus droit.\n\nPour un artisan du bâtiment, ça change deux choses. Recruter maintenant coûte moins cher qu'attendre. Et un recrutement qui ne tient pas coûte, lui, beaucoup plus cher qu'avant.\n\nC'est précisément là que le CV pose problème. « CAP en cours », « stage de trois semaines » : personne ne peut décider sérieusement sur ces deux lignes. On embauche à l'aveugle, et on découvre le niveau réel au bout de trois semaines de chantier.\n\nAvec Manoo, l'apprenti montre son travail en photos et en vidéos avant même l'entretien. Une soudure, un joint, une finition. L'artisan voit ce qu'il va recruter.\n\nArtisans du bâtiment : si vous prévoyez de prendre un apprenti cette année, écrivez-moi. L'inscription est gratuite.\n\n#apprentissage #btp #artisanat #bretagne",
+      "images": [],
+      "publier": true,
+      "note": ""
+    },
+    {
+      "id": "2026-11-03-in",
+      "date": "2026-11-03",
+      "jour": "Mardi",
+      "heure": "12:30",
+      "reseau": "Instagram",
+      "rubrique": "Le métier en images",
+      "texte": "10 secondes.\n\nC'est le temps qu'il faut à un artisan pour juger une photo de chantier. Un joint propre, une découpe nette, un poste de travail rangé : il voit tout.\n\nAvec un CV, il lui faut trois semaines sur le chantier pour savoir la même chose. Et toi, trois semaines à refaire tes preuves alors que tu les as déjà faites en atelier.\n\nPrends une photo de ce que tu fabriques. C'est tout.\n\nGratuit pour les apprentis. Lien en bio 🔨\n\n#apprentissage #alternance #cfa #lyceepro #btp #bretagne",
+      "images": [
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/a-dix-secondes-1.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/a-dix-secondes-2.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/a-dix-secondes-3.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/a-dix-secondes-4.jpg"
+      ],
+      "publier": true,
+      "note": ""
+    },
+    {
+      "id": "2026-11-05-li",
+      "date": "2026-11-05",
+      "jour": "Jeudi",
+      "heure": "08:15",
+      "reseau": "LinkedIn",
+      "rubrique": "Coulisses Manoo",
+      "texte": "Un mois de rentrée pour Manoo, en trois lignes.\n\nNous avons été reçus par la Fédération Française du Bâtiment d'Ille-et-Vilaine, et nous étions présents à leur job dating du 14 octobre.\n\nHuit étudiants de l'IUT de Rennes travaillent sur le projet jusqu'en mars, dans le cadre du dispositif Créa-IUT.\n\nEt nous préparons une phase pilote avec plusieurs lycées professionnels bretons.\n\nCe qui nous frappe depuis septembre, c'est que tout le monde nous dit la même chose, des deux côtés : les entreprises ne trouvent pas, les jeunes ne sont pas vus. Entre les deux, une feuille A4.\n\nOn continue.\n\n#apprentissage #btp #bretagne #rennes",
+      "images": [],
+      "publier": true,
+      "note": ""
+    },
+    {
+      "id": "2026-11-06-in",
+      "date": "2026-11-06",
+      "jour": "Vendredi",
+      "heure": "18:30",
+      "reseau": "Instagram",
+      "rubrique": "Pédagogie apprenti",
+      "texte": "3 photos à prendre cette semaine en atelier 📸\n\n1. Le geste en cours — pas le résultat, le moment où tu travailles.\n2. La finition de près — c'est ce qu'un patron regarde en premier.\n3. L'ensemble terminé — pour donner l'échelle.\n\nTrois photos par semaine, et en six mois tu as un portfolio que personne ne peut contester.\n\nCommence aujourd'hui. Lien en bio.\n\n#apprentissage #alternance #cfa #artisanat",
+      "images": [
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/b-trois-photos-1.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/b-trois-photos-2.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/b-trois-photos-3.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/b-trois-photos-4.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/b-trois-photos-5.jpg"
+      ],
+      "publier": true,
+      "note": ""
+    },
+    {
+      "id": "2026-11-07-li",
+      "date": "2026-11-07",
+      "jour": "Samedi",
+      "heure": "11:00",
+      "reseau": "LinkedIn",
+      "rubrique": "Conviction",
+      "texte": "Personne n'a jamais recruté un carreleur pour la qualité de sa mise en page.\n\nEt pourtant, c'est ce qu'on demande aux apprentis des métiers manuels : prouver six mois d'atelier sur une feuille A4.\n\nLe CV a été inventé pour des parcours de bureau. On l'a imposé à des métiers dont tout le travail tient dans ce qu'ils fabriquent.\n\nAvec Pierre Laquerbe, on a créé Manoo pour inverser ça : le portfolio remplace le CV.\n\n#artisanat #apprentissage #recrutement",
+      "images": [],
+      "publier": true,
+      "note": ""
+    },
+    {
+      "id": "2026-11-09-li",
+      "date": "2026-11-09",
+      "jour": "Lundi",
+      "heure": "08:15",
+      "reseau": "LinkedIn",
+      "rubrique": "Info secteur",
+      "texte": "Chaque rentrée, des jeunes en CAP ou en bac pro se retrouvent sans entreprise.\n\nPas faute de motivation. Faute d'être vus.\n\nUn établissement place ses élèves avec le réseau qu'il a, les relances qu'il peut faire, et le temps dont il dispose. Un jeune timide avec un CV vide passe après les autres, même s'il est bon en atelier.\n\nC'est une question de visibilité, pas de compétence.\n\nCe qu'on construit avec Manoo tient en une phrase : donner à chaque jeune une preuve de ce qu'il sait faire, qu'il peut envoyer lui-même, sans attendre que quelqu'un le recommande.\n\nÉtablissements, CFA, entreprises : si le sujet vous parle, écrivons-nous.\n\n#apprentissage #alternance #formationprofessionnelle #bretagne",
+      "images": [],
+      "publier": true,
+      "note": ""
+    },
+    {
+      "id": "2026-11-10-in",
+      "date": "2026-11-10",
+      "jour": "Mardi",
+      "heure": "12:30",
+      "reseau": "Instagram",
+      "rubrique": "Coulisses Manoo",
+      "texte": "Huit étudiants de l'IUT de Rennes travaillent sur Manoo jusqu'en mars.\n\nÉtude de marché, modèle économique, juridique. Ils bossent sur notre projet comme sur un vrai dossier, et ils posent des questions qu'on ne s'était pas posées.\n\nMerci à eux et au dispositif Créa-IUT 🙏\n\n#startup #rennes #entrepreneuriat #bretagne",
+      "images": [
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/c-crea-iut-1.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/c-crea-iut-2.jpg"
+      ],
+      "publier": true,
+      "note": ""
+    },
+    {
+      "id": "2026-11-12-li",
+      "date": "2026-11-12",
+      "jour": "Jeudi",
+      "heure": "08:15",
+      "reseau": "LinkedIn",
+      "rubrique": "Pédagogie artisan",
+      "texte": "Ce qu'un artisan regarde vraiment chez un apprenti.\n\nAprès plusieurs mois à en rencontrer, voilà ce qui revient à chaque fois, et dans cet ordre :\n\nEst-ce qu'il est soigneux. Un joint propre, une découpe nette, un poste de travail rangé.\nEst-ce qu'il revient sur son travail quand c'est raté.\nEst-ce qu'il a envie.\n\nAucun de ces trois critères n'apparaît sur un CV. Les trois se voient en dix secondes sur une photo de chantier.\n\nC'est tout le principe de Manoo.\n\nArtisans : qu'est-ce que vous regardez en premier, vous ? Ça m'intéresse vraiment.\n\n#artisanat #btp #recrutement #apprentissage",
+      "images": [],
+      "publier": true,
+      "note": ""
+    },
+    {
+      "id": "2026-11-13-in",
+      "date": "2026-11-13",
+      "jour": "Vendredi",
+      "heure": "18:30",
+      "reseau": "Instagram",
+      "rubrique": "Le métier en images",
+      "texte": "Bâtiment. Mécanique. Boulangerie. Esthétique. Prothèse dentaire.\n\nDes métiers où le travail se regarde.\nEt où on demande pourtant de le raconter avec des mots.\n\nMontre, ne raconte pas. Lien en bio 🔨\n\n#artisanat #apprentissage #alternance #metiersmanuels",
+      "images": [
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/d-metiers-1.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/d-metiers-2.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/d-metiers-3.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/d-metiers-4.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/d-metiers-5.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/d-metiers-6.jpg",
+        "https://raw.githubusercontent.com/ManooApp/Manoo/visuels/instagram/d-metiers-7.jpg"
+      ],
+      "publier": true,
+      "note": ""
+    },
+    {
+      "id": "2026-11-14-li",
+      "date": "2026-11-14",
+      "jour": "Samedi",
+      "heure": "11:00",
+      "reseau": "LinkedIn",
+      "rubrique": "Coulisses Manoo",
+      "texte": "[À COMPLÉTER LE JOUR J — l'actualité de la semaine]\n\nGarde ce créneau pour ce qui s'est réellement passé : un rendez-vous, un partenariat, un premier apprenti inscrit, une difficulté rencontrée.\n\nLes posts qui marchent le mieux sur LinkedIn sont ceux qu'on ne peut pas écrire deux semaines à l'avance.",
+      "images": [],
+      "publier": false,
+      "note": "À rédiger le jour J : ne pas publier automatiquement."
+    }
+  ]
+}
